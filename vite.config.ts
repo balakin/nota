@@ -1,0 +1,44 @@
+import { VitePWA } from 'vite-plugin-pwa';
+import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite';
+
+export default defineConfig({
+  plugins: [
+    react(),
+    VitePWA({
+      registerType: 'autoUpdate',
+      includeAssets: ['favicon.svg', 'icons/icon.svg', 'icons/icon-192.svg', 'icons/icon-512.svg'],
+      manifest: {
+        name: 'Nota — Musical Note Recognition',
+        short_name: 'Nota',
+        description: 'Train instant musical note recognition.',
+        start_url: '/',
+        scope: '/',
+        display: 'standalone',
+        orientation: 'any',
+        background_color: '#f5f7fa',
+        theme_color: '#7099c4',
+        lang: 'en',
+        icons: [
+          {
+            src: '/icons/icon-192.svg',
+            sizes: '192x192',
+            type: 'image/svg+xml',
+            purpose: 'any maskable',
+          },
+          {
+            src: '/icons/icon-512.svg',
+            sizes: '512x512',
+            type: 'image/svg+xml',
+            purpose: 'any maskable',
+          },
+        ],
+      },
+      workbox: {
+        navigateFallback: '/index.html',
+        globPatterns: ['**/*.{js,css,html,svg,woff2}'],
+      },
+    }),
+  ],
+  server: { host: '0.0.0.0' },
+});
