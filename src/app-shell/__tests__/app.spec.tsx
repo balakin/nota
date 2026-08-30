@@ -1,8 +1,8 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import { I18nProvider } from '@lingui/react';
 import { describe, expect, it, beforeEach } from 'vitest';
-import App from './App';
-import { i18n } from './i18n/i18n';
+import { i18n } from '../../i18n/i18n';
+import App from '../app';
 
 beforeEach(() => {
   localStorage.clear();

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { createInitialState, migrateState } from '../app/state';
+import { createInitialState, migrateState } from '../app-state';
 
 describe('local state schema', () => {
   it('creates a versioned state with both clefs', () => {

@@ -19,7 +19,7 @@
   },
   "overrides": [
     {
-      "files": ["**/*.test.{ts,tsx}"],
+      "files": ["**/*.spec.{ts,tsx}"],
       "plugins": ["vitest"],
       "globals": {
         "describe": "readonly",

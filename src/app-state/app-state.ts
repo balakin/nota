@@ -1,5 +1,5 @@
 import type { NamingSystem } from '../music/music';
-import { CURRICULUM, type Clef, type RecognitionItem } from '../music/music';
+import { allRecognitionItems } from '../music/recognition-items';
 import { emptyNoteStats, type NoteStats } from '../training/training';
 
 export type Locale = 'en' | 'ru';
@@ -41,10 +41,6 @@ export const DEFAULT_SETTINGS: AppSettings = {
   hasCompletedOnboarding: false,
 };
 
-export function allRecognitionItems(): RecognitionItem[] {
-  return [...CURRICULUM.treble, ...CURRICULUM.bass];
-}
-
 export function createInitialState(settings: Partial<AppSettings> = {}): PersistedState {
   const notes = Object.fromEntries(
     allRecognitionItems().map((item) => [item.id, emptyNoteStats(item)]),
@@ -78,10 +74,4 @@ export function migrateState(value: unknown): PersistedState {
     notes,
     sessions: Array.isArray(candidate.sessions) ? candidate.sessions.slice(0, 100) : [],
   };
-}
-
-export function clefForItemId(id: string): Clef | null {
-  if (id.startsWith('treble:')) return 'treble';
-  if (id.startsWith('bass:')) return 'bass';
-  return null;
 }

@@ -1,5 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
-import type { Locale } from '../app/state';
+import type { Locale } from '../app-state/app-state';
 import { displayNoteName, type NamingSystem, type PitchName } from '../music/music';
 import { pianoAnswer, type NormalizedAnswer } from '../training/input';
 

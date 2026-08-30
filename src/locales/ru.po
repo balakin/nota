@@ -6,376 +6,379 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
 "Language: ru\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
 
-#. placeholder {0}: props.state.settings.locale === 'ru' ? '2,0' : '2.0'
-#. placeholder {0}: state.settings.locale === 'ru' ? '2,0' : '2.0'
-#: src/App.tsx:767
-#: src/App.tsx:1004
+#. placeholder {0}: locale === 'ru' ? '2,0' : '2.0'
+#. placeholder {0}: settings.locale === 'ru' ? '2,0' : '2.0'
+#: src/practice/practice-session.tsx:155
+#: src/practice/session-setup.tsx:88
 msgid "{0}s"
 msgstr "{0} с"
 
-#: src/App.tsx:744
+#: src/practice/session-setup.tsx:66
 msgid "{minutes} min"
 msgstr "{minutes} мин"
 
-#: src/App.tsx:1033
-#: src/App.tsx:1087
-#: src/App.tsx:1184
-#: src/App.tsx:1273
+#: src/practice/feedback-banner.tsx:27
+#: src/practice/result-page.tsx:45
+#: src/progress/note-map-item.tsx:26
+#: src/progress/progress-page.tsx:43
 msgid "< 1s"
 msgstr "< 1 с"
 
-#: src/App.tsx:818
-#: src/App.tsx:1129
+#: src/practice/mode-picker.tsx:32
+#: src/practice/result-page.tsx:83
 msgid "2 seconds per note · piano labels hidden"
 msgstr "2 секунды на ноту · клавиши без подписей"
 
-#: src/App.tsx:517
+#: src/onboarding/onboarding-page.tsx:25
 msgid "A calm practice for your eyes"
 msgstr "Спокойная тренировка для глаз"
 
-#: src/App.tsx:1073
+#: src/practice/result-page.tsx:31
 msgid "A small, useful block of practice."
 msgstr "Небольшой полезный блок практики."
 
-#: src/App.tsx:1243
+#: src/progress/clef-progress.tsx:23
 msgid "accuracy"
 msgstr "Точность"
 
-#: src/App.tsx:1080
-#: src/App.tsx:1177
+#: src/practice/result-page.tsx:38
+#: src/progress/progress-page.tsx:36
 msgid "Accuracy"
 msgstr "Точность"
 
-#: src/App.tsx:709
+#: src/practice/session-setup.tsx:33
 msgid "Answer with"
 msgstr "Отвечать с помощью"
 
-#: src/App.tsx:1373
+#: src/settings/settings-page.tsx:67
 msgid "Appearance"
 msgstr "Внешний вид"
 
-#: src/App.tsx:1522
+#: src/app-shell/offline-status.tsx:20
 msgid "Back online"
 msgstr "Снова онлайн"
 
-#: src/App.tsx:1468
+#: src/research/research-page.tsx:11
 msgid "Back to settings"
 msgstr "Назад к настройкам"
 
-#: src/App.tsx:1133
+#: src/practice/result-page.tsx:87
 msgid "Back to training"
 msgstr "Вернуться к тренировке"
 
-#: src/App.tsx:725
-#: src/App.tsx:1233
 #: src/notation/notation-staff.tsx:50
+#: src/practice/session-setup.tsx:49
+#: src/progress/clef-progress.tsx:14
 msgid "Bass"
 msgstr "Басовый"
 
-#: src/App.tsx:520
+#: src/onboarding/onboarding-page.tsx:28
 msgid "Build a direct connection between the note on the staff and its place on the piano. Start with a few landmarks, then let accuracy become speed."
 msgstr "Создайте прямую связь между нотой на стане и её местом на клавиатуре. Начните с нескольких ориентиров и постепенно превратите точность в скорость."
 
-#: src/App.tsx:1195
+#: src/progress/progress-page.tsx:51
 msgid "By clef"
 msgstr "По ключу"
 
-#: src/App.tsx:528
+#: src/onboarding/onboarding-page.tsx:36
 msgid "C · D · E · F · G · A · B"
 msgstr "C · D · E · F · G · A · B"
 
-#: src/App.tsx:1377
+#: src/settings/settings-page.tsx:68
 msgid "Choose color theme"
 msgstr "Выберите цветовую тему"
 
-#: src/App.tsx:1326
+#: src/settings/settings-page.tsx:27
 msgid "Choose interface language"
 msgstr "Выберите язык интерфейса"
 
-#: src/App.tsx:1350
+#: src/settings/settings-page.tsx:47
 msgid "Choose note naming system"
 msgstr "Выберите систему названий нот"
 
-#: src/App.tsx:720
+#: src/practice/session-setup.tsx:44
 msgid "Clefs"
 msgstr "Ключи"
 
-#: src/App.tsx:754
+#: src/practice/session-setup.tsx:76
 msgid "Continue training"
 msgstr "Продолжить тренировку"
 
-#: src/App.tsx:1025
+#: src/practice/feedback-banner.tsx:21
 msgid "Correct"
 msgstr "Верно"
 
-#: src/App.tsx:1036
+#: src/practice/feedback-banner.tsx:28
 msgid "Correct answer"
 msgstr "Правильный ответ"
 
-#: src/App.tsx:1401
+#: src/settings/settings-page.tsx:91
 msgid "Dark"
 msgstr "Тёмная"
 
-#: src/App.tsx:534
+#: src/onboarding/onboarding-page.tsx:42
 msgid "Do · Re · Mi · Fa · Sol · La · Si"
 msgstr "До · Ре · Ми · Фа · Соль · Ля · Си"
 
-#: src/App.tsx:518
-#: src/App.tsx:760
+#: src/onboarding/onboarding-page.tsx:26
+#: src/practice/session-setup.tsx:82
 msgid "Don’t count. Recognize."
 msgstr "Не считайте. Узнавайте."
 
-#: src/App.tsx:1450
+#: src/research/research-papers.ts:20
 msgid "Experimental work with musical notation has found measurable changes in visual processing after targeted training. That is evidence about trained visual tasks, not a claim to make an expert pianist or sight-reader."
 msgstr "Эксперименты с нотной записью обнаружили измеримые изменения зрительной обработки после целевой тренировки. Это данные о конкретных зрительных задачах, а не обещание сделать вас пианистом или мастером чтения с листа."
 
-#: src/App.tsx:934
+#: src/practice/practice-session.tsx:91
 msgid "Finish session"
 msgstr "Завершить"
 
-#: src/App.tsx:533
+#: src/onboarding/onboarding-page.tsx:41
 msgid "Fixed solfège"
 msgstr "Фиксированная сольфеджио"
 
-#: src/App.tsx:1253
+#: src/progress/mastery-labels.ts:9
 msgid "Fluent"
 msgstr "Беглая"
 
-#: src/App.tsx:762
-#: src/App.tsx:1436
+#: src/practice/session-setup.tsx:84
+#: src/research/research-papers.ts:6
 msgid "Fluent note reading is a visual-perceptual skill. Targeted practice can focus on recognizing a note’s whole pattern instead of consciously calculating its position."
 msgstr "Беглое чтение нот — зрительно-перцептивный навык. Целенаправленная практика помогает узнавать целостный рисунок ноты, а не вычислять её положение."
 
-#: src/App.tsx:1174
+#: src/progress/progress-page.tsx:33
 msgid "Fluent notes"
 msgstr "Беглых нот"
 
-#: src/App.tsx:809
-#: src/App.tsx:1130
+#: src/practice/mode-picker.tsx:23
+#: src/practice/result-page.tsx:84
 msgid "Generous time while you build accuracy"
 msgstr "Больше времени для наработки точности"
 
-#: src/App.tsx:523
+#: src/onboarding/onboarding-page.tsx:31
 msgid "How should note names appear?"
 msgstr "Как показывать названия нот?"
 
-#: src/App.tsx:1443
+#: src/research/research-papers.ts:13
 msgid "In perceptual-training studies, presentation became progressively more demanding as performance improved. Nota uses a gentle Practice mode and a separate two-second Speed mode inspired by that idea — not as a proven threshold."
 msgstr "В исследованиях перцептивной тренировки сложность постепенно увеличивалась по мере улучшения результата. Nota использует спокойную Практику и отдельный двухсекундный режим Скорость — это идея, а не доказанный порог."
 
-#: src/App.tsx:1322
+#: src/settings/settings-page.tsx:26
 msgid "Interface language"
 msgstr "Язык интерфейса"
 
-#: src/App.tsx:1106
+#: src/practice/result-page.tsx:63
 msgid "Keep going — your next recognition is forming."
 msgstr "Продолжайте — следующее узнавание формируется."
 
-#: src/App.tsx:1251
+#: src/progress/mastery-labels.ts:7
 msgid "Learning"
 msgstr "Изучается"
 
-#: src/App.tsx:527
+#: src/onboarding/onboarding-page.tsx:35
 msgid "Letters"
 msgstr "Буквы"
 
-#: src/App.tsx:1393
+#: src/settings/settings-page.tsx:83
 msgid "Light"
 msgstr "Светлая"
 
-#: src/App.tsx:439
+#: src/app-shell/app.tsx:33
 msgid "Loading Nota"
 msgstr "Загрузка Nota"
 
-#: src/App.tsx:777
+#: src/practice/session-setup.tsx:97
 msgid "Local"
 msgstr "Офлайн — прогресс сохранён на устройстве"
 
-#: src/App.tsx:759
+#: src/practice/session-setup.tsx:81
 msgid "Look → recognize → answer"
 msgstr "Смотрите → узнавайте → отвечайте"
 
-#: src/App.tsx:698
+#: src/practice/session-setup.tsx:23
 msgid "Look at the staff, then answer without counting."
 msgstr "Смотрите на нотный стан и отвечайте, не считая."
 
-#: src/App.tsx:1317
+#: src/settings/settings-page.tsx:21
 msgid "Make Nota fit the way you learn."
 msgstr "Настройте Nota под свой способ обучения."
 
-#: src/App.tsx:1084
-#: src/App.tsx:1181
+#: src/practice/result-page.tsx:42
+#: src/progress/progress-page.tsx:40
 msgid "Median response"
 msgstr "Медиана ответа"
 
-#: src/App.tsx:1244
-#: src/App.tsx:1250
+#: src/progress/clef-progress.tsx:23
+#: src/progress/mastery-labels.ts:6
 msgid "New"
 msgstr "Новая"
 
-#: src/App.tsx:972
+#: src/practice/practice-session.tsx:125
 msgid "New note: {currentName} · press the highlighted key to meet it."
 msgstr "Новая нота: {currentName} · нажмите подсвеченную клавишу."
 
-#: src/App.tsx:1095
+#: src/practice/result-page.tsx:53
 msgid "New progress"
 msgstr "Новый прогресс"
 
-#: src/App.tsx:1028
+#: src/practice/feedback-banner.tsx:24
 msgid "Not quite"
 msgstr "Не совсем"
 
-#: src/components/Piano.tsx:59
+#: src/piano/piano.tsx:59
 msgid "Not trained yet"
 msgstr "Пока не изучается"
 
-#: src/App.tsx:583
+#: src/app-shell/header.tsx:14
 msgid "Nota"
 msgstr "Nota"
 
-#: src/App.tsx:1499
+#: src/research/research-page.tsx:40
 msgid "Nota does not claim scientific certification or guarantee a result in a particular number of hours."
 msgstr "Nota не заявляет о научной сертификации и не гарантирует результат за определённое число часов."
 
-#: src/App.tsx:541
-#: src/App.tsx:784
-#: src/App.tsx:1418
+#: src/onboarding/onboarding-page.tsx:49
+#: src/practice/session-setup.tsx:104
+#: src/settings/settings-page.tsx:108
 msgid "Nota is a small, local-first tool. Your progress stays on this device."
 msgstr "Nota — небольшой локальный инструмент. Прогресс хранится на этом устройстве."
 
-#: src/App.tsx:1474
+#: src/research/research-page.tsx:17
 msgid "Nota is inspired by research on visual perceptual learning, musical-note recognition, retrieval practice, and spaced learning. The curriculum and thresholds are product-design hypotheses, not scientifically validated promises."
 msgstr "Nota вдохновлена исследованиями зрительного перцептивного обучения, распознавания нот, извлечения из памяти и интервального обучения. Учебная программа и пороги — продуктовые гипотезы, а не научно подтверждённые обещания."
 
-#: src/App.tsx:773
+#: src/practice/session-setup.tsx:93
 msgid "Note map"
 msgstr "Карта нот"
 
-#: src/App.tsx:1207
+#: src/progress/progress-page.tsx:63
 msgid "Note mastery map"
 msgstr "Карта нот"
 
-#: src/App.tsx:713
-#: src/components/NoteNamePad.tsx:22
+#: src/practice/note-name-pad.tsx:22
+#: src/practice/session-setup.tsx:37
 msgid "Note names"
 msgstr "Названий нот"
 
-#: src/App.tsx:1346
+#: src/settings/settings-page.tsx:46
 msgid "Note naming"
 msgstr "Названия нот"
 
-#: src/App.tsx:1078
+#: src/practice/result-page.tsx:36
 msgid "Notes attempted"
 msgstr "Нот пройдено"
 
-#: src/App.tsx:1457
+#: src/research/research-papers.ts:27
 msgid "Notes return after a pause because retrieving an answer and spacing practice can support retention better than simply looking at the answer again."
 msgstr "Ноты возвращаются после паузы, потому что извлечение ответа и интервальная практика могут лучше поддерживать запоминание, чем простое повторное рассматривание ответа."
 
-#: src/App.tsx:1523
+#: src/app-shell/offline-status.tsx:20
 msgid "Offline — progress is saved on this device"
 msgstr "Офлайн — прогресс сохранён на устройстве"
 
-#: src/App.tsx:931
-#: src/App.tsx:949
+#: src/practice/practice-session.tsx:88
+#: src/practice/practice-session.tsx:106
 msgid "Pause"
 msgstr "Пауза"
 
-#: src/App.tsx:712
-#: src/components/Piano.tsx:29
+#: src/piano/piano.tsx:29
+#: src/practice/session-setup.tsx:36
 msgid "Piano"
 msgstr "Клавиатуры"
 
-#: src/App.tsx:808
-#: src/App.tsx:925
+#: src/practice/mode-picker.tsx:22
+#: src/practice/practice-session.tsx:83
 msgid "Practice"
 msgstr "Практика"
 
-#: src/App.tsx:1449
+#: src/research/research-papers.ts:19
 msgid "Practice changes perception"
 msgstr "Практика меняет восприятие"
 
-#: src/App.tsx:1125
+#: src/practice/result-page.tsx:79
 msgid "Practice time"
 msgstr "Время практики"
 
-#: src/App.tsx:590
-#: src/App.tsx:643
+#: src/app-shell/primary-nav.tsx:17
 msgid "Primary navigation"
 msgstr "Основная навигация"
 
-#: src/App.tsx:600
-#: src/App.tsx:653
+#: src/app-shell/primary-nav.tsx:27
 msgid "Progress"
 msgstr "Прогресс"
 
 #. placeholder {0}: session.questionNumber
 #. placeholder {1}: '∞'
-#: src/App.tsx:922
+#: src/practice/practice-session.tsx:81
 msgid "Question {0} of {1}"
 msgstr "Вопрос {0} из {1}"
 
-#: src/App.tsx:1492
+#: src/research/research-page.tsx:33
 msgid "Read the original paper"
 msgstr "Открыть оригинальную статью"
 
-#: src/App.tsx:1414
+#: src/settings/settings-page.tsx:104
 msgid "Read the research"
 msgstr "Читать исследования"
 
-#: src/App.tsx:702
+#: src/practice/session-setup.tsx:26
 msgid "Ready when you are."
 msgstr "Готовы, когда вы готовы."
 
-#: src/App.tsx:1168
+#: src/progress/progress-page.tsx:28
 msgid "Recognition gets useful when it is fast and retained."
 msgstr "Распознавание становится полезным, когда оно быстрое и сохраняется."
 
-#: src/App.tsx:696
+#: src/practice/session-setup.tsx:22
 msgid "Recognition practice"
 msgstr "Тренировка распознавания"
 
-#: src/App.tsx:1252
+#: src/progress/mastery-labels.ts:8
 msgid "Recognized"
 msgstr "Узнаётся"
 
-#: src/App.tsx:1175
+#: src/progress/progress-page.tsx:34
 msgid "Recognized notes"
 msgstr "Узнаваемых нот"
 
-#: src/App.tsx:1405
-#: src/App.tsx:1472
+#: src/research/research-page.tsx:15
+#: src/settings/settings-page.tsx:95
 msgid "Research behind Nota"
 msgstr "Исследования Nota"
 
-#: src/App.tsx:931
+#: src/practice/practice-session.tsx:88
 msgid "Resume"
 msgstr "Продолжить"
 
-#: src/App.tsx:1456
+#: src/research/research-papers.ts:26
 msgid "Retrieval and spacing"
 msgstr "Извлечение и интервалы"
 
-#: src/App.tsx:1074
+#: src/practice/result-page.tsx:32
 msgid "Session complete"
 msgstr "Сессия завершена"
 
-#: src/App.tsx:734
+#: src/practice/session-setup.tsx:56
 msgid "Session length"
 msgstr "Длительность"
 
-#: src/App.tsx:606
-#: src/App.tsx:659
-#: src/App.tsx:1318
+#: src/app-shell/primary-nav.tsx:33
+#: src/settings/settings-page.tsx:22
 msgid "Settings"
 msgstr "Настройки"
 
-#: src/App.tsx:769
-#: src/App.tsx:817
-#: src/App.tsx:925
-#: src/App.tsx:1002
-#: src/App.tsx:1442
+#: src/practice/mode-picker.tsx:31
+#: src/practice/practice-session.tsx:83
+#: src/practice/practice-session.tsx:154
+#: src/practice/session-setup.tsx:89
+#: src/research/research-papers.ts:12
 msgid "Speed"
 msgstr "Скорость"
 
@@ -385,84 +388,83 @@ msgstr "Скорость"
 msgid "Staff, {0}, {1}"
 msgstr "Нотный стан, ключ {0}, нота {1}"
 
-#: src/App.tsx:538
+#: src/onboarding/onboarding-page.tsx:46
 msgid "Start training"
 msgstr "Начать тренировку"
 
-#: src/App.tsx:1385
+#: src/settings/settings-page.tsx:75
 msgid "System"
 msgstr "Системная"
 
-#: src/App.tsx:1370
+#: src/settings/settings-page.tsx:65
 msgid "This changes labels, never your progress."
 msgstr "Меняет подписи, но не прогресс."
 
-#: src/App.tsx:952
-#: src/App.tsx:1027
+#: src/practice/feedback-banner.tsx:23
+#: src/practice/practice-session.tsx:109
 msgid "Time"
 msgstr "Время"
 
-#: src/App.tsx:1091
+#: src/practice/result-page.tsx:49
 msgid "Timeouts"
 msgstr "Пропуски по времени"
 
-#: src/App.tsx:594
-#: src/App.tsx:647
+#: src/app-shell/primary-nav.tsx:21
 msgid "Train"
 msgstr "Тренировка"
 
-#: src/App.tsx:695
+#: src/practice/session-setup.tsx:21
 msgid "Train instant musical note recognition."
 msgstr "Тренируйте мгновенное распознавание нот."
 
-#: src/App.tsx:800
+#: src/practice/mode-picker.tsx:14
 msgid "Training mode"
 msgstr "Режим тренировки"
 
-#: src/App.tsx:1189
+#: src/progress/progress-page.tsx:47
 msgid "Training time"
 msgstr "Время тренировки"
 
-#: src/App.tsx:724
-#: src/App.tsx:1233
 #: src/notation/notation-staff.tsx:50
+#: src/practice/session-setup.tsx:48
+#: src/progress/clef-progress.tsx:14
 msgid "Treble"
 msgstr "Скрипичный"
 
-#: src/App.tsx:723
+#: src/practice/session-setup.tsx:47
 msgid "Treble + Bass"
 msgstr "Скрипичный + Басовый"
 
-#: src/App.tsx:1002
+#: src/practice/practice-session.tsx:154
 msgid "Unlabeled piano"
 msgstr "Клавиатура без подписей"
 
-#: src/App.tsx:973
+#: src/practice/practice-session.tsx:126
 msgid "Use the piano key that matches the note."
 msgstr "Выберите клавишу, соответствующую ноте."
 
-#: src/App.tsx:1435
+#: src/research/research-papers.ts:5
 msgid "Visual recognition"
 msgstr "Зрительное распознавание"
 
-#: src/App.tsx:1202
+#: src/progress/progress-page.tsx:58
 msgid "Weakest notes"
 msgstr "Слабые места"
 
-#: src/App.tsx:1407
+#: src/settings/settings-page.tsx:97
 msgid "Why Nota uses visual retrieval, timing, and spaced review."
 msgstr "Почему Nota использует зрительное извлечение, темп и интервальные повторы."
 
-#: src/App.tsx:1109
+#: src/practice/result-page.tsx:65
 msgid "Worth another look"
 msgstr "Стоит повторить"
 
-#: src/App.tsx:1120
-#: src/App.tsx:1209
-#: src/App.tsx:1284
+#: src/practice/result-page.tsx:75
+#: src/progress/progress-page.tsx:64
+#: src/progress/weak-notes.tsx:11
 msgid "Your note map will fill in as you practice."
 msgstr "Карта нот заполнится по мере практики."
 
-#: src/App.tsx:1170
+#: src/progress/progress-page.tsx:29
 msgid "Your progress"
 msgstr "Ваш прогресс"

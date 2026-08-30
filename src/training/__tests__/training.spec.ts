@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { pitch, recognitionItem } from '../music/music';
+import { pitch, recognitionItem } from '../../music/music';
 import {
   accuracy,
   adaptiveDeadlineMs,
@@ -9,7 +9,7 @@ import {
   requeueAfterWrong,
   SPEED_DEADLINE_MS,
   weakestNotes,
-} from './training';
+} from '../training';
 
 describe('training engine', () => {
   const item = recognitionItem('treble', pitch('G', 4));

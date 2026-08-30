@@ -7,13 +7,7 @@ export default defineConfig({
     {
       path: '<rootDir>/src/locales/{locale}',
       include: ['src'],
-      exclude: [
-        'src/locales/**',
-        'src/test/**',
-        'src/**/*.test.ts',
-        'src/**/*.test.tsx',
-        'src/vite-env.d.ts',
-      ],
+      exclude: ['src/locales/**', 'src/**/__tests__/**', 'src/vite-env.d.ts'],
     },
   ],
 });

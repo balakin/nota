@@ -1,6 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import { keyboardWindow, planKeyboard, visibleWhiteKeyCount, windowContains } from './piano-layout';
-import { recognitionItem, pitch } from '../music/music';
+import {
+  keyboardWindow,
+  planKeyboard,
+  visibleWhiteKeyCount,
+  windowContains,
+} from '../piano-layout';
+import { recognitionItem, pitch } from '../../music/music';
 
 describe('responsive piano layout', () => {
   it('uses a wider target for coarse pointers', () => {

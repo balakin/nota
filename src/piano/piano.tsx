@@ -1,7 +1,7 @@
 import { useLingui } from '@lingui/react/macro';
-import type { KeyboardWindow } from '../piano/piano-layout';
+import type { KeyboardWindow } from './piano-layout';
 import { accessiblePitchLabel, displayNoteName, type NamingSystem } from '../music/music';
-import type { Locale } from '../app/state';
+import type { Locale } from '../app-state/app-state';
 import { pianoAnswer, type NormalizedAnswer } from '../training/input';
 
 export function Piano({

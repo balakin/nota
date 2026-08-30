@@ -2,7 +2,7 @@ import './index.css';
 import { I18nProvider } from '@lingui/react';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import App from './App';
+import App from './app-shell/app';
 import { browserLocale, i18n } from './i18n/i18n';
 import { PwaRegisterer } from './pwa/pwa-registerer';
 

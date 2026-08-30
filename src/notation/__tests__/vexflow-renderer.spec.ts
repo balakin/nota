@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { pitch } from '../music/music';
-import { renderNotation } from './vexflow-renderer';
+import { pitch } from '../../music/music';
+import { renderNotation } from '../vexflow-renderer';
 
 describe('notation renderer', () => {
   it('renders a deterministic staff and note into SVG', () => {

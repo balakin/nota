@@ -7,7 +7,7 @@ import {
   pitchId,
   staffPosition,
   vexFlowKey,
-} from './music';
+} from '../music';
 
 describe('canonical music mapping', () => {
   it('maps C4 to MIDI 60 and back', () => {

@@ -1,4 +1,4 @@
-import { migrateState, type PersistedState } from '../app/state';
+import { migrateState, type PersistedState } from '../app-state/app-state';
 
 const DATABASE_NAME = 'nota-local';
 const DATABASE_VERSION = 1;

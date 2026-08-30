@@ -1,7 +1,7 @@
 import { i18n } from '@lingui/core';
 import { messages as en } from '../locales/en.po';
 import { messages as ru } from '../locales/ru.po';
-import type { Locale } from '../app/state';
+import type { Locale } from '../app-state/app-state';
 
 export { i18n };
 
