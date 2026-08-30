@@ -1,8 +1,8 @@
+import { useLingui } from '@lingui/react/macro';
 import type { KeyboardWindow } from '../piano/piano-layout';
 import { accessiblePitchLabel, displayNoteName, type NamingSystem } from '../music/music';
 import type { Locale } from '../app/state';
 import { pianoAnswer, type NormalizedAnswer } from '../training/input';
-import { useTranslation } from '../i18n/use-translation';
 
 export function Piano({
   window,
@@ -21,12 +21,12 @@ export function Piano({
   disabled?: boolean;
   onAnswer: (answer: NormalizedAnswer) => void;
 }) {
-  const t = useTranslation();
+  const { t } = useLingui();
   const visibleStart = window.whiteKeys[0]?.midi ?? 0;
   const visibleEnd = window.whiteKeys.at(-1)?.midi ?? 0;
 
   return (
-    <div className="piano-shell" aria-label={t('train.piano', 'Piano')}>
+    <div className="piano-shell" aria-label={t`Piano`}>
       <div
         className="piano"
         style={{ '--white-key-count': window.whiteKeys.length } as React.CSSProperties}
@@ -56,7 +56,7 @@ export function Piano({
                 key={midi}
                 disabled
                 tabIndex={-1}
-                aria-label={`${name} · ${t('train.notTrained', 'Not trained yet')}`}
+                aria-label={`${name} · ${t`Not trained yet`}`}
               />
             ))}
         </div>

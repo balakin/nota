@@ -1,5 +1,6 @@
 import { i18n } from '@lingui/core';
-import { en, ru } from './messages';
+import { messages as en } from '../locales/en.po';
+import { messages as ru } from '../locales/ru.po';
 import type { Locale } from '../app/state';
 
 export { i18n };
@@ -15,8 +16,4 @@ export function browserLocale(): Locale {
   return typeof navigator !== 'undefined' && navigator.language.toLowerCase().startsWith('ru')
     ? 'ru'
     : 'en';
-}
-
-export function interpolate(message: string, values: Record<string, string | number>): string {
-  return message.replace(/\{(\w+)\}/g, (_, key: string) => String(values[key] ?? `{${key}}`));
 }

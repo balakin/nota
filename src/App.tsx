@@ -1,11 +1,13 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { I18nProvider } from '@lingui/react';
+import type { MessageDescriptor } from '@lingui/core';
+import { msg } from '@lingui/core/macro';
+import { useLingui } from '@lingui/react/macro';
 import { Icon } from './components/Icon';
 import { NoteNamePad } from './components/NoteNamePad';
 import { Piano } from './components/Piano';
 import { NotationStaff } from './notation/notation-staff';
 import { activateLocale, browserLocale, i18n } from './i18n/i18n';
-import { useTranslation } from './i18n/use-translation';
 import {
   allRecognitionItems,
   createInitialState,
@@ -38,7 +40,7 @@ import {
 } from './training/training';
 import { keyboardAnswer, type NormalizedAnswer } from './training/input';
 import type { Clef, RecognitionItem } from './music/music';
-import { CLEF_LABELS, displayNoteName } from './music/music';
+import { displayNoteName } from './music/music';
 import { planKeyboard, type KeyboardWindow } from './piano/piano-layout';
 import { loadPersistedState, savePersistedState } from './storage/indexed-db';
 
@@ -147,7 +149,7 @@ export default function App() {
   const keyboardMeasureRef = useRef<HTMLDivElement>(null);
   const notesRef = useRef(state.notes);
   const advanceTimeoutRef = useRef<number | null>(null);
-  const t = useTranslation();
+  const { t } = useLingui();
 
   useEffect(() => {
     notesRef.current = state.notes;
@@ -434,7 +436,7 @@ export default function App() {
 
   if (!hydrated)
     return (
-      <div className="app-loading" aria-label={t('app.loading', 'Loading Nota')}>
+      <div className="app-loading" aria-label={t`Loading Nota`}>
         <span className="brand-mark">
           <Icon name="note" />
         </span>
@@ -502,7 +504,7 @@ function Onboarding({
   onChange: (patch: Partial<AppSettings>) => void;
   onComplete: () => void;
 }) {
-  const t = useTranslation();
+  const { t } = useLingui();
   return (
     <div className="onboarding-page">
       <div className="onboarding-card">
@@ -512,37 +514,31 @@ function Onboarding({
           </span>
           <span>Nota</span>
         </div>
-        <p className="eyebrow">{t('onboarding.eyebrow', 'A calm practice for your eyes')}</p>
-        <h1>{t('onboarding.title', 'Don’t count. Recognize.')}</h1>
+        <p className="eyebrow">{t`A calm practice for your eyes`}</p>
+        <h1>{t`Don’t count. Recognize.`}</h1>
         <p className="lead">
-          {t(
-            'onboarding.body',
-            'Build a direct connection between the note on the staff and its place on the piano. Start with a few landmarks, then let accuracy become speed.',
-          )}
+          {t`Build a direct connection between the note on the staff and its place on the piano. Start with a few landmarks, then let accuracy become speed.`}
         </p>
         <fieldset className="onboarding-choice">
-          <legend>{t('onboarding.naming', 'How should note names appear?')}</legend>
+          <legend>{t`How should note names appear?`}</legend>
           <NamingChoice
             selected={settings.naming === 'letters'}
             onClick={() => onChange({ naming: 'letters' })}
-            title={t('onboarding.letters', 'Letters')}
-            example={t('onboarding.lettersExample', 'C · D · E · F · G · A · B')}
+            title={t`Letters`}
+            example={t`C · D · E · F · G · A · B`}
           />
           <NamingChoice
             selected={settings.naming === 'solfege'}
             onClick={() => onChange({ naming: 'solfege' })}
-            title={t('onboarding.solfege', 'Fixed solfège')}
-            example={t('onboarding.solfegeExample', 'Do · Re · Mi · Fa · Sol · La · Si')}
+            title={t`Fixed solfège`}
+            example={t`Do · Re · Mi · Fa · Sol · La · Si`}
           />
         </fieldset>
         <button className="button button-primary button-large" type="button" onClick={onComplete}>
-          {t('onboarding.start', 'Start training')} <Icon name="arrow" size={18} />
+          {t`Start training`} <Icon name="arrow" size={18} />
         </button>
         <p className="fine-print">
-          {t(
-            'settings.about',
-            'Nota is a small, local-first tool. Your progress stays on this device.',
-          )}
+          {t`Nota is a small, local-first tool. Your progress stays on this device.`}
         </p>
       </div>
     </div>
@@ -577,37 +573,37 @@ function NamingChoice({
 }
 
 function Header({ page, navigate }: { page: Page; navigate: (page: Page) => void }) {
-  const t = useTranslation();
+  const { t } = useLingui();
   return (
     <header className="top-bar">
       <button
         className="brand brand-button"
         type="button"
         onClick={() => navigate('train')}
-        aria-label={t('app.name', 'Nota')}
+        aria-label={t`Nota`}
       >
         <span className="brand-mark">
           <Icon name="note" size={19} />
         </span>
         <span>Nota</span>
       </button>
-      <nav className="desktop-nav" aria-label={t('aria.primaryNav', 'Primary navigation')}>
+      <nav className="desktop-nav" aria-label={t`Primary navigation`}>
         <NavButton
           active={page === 'train'}
           icon="play"
-          label={t('nav.train', 'Train')}
+          label={t`Train`}
           onClick={() => navigate('train')}
         />
         <NavButton
           active={page === 'progress'}
           icon="chart"
-          label={t('nav.progress', 'Progress')}
+          label={t`Progress`}
           onClick={() => navigate('progress')}
         />
         <NavButton
           active={page === 'settings' || page === 'research'}
           icon="settings"
-          label={t('nav.settings', 'Settings')}
+          label={t`Settings`}
           onClick={() => navigate('settings')}
         />
       </nav>
@@ -642,25 +638,25 @@ function NavButton({
 }
 
 function MobileNav({ page, navigate }: { page: Page; navigate: (page: Page) => void }) {
-  const t = useTranslation();
+  const { t } = useLingui();
   return (
-    <nav className="mobile-nav" aria-label={t('aria.primaryNav', 'Primary navigation')}>
+    <nav className="mobile-nav" aria-label={t`Primary navigation`}>
       <NavButton
         active={page === 'train'}
         icon="play"
-        label={t('nav.train', 'Train')}
+        label={t`Train`}
         onClick={() => navigate('train')}
       />
       <NavButton
         active={page === 'progress'}
         icon="chart"
-        label={t('nav.progress', 'Progress')}
+        label={t`Progress`}
         onClick={() => navigate('progress')}
       />
       <NavButton
         active={page === 'settings' || page === 'research'}
         icon="settings"
-        label={t('nav.settings', 'Settings')}
+        label={t`Settings`}
         onClick={() => navigate('settings')}
       />
     </nav>
@@ -688,7 +684,7 @@ function TrainPage(props: {
   state: PersistedState;
   navigate: (page: Page) => void;
 }) {
-  const t = useTranslation();
+  const { t } = useLingui();
   if (props.result)
     return <ResultPage result={props.result} state={props.state} onDone={props.onDismissResult} />;
   if (props.session) return <PracticeSession {...props} session={props.session} />;
@@ -696,37 +692,35 @@ function TrainPage(props: {
     <div className="page train-page">
       <div className="page-heading">
         <div>
-          <p className="eyebrow">{t('app.tagline', 'Train instant musical note recognition.')}</p>
-          <h1>{t('train.title', 'Recognition practice')}</h1>
-          <p className="subheading">
-            {t('train.subtitle', 'Look at the staff, then answer without counting.')}
-          </p>
+          <p className="eyebrow">{t`Train instant musical note recognition.`}</p>
+          <h1>{t`Recognition practice`}</h1>
+          <p className="subheading">{t`Look at the staff, then answer without counting.`}</p>
         </div>
         <span className="session-note">
-          <Icon name="note" size={17} /> {t('train.ready', 'Ready when you are.')}
+          <Icon name="note" size={17} /> {t`Ready when you are.`}
         </span>
       </div>
       <div className="start-grid">
         <section ref={props.keyboardMeasureRef} className="setup-panel">
           <ModePicker mode={props.mode} onChange={props.onModeChange} />
           <TogglePicker
-            label={t('train.input', 'Answer with')}
+            label={t`Answer with`}
             options={
               [
-                ['piano', t('train.piano', 'Piano')],
-                ['names', t('train.names', 'Note names')],
+                ['piano', t`Piano`],
+                ['names', t`Note names`],
               ] as const
             }
             value={props.input}
             onChange={props.onInputChange}
           />
           <TogglePicker
-            label={t('train.clefs', 'Clefs')}
+            label={t`Clefs`}
             options={
               [
-                ['both', t('train.bothClefs', 'Treble + Bass')],
-                ['treble', t('train.treble', 'Treble')],
-                ['bass', t('train.bass', 'Bass')],
+                ['both', t`Treble + Bass`],
+                ['treble', t`Treble`],
+                ['bass', t`Bass`],
               ] as const
             }
             value={props.clefs.length === 2 ? 'both' : props.clefs[0]}
@@ -735,7 +729,7 @@ function TrainPage(props: {
             }
           />
           <div className="setting-row">
-            <span className="setting-label">{t('train.duration', 'Session length')}</span>
+            <span className="setting-label">{t`Session length`}</span>
             <div className="segmented">
               {SESSION_DURATIONS.map((minutes) => (
                 <button
@@ -745,7 +739,7 @@ function TrainPage(props: {
                   aria-pressed={props.durationMinutes === minutes}
                   onClick={() => props.onDurationChange(minutes)}
                 >
-                  {t('train.minutes', '{value} min', { value: minutes })}
+                  {t`${minutes} min`}
                 </button>
               ))}
             </div>
@@ -755,45 +749,35 @@ function TrainPage(props: {
             type="button"
             onClick={props.onStart}
           >
-            <Icon name="play" size={18} /> {t('train.continue', 'Continue training')}
+            <Icon name="play" size={18} /> {t`Continue training`}
           </button>
         </section>
         <section className="principle-panel">
           <span className="principle-line" />
-          <p className="eyebrow">{t('train.look', 'Look → recognize → answer')}</p>
-          <h2>{t('onboarding.title', 'Don’t count. Recognize.')}</h2>
+          <p className="eyebrow">{t`Look → recognize → answer`}</p>
+          <h2>{t`Don’t count. Recognize.`}</h2>
           <p>
-            {t(
-              'research.visualBody',
-              'Fluent note reading is a visual-perceptual skill. Targeted practice can focus on recognizing a note’s whole pattern instead of consciously calculating its position.',
-            )}
+            {t`Fluent note reading is a visual-perceptual skill. Targeted practice can focus on recognizing a note’s whole pattern instead of consciously calculating its position.`}
           </p>
           <div className="principle-stats">
             <span>
-              <strong>
-                {t('time.seconds', '{value}s', {
-                  value: props.state.settings.locale === 'ru' ? '2,0' : '2.0',
-                })}
-              </strong>
-              <small>{t('train.speed', 'Speed')}</small>
+              <strong>{t`${props.state.settings.locale === 'ru' ? '2,0' : '2.0'}s`}</strong>
+              <small>{t`Speed`}</small>
             </span>
             <span>
               <strong>7</strong>
-              <small>{t('progress.noteMap', 'Note map')}</small>
+              <small>{t`Note map`}</small>
             </span>
             <span>
               <strong>∞</strong>
-              <small>{t('offline', 'Local')}</small>
+              <small>{t`Local`}</small>
             </span>
           </div>
         </section>
       </div>
       <p className="local-note">
         <Icon name="check" size={16} />{' '}
-        {t(
-          'settings.about',
-          'Nota is a small, local-first tool. Your progress stays on this device.',
-        )}
+        {t`Nota is a small, local-first tool. Your progress stays on this device.`}
       </p>
     </div>
   );
@@ -806,10 +790,10 @@ function ModePicker({
   mode: PracticeMode;
   onChange: (mode: PracticeMode) => void;
 }) {
-  const t = useTranslation();
+  const { t } = useLingui();
   return (
     <div className="setting-row">
-      <span className="setting-label">{t('train.mode', 'Training mode')}</span>
+      <span className="setting-label">{t`Training mode`}</span>
       <div className="mode-grid">
         <button
           type="button"
@@ -817,8 +801,8 @@ function ModePicker({
           aria-pressed={mode === 'practice'}
           onClick={() => onChange('practice')}
         >
-          <strong>{t('train.practice', 'Practice')}</strong>
-          <small>{t('train.practiceDescription', 'Generous time while you build accuracy')}</small>
+          <strong>{t`Practice`}</strong>
+          <small>{t`Generous time while you build accuracy`}</small>
         </button>
         <button
           type="button"
@@ -826,8 +810,8 @@ function ModePicker({
           aria-pressed={mode === 'speed'}
           onClick={() => onChange('speed')}
         >
-          <strong>{t('train.speed', 'Speed')}</strong>
-          <small>{t('train.speedDescription', '2 seconds per note · piano labels hidden')}</small>
+          <strong>{t`Speed`}</strong>
+          <small>{t`2 seconds per note · piano labels hidden`}</small>
         </button>
       </div>
     </div>
@@ -886,7 +870,7 @@ function PracticeSession({
   onPause: () => void;
   onFinish: () => void;
 }) {
-  const t = useTranslation();
+  const { t } = useLingui();
   const [now, setNow] = useState(Date.now());
   const answerDisabled = Boolean(feedback) || session.paused;
   useEffect(() => {
@@ -930,23 +914,17 @@ function PracticeSession({
   return (
     <div className="practice-page">
       <div className="practice-toolbar">
-        <span className="practice-counter">
-          {t('train.question', 'Question {current} of {total}', {
-            current: session.questionNumber,
-            total: '∞',
-          })}
-        </span>
+        <span className="practice-counter">{t`Question ${session.questionNumber} of ${'∞'}`}</span>
         <span className="practice-mode-label">
-          {mode === 'speed' ? t('train.speed', 'Speed') : t('train.practice', 'Practice')} ·{' '}
-          {formatDuration(elapsed)}
+          {mode === 'speed' ? t`Speed` : t`Practice`} · {formatDuration(elapsed)}
         </span>
         <div className="toolbar-actions">
           <button className="quiet-button" type="button" onClick={onPause}>
             <Icon name={session.paused ? 'play' : 'clock'} size={16} />{' '}
-            {session.paused ? t('train.resume', 'Resume') : t('train.pause', 'Pause')}
+            {session.paused ? t`Resume` : t`Pause`}
           </button>
           <button className="quiet-button finish-button" type="button" onClick={onFinish}>
-            {t('train.finish', 'Finish session')}
+            {t`Finish session`}
           </button>
         </div>
       </div>
@@ -961,10 +939,10 @@ function PracticeSession({
           {session.paused ? (
             <div className="paused-copy">
               <Icon name="clock" size={28} />
-              <strong>{t('train.pause', 'Pause')}</strong>
+              <strong>{t`Pause`}</strong>
             </div>
           ) : feedback?.result === 'timeout' ? (
-            <div className="staff-cleared" aria-label={t('train.timeout', 'Time')}>
+            <div className="staff-cleared" aria-label={t`Time`}>
               —
             </div>
           ) : (
@@ -984,10 +962,8 @@ function PracticeSession({
         ) : (
           <p className={`answer-prompt ${isIntroduction ? 'intro-prompt' : ''}`}>
             {isIntroduction
-              ? t('train.intro', 'New note: {note} · press the highlighted key to meet it.', {
-                  note: currentName,
-                })
-              : t('train.keyHint', 'Use the piano key that matches the note.')}
+              ? t`New note: ${currentName} · press the highlighted key to meet it.`
+              : t`Use the piano key that matches the note.`}
           </p>
         )}
         <div ref={keyboardMeasureRef} className="answer-area">
@@ -1015,12 +991,8 @@ function PracticeSession({
         </div>
         {mode === 'speed' && !feedback ? (
           <span className="speed-caption">
-            <Icon name="clock" size={14} />{' '}
-            {input === 'piano' ? t('train.noLabels', 'Unlabeled piano') : t('train.speed', 'Speed')}{' '}
-            ·{' '}
-            {t('time.seconds', '{value}s', {
-              value: state.settings.locale === 'ru' ? '2,0' : '2.0',
-            })}
+            <Icon name="clock" size={14} /> {input === 'piano' ? t`Unlabeled piano` : t`Speed`} ·{' '}
+            {t`${state.settings.locale === 'ru' ? '2,0' : '2.0'}s`}
           </span>
         ) : null}
       </div>
@@ -1037,22 +1009,18 @@ function FeedbackBanner({
   naming: AppSettings['naming'];
   locale: Locale;
 }) {
-  const t = useTranslation();
+  const { t } = useLingui();
   const note = displayNoteName(feedback.item.pitch, naming, locale);
   const title =
     feedback.result === 'correct'
-      ? t('train.correct', 'Correct')
+      ? t`Correct`
       : feedback.result === 'timeout'
-        ? t('train.timeout', 'Time')
-        : t('train.wrong', 'Not quite');
+        ? t`Time`
+        : t`Not quite`;
   const detail =
     feedback.result === 'correct'
-      ? formatResponse(
-          feedback.elapsedMs,
-          t('time.lessSecond', '< 1s'),
-          locale === 'ru' ? ' с' : 's',
-        )
-      : `${t('train.correctAnswer', 'Correct answer')}: ${note}`;
+      ? formatResponse(feedback.elapsedMs, t`< 1s`, locale === 'ru' ? ' с' : 's')
+      : `${t`Correct answer`}: ${note}`;
   return (
     <div className={`feedback-banner ${feedback.result}`} role="status">
       <span className="feedback-icon">
@@ -1075,7 +1043,7 @@ function ResultPage({
   state: PersistedState;
   onDone: () => void;
 }) {
-  const t = useTranslation();
+  const { t } = useLingui();
   const items = allRecognitionItems();
   const names = (ids: string[]) =>
     ids.map((id) => {
@@ -1089,29 +1057,29 @@ function ResultPage({
           <Icon name="check" size={24} />
         </span>
         <div>
-          <p className="eyebrow">{t('result.summary', 'A small, useful block of practice.')}</p>
-          <h1>{t('result.title', 'Session complete')}</h1>
+          <p className="eyebrow">{t`A small, useful block of practice.`}</p>
+          <h1>{t`Session complete`}</h1>
         </div>
       </div>
       <div className="result-metrics">
-        <Metric label={t('result.attempted', 'Notes attempted')} value={result.attempts} />
+        <Metric label={t`Notes attempted`} value={result.attempts} />
         <Metric
-          label={t('result.accuracy', 'Accuracy')}
+          label={t`Accuracy`}
           value={`${result.attempts ? Math.round((result.correct / result.attempts) * 100) : 0}%`}
         />
         <Metric
-          label={t('result.median', 'Median response')}
+          label={t`Median response`}
           value={formatResponse(
             result.medianResponseMs,
-            t('time.lessSecond', '< 1s'),
+            t`< 1s`,
             state.settings.locale === 'ru' ? ' с' : 's',
           )}
         />
-        <Metric label={t('result.timeouts', 'Timeouts')} value={result.timeouts} />
+        <Metric label={t`Timeouts`} value={result.timeouts} />
       </div>
       <div className="result-columns">
         <section className="surface result-detail">
-          <h2>{t('result.newProgress', 'New progress')}</h2>
+          <h2>{t`New progress`}</h2>
           {result.newRecognized.length + result.newFluent.length > 0 ? (
             <div className="result-tags">
               {[...names(result.newRecognized), ...names(result.newFluent)].map((name) => (
@@ -1121,11 +1089,9 @@ function ResultPage({
               ))}
             </div>
           ) : (
-            <p className="muted-copy">
-              {t('result.noNew', 'Keep going — your next recognition is forming.')}
-            </p>
+            <p className="muted-copy">{t`Keep going — your next recognition is forming.`}</p>
           )}
-          <h2>{t('result.weakest', 'Worth another look')}</h2>
+          <h2>{t`Worth another look`}</h2>
           {result.weakestItemIds.length > 0 ? (
             <div className="weak-list">
               {names(result.weakestItemIds).map((name) => (
@@ -1135,21 +1101,19 @@ function ResultPage({
               ))}
             </div>
           ) : (
-            <p className="muted-copy">
-              {t('progress.noPractice', 'Your note map will fill in as you practice.')}
-            </p>
+            <p className="muted-copy">{t`Your note map will fill in as you practice.`}</p>
           )}
         </section>
         <section className="surface result-detail">
-          <h2>{t('result.practiceTime', 'Practice time')}</h2>
+          <h2>{t`Practice time`}</h2>
           <strong className="big-number">{formatDuration(result.practiceSeconds)}</strong>
           <p className="muted-copy">
             {result.mode === 'speed'
-              ? t('train.speedDescription', '2 seconds per note · piano labels hidden')
-              : t('train.practiceDescription', 'Generous time while you build accuracy')}
+              ? t`2 seconds per note · piano labels hidden`
+              : t`Generous time while you build accuracy`}
           </p>
           <button className="button button-primary" type="button" onClick={onDone}>
-            {t('result.done', 'Back to training')} <Icon name="arrow" size={17} />
+            {t`Back to training`} <Icon name="arrow" size={17} />
           </button>
         </section>
       </div>
@@ -1167,7 +1131,7 @@ function Metric({ label, value }: { label: string; value: string | number }) {
 }
 
 function ProgressPage({ state }: { state: PersistedState }) {
-  const t = useTranslation();
+  const { t } = useLingui();
   const items = allRecognitionItems();
   const notes = items.map((item) => state.notes[item.id] ?? emptyNoteStats(item));
   const practiced = notes.filter((note) => note.totalAttempts > 0);
@@ -1183,50 +1147,43 @@ function ProgressPage({ state }: { state: PersistedState }) {
     <div className="page progress-page">
       <div className="page-heading">
         <div>
-          <p className="eyebrow">
-            {t('progress.subtitle', 'Recognition gets useful when it is fast and retained.')}
-          </p>
-          <h1>{t('progress.title', 'Your progress')}</h1>
+          <p className="eyebrow">{t`Recognition gets useful when it is fast and retained.`}</p>
+          <h1>{t`Your progress`}</h1>
         </div>
       </div>
       <section className="metric-grid">
-        <Metric label={t('progress.fluent', 'Fluent notes')} value={fluent} />
-        <Metric label={t('progress.recognized', 'Recognized notes')} value={recognized} />
+        <Metric label={t`Fluent notes`} value={fluent} />
+        <Metric label={t`Recognized notes`} value={recognized} />
         <Metric
-          label={t('progress.accuracy', 'Accuracy')}
+          label={t`Accuracy`}
           value={`${totalAttempts ? Math.round((totalCorrect / totalAttempts) * 100) : 0}%`}
         />
         <Metric
-          label={t('progress.median', 'Median response')}
+          label={t`Median response`}
           value={formatResponse(
             median(responseTimes),
-            t('time.lessSecond', '< 1s'),
+            t`< 1s`,
             state.settings.locale === 'ru' ? ' с' : 's',
           )}
         />
-        <Metric
-          label={t('progress.totalTime', 'Training time')}
-          value={formatDuration(totalSeconds)}
-        />
+        <Metric label={t`Training time`} value={formatDuration(totalSeconds)} />
       </section>
       <div className="progress-layout">
         <section className="surface">
-          <SectionTitle title={t('progress.byClef', 'By clef')} />
+          <SectionTitle title={t`By clef`} />
           <div className="clef-progress">
             <ClefProgress clef="treble" notes={notes.filter((note) => note.clef === 'treble')} />
             <ClefProgress clef="bass" notes={notes.filter((note) => note.clef === 'bass')} />
           </div>
         </section>
         <section className="surface">
-          <SectionTitle title={t('progress.weakest', 'Weakest notes')} />
+          <SectionTitle title={t`Weakest notes`} />
           <WeakNotes notes={weakestNotes(practiced, 4)} state={state} />
         </section>
       </div>
       <section className="surface note-map-section">
-        <SectionTitle title={t('progress.noteMap', 'Note mastery map')} />
-        <p className="muted-copy">
-          {t('progress.noPractice', 'Your note map will fill in as you practice.')}
-        </p>
+        <SectionTitle title={t`Note mastery map`} />
+        <p className="muted-copy">{t`Your note map will fill in as you practice.`}</p>
         <div className="note-map">
           {notes.map((note) => (
             <NoteMapItem key={note.itemId} note={note} state={state} />
@@ -1241,7 +1198,7 @@ function SectionTitle({ title }: { title: string }) {
   return <h2 className="section-title">{title}</h2>;
 }
 function ClefProgress({ clef, notes }: { clef: Clef; notes: NoteStats[] }) {
-  const t = useTranslation();
+  const { t } = useLingui();
   const practiced = notes.filter((note) => note.totalAttempts > 0);
   const correct = notes.reduce((sum, note) => sum + note.correctAttempts, 0);
   const attempts = notes.reduce((sum, note) => sum + note.totalAttempts, 0);
@@ -1249,7 +1206,7 @@ function ClefProgress({ clef, notes }: { clef: Clef; notes: NoteStats[] }) {
     <div className="clef-block">
       <div className="clef-title">
         <span className={`clef-symbol ${clef}`}>{clef === 'treble' ? '𝄞' : '𝄢'}</span>
-        <strong>{t(`clef.${clef}`, CLEF_LABELS[clef].en)}</strong>
+        <strong>{clef === 'treble' ? t`Treble` : t`Bass`}</strong>
         <span>
           {practiced.length}/{notes.length}
         </span>
@@ -1258,15 +1215,20 @@ function ClefProgress({ clef, notes }: { clef: Clef; notes: NoteStats[] }) {
         <span style={{ width: `${notes.length ? (practiced.length / notes.length) * 100 : 0}%` }} />
       </div>
       <small>
-        {attempts
-          ? `${Math.round((correct / attempts) * 100)}% ${t('progress.accuracy', 'accuracy')}`
-          : t('state.new', 'New')}
+        {attempts ? `${Math.round((correct / attempts) * 100)}% ${t`accuracy`}` : t`New`}
       </small>
     </div>
   );
 }
+const MASTERY_STATE_LABELS: Record<MasteryState, MessageDescriptor> = {
+  new: msg`New`,
+  learning: msg`Learning`,
+  recognized: msg`Recognized`,
+  fluent: msg`Fluent`,
+};
+
 function NoteMapItem({ note, state }: { note: NoteStats; state: PersistedState }) {
-  const t = useTranslation();
+  const { t } = useLingui();
   const item = allRecognitionItems().find((candidate) => candidate.id === note.itemId);
   if (!item) return null;
   const name = displayNoteName(item.pitch, state.settings.naming, state.settings.locale);
@@ -1278,24 +1240,20 @@ function NoteMapItem({ note, state }: { note: NoteStats; state: PersistedState }
           {name}
           {state.settings.naming === 'letters' ? item.pitch.octave : ''}
         </strong>
-        <small>{t(`state.${note.state}`, note.state)}</small>
+        <small>{t(MASTERY_STATE_LABELS[note.state])}</small>
       </span>
       <span className="note-map-stat">
         {note.totalAttempts
-          ? `${Math.round(accuracy(note) * 100)}% · ${formatResponse(medianResponseTime(note), t('time.lessSecond', '< 1s'), state.settings.locale === 'ru' ? ' с' : 's')}`
+          ? `${Math.round(accuracy(note) * 100)}% · ${formatResponse(medianResponseTime(note), t`< 1s`, state.settings.locale === 'ru' ? ' с' : 's')}`
           : '—'}
       </span>
     </div>
   );
 }
 function WeakNotes({ notes, state }: { notes: NoteStats[]; state: PersistedState }) {
-  const t = useTranslation();
+  const { t } = useLingui();
   if (!notes.length)
-    return (
-      <p className="muted-copy">
-        {t('progress.noPractice', 'Your note map will fill in as you practice.')}
-      </p>
-    );
+    return <p className="muted-copy">{t`Your note map will fill in as you practice.`}</p>;
   return (
     <div className="weak-list">
       {notes.map((note) => {
@@ -1321,22 +1279,18 @@ function SettingsPage({
   onChange: (patch: Partial<AppSettings>) => void;
   navigate: (page: Page) => void;
 }) {
-  const t = useTranslation();
+  const { t } = useLingui();
   return (
     <div className="page settings-page">
       <div className="page-heading">
         <div>
-          <p className="eyebrow">{t('settings.subtitle', 'Make Nota fit the way you learn.')}</p>
-          <h1>{t('settings.title', 'Settings')}</h1>
+          <p className="eyebrow">{t`Make Nota fit the way you learn.`}</p>
+          <h1>{t`Settings`}</h1>
         </div>
       </div>
       <div className="settings-list">
-        <SettingSection title={t('settings.language', 'Interface language')}>
-          <div
-            className="segmented wide"
-            role="group"
-            aria-label={t('aria.language', 'Choose interface language')}
-          >
+        <SettingSection title={t`Interface language`}>
+          <div className="segmented wide" role="group" aria-label={t`Choose interface language`}>
             <button
               type="button"
               className={settings.locale === 'en' ? 'selected' : ''}
@@ -1355,12 +1309,8 @@ function SettingsPage({
             </button>
           </div>
         </SettingSection>
-        <SettingSection title={t('settings.naming', 'Note naming')}>
-          <div
-            className="segmented wide"
-            role="group"
-            aria-label={t('aria.naming', 'Choose note naming system')}
-          >
+        <SettingSection title={t`Note naming`}>
+          <div className="segmented wide" role="group" aria-label={t`Choose note naming system`}>
             <button
               type="button"
               className={settings.naming === 'letters' ? 'selected' : ''}
@@ -1378,23 +1328,17 @@ function SettingsPage({
               Do Re Mi Fa Sol La Si
             </button>
           </div>
-          <p className="setting-hint">
-            {t('settings.namingHint', 'This changes labels, never your progress.')}
-          </p>
+          <p className="setting-hint">{t`This changes labels, never your progress.`}</p>
         </SettingSection>
-        <SettingSection title={t('settings.theme', 'Appearance')}>
-          <div
-            className="segmented wide"
-            role="group"
-            aria-label={t('aria.theme', 'Choose color theme')}
-          >
+        <SettingSection title={t`Appearance`}>
+          <div className="segmented wide" role="group" aria-label={t`Choose color theme`}>
             <button
               type="button"
               className={settings.theme === 'system' ? 'selected' : ''}
               aria-pressed={settings.theme === 'system'}
               onClick={() => onChange({ theme: 'system' })}
             >
-              {t('settings.system', 'System')}
+              {t`System`}
             </button>
             <button
               type="button"
@@ -1402,7 +1346,7 @@ function SettingsPage({
               aria-pressed={settings.theme === 'light'}
               onClick={() => onChange({ theme: 'light' })}
             >
-              {t('settings.light', 'Light')}
+              {t`Light`}
             </button>
             <button
               type="button"
@@ -1410,30 +1354,24 @@ function SettingsPage({
               aria-pressed={settings.theme === 'dark'}
               onClick={() => onChange({ theme: 'dark' })}
             >
-              {t('settings.dark', 'Dark')}
+              {t`Dark`}
             </button>
           </div>
         </SettingSection>
-        <SettingSection title={t('settings.research', 'Research behind Nota')}>
+        <SettingSection title={t`Research behind Nota`}>
           <p className="setting-hint">
-            {t(
-              'settings.researchDescription',
-              'Why Nota uses visual retrieval, timing, and spaced review.',
-            )}
+            {t`Why Nota uses visual retrieval, timing, and spaced review.`}
           </p>
           <button
             className="button button-secondary"
             type="button"
             onClick={() => navigate('research')}
           >
-            {t('settings.openResearch', 'Read the research')} <Icon name="arrow" size={16} />
+            {t`Read the research`} <Icon name="arrow" size={16} />
           </button>
         </SettingSection>
         <p className="about-copy">
-          {t(
-            'settings.about',
-            'Nota is a small, local-first tool. Your progress stays on this device.',
-          )}
+          {t`Nota is a small, local-first tool. Your progress stays on this device.`}
         </p>
       </div>
     </div>
@@ -1450,45 +1388,46 @@ function SettingSection({ title, children }: { title: string; children: React.Re
 
 const RESEARCH = [
   {
-    key: 'visual',
+    title: msg`Visual recognition`,
+    body: msg`Fluent note reading is a visual-perceptual skill. Targeted practice can focus on recognizing a note’s whole pattern instead of consciously calculating its position.`,
     doi: '10.3389/fcogn.2025.1439439',
     authors: 'Yetta Kwailing Wong & Joy Fong Fang · 2025',
     url: 'https://doi.org/10.3389/fcogn.2025.1439439',
   },
   {
-    key: 'speed',
+    title: msg`Speed`,
+    body: msg`In perceptual-training studies, presentation became progressively more demanding as performance improved. Nota uses a gentle Practice mode and a separate two-second Speed mode inspired by that idea — not as a proven threshold.`,
     doi: '10.1167/16.8.15',
     authors: 'Yetta Kwailing Wong & Alan C.-N. Wong · 2016',
     url: 'https://doi.org/10.1167/16.8.15',
   },
   {
-    key: 'perception',
+    title: msg`Practice changes perception`,
+    body: msg`Experimental work with musical notation has found measurable changes in visual processing after targeted training. That is evidence about trained visual tasks, not a claim to make an expert pianist or sight-reader.`,
     doi: '10.1167/19.7.8',
     authors: 'Alan C.-N. Wong et al. · 2019',
     url: 'https://doi.org/10.1167/19.7.8',
   },
   {
-    key: 'spacing',
+    title: msg`Retrieval and spacing`,
+    body: msg`Notes return after a pause because retrieving an answer and spacing practice can support retention better than simply looking at the answer again.`,
     doi: '10.1038/s44159-022-00089-1',
     authors: 'Shana K. Carpenter, Steven C. Pan & Andrew C. Butler · 2022',
     url: 'https://doi.org/10.1038/s44159-022-00089-1',
   },
 ] as const;
 function ResearchPage({ navigate }: { navigate: (page: Page) => void }) {
-  const t = useTranslation();
+  const { t } = useLingui();
   return (
     <div className="page research-page">
       <button type="button" className="back-link" onClick={() => navigate('settings')}>
-        <Icon name="arrow" size={16} /> {t('research.back', 'Back to settings')}
+        <Icon name="arrow" size={16} /> {t`Back to settings`}
       </button>
       <div className="research-header">
         <p className="eyebrow">Nota / 01</p>
-        <h1>{t('research.title', 'Research behind Nota')}</h1>
+        <h1>{t`Research behind Nota`}</h1>
         <p className="lead">
-          {t(
-            'research.intro',
-            'Nota is inspired by research on visual perceptual learning, musical-note recognition, retrieval practice, and spaced learning. The curriculum and thresholds are product-design hypotheses, not scientifically validated promises.',
-          )}
+          {t`Nota is inspired by research on visual perceptual learning, musical-note recognition, retrieval practice, and spaced learning. The curriculum and thresholds are product-design hypotheses, not scientifically validated promises.`}
         </p>
       </div>
       <div className="research-list">
@@ -1498,32 +1437,29 @@ function ResearchPage({ navigate }: { navigate: (page: Page) => void }) {
               {String(RESEARCH.indexOf(paper) + 1).padStart(2, '0')}
             </div>
             <div>
-              <h2>{t(`research.${paper.key}Title`, paper.key)}</h2>
-              <p>{t(`research.${paper.key}Body`, '')}</p>
+              <h2>{t(paper.title)}</h2>
+              <p>{t(paper.body)}</p>
               <p className="paper-meta">
                 {paper.authors}
                 <br />
                 <em>{paper.doi}</em>
               </p>
               <a href={paper.url} target="_blank" rel="noopener noreferrer">
-                {t('research.source', 'Read the original paper')} <Icon name="arrow" size={15} />
+                {t`Read the original paper`} <Icon name="arrow" size={15} />
               </a>
             </div>
           </article>
         ))}
       </div>
       <p className="research-disclaimer">
-        {t(
-          'research.disclaimer',
-          'Nota does not claim scientific certification or guarantee a result in a particular number of hours.',
-        )}
+        {t`Nota does not claim scientific certification or guarantee a result in a particular number of hours.`}
       </p>
     </div>
   );
 }
 
 function OfflineStatus() {
-  const t = useTranslation();
+  const { t } = useLingui();
   const [online, setOnline] = useState(() => navigator.onLine);
   useEffect(() => {
     const on = () => setOnline(true);
@@ -1538,9 +1474,7 @@ function OfflineStatus() {
   return (
     <div className={`offline-status ${online ? 'is-online' : ''}`} role="status">
       <span className="status-dot" />{' '}
-      {online
-        ? t('online', 'Back online')
-        : t('offline', 'Offline — progress is saved on this device')}
+      {online ? t`Back online` : t`Offline — progress is saved on this device`}
     </div>
   );
 }

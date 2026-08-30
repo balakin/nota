@@ -1,10 +1,15 @@
 import { VitePWA } from 'vite-plugin-pwa';
+import { lingui } from '@lingui/vite-plugin';
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [
-    react(),
+    // The macro plugin expands `t`...`` / `<Trans>` into plain i18n calls, so it
+    // has to run on every file Babel sees — dev, build and tests alike.
+    react({ babel: { plugins: ['@lingui/babel-plugin-lingui-macro'] } }),
+    // Compiles src/locales/*.po on the fly; `lingui compile` is not needed.
+    lingui({ failOnMissing: mode === 'production', failOnCompileError: true }),
     VitePWA({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'icons/icon.svg', 'icons/icon-192.svg', 'icons/icon-512.svg'],
@@ -41,4 +46,4 @@ export default defineConfig({
     }),
   ],
   server: { host: '0.0.0.0' },
-});
+}));

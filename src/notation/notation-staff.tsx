@@ -1,7 +1,7 @@
+import { useLingui } from '@lingui/react/macro';
 import { useEffect, useRef, useState } from 'react';
 import { accessiblePitchLabel, type Clef, type CanonicalPitch } from '../music/music';
 import type { Locale } from '../app/state';
-import { useTranslation } from '../i18n/use-translation';
 
 export function NotationStaff({
   pitch,
@@ -14,7 +14,7 @@ export function NotationStaff({
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(0);
-  const t = useTranslation();
+  const { t } = useLingui();
 
   useEffect(() => {
     if (!ref.current) return;
@@ -47,10 +47,7 @@ export function NotationStaff({
         ref={ref}
         className="staff-renderer"
         role="img"
-        aria-label={t('aria.staff', 'Staff, {clef}, {note}', {
-          clef: clef === 'treble' ? t('clef.treble', 'Treble') : t('clef.bass', 'Bass'),
-          note: accessiblePitchLabel(pitch, 'solfege', locale),
-        })}
+        aria-label={t`Staff, ${clef === 'treble' ? t`Treble` : t`Bass`}, ${accessiblePitchLabel(pitch, 'solfege', locale)}`}
       />
     </div>
   );

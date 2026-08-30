@@ -1,0 +1,468 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2026-08-30 12:48+0200\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: en\n"
+
+#. placeholder {0}: props.state.settings.locale === 'ru' ? '2,0' : '2.0'
+#. placeholder {0}: state.settings.locale === 'ru' ? '2,0' : '2.0'
+#: src/App.tsx:767
+#: src/App.tsx:1004
+msgid "{0}s"
+msgstr "{0}s"
+
+#: src/App.tsx:744
+msgid "{minutes} min"
+msgstr "{minutes} min"
+
+#: src/App.tsx:1033
+#: src/App.tsx:1087
+#: src/App.tsx:1184
+#: src/App.tsx:1273
+msgid "< 1s"
+msgstr "< 1s"
+
+#: src/App.tsx:818
+#: src/App.tsx:1129
+msgid "2 seconds per note · piano labels hidden"
+msgstr "2 seconds per note · piano labels hidden"
+
+#: src/App.tsx:517
+msgid "A calm practice for your eyes"
+msgstr "A calm practice for your eyes"
+
+#: src/App.tsx:1073
+msgid "A small, useful block of practice."
+msgstr "A small, useful block of practice."
+
+#: src/App.tsx:1243
+msgid "accuracy"
+msgstr "accuracy"
+
+#: src/App.tsx:1080
+#: src/App.tsx:1177
+msgid "Accuracy"
+msgstr "Accuracy"
+
+#: src/App.tsx:709
+msgid "Answer with"
+msgstr "Answer with"
+
+#: src/App.tsx:1373
+msgid "Appearance"
+msgstr "Appearance"
+
+#: src/App.tsx:1522
+msgid "Back online"
+msgstr "Back online"
+
+#: src/App.tsx:1468
+msgid "Back to settings"
+msgstr "Back to settings"
+
+#: src/App.tsx:1133
+msgid "Back to training"
+msgstr "Back to training"
+
+#: src/App.tsx:725
+#: src/App.tsx:1233
+#: src/notation/notation-staff.tsx:50
+msgid "Bass"
+msgstr "Bass"
+
+#: src/App.tsx:520
+msgid "Build a direct connection between the note on the staff and its place on the piano. Start with a few landmarks, then let accuracy become speed."
+msgstr "Build a direct connection between the note on the staff and its place on the piano. Start with a few landmarks, then let accuracy become speed."
+
+#: src/App.tsx:1195
+msgid "By clef"
+msgstr "By clef"
+
+#: src/App.tsx:528
+msgid "C · D · E · F · G · A · B"
+msgstr "C · D · E · F · G · A · B"
+
+#: src/App.tsx:1377
+msgid "Choose color theme"
+msgstr "Choose color theme"
+
+#: src/App.tsx:1326
+msgid "Choose interface language"
+msgstr "Choose interface language"
+
+#: src/App.tsx:1350
+msgid "Choose note naming system"
+msgstr "Choose note naming system"
+
+#: src/App.tsx:720
+msgid "Clefs"
+msgstr "Clefs"
+
+#: src/App.tsx:754
+msgid "Continue training"
+msgstr "Continue training"
+
+#: src/App.tsx:1025
+msgid "Correct"
+msgstr "Correct"
+
+#: src/App.tsx:1036
+msgid "Correct answer"
+msgstr "Correct answer"
+
+#: src/App.tsx:1401
+msgid "Dark"
+msgstr "Dark"
+
+#: src/App.tsx:534
+msgid "Do · Re · Mi · Fa · Sol · La · Si"
+msgstr "Do · Re · Mi · Fa · Sol · La · Si"
+
+#: src/App.tsx:518
+#: src/App.tsx:760
+msgid "Don’t count. Recognize."
+msgstr "Don’t count. Recognize."
+
+#: src/App.tsx:1450
+msgid "Experimental work with musical notation has found measurable changes in visual processing after targeted training. That is evidence about trained visual tasks, not a claim to make an expert pianist or sight-reader."
+msgstr "Experimental work with musical notation has found measurable changes in visual processing after targeted training. That is evidence about trained visual tasks, not a claim to make an expert pianist or sight-reader."
+
+#: src/App.tsx:934
+msgid "Finish session"
+msgstr "Finish session"
+
+#: src/App.tsx:533
+msgid "Fixed solfège"
+msgstr "Fixed solfège"
+
+#: src/App.tsx:1253
+msgid "Fluent"
+msgstr "Fluent"
+
+#: src/App.tsx:762
+#: src/App.tsx:1436
+msgid "Fluent note reading is a visual-perceptual skill. Targeted practice can focus on recognizing a note’s whole pattern instead of consciously calculating its position."
+msgstr "Fluent note reading is a visual-perceptual skill. Targeted practice can focus on recognizing a note’s whole pattern instead of consciously calculating its position."
+
+#: src/App.tsx:1174
+msgid "Fluent notes"
+msgstr "Fluent notes"
+
+#: src/App.tsx:809
+#: src/App.tsx:1130
+msgid "Generous time while you build accuracy"
+msgstr "Generous time while you build accuracy"
+
+#: src/App.tsx:523
+msgid "How should note names appear?"
+msgstr "How should note names appear?"
+
+#: src/App.tsx:1443
+msgid "In perceptual-training studies, presentation became progressively more demanding as performance improved. Nota uses a gentle Practice mode and a separate two-second Speed mode inspired by that idea — not as a proven threshold."
+msgstr "In perceptual-training studies, presentation became progressively more demanding as performance improved. Nota uses a gentle Practice mode and a separate two-second Speed mode inspired by that idea — not as a proven threshold."
+
+#: src/App.tsx:1322
+msgid "Interface language"
+msgstr "Interface language"
+
+#: src/App.tsx:1106
+msgid "Keep going — your next recognition is forming."
+msgstr "Keep going — your next recognition is forming."
+
+#: src/App.tsx:1251
+msgid "Learning"
+msgstr "Learning"
+
+#: src/App.tsx:527
+msgid "Letters"
+msgstr "Letters"
+
+#: src/App.tsx:1393
+msgid "Light"
+msgstr "Light"
+
+#: src/App.tsx:439
+msgid "Loading Nota"
+msgstr "Loading Nota"
+
+#: src/App.tsx:777
+msgid "Local"
+msgstr "Local"
+
+#: src/App.tsx:759
+msgid "Look → recognize → answer"
+msgstr "Look → recognize → answer"
+
+#: src/App.tsx:698
+msgid "Look at the staff, then answer without counting."
+msgstr "Look at the staff, then answer without counting."
+
+#: src/App.tsx:1317
+msgid "Make Nota fit the way you learn."
+msgstr "Make Nota fit the way you learn."
+
+#: src/App.tsx:1084
+#: src/App.tsx:1181
+msgid "Median response"
+msgstr "Median response"
+
+#: src/App.tsx:1244
+#: src/App.tsx:1250
+msgid "New"
+msgstr "New"
+
+#: src/App.tsx:972
+msgid "New note: {currentName} · press the highlighted key to meet it."
+msgstr "New note: {currentName} · press the highlighted key to meet it."
+
+#: src/App.tsx:1095
+msgid "New progress"
+msgstr "New progress"
+
+#: src/App.tsx:1028
+msgid "Not quite"
+msgstr "Not quite"
+
+#: src/components/Piano.tsx:59
+msgid "Not trained yet"
+msgstr "Not trained yet"
+
+#: src/App.tsx:583
+msgid "Nota"
+msgstr "Nota"
+
+#: src/App.tsx:1499
+msgid "Nota does not claim scientific certification or guarantee a result in a particular number of hours."
+msgstr "Nota does not claim scientific certification or guarantee a result in a particular number of hours."
+
+#: src/App.tsx:541
+#: src/App.tsx:784
+#: src/App.tsx:1418
+msgid "Nota is a small, local-first tool. Your progress stays on this device."
+msgstr "Nota is a small, local-first tool. Your progress stays on this device."
+
+#: src/App.tsx:1474
+msgid "Nota is inspired by research on visual perceptual learning, musical-note recognition, retrieval practice, and spaced learning. The curriculum and thresholds are product-design hypotheses, not scientifically validated promises."
+msgstr "Nota is inspired by research on visual perceptual learning, musical-note recognition, retrieval practice, and spaced learning. The curriculum and thresholds are product-design hypotheses, not scientifically validated promises."
+
+#: src/App.tsx:773
+msgid "Note map"
+msgstr "Note map"
+
+#: src/App.tsx:1207
+msgid "Note mastery map"
+msgstr "Note mastery map"
+
+#: src/App.tsx:713
+#: src/components/NoteNamePad.tsx:22
+msgid "Note names"
+msgstr "Note names"
+
+#: src/App.tsx:1346
+msgid "Note naming"
+msgstr "Note naming"
+
+#: src/App.tsx:1078
+msgid "Notes attempted"
+msgstr "Notes attempted"
+
+#: src/App.tsx:1457
+msgid "Notes return after a pause because retrieving an answer and spacing practice can support retention better than simply looking at the answer again."
+msgstr "Notes return after a pause because retrieving an answer and spacing practice can support retention better than simply looking at the answer again."
+
+#: src/App.tsx:1523
+msgid "Offline — progress is saved on this device"
+msgstr "Offline — progress is saved on this device"
+
+#: src/App.tsx:931
+#: src/App.tsx:949
+msgid "Pause"
+msgstr "Pause"
+
+#: src/App.tsx:712
+#: src/components/Piano.tsx:29
+msgid "Piano"
+msgstr "Piano"
+
+#: src/App.tsx:808
+#: src/App.tsx:925
+msgid "Practice"
+msgstr "Practice"
+
+#: src/App.tsx:1449
+msgid "Practice changes perception"
+msgstr "Practice changes perception"
+
+#: src/App.tsx:1125
+msgid "Practice time"
+msgstr "Practice time"
+
+#: src/App.tsx:590
+#: src/App.tsx:643
+msgid "Primary navigation"
+msgstr "Primary navigation"
+
+#: src/App.tsx:600
+#: src/App.tsx:653
+msgid "Progress"
+msgstr "Progress"
+
+#. placeholder {0}: session.questionNumber
+#. placeholder {1}: '∞'
+#: src/App.tsx:922
+msgid "Question {0} of {1}"
+msgstr "Question {0} of {1}"
+
+#: src/App.tsx:1492
+msgid "Read the original paper"
+msgstr "Read the original paper"
+
+#: src/App.tsx:1414
+msgid "Read the research"
+msgstr "Read the research"
+
+#: src/App.tsx:702
+msgid "Ready when you are."
+msgstr "Ready when you are."
+
+#: src/App.tsx:1168
+msgid "Recognition gets useful when it is fast and retained."
+msgstr "Recognition gets useful when it is fast and retained."
+
+#: src/App.tsx:696
+msgid "Recognition practice"
+msgstr "Recognition practice"
+
+#: src/App.tsx:1252
+msgid "Recognized"
+msgstr "Recognized"
+
+#: src/App.tsx:1175
+msgid "Recognized notes"
+msgstr "Recognized notes"
+
+#: src/App.tsx:1405
+#: src/App.tsx:1472
+msgid "Research behind Nota"
+msgstr "Research behind Nota"
+
+#: src/App.tsx:931
+msgid "Resume"
+msgstr "Resume"
+
+#: src/App.tsx:1456
+msgid "Retrieval and spacing"
+msgstr "Retrieval and spacing"
+
+#: src/App.tsx:1074
+msgid "Session complete"
+msgstr "Session complete"
+
+#: src/App.tsx:734
+msgid "Session length"
+msgstr "Session length"
+
+#: src/App.tsx:606
+#: src/App.tsx:659
+#: src/App.tsx:1318
+msgid "Settings"
+msgstr "Settings"
+
+#: src/App.tsx:769
+#: src/App.tsx:817
+#: src/App.tsx:925
+#: src/App.tsx:1002
+#: src/App.tsx:1442
+msgid "Speed"
+msgstr "Speed"
+
+#. placeholder {0}: clef === 'treble' ? t`Treble` : t`Bass`
+#. placeholder {1}: accessiblePitchLabel(pitch, 'solfege', locale)
+#: src/notation/notation-staff.tsx:50
+msgid "Staff, {0}, {1}"
+msgstr "Staff, {0}, {1}"
+
+#: src/App.tsx:538
+msgid "Start training"
+msgstr "Start training"
+
+#: src/App.tsx:1385
+msgid "System"
+msgstr "System"
+
+#: src/App.tsx:1370
+msgid "This changes labels, never your progress."
+msgstr "This changes labels, never your progress."
+
+#: src/App.tsx:952
+#: src/App.tsx:1027
+msgid "Time"
+msgstr "Time"
+
+#: src/App.tsx:1091
+msgid "Timeouts"
+msgstr "Timeouts"
+
+#: src/App.tsx:594
+#: src/App.tsx:647
+msgid "Train"
+msgstr "Train"
+
+#: src/App.tsx:695
+msgid "Train instant musical note recognition."
+msgstr "Train instant musical note recognition."
+
+#: src/App.tsx:800
+msgid "Training mode"
+msgstr "Training mode"
+
+#: src/App.tsx:1189
+msgid "Training time"
+msgstr "Training time"
+
+#: src/App.tsx:724
+#: src/App.tsx:1233
+#: src/notation/notation-staff.tsx:50
+msgid "Treble"
+msgstr "Treble"
+
+#: src/App.tsx:723
+msgid "Treble + Bass"
+msgstr "Treble + Bass"
+
+#: src/App.tsx:1002
+msgid "Unlabeled piano"
+msgstr "Unlabeled piano"
+
+#: src/App.tsx:973
+msgid "Use the piano key that matches the note."
+msgstr "Use the piano key that matches the note."
+
+#: src/App.tsx:1435
+msgid "Visual recognition"
+msgstr "Visual recognition"
+
+#: src/App.tsx:1202
+msgid "Weakest notes"
+msgstr "Weakest notes"
+
+#: src/App.tsx:1407
+msgid "Why Nota uses visual retrieval, timing, and spaced review."
+msgstr "Why Nota uses visual retrieval, timing, and spaced review."
+
+#: src/App.tsx:1109
+msgid "Worth another look"
+msgstr "Worth another look"
+
+#: src/App.tsx:1120
+#: src/App.tsx:1209
+#: src/App.tsx:1284
+msgid "Your note map will fill in as you practice."
+msgstr "Your note map will fill in as you practice."
+
+#: src/App.tsx:1170
+msgid "Your progress"
+msgstr "Your progress"

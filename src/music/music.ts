@@ -146,8 +146,3 @@ export const ALL_NATURAL_PITCHES: readonly CanonicalPitch[] = (
   .flatMap((name) => Array.from({ length: 4 }, (_, index) => pitch(name, index + 2)))
   .filter((value) => value.midi >= 43 && value.midi <= 77)
   .sort((a, b) => a.midi - b.midi);
-
-export const CLEF_LABELS: Record<Clef, { en: string; ru: string }> = {
-  treble: { en: 'Treble', ru: 'Скрипичный' },
-  bass: { en: 'Bass', ru: 'Басовый' },
-};
