@@ -19,3 +19,7 @@ export function pianoAnswer(midi: number): NormalizedAnswer {
 export function keyboardAnswer(midi: number): NormalizedAnswer {
   return { midi, source: 'keyboard' };
 }
+
+export function midiAnswer(midi: number): NormalizedAnswer {
+  return { midi, source: 'midi' };
+}
