@@ -30,11 +30,11 @@ pnpm i18n:extract   # extract messages into src/locales/*.po
 - `app-shell/` — the root `App`, header, primary nav, offline banner, document `lang`/title/theme
 - `app-state/` — persisted state shape, migrations, and the `useAppState` hook that hydrates and saves it
 - `practice/` — the practice runtime: setup screen, `usePracticeSession`, live session UI, result page
-- `training/` — the pure training engine: mastery states, weighting, review scheduling, normalized answers
+- `training/` — the pure training engine: mastery states, day rollups, question weighting, range selection, normalized answers
 - `music/` — pitches, naming systems, staff geometry, and the recognition curriculum
 - `notation/` — the staff component and its VexFlow renderer
 - `piano/` — the fixed one-octave keyboard layout and the piano component
-- `progress/` — the progress page and its note-mastery breakdowns
+- `progress/` — the progress dashboard: a global date range over the day rollups, feeding every panel
 - `onboarding/`, `settings/`, `research/` — the remaining pages
 - `router/` — hash routing (`usePage`)
 - `storage/` — IndexedDB persistence

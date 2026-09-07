@@ -5,7 +5,8 @@ import { createInitialState, migrateState } from '../app-state';
 describe('local state schema', () => {
   it('creates a versioned state with both clefs', () => {
     const state = createInitialState({ hasCompletedOnboarding: true });
-    expect(state.schemaVersion).toBe(1);
+    expect(state.schemaVersion).toBe(2);
+    expect(state.rolls).toEqual({});
     expect(Object.keys(state.notes)).toEqual(
       expect.arrayContaining(['treble:G4', 'bass:C4']),
     );
@@ -15,7 +16,7 @@ describe('local state schema', () => {
     const state = migrateState({
       settings: { locale: 'ru', naming: 'solfege', theme: 'dark' },
     });
-    expect(state.schemaVersion).toBe(1);
+    expect(state.schemaVersion).toBe(2);
     expect(state.settings).toMatchObject({
       locale: 'ru',
       naming: 'solfege',

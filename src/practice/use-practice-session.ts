@@ -1,9 +1,16 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 import type { SessionSummary } from '../app-state/app-state';
+import type { RolledAttempt } from '../app-state/use-app-state';
 import type { Clef } from '../music/music';
 import { windowForMidi } from '../piano/piano-layout';
 import type { NormalizedAnswer } from '../training/input';
+import {
+  clampRange,
+  rangeBounds,
+  selectedItems,
+  type PitchRange,
+} from '../training/selection';
 import {
   adaptiveDeadlineMs,
   deadlineRemainingMs,
@@ -11,7 +18,6 @@ import {
   median,
   recordOutcome,
   requeueAfterWrong,
-  unlockedItems,
   weakestNotes,
   type AnswerResult,
   type InputMode,
@@ -36,10 +42,12 @@ export type PracticeSessionController = {
   mode: PracticeMode;
   input: InputMode;
   clefs: Clef[];
+  range: PitchRange;
   durationMinutes: SessionDuration;
   setMode: (mode: PracticeMode) => void;
   setInput: (input: InputMode) => void;
   setClefs: (clefs: Clef[]) => void;
+  setRange: (range: PitchRange) => void;
   setDurationMinutes: (minutes: SessionDuration) => void;
   start: () => void;
   answer: (answer: NormalizedAnswer) => void;
@@ -55,11 +63,11 @@ export type PracticeSessionController = {
  */
 export function usePracticeSession({
   notes,
-  onNoteStats,
+  onAttempt,
   onSessionComplete,
 }: {
   notes: Readonly<Record<string, NoteStats>>;
-  onNoteStats: (itemId: string, stats: NoteStats) => void;
+  onAttempt: (itemId: string, stats: NoteStats, outcome: RolledAttempt) => void;
   onSessionComplete: (summary: SessionSummary) => void;
 }): PracticeSessionController {
   const [session, setSession] = useState<RuntimeSession | null>(null);
@@ -68,6 +76,9 @@ export function usePracticeSession({
   const [durationMinutes, setDurationMinutes] = useState<SessionDuration>(5);
   const [mode, setMode] = useState<PracticeMode>('practice');
   const [input, setInput] = useState<InputMode>('piano');
+  const [range, setRange] = useState<PitchRange>(() =>
+    rangeBounds(['treble', 'bass']),
+  );
   const [clefs, setClefs] = useState<Clef[]>(['treble', 'bass']);
   const advanceTimeoutRef = useRef<number | null>(null);
   const notesRef = useRef(notes);
@@ -151,7 +162,7 @@ export function usePracticeSession({
   }, [session, completeSession]);
 
   const start = useCallback(() => {
-    const candidates = unlockedItems(notes, clefs);
+    const candidates = selectedItems(clefs, clampRange(range, clefs));
     if (candidates.length === 0) return;
     const first = pickNext(candidates, notes, [], [], 1);
     const now = Date.now();
@@ -179,7 +190,7 @@ export function usePracticeSession({
     });
     setFeedback(null);
     setResult(null);
-  }, [clefs, durationMinutes, input, mode, notes]);
+  }, [clefs, durationMinutes, input, mode, notes, range]);
 
   const advance = useCallback((runtime: RuntimeSession) => {
     const nextQuestion = runtime.questionNumber + 1;
@@ -224,21 +235,28 @@ export function usePracticeSession({
         resultOverride ?? (correct ? 'correct' : 'incorrect');
       const previous =
         notesRef.current[session.current.id] ?? emptyNoteStats(session.current);
+      const at = Date.now();
       const nextStats = recordOutcome(previous, {
         result: outcomeResult,
         elapsedMs,
         mode: session.mode,
         input: session.input,
         sessionId: session.id,
+        at,
       });
-      onNoteStats(session.current.id, nextStats);
+      onAttempt(session.current.id, nextStats, {
+        result: outcomeResult,
+        elapsedMs,
+        mode: session.mode,
+        at,
+      });
       const outcome: RuntimeOutcome = {
         sessionId: session.id,
         result: outcomeResult,
         elapsedMs,
         mode: session.mode,
         input: session.input,
-        at: Date.now(),
+        at,
         itemId: session.current.id,
         stateBefore: previous.state,
         stateAfter: nextStats.state,
@@ -272,7 +290,7 @@ export function usePracticeSession({
         outcomeResult === 'correct' ? CORRECT_DELAY : CORRECTION_DELAY,
       );
     },
-    [advance, feedback, onNoteStats, session],
+    [advance, feedback, onAttempt, session],
   );
 
   useEffect(() => {
@@ -330,10 +348,12 @@ export function usePracticeSession({
     mode,
     input,
     clefs,
+    range: clampRange(range, clefs),
     durationMinutes,
     setMode,
     setInput,
     setClefs,
+    setRange,
     setDurationMinutes,
     start,
     answer,

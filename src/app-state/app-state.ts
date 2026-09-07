@@ -1,5 +1,6 @@
 import type { NamingSystem } from '../music/music';
 import { allRecognitionItems } from '../music/recognition-items';
+import { emptyRoll, type DayRoll } from '../training/rollups';
 import { emptyNoteStats, type NoteStats } from '../training/training';
 
 export type Locale = 'en' | 'ru';
@@ -28,10 +29,12 @@ export type SessionSummary = {
 };
 
 export type PersistedState = {
-  schemaVersion: 1;
+  schemaVersion: 2;
   settings: AppSettings;
   notes: Record<string, NoteStats>;
   sessions: SessionSummary[];
+  /** Per-note, per-day buckets keyed `day|itemId`. The source for every ranged stat. */
+  rolls: Record<string, DayRoll>;
 };
 
 export const DEFAULT_SETTINGS: AppSettings = {
@@ -48,11 +51,29 @@ export function createInitialState(
     allRecognitionItems().map((item) => [item.id, emptyNoteStats(item)]),
   );
   return {
-    schemaVersion: 1,
+    schemaVersion: 2,
     settings: { ...DEFAULT_SETTINGS, ...settings },
     notes,
     sessions: [],
+    rolls: {},
   };
+}
+
+function readRolls(value: unknown): Record<string, DayRoll> | null {
+  if (!value || typeof value !== 'object') return null;
+  const entries = Object.entries(value as Record<string, unknown>).filter(
+    ([, roll]) =>
+      roll !== null &&
+      typeof roll === 'object' &&
+      typeof (roll as DayRoll).day === 'string' &&
+      typeof (roll as DayRoll).itemId === 'string',
+  );
+  return Object.fromEntries(
+    entries.map(([key, roll]) => [
+      key,
+      { ...emptyRoll('', ''), ...(roll as DayRoll) },
+    ]),
+  );
 }
 
 export function migrateState(value: unknown): PersistedState {
@@ -73,8 +94,9 @@ export function migrateState(value: unknown): PersistedState {
       },
     ]),
   );
+  const stored = readRolls((candidate as { rolls?: unknown }).rolls);
   return {
-    schemaVersion: 1,
+    schemaVersion: 2,
     settings: {
       locale: settings.locale === 'ru' ? 'ru' : 'en',
       naming: settings.naming === 'solfege' ? 'solfege' : 'letters',
@@ -88,5 +110,6 @@ export function migrateState(value: unknown): PersistedState {
     sessions: Array.isArray(candidate.sessions)
       ? candidate.sessions.slice(0, 100)
       : [],
+    rolls: stored ?? {},
   };
 }

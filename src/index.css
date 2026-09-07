@@ -1161,8 +1161,170 @@ h2 {
   background: var(--surface);
   box-shadow: 0 1px 2px color-mix(in oklch, var(--foreground) 10%, transparent);
 }
+.panel,
 .progress-layout > .surface {
   padding: 1.35rem 1.5rem;
+}
+.panel {
+  margin-bottom: 1rem;
+}
+
+/* Training note range */
+.range-field {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.range-field select {
+  min-width: 74px;
+  padding: 0.45rem 0.5rem;
+  border: 1px solid var(--separator);
+  border-radius: 9px;
+  background: var(--surface);
+  color: var(--foreground);
+  font: inherit;
+  font-size: 0.82rem;
+}
+.range-dash {
+  color: var(--muted);
+}
+.range-reset {
+  margin-left: auto;
+  padding: 0.4rem 0.7rem;
+  border: 1px solid var(--separator);
+  border-radius: 9px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.74rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.range-reset:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+.range-count {
+  display: block;
+  margin-top: 0.45rem;
+  color: var(--muted);
+  font-size: 0.7rem;
+}
+
+/* Dashboard controls and scalars */
+.range-bar {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.range-bar-label {
+  color: var(--muted);
+  font-size: 0.7rem;
+  font-weight: 750;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.65rem;
+  margin-bottom: 1rem;
+}
+.stat-tile {
+  display: grid;
+  align-content: start;
+  gap: 0.3rem;
+  min-height: 104px;
+  padding: 1rem;
+  border: 1px solid var(--separator);
+  border-radius: 13px;
+  background: var(--surface);
+}
+.stat-label {
+  color: var(--muted);
+  font-size: 0.69rem;
+  font-weight: 750;
+}
+.stat-value {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 1.35rem;
+  letter-spacing: -0.06em;
+}
+.stat-delta {
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+.stat-delta.is-better {
+  color: var(--success);
+}
+.stat-delta.is-worse {
+  color: var(--danger);
+}
+.stat-delta.is-flat {
+  color: var(--muted);
+  font-weight: 650;
+}
+
+/* Hardest notes */
+.hardest-list {
+  display: grid;
+  gap: 0.7rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.hardest-list li {
+  display: grid;
+  grid-template-columns: 4rem 1fr auto 9rem;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 0.8rem;
+}
+.hardest-name {
+  font-weight: 700;
+}
+.hardest-name .note-octave {
+  color: var(--muted);
+  font-size: 0.78em;
+}
+.hardest-track {
+  height: 6px;
+  overflow: hidden;
+  border-radius: 6px;
+  background: var(--surface-secondary);
+}
+.hardest-track span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--warning);
+}
+.hardest-figures {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+.hardest-figures strong {
+  font-size: 0.78rem;
+}
+.hardest-figures small {
+  color: var(--muted);
+  font-size: 0.66rem;
+}
+.hardest-reason {
+  color: var(--muted);
+  font-size: 0.7rem;
+  text-align: right;
+}
+.note-tile.is-idle {
+  opacity: 0.5;
+}
+.chart-legend .is-volume .chart-key {
+  height: 9px;
+  border-radius: 2px;
+  background: var(--surface-secondary);
+  border: 1px solid var(--separator);
 }
 
 /* Mastery band: the headline count, the distribution, and its key. */
@@ -1302,47 +1464,6 @@ h2 {
 }
 .note-tile.state-new .note-tile-detail {
   color: var(--muted);
-}
-
-/* Weakest notes: name, accuracy meter, value. */
-.weak-list {
-  display: grid;
-  gap: 0.7rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.weak-list li {
-  display: grid;
-  grid-template-columns: 4rem 1fr 2.5rem;
-  align-items: center;
-  gap: 0.7rem;
-  font-size: 0.8rem;
-}
-.weak-name {
-  font-weight: 700;
-}
-.weak-name small {
-  color: var(--muted);
-  font-size: 0.78em;
-}
-.weak-track {
-  height: 6px;
-  overflow: hidden;
-  border-radius: 6px;
-  background: var(--surface-secondary);
-}
-.weak-track span {
-  display: block;
-  height: 100%;
-  border-radius: inherit;
-  background: var(--warning);
-}
-.weak-value {
-  color: var(--muted);
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 0.72rem;
-  text-align: right;
 }
 
 /* Session history: an accuracy trend the reader can hover. */
@@ -1634,8 +1755,20 @@ h2 {
     height: 200px;
   }
   .result-metrics,
-  .metric-grid {
+  .metric-grid,
+  .stat-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+  .page-heading .range-bar {
+    align-self: start;
+  }
+  .hardest-list li {
+    grid-template-columns: 3.6rem 1fr auto;
+    row-gap: 0.2rem;
+  }
+  .hardest-reason {
+    grid-column: 2 / span 2;
+    text-align: left;
   }
   .mastery-band,
   .note-map-section {

@@ -2,14 +2,15 @@ import type { RecognitionItem } from '../music/music';
 import {
   chooseWeighted,
   emptyNoteStats,
-  noteWeight,
   type NoteStats,
   type SessionQueueEntry,
 } from '../training/training';
+import { evidenceFromStats, noteWeight } from '../training/weights';
 
 /**
- * Picks the next note to show: weighted by how shaky it is, while avoiding the
- * items just seen and the ones deliberately deferred after a wrong answer.
+ * Picks the next note to show: weighted by recent history — accuracy, timeouts, how
+ * slowly it comes, and how long since it last appeared — while avoiding the items just
+ * seen and the ones deliberately deferred after a wrong answer.
  */
 export function pickNext(
   candidates: readonly RecognitionItem[],
@@ -17,6 +18,7 @@ export function pickNext(
   recentIds: readonly string[],
   deferredQueue: readonly SessionQueueEntry[] = [],
   questionNumber = 1,
+  now = Date.now(),
 ): RecognitionItem {
   const blocked = new Set(recentIds.slice(-2));
   const availableAfterDelay = candidates.filter(
@@ -39,7 +41,10 @@ export function pickNext(
   return chooseWeighted(
     pool.map((item) => ({
       item,
-      weight: noteWeight(stats[item.id] ?? emptyNoteStats(item), Date.now()),
+      weight: noteWeight(
+        evidenceFromStats(stats[item.id] ?? emptyNoteStats(item), now),
+        now,
+      ),
     })),
   ).item;
 }

@@ -1,7 +1,6 @@
 import type { Clef, RecognitionItem } from '../music/music';
-import { CURRICULUM } from '../music/music';
 
-export type MasteryState = 'new' | 'learning' | 'recognized' | 'fluent';
+export type MasteryState = 'new' | 'recognized' | 'fluent';
 export type PracticeMode = 'practice' | 'speed';
 export type InputMode = 'piano' | 'names';
 export type AnswerResult = 'correct' | 'incorrect' | 'timeout';
@@ -160,7 +159,7 @@ function deriveState(stats: NoteStats): MasteryState {
 
   if (fluent) return 'fluent';
   if (recognized) return 'recognized';
-  return 'learning';
+  return 'new';
 }
 
 export function updateReviewLevel(
@@ -229,7 +228,6 @@ export function recordOutcome(
     speedTimeouts:
       previous.speedTimeouts +
       (outcome.mode === 'speed' && outcome.result === 'timeout' ? 1 : 0),
-    state: previous.state === 'new' ? 'learning' : previous.state,
     reviewLevel: updateReviewLevel(previous, outcome.result, outcome.elapsedMs),
     nextDueAt: 0,
     lastPracticedAt: at,
@@ -249,7 +247,6 @@ export function noteWeight(stats: NoteStats, now: number): number {
   if (stats.timeouts > 0) weight += Math.min(6, stats.timeouts * 1.5);
   if (stats.incorrectAttempts > 0)
     weight += Math.min(5, stats.incorrectAttempts);
-  if (stats.state === 'learning') weight += 4;
   if (stats.state === 'recognized') weight += 2;
   if (stats.state === 'fluent') weight *= 0.6;
   return weight;
@@ -278,28 +275,6 @@ export function chooseWeighted<T extends { weight: number }>(
     if (cursor <= 0) return item;
   }
   return items[items.length - 1];
-}
-
-export function unlockedItems(
-  statsById: Readonly<Record<string, NoteStats>>,
-  clefs: readonly Clef[],
-): RecognitionItem[] {
-  return clefs.flatMap((clef) => {
-    const curriculum = CURRICULUM[clef];
-    let count = Math.min(3, curriculum.length);
-    while (count < curriculum.length) {
-      const previous = curriculum.slice(0, count);
-      const stable = previous.every((item) => {
-        const stats = statsById[item.id];
-        return (
-          stats && (stats.state === 'recognized' || stats.state === 'fluent')
-        );
-      });
-      if (!stable) break;
-      count += 1;
-    }
-    return curriculum.slice(0, count);
-  });
 }
 
 export function weakestNotes(
