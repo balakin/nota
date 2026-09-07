@@ -33,5 +33,11 @@ export function PracticePage({
         onFinish={practice.finish}
       />
     );
-  return <SessionSetup practice={practice} locale={state.settings.locale} />;
+  return (
+    <SessionSetup
+      practice={practice}
+      locale={state.settings.locale}
+      naming={state.settings.naming}
+    />
+  );
 }

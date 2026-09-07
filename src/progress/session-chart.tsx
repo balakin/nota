@@ -1,17 +1,18 @@
 import { Plural, useLingui } from '@lingui/react/macro';
 import {
+  Bar,
   CartesianGrid,
+  ComposedChart,
   Line,
-  LineChart,
   ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
 } from 'recharts';
 
-import type { Locale, SessionSummary } from '../app-state/app-state';
+import type { Locale } from '../app-state/app-state';
 
-import { sessionsByDay, type DayPoint } from './session-series';
+import type { DayPoint } from './dashboard-stats';
 
 /**
  * Recharts hoists dots into a shared layer outside each line's class group, so per-series
@@ -19,14 +20,15 @@ import { sessionsByDay, type DayPoint } from './session-series';
  */
 const ACCURACY_INK = 'var(--accent)';
 const RESPONSE_INK = 'var(--warning)';
+const VOLUME_INK = 'var(--surface-secondary)';
 
 type Point = DayPoint & { label: string };
 
-function shortDate(at: number, locale: Locale) {
-  return new Date(at).toLocaleDateString(locale === 'ru' ? 'ru-RU' : 'en-GB', {
-    day: 'numeric',
-    month: 'short',
-  });
+function shortDate(day: string, locale: Locale) {
+  return new Date(`${day}T12:00`).toLocaleDateString(
+    locale === 'ru' ? 'ru-RU' : 'en-GB',
+    { day: 'numeric', month: 'short' },
+  );
 }
 
 function ChartTooltip({
@@ -54,32 +56,30 @@ function ChartTooltip({
         <small>{t`per note`}</small>
       </span>
       <span className="chart-tip-mode">
-        {point.attempts} {t`notes`} ·{' '}
-        <Plural value={point.sessions} one="# session" other="# sessions" />
+        <Plural value={point.attempts} one="# note" other="# notes" />
       </span>
     </div>
   );
 }
 
 export default function SessionChart({
-  sessions,
+  days,
   locale,
 }: {
-  sessions: SessionSummary[];
+  days: DayPoint[];
   locale: Locale;
 }) {
   const { t } = useLingui();
-  // One point per day, in date order, however many sessions that day held.
-  const data: Point[] = sessionsByDay(sessions).map((point) => ({
+  const data: Point[] = days.map((point) => ({
     ...point,
-    label: shortDate(point.at, locale),
+    label: shortDate(point.day, locale),
   }));
   // Dots turn into noise once the run is long; the hover dot still marks the reading.
   const dots = data.length <= 20;
   return (
     <div className="chart">
-      <ResponsiveContainer width="100%" height={196}>
-        <LineChart
+      <ResponsiveContainer width="100%" height={210}>
+        <ComposedChart
           data={data}
           margin={{ top: 6, right: 6, bottom: 0, left: 0 }}
         >
@@ -95,7 +95,7 @@ export default function SessionChart({
             yAxisId="accuracy"
             domain={[0, 100]}
             ticks={[0, 50, 100]}
-            tickFormatter={(value: number) => `${value}%`}
+            tickFormatter={(value: number) => `${String(value)}%`}
             tickLine={false}
             axisLine={false}
             width={42}
@@ -105,15 +105,26 @@ export default function SessionChart({
             orientation="right"
             domain={[0, (max: number) => Math.max(1, Math.ceil(max))]}
             tickFormatter={(value: number) =>
-              `${value}${locale === 'ru' ? 'с' : 's'}`
+              `${String(value)}${locale === 'ru' ? 'с' : 's'}`
             }
             tickLine={false}
             axisLine={false}
             width={34}
           />
+          {/* Scaled down so volume stays a backdrop rather than a third reading. */}
+          <YAxis yAxisId="volume" hide domain={[0, (max: number) => max * 4]} />
           <Tooltip
             cursor={{ strokeDasharray: '2 4' }}
             content={<ChartTooltip locale={locale} />}
+          />
+          {/* A lone answer should not read like a bad day, so volume sits behind the rates. */}
+          <Bar
+            yAxisId="volume"
+            dataKey="attempts"
+            fill={VOLUME_INK}
+            isAnimationActive={false}
+            radius={[3, 3, 0, 0]}
+            maxBarSize={26}
           />
           <Line
             yAxisId="accuracy"
@@ -135,7 +146,7 @@ export default function SessionChart({
             activeDot={{ r: 5, strokeWidth: 2, stroke: RESPONSE_INK }}
             connectNulls
           />
-        </LineChart>
+        </ComposedChart>
       </ResponsiveContainer>
       <ul className="chart-legend">
         <li className="is-accuracy">
@@ -145,6 +156,10 @@ export default function SessionChart({
         <li className="is-response">
           <span className="chart-key" aria-hidden="true" />
           {t`Time per note`}
+        </li>
+        <li className="is-volume">
+          <span className="chart-key" aria-hidden="true" />
+          {t`Notes answered`}
         </li>
       </ul>
     </div>

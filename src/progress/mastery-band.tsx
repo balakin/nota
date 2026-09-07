@@ -5,12 +5,7 @@ import type { MasteryState, NoteStats } from '../training/training';
 import { MASTERY_STATE_LABELS } from './mastery-labels';
 
 /** Ordered from the most advanced state down, so the bar reads as progress earned. */
-const BAND_ORDER: readonly MasteryState[] = [
-  'fluent',
-  'recognized',
-  'learning',
-  'new',
-];
+const BAND_ORDER: readonly MasteryState[] = ['fluent', 'recognized', 'new'];
 
 export function MasteryBand({ notes }: { notes: NoteStats[] }) {
   const { t } = useLingui();

@@ -28,7 +28,7 @@ describe('training engine', () => {
     expect(median([900, 1100])).toBe(1000);
   });
 
-  it('records timeout separately and moves a new note to learning', () => {
+  it('records a timeout separately and leaves the note short of recognized', () => {
     const next = recordOutcome(emptyNoteStats(item), {
       result: 'timeout',
       elapsedMs: null,
@@ -36,7 +36,7 @@ describe('training engine', () => {
       sessionId: 's1',
       at: 100,
     });
-    expect(next.state).toBe('learning');
+    expect(next.state).toBe('new');
     expect(next.timeouts).toBe(1);
     expect(next.speedAttempts).toBe(1);
     expect(accuracy(next)).toBe(0);

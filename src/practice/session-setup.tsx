@@ -1,19 +1,23 @@
 import { useLingui } from '@lingui/react/macro';
 
 import type { Locale } from '../app-state/app-state';
+import type { NamingSystem } from '../music/music';
 import { Icon } from '../ui/icon';
 import { TogglePicker } from '../ui/toggle-picker';
 
 import { ModePicker } from './mode-picker';
+import { TrainingRangePicker } from './range-picker';
 import { SESSION_DURATIONS } from './session';
 import type { PracticeSessionController } from './use-practice-session';
 
 export function SessionSetup({
   practice,
   locale,
+  naming,
 }: {
   practice: PracticeSessionController;
   locale: Locale;
+  naming: NamingSystem;
 }) {
   const { t } = useLingui();
   return (
@@ -55,6 +59,13 @@ export function SessionSetup({
             onChange={(value) =>
               practice.setClefs(value === 'both' ? ['treble', 'bass'] : [value])
             }
+          />
+          <TrainingRangePicker
+            clefs={practice.clefs}
+            range={practice.range}
+            naming={naming}
+            locale={locale}
+            onChange={practice.setRange}
           />
           <div className="setting-row">
             <span className="setting-label">{t`Session length`}</span>

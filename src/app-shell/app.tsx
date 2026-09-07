@@ -19,12 +19,12 @@ import { useDocumentChrome } from './use-document-chrome';
 
 export default function App() {
   const { t } = useLingui();
-  const { state, hydrated, updateSettings, recordNoteStats, appendSession } =
+  const { state, hydrated, updateSettings, recordAttempt, appendSession } =
     useAppState();
   const { page, navigate } = usePage();
   const practice = usePracticeSession({
     notes: state.notes,
-    onNoteStats: recordNoteStats,
+    onAttempt: recordAttempt,
     onSessionComplete: appendSession,
   });
 
