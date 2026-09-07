@@ -687,10 +687,19 @@ h2 {
   gap: 0.7rem;
   color: var(--muted);
 }
+/* A fixed slot for the prompt and the feedback banner alike: neither may move the staff. */
+.answer-status {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-height: 50px;
+  margin: 0.35rem 0 1rem;
+}
 .answer-prompt {
-  margin: 0.2rem 0 1rem;
+  margin: 0;
   color: var(--muted);
   font-size: 0.74rem;
+  text-align: center;
 }
 .answer-prompt.intro-prompt {
   color: var(--accent-soft-foreground);
@@ -931,6 +940,9 @@ h2 {
   border-color: var(--accent);
   background: var(--accent-soft);
 }
+.speed-caption.is-hidden {
+  visibility: hidden;
+}
 .speed-caption {
   display: inline-flex;
   align-items: center;
@@ -945,7 +957,6 @@ h2 {
   align-items: center;
   gap: 0.65rem;
   min-height: 48px;
-  margin: -0.15rem 0 1rem;
   padding: 0.5rem 0.85rem;
   border-radius: 11px;
 }
@@ -1389,7 +1400,8 @@ h2 {
     min-height: 215px;
   }
   .staff-wrap,
-  .staff-renderer {
+  .staff-renderer,
+  .staff-cleared {
     height: 200px;
   }
   .result-metrics,

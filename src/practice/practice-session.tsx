@@ -123,15 +123,18 @@ export function PracticeSession({
             />
           )}
         </div>
-        {feedback ? (
-          <FeedbackBanner feedback={feedback} naming={settings.naming} locale={settings.locale} />
-        ) : (
-          <p className={`answer-prompt ${isIntroduction ? 'intro-prompt' : ''}`}>
-            {isIntroduction
-              ? t`New note: ${currentName} · press the highlighted key to meet it.`
-              : t`Use the piano key that matches the note.`}
-          </p>
-        )}
+        {/* One slot for both, so the staff does not move when feedback replaces the prompt. */}
+        <div className="answer-status">
+          {feedback ? (
+            <FeedbackBanner feedback={feedback} naming={settings.naming} locale={settings.locale} />
+          ) : (
+            <p className={`answer-prompt ${isIntroduction ? 'intro-prompt' : ''}`}>
+              {isIntroduction
+                ? t`New note: ${currentName} · press the highlighted key to meet it.`
+                : t`Use the piano key that matches the note.`}
+            </p>
+          )}
+        </div>
         <div className={`answer-area ${input === 'piano' ? 'answer-area-keyboard' : ''}`}>
           {input === 'piano' ? (
             <Piano
@@ -154,8 +157,8 @@ export function PracticeSession({
             />
           )}
         </div>
-        {mode === 'speed' && !feedback ? (
-          <span className="speed-caption">
+        {mode === 'speed' ? (
+          <span className={`speed-caption ${feedback ? 'is-hidden' : ''}`}>
             <Icon name="clock" size={14} /> {t`Speed`} ·{' '}
             {t`${settings.locale === 'ru' ? '2,0' : '2.0'}s`}
           </span>
