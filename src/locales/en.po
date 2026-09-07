@@ -15,7 +15,7 @@ msgstr ""
 
 #. placeholder {0}: locale === 'ru' ? '2,0' : '2.0'
 #. placeholder {0}: settings.locale === 'ru' ? '2,0' : '2.0'
-#: src/practice/practice-session.tsx:161
+#: src/practice/practice-session.tsx:160
 #: src/practice/session-setup.tsx:88
 msgid "{0}s"
 msgstr "{0}s"
@@ -258,7 +258,7 @@ msgstr "Note map"
 msgid "Note mastery map"
 msgstr "Note mastery map"
 
-#: src/practice/note-name-pad.tsx:23
+#: src/practice/note-name-pad.tsx:47
 #: src/practice/session-setup.tsx:37
 msgid "Note names"
 msgstr "Note names"
@@ -284,7 +284,7 @@ msgstr "Offline — progress is saved on this device"
 msgid "Pause"
 msgstr "Pause"
 
-#: src/piano/piano.tsx:27
+#: src/piano/piano.tsx:29
 #: src/practice/session-setup.tsx:36
 msgid "Piano"
 msgstr "Piano"
@@ -372,7 +372,7 @@ msgstr "Settings"
 
 #: src/practice/mode-picker.tsx:31
 #: src/practice/practice-session.tsx:89
-#: src/practice/practice-session.tsx:160
+#: src/practice/practice-session.tsx:159
 #: src/practice/session-setup.tsx:89
 #: src/research/research-papers.ts:12
 msgid "Speed"
@@ -430,10 +430,6 @@ msgstr "Treble"
 #: src/practice/session-setup.tsx:47
 msgid "Treble + Bass"
 msgstr "Treble + Bass"
-
-#: src/practice/practice-session.tsx:160
-msgid "Unlabeled piano"
-msgstr "Unlabeled piano"
 
 #: src/practice/practice-session.tsx:132
 msgid "Use the piano key that matches the note."

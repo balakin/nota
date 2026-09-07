@@ -10,7 +10,7 @@ import { octaveWindow } from '../piano-layout';
 function renderPiano(onAnswer = vi.fn<(answer: NormalizedAnswer) => void>()) {
   render(
     <I18nProvider i18n={i18n}>
-      <Piano window={octaveWindow(4)} naming="letters" locale="en" showLabels onAnswer={onAnswer} />
+      <Piano window={octaveWindow(4)} naming="letters" locale="en" onAnswer={onAnswer} />
     </I18nProvider>,
   );
   return onAnswer;

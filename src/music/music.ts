@@ -89,13 +89,21 @@ export function octaveForMidi(midi: number): number {
   return Math.floor(midi / SEMITONES_PER_OCTAVE) - 1;
 }
 
+/** The letter or syllable alone, without the accidental sign. */
+export function noteBaseName(
+  value: CanonicalPitch,
+  naming: NamingSystem,
+  locale: 'en' | 'ru',
+): string {
+  return naming === 'letters' ? value.name : SOLFEGE[value.name][locale];
+}
+
 export function displayNoteName(
   value: CanonicalPitch,
   naming: NamingSystem,
   locale: 'en' | 'ru',
 ): string {
-  const base = naming === 'letters' ? value.name : SOLFEGE[value.name][locale];
-  return `${base}${ACCIDENTAL_SIGN[value.accidental]}`;
+  return `${noteBaseName(value, naming, locale)}${ACCIDENTAL_SIGN[value.accidental]}`;
 }
 
 export function accessiblePitchLabel(

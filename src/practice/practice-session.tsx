@@ -132,13 +132,12 @@ export function PracticeSession({
               : t`Use the piano key that matches the note.`}
           </p>
         )}
-        <div className="answer-area">
+        <div className={`answer-area ${input === 'piano' ? 'answer-area-keyboard' : ''}`}>
           {input === 'piano' ? (
             <Piano
               window={session.keyboardWindow}
               naming={settings.naming}
               locale={settings.locale}
-              showLabels={mode !== 'speed' || isIntroduction}
               highlightMidi={
                 feedback?.item.pitch.midi ??
                 (isIntroduction ? session.current.pitch.midi : undefined)
@@ -157,7 +156,7 @@ export function PracticeSession({
         </div>
         {mode === 'speed' && !feedback ? (
           <span className="speed-caption">
-            <Icon name="clock" size={14} /> {input === 'piano' ? t`Unlabeled piano` : t`Speed`} ·{' '}
+            <Icon name="clock" size={14} /> {t`Speed`} ·{' '}
             {t`${settings.locale === 'ru' ? '2,0' : '2.0'}s`}
           </span>
         ) : null}

@@ -13,8 +13,10 @@ export type BlackPianoKey = {
   /** The two spellings of the same key; both are correct answers for it. */
   sharp: CanonicalPitch;
   flat: CanonicalPitch;
-  /** Index of the white key it sits to the right of. */
+  /** Index of the white key it sits to the right of — the grid position for a name pad. */
   afterWhiteIndex: number;
+  /** Centre on a drawn keyboard, in white-key widths from the left edge of C. */
+  center: number;
 };
 
 export type KeyboardWindow = {
@@ -26,22 +28,36 @@ export type KeyboardWindow = {
 export const WHITE_KEYS_PER_OCTAVE = 7;
 export const BLACK_KEYS_PER_OCTAVE = 5;
 
+/**
+ * A black key is narrower than a white one, and its centre is not the boundary between two
+ * white keys: within each group the space behind the black keys is split evenly, which pulls
+ * C♯ and F♯ left and pushes D♯ and A♯ right. Getting this wrong is what makes a drawn
+ * keyboard read as a cartoon.
+ */
+export const BLACK_KEY_WIDTH_RATIO = 0.6;
+
 const WHITE_NAMES = ['C', 'D', 'E', 'F', 'G', 'A', 'B'] as const;
 const BLACK_KEYS = [
-  { sharpOf: 'C', flatOf: 'D', afterWhiteIndex: 0 },
-  { sharpOf: 'D', flatOf: 'E', afterWhiteIndex: 1 },
-  { sharpOf: 'F', flatOf: 'G', afterWhiteIndex: 3 },
-  { sharpOf: 'G', flatOf: 'A', afterWhiteIndex: 4 },
-  { sharpOf: 'A', flatOf: 'B', afterWhiteIndex: 5 },
+  { sharpOf: 'C', flatOf: 'D', afterWhiteIndex: 0, center: 0.9 },
+  { sharpOf: 'D', flatOf: 'E', afterWhiteIndex: 1, center: 2.1 },
+  { sharpOf: 'F', flatOf: 'G', afterWhiteIndex: 3, center: 3.85 },
+  { sharpOf: 'G', flatOf: 'A', afterWhiteIndex: 4, center: 5 },
+  { sharpOf: 'A', flatOf: 'B', afterWhiteIndex: 5, center: 6.15 },
 ] as const;
 
 export function octaveWindow(octave: number): KeyboardWindow {
   return {
     octave,
     whiteKeys: WHITE_NAMES.map((name) => pitch(name, octave)),
-    blackKeys: BLACK_KEYS.map(({ sharpOf, flatOf, afterWhiteIndex }) => {
+    blackKeys: BLACK_KEYS.map(({ sharpOf, flatOf, afterWhiteIndex, center }) => {
       const sharp = pitch(sharpOf, octave, 'sharp');
-      return { midi: sharp.midi, sharp, flat: pitch(flatOf, octave, 'flat'), afterWhiteIndex };
+      return {
+        midi: sharp.midi,
+        sharp,
+        flat: pitch(flatOf, octave, 'flat'),
+        afterWhiteIndex,
+        center,
+      };
     }),
   };
 }

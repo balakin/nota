@@ -25,6 +25,21 @@
   --danger: oklch(0.6 0.12 25);
   --danger-soft: oklch(0.94 0.04 25);
   --warning: oklch(0.7 0.1 85);
+  --key-bed: oklch(0.26 0.02 262);
+  --key-felt: oklch(0.36 0.045 262);
+  --key-white-face: oklch(0.98 0.003 250);
+  --key-white-shade: oklch(0.9 0.007 250);
+  --key-black-top: oklch(0.34 0.02 262);
+  --key-black-face: oklch(0.26 0.022 262);
+  --key-black-lip: oklch(0.19 0.02 262);
+  --key-highlight-wash: oklch(0.88 0.06 245);
+  --key-highlight-edge: oklch(0.6 0.1 245);
+  --key-case: oklch(0.21 0.018 262);
+  --key-cheek: oklch(0.28 0.02 262);
+  /* Key-bed geometry, capped by width, viewport and height so the keys never squash. */
+  --cheek: clamp(10px, 4vw, 64px);
+  --key-area: min(460px, calc(100vw - 2 * var(--cheek)), calc(40vh * 1.6667));
+  --key-bed-height: calc(var(--key-area) * 0.6);
   color: var(--foreground);
   background: var(--background);
   font-family: var(--font-sans);
@@ -48,6 +63,17 @@
   --success-soft: oklch(0.25 0.06 155);
   --danger: oklch(0.65 0.12 25);
   --danger-soft: oklch(0.29 0.05 25);
+  --key-bed: oklch(0.1 0.015 258);
+  --key-felt: oklch(0.32 0.04 262);
+  --key-white-face: oklch(0.86 0.006 250);
+  --key-white-shade: oklch(0.74 0.009 250);
+  --key-black-top: oklch(0.3 0.018 258);
+  --key-black-face: oklch(0.22 0.018 258);
+  --key-black-lip: oklch(0.14 0.015 258);
+  --key-highlight-wash: oklch(0.72 0.075 245);
+  --key-highlight-edge: oklch(0.5 0.1 245);
+  --key-case: oklch(0.08 0.012 258);
+  --key-cheek: oklch(0.15 0.015 258);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -66,6 +92,25 @@
     --success-soft: oklch(0.25 0.06 155);
     --danger: oklch(0.65 0.12 25);
     --danger-soft: oklch(0.29 0.05 25);
+    --key-bed: oklch(0.1 0.015 258);
+    --key-felt: oklch(0.32 0.04 262);
+    --key-white-face: oklch(0.86 0.006 250);
+    --key-white-shade: oklch(0.74 0.009 250);
+    --key-black-top: oklch(0.3 0.018 258);
+    --key-black-face: oklch(0.22 0.018 258);
+    --key-black-lip: oklch(0.14 0.015 258);
+    --key-highlight-wash: oklch(0.72 0.075 245);
+    --key-highlight-edge: oklch(0.5 0.1 245);
+    --key-case: oklch(0.08 0.012 258);
+    --key-cheek: oklch(0.15 0.015 258);
+    --key-case: oklch(0.08 0.012 258);
+    --key-cheek: oklch(0.15 0.015 258);
+    --key-highlight-wash: oklch(0.72 0.075 245);
+    --key-highlight-edge: oklch(0.5 0.1 245);
+    --key-case: oklch(0.08 0.012 258);
+    --key-cheek: oklch(0.15 0.015 258);
+    --key-case: oklch(0.08 0.012 258);
+    --key-cheek: oklch(0.15 0.015 258);
   }
 }
 
@@ -651,132 +696,187 @@ h2 {
 .answer-area {
   width: 100%;
 }
+/**
+ * The key bed sits at the bottom of the screen and runs edge to edge: the playable octave is
+ * centred, flanked by the cheek blocks and case of the instrument it belongs to.
+ * `--key-area` is capped by width, by the viewport, and by height, so the keys keep their
+ * proportions in landscape instead of squashing.
+ */
+.answer-area-keyboard {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 6;
+}
+/* With the key bed pinned, the stage centres in what is left rather than hugging the toolbar. */
+.practice-page:has(.answer-area-keyboard) {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100dvh - 5.5rem);
+  padding-bottom: calc(var(--key-bed-height) + 1.5rem);
+}
+.practice-page:has(.answer-area-keyboard) .practice-stage {
+  flex: 1;
+  justify-content: center;
+}
 .piano-shell {
-  width: min(560px, 100%);
-  margin: 0 auto;
-  padding: 0 0.25rem;
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr var(--key-area) 1fr;
+  width: 100%;
+  background: var(--key-case);
+  box-shadow: 0 -10px 24px -18px color-mix(in oklch, var(--foreground) 70%, transparent);
+}
+/* The felt the keys rise out of, carried across the whole case. */
+.piano-shell::before {
+  content: '';
+  position: absolute;
+  z-index: 4;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 5px;
+  background: linear-gradient(
+    to bottom,
+    color-mix(in oklch, var(--key-felt) 70%, black),
+    var(--key-felt)
+  );
+  pointer-events: none;
+}
+/* Cheek blocks: solid where they meet the keys, plain case beyond, shaded under the felt. */
+.piano-case {
+  background:
+    linear-gradient(to bottom, color-mix(in oklch, black 32%, transparent), transparent 24%),
+    linear-gradient(
+      to var(--case-direction),
+      color-mix(in oklch, white 14%, var(--key-cheek)) 0 1px,
+      var(--key-cheek) 1px var(--cheek),
+      var(--key-case) var(--cheek)
+    );
+}
+.piano-case-left {
+  --case-direction: left;
+}
+.piano-case-right {
+  --case-direction: right;
 }
 .piano {
   position: relative;
-  height: clamp(150px, 25vw, 220px);
+  width: 100%;
+  aspect-ratio: 7 / 4.2;
   overflow: hidden;
-  border-radius: 0 0 13px 13px;
-  background: var(--foreground);
-  box-shadow: 0 8px 20px color-mix(in oklch, var(--foreground) 14%, transparent);
+  background: var(--key-bed);
+  box-shadow:
+    inset 4px 0 6px -5px color-mix(in oklch, black 70%, transparent),
+    inset -4px 0 6px -5px color-mix(in oklch, black 70%, transparent);
 }
 .white-keys {
   position: absolute;
   inset: 0;
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
-  gap: 2px;
-  padding: 0 2px 2px;
+  gap: 1px;
+  padding-bottom: 1px;
+}
+.black-keys {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
 }
 .piano-key {
   border: 0;
   cursor: pointer;
   transition:
     background 0.13s ease,
-    transform 0.1s ease,
+    transform 0.08s ease,
     box-shadow 0.13s ease;
 }
 .piano-key:focus-visible {
-  position: relative;
   z-index: 5;
-  outline-color: var(--accent);
+  outline: 2px solid var(--accent);
+  outline-offset: -3px;
 }
 .piano-key-white {
   min-width: 0;
-  border-radius: 0 0 6px 6px;
-  border: 1px solid color-mix(in oklch, var(--foreground) 16%, var(--surface));
   background: linear-gradient(
-    to right,
-    color-mix(in oklch, var(--surface) 94%, white),
-    var(--surface)
+    to bottom,
+    var(--key-white-shade),
+    var(--key-white-face) 22%,
+    var(--key-white-face) 88%,
+    color-mix(in oklch, var(--key-white-shade) 55%, var(--key-white-face))
   );
-  color: var(--foreground);
-  box-shadow: inset 0 -5px 0 color-mix(in oklch, var(--foreground) 7%, transparent);
+  box-shadow: inset -1px 0 0 color-mix(in oklch, var(--foreground) 7%, transparent);
 }
-.piano-key-white:hover,
-.piano-key-white:active,
-.piano-key-white.is-highlighted {
-  background: var(--accent-soft);
+/* No separator on the outer edge: full-bleed, it would land on the screen border. */
+.piano-key-white:last-child {
+  box-shadow: none;
+}
+.piano-key-white:hover {
+  background: linear-gradient(
+    to top,
+    color-mix(in oklch, var(--key-highlight-wash) 32%, var(--key-white-face)),
+    var(--key-white-face) 48%
+  );
 }
 .piano-key-white:active {
   transform: translateY(2px);
-  box-shadow: inset 0 -2px 0 color-mix(in oklch, var(--foreground) 8%, transparent);
+  box-shadow: inset 0 -3px 6px -4px color-mix(in oklch, var(--foreground) 45%, transparent);
 }
+/* The only bright thing on the keyboard: light rising from the front of the key. */
 .piano-key-white.is-highlighted {
+  background: linear-gradient(
+    to top,
+    var(--key-highlight-wash),
+    color-mix(in oklch, var(--key-highlight-wash) 40%, var(--key-white-face)) 45%,
+    var(--key-white-face) 78%
+  );
   box-shadow:
-    inset 0 -5px 0 color-mix(in oklch, var(--accent) 42%, transparent),
-    inset 0 4px 0 color-mix(in oklch, var(--accent) 38%, transparent);
-}
-.piano-key-white span {
-  display: block;
-  margin-top: auto;
-  padding-top: 100px;
-  color: var(--muted);
-  font-size: clamp(0.72rem, 2vw, 0.9rem);
-  font-weight: 750;
-  pointer-events: none;
-}
-.black-keys {
-  position: absolute;
-  inset: 0 2px;
-  pointer-events: none;
+    inset 0 -4px 0 var(--key-highlight-edge),
+    inset 0 -16px 20px -14px color-mix(in oklch, var(--key-highlight-edge) 70%, transparent);
 }
 .piano-key-black {
   position: absolute;
   top: 0;
   z-index: 2;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  width: calc(62% / 7);
-  height: 61%;
-  padding-bottom: 0.4rem;
+  height: 62%;
   transform: translateX(-50%);
-  border-radius: 0 0 5px 5px;
-  border: 1px solid #10151d;
-  background: linear-gradient(100deg, #111823, #323e4e 48%, #0a0f17);
-  box-shadow: 0 4px 4px rgb(0 0 0 / 30%);
+  background: linear-gradient(
+    to bottom,
+    var(--key-black-top),
+    var(--key-black-face) 58%,
+    var(--key-black-lip)
+  );
+  box-shadow:
+    0 3px 4px -2px color-mix(in oklch, var(--foreground) 55%, transparent),
+    inset 0 -1.5px 0 color-mix(in oklch, white 26%, transparent);
   pointer-events: auto;
 }
-.piano-key-black:hover,
-.piano-key-black:active,
-.piano-key-black.is-highlighted {
+.piano-key-black:hover {
   background: linear-gradient(
-    100deg,
-    color-mix(in oklch, var(--accent) 55%, #111823),
-    color-mix(in oklch, var(--accent) 78%, #323e4e) 48%,
-    color-mix(in oklch, var(--accent) 55%, #0a0f17)
+    to bottom,
+    var(--key-black-top),
+    color-mix(in oklch, var(--accent) 30%, var(--key-black-face)) 70%,
+    var(--key-black-lip)
   );
 }
 .piano-key-black:active {
   transform: translate(-50%, 2px);
 }
 .piano-key-black.is-highlighted {
+  background: linear-gradient(
+    to bottom,
+    var(--key-black-top),
+    color-mix(in oklch, var(--accent) 55%, var(--key-black-face)) 68%,
+    color-mix(in oklch, var(--accent) 72%, var(--key-black-lip))
+  );
   box-shadow:
-    0 4px 4px rgb(0 0 0 / 30%),
-    inset 0 -4px 0 color-mix(in oklch, var(--accent) 60%, transparent);
+    0 3px 4px -2px color-mix(in oklch, var(--foreground) 55%, transparent),
+    inset 0 -1.5px 0 color-mix(in oklch, white 55%, var(--accent));
 }
-.piano-key-black:disabled {
+.piano-key-black:disabled,
+.piano-key-white:disabled {
   opacity: 1;
-}
-.piano-key-black span {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  line-height: 1.15;
-  color: color-mix(in oklch, white 78%, transparent);
-  font-size: clamp(0.55rem, 1.5vw, 0.7rem);
-  font-weight: 750;
-  pointer-events: none;
-}
-.piano-key-black span small {
-  color: color-mix(in oklch, white 52%, transparent);
-  font-size: 0.85em;
-  font-weight: 650;
 }
 .name-pad {
   display: grid;
@@ -804,6 +904,14 @@ h2 {
   border-color: color-mix(in oklch, var(--foreground) 45%, var(--border));
   background: color-mix(in oklch, var(--foreground) 8%, var(--surface));
   font-size: clamp(0.7rem, 1.8vw, 0.85rem);
+}
+.note-label {
+  white-space: nowrap;
+}
+.accidental {
+  margin-right: -0.05em;
+  margin-left: -0.13em;
+  font-size: 0.94em;
 }
 .name-choice-accidental small {
   color: var(--muted);
@@ -1276,12 +1384,6 @@ h2 {
   .staff-renderer {
     height: 200px;
   }
-  .piano {
-    height: 175px;
-  }
-  .piano-key-white span {
-    padding-top: 125px;
-  }
   .result-metrics,
   .metric-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -1317,8 +1419,28 @@ h2 {
   .mobile-nav .nav-button.active {
     color: var(--accent);
   }
+  .answer-area-keyboard {
+    bottom: calc(61px + env(safe-area-inset-bottom));
+  }
+  .practice-page:has(.answer-area-keyboard) {
+    min-height: calc(100dvh - 59px - 4.3rem);
+  }
+  .practice-page:has(.answer-area-keyboard) {
+    padding-bottom: calc(var(--key-bed-height) + 61px + env(safe-area-inset-bottom) + 1rem);
+  }
   .offline-status {
     bottom: 4.5rem;
+  }
+}
+
+/* On a phone the instrument fills the frame: no case, keys edge to edge. */
+@media (max-width: 560px) {
+  :root {
+    --cheek: 0px;
+    --key-area: min(100vw, calc(40vh * 1.6667));
+  }
+  .piano {
+    box-shadow: none;
   }
 }
 
@@ -1337,13 +1459,6 @@ h2 {
   }
   .name-choice-accidental {
     min-height: 50px;
-  }
-  .piano {
-    height: 155px;
-  }
-  .piano-key-white span {
-    padding-top: 108px;
-    font-size: 0.58rem;
   }
 }
 
