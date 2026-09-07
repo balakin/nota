@@ -34,6 +34,10 @@
   --key-black-lip: oklch(0.19 0.02 262);
   --key-highlight-wash: oklch(0.88 0.06 245);
   --key-highlight-edge: oklch(0.6 0.1 245);
+  /* Notation is always ink on paper, in either theme: a light note would read as a wrong note. */
+  --staff-paper: oklch(0.995 0.002 250);
+  --staff-ink: oklch(0.22 0.015 260);
+  --staff-ink-muted: oklch(0.55 0.02 255);
   --key-case: oklch(0.21 0.018 262);
   --key-cheek: oklch(0.28 0.02 262);
   /* Key-bed geometry, capped by width, viewport and height so the keys never squash. */
@@ -646,13 +650,21 @@ h2 {
   min-height: 246px;
   display: grid;
   place-items: center;
+  overflow: hidden;
+  border: 1px solid color-mix(in oklch, var(--staff-ink) 12%, var(--staff-paper));
+  border-radius: 6px;
+  color: var(--staff-ink);
+  background: var(--staff-paper);
+}
+/* Feedback dims the notation, not the paper it is printed on. */
+.staff-stage > * {
   transition: opacity 0.18s ease;
 }
-.staff-stage.is-correct {
+.staff-stage.is-correct > * {
   opacity: 0.7;
 }
-.staff-stage.is-incorrect,
-.staff-stage.is-timeout {
+.staff-stage.is-incorrect > *,
+.staff-stage.is-timeout > * {
   opacity: 0.35;
 }
 .staff-stage.is-paused {
@@ -665,7 +677,7 @@ h2 {
 .staff-renderer {
   width: 100%;
   height: 220px;
-  color: var(--foreground);
+  color: inherit;
 }
 .staff-renderer svg {
   display: block;
@@ -677,7 +689,7 @@ h2 {
   place-items: center;
   width: 100%;
   height: 220px;
-  color: var(--muted);
+  color: var(--staff-ink-muted);
   font-size: 2rem;
 }
 .paused-copy {
@@ -685,7 +697,7 @@ h2 {
   flex-direction: column;
   align-items: center;
   gap: 0.7rem;
-  color: var(--muted);
+  color: var(--staff-ink-muted);
 }
 /* A fixed slot for the prompt and the feedback banner alike: neither may move the staff. */
 .answer-status {

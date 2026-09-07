@@ -11,6 +11,15 @@ describe('notation renderer', () => {
     expect(container.querySelectorAll('path').length).toBeGreaterThan(5);
   });
 
+  it('paints in the container colour so the theme can drive the ink', () => {
+    const container = document.createElement('div');
+    Object.defineProperty(container, 'clientWidth', { value: 540 });
+    renderNotation(container, pitch('C', 4), 'treble');
+    const svg = container.querySelector('svg');
+    expect(svg?.getAttribute('fill')).toBe('currentColor');
+    expect(svg?.getAttribute('stroke')).toBe('currentColor');
+  });
+
   it('draws an accidental glyph beside the note head', () => {
     const plain = document.createElement('div');
     const sharp = document.createElement('div');
