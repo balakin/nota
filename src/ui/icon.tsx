@@ -8,6 +8,7 @@ import {
   LuPlay,
   LuSettings,
 } from 'react-icons/lu';
+import { SiGithub } from 'react-icons/si';
 
 const icons = {
   note: LuMusic,
@@ -18,6 +19,7 @@ const icons = {
   check: LuCheck,
   clock: LuClock,
   book: LuBook,
+  github: SiGithub,
 };
 
 export type IconName = keyof typeof icons;

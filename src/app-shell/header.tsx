@@ -28,7 +28,15 @@ export function Header({
       </button>
       <PrimaryNav page={page} navigate={navigate} className="desktop-nav" />
       <div className="top-spacer" />
-      <span className="domain-label">nota.balakin.io</span>
+      <a
+        className="icon-link"
+        href="https://github.com/balakin/nota"
+        target="_blank"
+        rel="noreferrer"
+        aria-label={t`Nota on GitHub`}
+      >
+        <Icon name="github" size={19} />
+      </a>
     </header>
   );
 }

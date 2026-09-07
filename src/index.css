@@ -198,11 +198,19 @@ button:disabled {
 .top-spacer {
   flex: 1;
 }
-.domain-label {
-  color: var(--muted);
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 0.68rem;
-  letter-spacing: 0.03em;
+.icon-link {
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  color: var(--foreground);
+  border-radius: 50%;
+  transition:
+    opacity 0.15s ease,
+    background 0.15s ease;
+}
+.icon-link:hover {
+  background: color-mix(in oklch, var(--foreground) 8%, transparent);
 }
 .desktop-nav {
   display: flex;
@@ -1369,9 +1377,11 @@ h2 {
     height: 58px;
     padding-inline: 1rem;
   }
-  .desktop-nav,
-  .domain-label {
+  .desktop-nav {
     display: none;
+  }
+  .icon-link {
+    margin-right: -0.5rem;
   }
   .main-content {
     width: min(100% - 1.2rem, 600px);
