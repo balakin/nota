@@ -26,6 +26,8 @@ export default function App() {
   });
 
   useDocumentChrome(state.settings);
+  /* A running session is a focused mode: there is nowhere to navigate until it ends. */
+  const inSession = practice.session !== null;
 
   if (!hydrated)
     return (
@@ -49,8 +51,8 @@ export default function App() {
 
   return (
     <I18nProvider i18n={i18n}>
-      <div className="app-shell">
-        <Header page={page} navigate={navigate} />
+      <div className={`app-shell ${inSession ? 'is-session' : ''}`}>
+        {inSession ? null : <Header page={page} navigate={navigate} />}
         <main className="main-content">
           {page === 'train' && <PracticePage practice={practice} state={state} />}
           {page === 'progress' && <ProgressPage state={state} />}
@@ -60,7 +62,7 @@ export default function App() {
           {page === 'research' && <ResearchPage navigate={navigate} />}
         </main>
         <OfflineStatus />
-        <PrimaryNav page={page} navigate={navigate} className="mobile-nav" />
+        {inSession ? null : <PrimaryNav page={page} navigate={navigate} className="mobile-nav" />}
       </div>
     </I18nProvider>
   );

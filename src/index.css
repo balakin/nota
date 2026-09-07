@@ -153,6 +153,9 @@ button:disabled {
   min-height: 100vh;
   padding-bottom: 1rem;
 }
+.app-shell.is-session {
+  padding-bottom: 0;
+}
 .top-bar {
   height: 70px;
   display: flex;
@@ -705,18 +708,23 @@ h2 {
 .answer-area-keyboard {
   position: fixed;
   right: 0;
-  bottom: 0;
+  bottom: env(safe-area-inset-bottom, 0px);
   left: 0;
   z-index: 6;
 }
-/* With the key bed pinned, the stage centres in what is left rather than hugging the toolbar. */
-.practice-page:has(.answer-area-keyboard) {
+/* A session runs without header or nav, so the page owns the whole viewport and the
+   stage centres in whatever the pinned key bed leaves. */
+.is-session .practice-page {
   display: flex;
   flex-direction: column;
-  min-height: calc(100dvh - 5.5rem);
+  min-height: 100dvh;
+  padding-top: max(0.75rem, env(safe-area-inset-top, 0px));
+  padding-bottom: 1.5rem;
+}
+.is-session .practice-page:has(.answer-area-keyboard) {
   padding-bottom: calc(var(--key-bed-height) + 1.5rem);
 }
-.practice-page:has(.answer-area-keyboard) .practice-stage {
+.is-session .practice-stage {
   flex: 1;
   justify-content: center;
 }
@@ -1419,11 +1427,8 @@ h2 {
   .mobile-nav .nav-button.active {
     color: var(--accent);
   }
-  .answer-area-keyboard {
-    bottom: calc(61px + env(safe-area-inset-bottom));
-  }
-  .practice-page:has(.answer-area-keyboard) {
-    min-height: calc(100dvh - 59px - 4.3rem);
+  .is-session .main-content {
+    padding-bottom: 0;
   }
   .practice-page:has(.answer-area-keyboard) {
     padding-bottom: calc(var(--key-bed-height) + 61px + env(safe-area-inset-bottom) + 1rem);
@@ -1459,6 +1464,22 @@ h2 {
   }
   .name-choice-accidental {
     min-height: 50px;
+  }
+}
+
+/* Landscape phones: the staff and the key bed both yield so the stage fits without scrolling. */
+@media (max-height: 520px) {
+  :root {
+    --key-area: min(460px, calc(100vw - 2 * var(--cheek)), calc(34vh * 1.6667));
+  }
+  .staff-stage,
+  .staff-stage.is-paused {
+    min-height: 100px;
+  }
+  .staff-wrap,
+  .staff-renderer,
+  .staff-cleared {
+    height: 92px;
   }
 }
 
