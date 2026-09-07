@@ -1,36 +1,13 @@
 import { useLingui } from '@lingui/react/macro';
 
 import type { Locale } from '../app-state/app-state';
-import {
-  ACCIDENTAL_SIGN,
-  displayNoteName,
-  noteBaseName,
-  type CanonicalPitch,
-  type NamingSystem,
-} from '../music/music';
+import { displayNoteName, type NamingSystem } from '../music/music';
 import { octaveWindow } from '../piano/piano-layout';
 import { pianoAnswer, type NormalizedAnswer } from '../training/input';
+import { NoteLabel } from '../ui/note-label';
 
 /** Names are octave-free; a reference octave only supplies the pitch classes to answer with. */
 const PAD = octaveWindow(4);
-
-/** Few UI faces carry ♯ and ♭, so the sign is set separately and kerned back to the letter. */
-function NoteLabel({
-  value,
-  naming,
-  locale,
-}: {
-  value: CanonicalPitch;
-  naming: NamingSystem;
-  locale: Locale;
-}) {
-  return (
-    <span className="note-label">
-      {noteBaseName(value, naming, locale)}
-      <span className="accidental">{ACCIDENTAL_SIGN[value.accidental]}</span>
-    </span>
-  );
-}
 
 export function NoteNamePad({
   naming,

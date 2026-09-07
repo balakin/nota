@@ -957,9 +957,15 @@ h2 {
   white-space: nowrap;
 }
 .accidental {
-  margin-right: -0.05em;
-  margin-left: -0.13em;
-  font-size: 0.94em;
+  margin-left: 0.08em;
+  vertical-align: -0.14em;
+}
+.note-octave {
+  margin-left: 0.1em;
+  color: var(--muted);
+  font-size: 0.72em;
+  font-weight: 650;
+  letter-spacing: 0;
 }
 .name-choice-accidental small {
   color: var(--muted);
@@ -1114,135 +1120,325 @@ h2 {
   max-width: 1060px;
   margin: auto;
 }
-.metric-grid {
-  grid-template-columns: repeat(5, 1fr);
-  margin-bottom: 1rem;
-}
 .section-title {
   margin: 0 0 1.3rem;
   font-size: 1rem;
 }
-.progress-layout > .surface,
+.card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 1rem;
+}
+.card-head .section-title {
+  margin-bottom: 1.3rem;
+}
+.range-picker {
+  display: inline-flex;
+  gap: 1px;
+  padding: 2px;
+  border: 1px solid var(--separator);
+  border-radius: 9px;
+  background: var(--surface-secondary);
+}
+.range-picker button {
+  min-width: 30px;
+  padding: 0.2rem 0.42rem;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.range-picker button:hover {
+  color: var(--foreground);
+}
+.range-picker button.is-selected {
+  color: var(--foreground);
+  background: var(--surface);
+  box-shadow: 0 1px 2px color-mix(in oklch, var(--foreground) 10%, transparent);
+}
+.progress-layout > .surface {
+  padding: 1.35rem 1.5rem;
+}
+
+/* Mastery band: the headline count, the distribution, and its key. */
+.mastery-band {
+  padding: 1.35rem 1.5rem;
+  margin-bottom: 1rem;
+}
+.mastery-headline {
+  display: flex;
+  align-items: baseline;
+  gap: 0.55rem;
+  margin-bottom: 1rem;
+}
+.mastery-headline strong {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 2.1rem;
+  line-height: 1;
+  letter-spacing: -0.07em;
+}
+.mastery-headline span {
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+.mastery-track {
+  display: flex;
+  gap: 2px;
+  height: 10px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--surface-secondary);
+}
+.mastery-fill {
+  height: 100%;
+}
+.mastery-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.15rem;
+  margin: 0.85rem 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 750;
+}
+.mastery-legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.mastery-legend strong {
+  color: var(--foreground);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+.mastery-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+
+/* Mastery colours, shared by the band and the note tiles. */
+.state-new {
+  --state-ink: var(--muted);
+  --state-tone: color-mix(in oklch, var(--muted) 22%, var(--surface));
+}
+.state-learning {
+  --state-ink: var(--warning);
+  --state-tone: var(--warning);
+}
+.state-recognized {
+  --state-ink: var(--accent);
+  --state-tone: var(--accent);
+}
+.state-fluent {
+  --state-ink: var(--success);
+  --state-tone: var(--success);
+}
+.mastery-fill,
+.mastery-dot {
+  background: var(--state-tone);
+}
+
+/* Note map: one row per clef, tiles in pitch order. */
 .note-map-section {
-  padding: 1.25rem;
+  padding: 1.35rem 1.5rem;
+  margin-top: 1rem;
 }
-.clef-progress {
+.map-caption {
+  max-width: 62ch;
+  margin: -0.7rem 0 1.35rem;
+}
+.note-map {
   display: grid;
-  gap: 1.35rem;
+  gap: 1.5rem;
 }
-.clef-title {
+.clef-row-head {
   display: flex;
   align-items: center;
   gap: 0.6rem;
+  margin-bottom: 0.7rem;
   font-size: 0.82rem;
 }
-.clef-title > span:last-child {
+.clef-row-stat {
   margin-left: auto;
   color: var(--muted);
-  font-family: ui-monospace, monospace;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 0.7rem;
 }
-.clef-symbol,
-.mini-clef {
-  width: 25px;
-  display: inline-block;
-  color: var(--accent);
-  font-family: serif;
-  font-size: 1.85rem;
-  line-height: 1;
+.note-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
+  gap: 0.35rem;
 }
-.clef-symbol.bass,
-.mini-clef.bass {
-  font-size: 1.55rem;
+.note-tile {
+  display: grid;
+  gap: 0.15rem;
+  padding: 0.5rem 0.15rem 0.45rem;
+  border: 1px solid color-mix(in oklch, var(--state-tone) 40%, transparent);
+  border-radius: 10px;
+  background: color-mix(in oklch, var(--state-tone) 12%, var(--surface));
+  text-align: center;
 }
-.bar-track {
+.note-tile.state-new {
+  border-color: var(--separator);
+  background: var(--surface-secondary);
+}
+.note-tile .note-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.note-tile-detail {
+  color: var(--state-ink);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+}
+.note-tile.state-new .note-tile-detail {
+  color: var(--muted);
+}
+
+/* Weakest notes: name, accuracy meter, value. */
+.weak-list {
+  display: grid;
+  gap: 0.7rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.weak-list li {
+  display: grid;
+  grid-template-columns: 4rem 1fr 2.5rem;
+  align-items: center;
+  gap: 0.7rem;
+  font-size: 0.8rem;
+}
+.weak-name {
+  font-weight: 700;
+}
+.weak-name small {
+  color: var(--muted);
+  font-size: 0.78em;
+}
+.weak-track {
   height: 6px;
-  margin: 0.8rem 0 0.45rem 31px;
   overflow: hidden;
   border-radius: 6px;
   background: var(--surface-secondary);
 }
-.bar-track span {
+.weak-track span {
   display: block;
   height: 100%;
   border-radius: inherit;
-  background: var(--accent);
+  background: var(--warning);
 }
-.clef-block small {
-  margin-left: 31px;
+.weak-value {
   color: var(--muted);
-  font-size: 0.7rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.72rem;
+  text-align: right;
 }
-.weak-list {
-  display: grid;
-  gap: 0.75rem;
+
+/* Session history: an accuracy trend the reader can hover. */
+.chart-placeholder {
+  height: 190px;
 }
-.weak-list > span {
+.chart {
+  margin: 0 -0.4rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.65rem;
+}
+.chart .recharts-cartesian-grid line {
+  stroke: var(--separator);
+}
+.chart .recharts-cartesian-axis-tick text {
+  fill: var(--muted);
+}
+.chart .recharts-curve.recharts-tooltip-cursor {
+  stroke: var(--muted);
+}
+.chart .recharts-line-dot,
+.chart .recharts-active-dot circle {
+  fill: var(--surface);
+  /* The response line is dashed; its dots must not inherit the dash. */
+  stroke-dasharray: none;
+}
+.chart-legend {
   display: flex;
+  gap: 1.1rem;
+  margin: 0.6rem 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--muted);
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 750;
+}
+.chart-legend li {
+  display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  color: var(--foreground);
-  font-size: 0.8rem;
 }
-.weak-list svg {
-  color: var(--accent);
+.chart-key {
+  width: 14px;
+  height: 2px;
+  border-radius: 2px;
 }
-.weak-list small {
-  margin-left: auto;
-  color: var(--muted);
-  font-family: ui-monospace, monospace;
+.chart-legend .is-accuracy .chart-key {
+  background: var(--accent);
 }
-.note-map-section {
-  margin-top: 1rem;
+.chart-legend .is-response .chart-key {
+  background: repeating-linear-gradient(
+    to right,
+    var(--warning) 0 4px,
+    transparent 4px 7px
+  );
 }
-.note-map-section > .muted-copy {
-  margin-bottom: 1rem;
-}
-.note-map {
+.chart-tip {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.5rem;
-}
-.note-map-item {
-  min-height: 62px;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  gap: 0.15rem;
   padding: 0.55rem 0.7rem;
   border: 1px solid var(--separator);
   border-radius: 10px;
-  background: var(--surface-secondary);
-}
-.note-map-item.state-learning {
-  border-color: color-mix(in oklch, var(--warning) 55%, var(--separator));
-}
-.note-map-item.state-recognized {
-  border-color: color-mix(in oklch, var(--accent) 42%, var(--separator));
-}
-.note-map-item.state-fluent {
-  border-color: color-mix(in oklch, var(--success) 52%, var(--separator));
-}
-.note-map-name {
-  min-width: 65px;
-}
-.note-map-name strong,
-.note-map-name small {
-  display: block;
-}
-.note-map-name strong {
-  font-size: 0.8rem;
-}
-.note-map-name small {
-  margin-top: 0.18rem;
+  background: var(--surface);
+  box-shadow: 0 6px 18px color-mix(in oklch, var(--foreground) 12%, transparent);
   color: var(--muted);
-  font-size: 0.65rem;
+  font-size: 0.68rem;
+  line-height: 1.45;
 }
-.note-map-stat {
-  margin-left: auto;
+.chart-tip strong {
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+}
+.chart-tip-row {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+.chart-tip-row.is-accuracy {
+  color: var(--accent-soft-foreground);
+}
+.chart-tip-row.is-response {
+  color: var(--warning);
+}
+.chart-tip-row small {
   color: var(--muted);
-  font-family: ui-monospace, monospace;
-  font-size: 0.67rem;
-  text-align: right;
+  font-family: var(--font-sans);
+  font-size: 0.62rem;
+  font-weight: 700;
+}
+.chart-tip-mode {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.6rem;
 }
 
 /* Settings and research */
@@ -1441,11 +1637,12 @@ h2 {
   .metric-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  .metric-grid .metric:last-child {
-    grid-column: span 2;
+  .mastery-band,
+  .note-map-section {
+    padding: 1.1rem;
   }
-  .note-map {
-    grid-template-columns: 1fr;
+  .note-tiles {
+    grid-template-columns: repeat(auto-fill, minmax(56px, 1fr));
   }
   .mobile-nav {
     position: fixed;

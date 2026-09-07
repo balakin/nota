@@ -1,10 +1,9 @@
 import { useLingui } from '@lingui/react/macro';
 
 import type { AppSettings } from '../app-state/app-state';
-import { displayNoteName } from '../music/music';
 import { findRecognitionItem } from '../music/recognition-items';
 import { accuracy, type NoteStats } from '../training/training';
-import { Icon } from '../ui/icon';
+import { NoteLabel } from '../ui/note-label';
 
 export function WeakNotes({
   notes,
@@ -16,21 +15,31 @@ export function WeakNotes({
   const { t } = useLingui();
   if (!notes.length)
     return (
-      <p className="muted-copy">{t`Your note map will fill in as you practice.`}</p>
+      <p className="muted-copy">{t`Practice a few notes and the shakiest ones will collect here.`}</p>
     );
   return (
-    <div className="weak-list">
+    <ul className="weak-list">
       {notes.map((note) => {
         const item = findRecognitionItem(note.itemId);
-        return item ? (
-          <span key={note.itemId}>
-            <Icon name="arrow" size={14} />{' '}
-            {displayNoteName(item.pitch, settings.naming, settings.locale)}
-            {item.pitch.octave}{' '}
-            <small>{Math.round(accuracy(note) * 100)}%</small>
-          </span>
-        ) : null;
+        if (!item) return null;
+        const percent = Math.round(accuracy(note) * 100);
+        return (
+          <li key={note.itemId}>
+            <span className="weak-name">
+              <NoteLabel
+                value={item.pitch}
+                naming={settings.naming}
+                locale={settings.locale}
+                octave
+              />
+            </span>
+            <span className="weak-track">
+              <span style={{ width: `${percent}%` }} />
+            </span>
+            <span className="weak-value">{percent}%</span>
+          </li>
+        );
       })}
-    </div>
+    </ul>
   );
 }

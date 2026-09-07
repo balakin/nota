@@ -7,8 +7,9 @@ import { Metric } from '../ui/metric';
 import { SectionTitle } from '../ui/section-title';
 import { formatDuration, formatResponse } from '../utils/format';
 
-import { ClefProgress } from './clef-progress';
-import { NoteMapItem } from './note-map-item';
+import { MasteryBand } from './mastery-band';
+import { NoteMap } from './note-map';
+import { SessionHistory } from './session-history';
 import { WeakNotes } from './weak-notes';
 
 export function ProgressPage({ state }: { state: PersistedState }) {
@@ -17,10 +18,6 @@ export function ProgressPage({ state }: { state: PersistedState }) {
     (item) => state.notes[item.id] ?? emptyNoteStats(item),
   );
   const practiced = notes.filter((note) => note.totalAttempts > 0);
-  const fluent = notes.filter((note) => note.state === 'fluent').length;
-  const recognized = notes.filter(
-    (note) => note.state === 'recognized' || note.state === 'fluent',
-  ).length;
   const totalAttempts = notes.reduce(
     (sum, note) => sum + note.totalAttempts,
     0,
@@ -42,9 +39,8 @@ export function ProgressPage({ state }: { state: PersistedState }) {
           <h1>{t`Your progress`}</h1>
         </div>
       </div>
+      <MasteryBand notes={notes} />
       <section className="metric-grid">
-        <Metric label={t`Fluent notes`} value={fluent} />
-        <Metric label={t`Recognized notes`} value={recognized} />
         <Metric
           label={t`Accuracy`}
           value={`${totalAttempts ? Math.round((totalCorrect / totalAttempts) * 100) : 0}%`}
@@ -57,43 +53,29 @@ export function ProgressPage({ state }: { state: PersistedState }) {
             state.settings.locale === 'ru' ? ' с' : 's',
           )}
         />
+        <Metric label={t`Notes seen`} value={practiced.length} />
         <Metric label={t`Training time`} value={formatDuration(totalSeconds)} />
+      </section>
+      <section className="surface note-map-section">
+        <SectionTitle title={t`Note mastery map`} />
+        <p className="muted-copy map-caption">{t`Every note you will meet, in pitch order. Colour is how well you know it; the figure is the share you have answered correctly.`}</p>
+        <NoteMap notes={notes} settings={state.settings} />
       </section>
       <div className="progress-layout">
         <section className="surface">
-          <SectionTitle title={t`By clef`} />
-          <div className="clef-progress">
-            <ClefProgress
-              clef="treble"
-              notes={notes.filter((note) => note.clef === 'treble')}
-            />
-            <ClefProgress
-              clef="bass"
-              notes={notes.filter((note) => note.clef === 'bass')}
-            />
-          </div>
-        </section>
-        <section className="surface">
           <SectionTitle title={t`Weakest notes`} />
           <WeakNotes
-            notes={weakestNotes(practiced, 4)}
+            notes={weakestNotes(practiced, 5)}
             settings={state.settings}
           />
         </section>
+        <section className="surface">
+          <SessionHistory
+            sessions={state.sessions}
+            locale={state.settings.locale}
+          />
+        </section>
       </div>
-      <section className="surface note-map-section">
-        <SectionTitle title={t`Note mastery map`} />
-        <p className="muted-copy">{t`Your note map will fill in as you practice.`}</p>
-        <div className="note-map">
-          {notes.map((note) => (
-            <NoteMapItem
-              key={note.itemId}
-              note={note}
-              settings={state.settings}
-            />
-          ))}
-        </div>
-      </section>
     </div>
   );
 }

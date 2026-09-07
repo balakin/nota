@@ -13,6 +13,16 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#. placeholder {0}: point.sessions
+#: src/progress/session-chart.tsx:58
+msgid "{0, plural, one {# session} other {# sessions}}"
+msgstr "{0, plural, one {# session} other {# sessions}}"
+
+#. placeholder {0}: option.days
+#: src/progress/session-history.tsx:52
+msgid "{0}d"
+msgstr "{0}d"
+
 #. placeholder {0}: locale === 'ru' ? '2,0' : '2.0'
 #. placeholder {0}: settings.locale === 'ru' ? '2,0' : '2.0'
 #: src/practice/practice-session.tsx:204
@@ -26,8 +36,8 @@ msgstr "{minutes} min"
 
 #: src/practice/feedback-banner.tsx:31
 #: src/practice/result-page.tsx:48
-#: src/progress/note-map-item.tsx:40
-#: src/progress/progress-page.tsx:56
+#: src/progress/note-map.tsx:31
+#: src/progress/progress-page.tsx:52
 msgid "< 1s"
 msgstr "< 1s"
 
@@ -44,14 +54,23 @@ msgstr "A calm practice for your eyes"
 msgid "A small, useful block of practice."
 msgstr "A small, useful block of practice."
 
-#: src/progress/clef-progress.tsx:37
+#: src/progress/session-chart.tsx:48
 msgid "accuracy"
 msgstr "accuracy"
 
 #: src/practice/result-page.tsx:41
-#: src/progress/progress-page.tsx:49
+#: src/progress/progress-page.tsx:45
+#: src/progress/session-chart.tsx:143
 msgid "Accuracy"
 msgstr "Accuracy"
+
+#: src/progress/session-history.tsx:35
+msgid "Accuracy and speed"
+msgstr "Accuracy and speed"
+
+#: src/progress/session-history.tsx:52
+msgid "All"
+msgstr "All"
 
 #: src/practice/session-setup.tsx:35
 msgid "Answer with"
@@ -75,17 +94,13 @@ msgstr "Back to training"
 
 #: src/notation/notation-staff.tsx:55
 #: src/practice/session-setup.tsx:51
-#: src/progress/clef-progress.tsx:23
+#: src/progress/note-map.tsx:76
 msgid "Bass"
 msgstr "Bass"
 
 #: src/onboarding/onboarding-page.tsx:30
 msgid "Build a direct connection between the note on the staff and its place on the piano. Start with a few landmarks, then let accuracy become speed."
 msgstr "Build a direct connection between the note on the staff and its place on the piano. Start with a few landmarks, then let accuracy become speed."
-
-#: src/progress/progress-page.tsx:64
-msgid "By clef"
-msgstr "By clef"
 
 #: src/onboarding/onboarding-page.tsx:38
 msgid "C · D · E · F · G · A · B"
@@ -111,6 +126,10 @@ msgstr "Clefs"
 msgid "Continue training"
 msgstr "Continue training"
 
+#: src/progress/note-map.tsx:29
+msgid "correct"
+msgstr "correct"
+
 #: src/practice/feedback-banner.tsx:23
 msgid "Correct"
 msgstr "Correct"
@@ -132,6 +151,10 @@ msgstr "Do · Re · Mi · Fa · Sol · La · Si"
 msgid "Don’t count. Recognize."
 msgstr "Don’t count. Recognize."
 
+#: src/progress/progress-page.tsx:61
+msgid "Every note you will meet, in pitch order. Colour is how well you know it; the figure is the share you have answered correctly."
+msgstr "Every note you will meet, in pitch order. Colour is how well you know it; the figure is the share you have answered correctly."
+
 #: src/research/research-papers.ts:20
 msgid "Experimental work with musical notation has found measurable changes in visual processing after targeted training. That is evidence about trained visual tasks, not a claim to make an expert pianist or sight-reader."
 msgstr "Experimental work with musical notation has found measurable changes in visual processing after targeted training. That is evidence about trained visual tasks, not a claim to make an expert pianist or sight-reader."
@@ -139,6 +162,10 @@ msgstr "Experimental work with musical notation has found measurable changes in 
 #: src/practice/practice-session.tsx:126
 msgid "Finish session"
 msgstr "Finish session"
+
+#: src/progress/session-history.tsx:63
+msgid "Finished sessions will appear here as a run of accuracy and speed."
+msgstr "Finished sessions will appear here as a run of accuracy and speed."
 
 #: src/onboarding/onboarding-page.tsx:43
 msgid "Fixed solfège"
@@ -152,10 +179,6 @@ msgstr "Fluent"
 #: src/research/research-papers.ts:6
 msgid "Fluent note reading is a visual-perceptual skill. Targeted practice can focus on recognizing a note’s whole pattern instead of consciously calculating its position."
 msgstr "Fluent note reading is a visual-perceptual skill. Targeted practice can focus on recognizing a note’s whole pattern instead of consciously calculating its position."
-
-#: src/progress/progress-page.tsx:46
-msgid "Fluent notes"
-msgstr "Fluent notes"
 
 #: src/practice/mode-picker.tsx:24
 #: src/practice/result-page.tsx:91
@@ -211,12 +234,12 @@ msgid "Make Nota fit the way you learn."
 msgstr "Make Nota fit the way you learn."
 
 #: src/practice/result-page.tsx:45
-#: src/progress/progress-page.tsx:53
+#: src/progress/progress-page.tsx:49
 msgid "Median response"
 msgstr "Median response"
 
-#: src/progress/clef-progress.tsx:38
 #: src/progress/mastery-labels.ts:7
+#: src/progress/note-map.tsx:84
 msgid "New"
 msgstr "New"
 
@@ -227,6 +250,10 @@ msgstr "New note: {currentName} · press the highlighted key to meet it."
 #: src/practice/result-page.tsx:56
 msgid "New progress"
 msgstr "New progress"
+
+#: src/progress/note-map.tsx:34
+msgid "Not practiced yet"
+msgstr "Not practiced yet"
 
 #: src/practice/feedback-banner.tsx:26
 msgid "Not quite"
@@ -250,7 +277,7 @@ msgstr "Nota is a small, local-first tool. Your progress stays on this device."
 msgid "Nota is inspired by research on visual perceptual learning, musical-note recognition, retrieval practice, and spaced learning. The curriculum and thresholds are product-design hypotheses, not scientifically validated promises."
 msgstr "Nota is inspired by research on visual perceptual learning, musical-note recognition, retrieval practice, and spaced learning. The curriculum and thresholds are product-design hypotheses, not scientifically validated promises."
 
-#: src/app-shell/header.tsx:37
+#: src/app-shell/header.tsx:36
 msgid "Nota on GitHub"
 msgstr "Nota on GitHub"
 
@@ -258,11 +285,11 @@ msgstr "Nota on GitHub"
 msgid "Note map"
 msgstr "Note map"
 
-#: src/progress/progress-page.tsx:85
+#: src/progress/progress-page.tsx:60
 msgid "Note mastery map"
 msgstr "Note mastery map"
 
-#: src/practice/note-name-pad.tsx:48
+#: src/practice/note-name-pad.tsx:25
 #: src/practice/session-setup.tsx:39
 msgid "Note names"
 msgstr "Note names"
@@ -271,13 +298,30 @@ msgstr "Note names"
 msgid "Note naming"
 msgstr "Note naming"
 
+#: src/progress/session-chart.tsx:57
+msgid "notes"
+msgstr "notes"
+
 #: src/practice/result-page.tsx:39
 msgid "Notes attempted"
 msgstr "Notes attempted"
 
+#: src/progress/note-map.tsx:79
+msgid "Notes met, and correct answers across this clef"
+msgstr "Notes met, and correct answers across this clef"
+
 #: src/research/research-papers.ts:27
 msgid "Notes return after a pause because retrieving an answer and spacing practice can support retention better than simply looking at the answer again."
 msgstr "Notes return after a pause because retrieving an answer and spacing practice can support retention better than simply looking at the answer again."
+
+#: src/progress/progress-page.tsx:56
+msgid "Notes seen"
+msgstr "Notes seen"
+
+#. placeholder {0}: notes.length
+#: src/progress/mastery-band.tsx:27
+msgid "of {0} notes read fluently"
+msgstr "of {0} notes read fluently"
 
 #: src/app-shell/offline-status.tsx:23
 msgid "Offline — progress is saved on this device"
@@ -288,6 +332,14 @@ msgstr "Offline — progress is saved on this device"
 msgid "Pause"
 msgstr "Pause"
 
+#: src/progress/note-map.tsx:33
+msgid "per answer"
+msgstr "per answer"
+
+#: src/progress/session-chart.tsx:54
+msgid "per note"
+msgstr "per note"
+
 #: src/piano/piano.tsx:32
 #: src/practice/session-setup.tsx:38
 msgid "Piano"
@@ -297,6 +349,10 @@ msgstr "Piano"
 #: src/practice/practice-session.tsx:113
 msgid "Practice"
 msgstr "Practice"
+
+#: src/progress/weak-notes.tsx:18
+msgid "Practice a few notes and the shakiest ones will collect here."
+msgstr "Practice a few notes and the shakiest ones will collect here."
 
 #: src/research/research-papers.ts:19
 msgid "Practice changes perception"
@@ -332,7 +388,7 @@ msgstr "Read the research"
 msgid "Ready when you are."
 msgstr "Ready when you are."
 
-#: src/progress/progress-page.tsx:41
+#: src/progress/progress-page.tsx:38
 msgid "Recognition gets useful when it is fast and retained."
 msgstr "Recognition gets useful when it is fast and retained."
 
@@ -343,10 +399,6 @@ msgstr "Recognition practice"
 #: src/progress/mastery-labels.ts:9
 msgid "Recognized"
 msgstr "Recognized"
-
-#: src/progress/progress-page.tsx:47
-msgid "Recognized notes"
-msgstr "Recognized notes"
 
 #: src/research/research-page.tsx:21
 #: src/settings/settings-page.tsx:109
@@ -368,6 +420,10 @@ msgstr "Session complete"
 #: src/practice/session-setup.tsx:60
 msgid "Session length"
 msgstr "Session length"
+
+#: src/progress/session-history.tsx:40
+msgid "Sessions shown"
+msgstr "Sessions shown"
 
 #: src/app-shell/primary-nav.tsx:35
 #: src/settings/settings-page.tsx:24
@@ -405,6 +461,10 @@ msgstr "This changes labels, never your progress."
 msgid "Time"
 msgstr "Time"
 
+#: src/progress/session-chart.tsx:147
+msgid "Time per note"
+msgstr "Time per note"
+
 #: src/practice/result-page.tsx:52
 msgid "Timeouts"
 msgstr "Timeouts"
@@ -421,13 +481,13 @@ msgstr "Train instant musical note recognition."
 msgid "Training mode"
 msgstr "Training mode"
 
-#: src/progress/progress-page.tsx:60
+#: src/progress/progress-page.tsx:57
 msgid "Training time"
 msgstr "Training time"
 
 #: src/notation/notation-staff.tsx:55
 #: src/practice/session-setup.tsx:50
-#: src/progress/clef-progress.tsx:23
+#: src/progress/note-map.tsx:76
 msgid "Treble"
 msgstr "Treble"
 
@@ -443,7 +503,7 @@ msgstr "Use the piano key that matches the note."
 msgid "Visual recognition"
 msgstr "Visual recognition"
 
-#: src/progress/progress-page.tsx:77
+#: src/progress/progress-page.tsx:66
 msgid "Weakest notes"
 msgstr "Weakest notes"
 
@@ -456,11 +516,9 @@ msgid "Worth another look"
 msgstr "Worth another look"
 
 #: src/practice/result-page.tsx:80
-#: src/progress/progress-page.tsx:86
-#: src/progress/weak-notes.tsx:19
 msgid "Your note map will fill in as you practice."
 msgstr "Your note map will fill in as you practice."
 
-#: src/progress/progress-page.tsx:42
+#: src/progress/progress-page.tsx:39
 msgid "Your progress"
 msgstr "Your progress"
