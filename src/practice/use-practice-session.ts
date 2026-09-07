@@ -1,8 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { SessionSummary } from '../app-state/app-state';
 import type { Clef } from '../music/music';
-import { planKeyboard } from '../piano/piano-layout';
-import { useKeyboardWidth } from '../piano/use-keyboard-width';
+import { windowForMidi } from '../piano/piano-layout';
 import type { NormalizedAnswer } from '../training/input';
 import {
   adaptiveDeadlineMs,
@@ -36,7 +35,6 @@ export type PracticeSessionController = {
   input: InputMode;
   clefs: Clef[];
   durationMinutes: SessionDuration;
-  keyboardMeasureRef: React.RefObject<HTMLDivElement | null>;
   setMode: (mode: PracticeMode) => void;
   setInput: (input: InputMode) => void;
   setClefs: (clefs: Clef[]) => void;
@@ -55,12 +53,10 @@ export type PracticeSessionController = {
  */
 export function usePracticeSession({
   notes,
-  remeasureOn,
   onNoteStats,
   onSessionComplete,
 }: {
   notes: Readonly<Record<string, NoteStats>>;
-  remeasureOn: readonly unknown[];
   onNoteStats: (itemId: string, stats: NoteStats) => void;
   onSessionComplete: (summary: SessionSummary) => void;
 }): PracticeSessionController {
@@ -74,11 +70,6 @@ export function usePracticeSession({
   const advanceTimeoutRef = useRef<number | null>(null);
   const notesRef = useRef(notes);
   const onSessionCompleteRef = useRef(onSessionComplete);
-  const sessionExists = session !== null;
-  const { width: keyboardWidth, measureRef: keyboardMeasureRef } = useKeyboardWidth([
-    ...remeasureOn,
-    sessionExists,
-  ]);
 
   useEffect(() => {
     notesRef.current = notes;
@@ -147,26 +138,9 @@ export function usePracticeSession({
   }, [session, completeSession]);
 
   const start = useCallback(() => {
-    const pointer = window.matchMedia?.('(pointer: coarse)').matches ? 'coarse' : 'fine';
-    const available = unlockedItems(notes, clefs);
-    if (available.length === 0) return;
-    const firstAvailable = pickNext(available, notes, [], [], 1);
-    const plan = planKeyboard(
-      keyboardWidth || window.innerWidth - 32,
-      pointer,
-      available,
-      firstAvailable.pitch.midi,
-    );
-    const candidates =
-      input === 'names'
-        ? available
-        : plan.candidates.length > 0
-          ? plan.candidates
-          : available.slice(0, 1);
+    const candidates = unlockedItems(notes, clefs);
     if (candidates.length === 0) return;
-    const first = candidates.some((item) => item.id === firstAvailable.id)
-      ? firstAvailable
-      : pickNext(candidates, notes, []);
+    const first = pickNext(candidates, notes, [], [], 1);
     const now = Date.now();
     setSession({
       id: `session-${now}-${Math.random().toString(36).slice(2, 8)}`,
@@ -176,7 +150,7 @@ export function usePracticeSession({
       input,
       clefs,
       candidates,
-      keyboardWindow: plan.window,
+      keyboardWindow: windowForMidi(first.pitch.midi),
       current: first,
       currentStartedAt: now,
       deadlineMs: adaptiveDeadlineMs(notes[first.id] ?? emptyNoteStats(first), mode),
@@ -189,7 +163,7 @@ export function usePracticeSession({
     });
     setFeedback(null);
     setResult(null);
-  }, [clefs, durationMinutes, input, keyboardWidth, mode, notes]);
+  }, [clefs, durationMinutes, input, mode, notes]);
 
   const advance = useCallback((runtime: RuntimeSession) => {
     const nextQuestion = runtime.questionNumber + 1;
@@ -203,6 +177,7 @@ export function usePracticeSession({
     setSession({
       ...runtime,
       current: next,
+      keyboardWindow: windowForMidi(next.pitch.midi),
       deferredQueue: runtime.deferredQueue.filter((entry) => entry.item.id !== next.id),
       currentStartedAt: Date.now(),
       deadlineMs: adaptiveDeadlineMs(
@@ -310,7 +285,6 @@ export function usePracticeSession({
     input,
     clefs,
     durationMinutes,
-    keyboardMeasureRef,
     setMode,
     setInput,
     setClefs,

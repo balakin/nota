@@ -33,7 +33,7 @@ pnpm i18n:extract   # extract messages into src/locales/*.po
 - `training/` — the pure training engine: mastery states, weighting, review scheduling, normalized answers
 - `music/` — pitches, naming systems, staff geometry, and the recognition curriculum
 - `notation/` — the staff component and its VexFlow renderer
-- `piano/` — responsive keyboard layout and the piano component
+- `piano/` — the fixed one-octave keyboard layout and the piano component
 - `progress/` — the progress page and its note-mastery breakdowns
 - `onboarding/`, `settings/`, `research/` — the remaining pages
 - `router/` — hash routing (`usePage`)

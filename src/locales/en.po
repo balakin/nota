@@ -15,7 +15,7 @@ msgstr ""
 
 #. placeholder {0}: locale === 'ru' ? '2,0' : '2.0'
 #. placeholder {0}: settings.locale === 'ru' ? '2,0' : '2.0'
-#: src/practice/practice-session.tsx:155
+#: src/practice/practice-session.tsx:161
 #: src/practice/session-setup.tsx:88
 msgid "{0}s"
 msgstr "{0}s"
@@ -136,7 +136,7 @@ msgstr "Don’t count. Recognize."
 msgid "Experimental work with musical notation has found measurable changes in visual processing after targeted training. That is evidence about trained visual tasks, not a claim to make an expert pianist or sight-reader."
 msgstr "Experimental work with musical notation has found measurable changes in visual processing after targeted training. That is evidence about trained visual tasks, not a claim to make an expert pianist or sight-reader."
 
-#: src/practice/practice-session.tsx:91
+#: src/practice/practice-session.tsx:97
 msgid "Finish session"
 msgstr "Finish session"
 
@@ -190,7 +190,7 @@ msgstr "Letters"
 msgid "Light"
 msgstr "Light"
 
-#: src/app-shell/app.tsx:33
+#: src/app-shell/app.tsx:32
 msgid "Loading Nota"
 msgstr "Loading Nota"
 
@@ -220,7 +220,7 @@ msgstr "Median response"
 msgid "New"
 msgstr "New"
 
-#: src/practice/practice-session.tsx:125
+#: src/practice/practice-session.tsx:131
 msgid "New note: {currentName} · press the highlighted key to meet it."
 msgstr "New note: {currentName} · press the highlighted key to meet it."
 
@@ -231,10 +231,6 @@ msgstr "New progress"
 #: src/practice/feedback-banner.tsx:24
 msgid "Not quite"
 msgstr "Not quite"
-
-#: src/piano/piano.tsx:59
-msgid "Not trained yet"
-msgstr "Not trained yet"
 
 #: src/app-shell/header.tsx:14
 msgid "Nota"
@@ -262,7 +258,7 @@ msgstr "Note map"
 msgid "Note mastery map"
 msgstr "Note mastery map"
 
-#: src/practice/note-name-pad.tsx:22
+#: src/practice/note-name-pad.tsx:23
 #: src/practice/session-setup.tsx:37
 msgid "Note names"
 msgstr "Note names"
@@ -283,18 +279,18 @@ msgstr "Notes return after a pause because retrieving an answer and spacing prac
 msgid "Offline — progress is saved on this device"
 msgstr "Offline — progress is saved on this device"
 
-#: src/practice/practice-session.tsx:88
-#: src/practice/practice-session.tsx:106
+#: src/practice/practice-session.tsx:94
+#: src/practice/practice-session.tsx:112
 msgid "Pause"
 msgstr "Pause"
 
-#: src/piano/piano.tsx:29
+#: src/piano/piano.tsx:27
 #: src/practice/session-setup.tsx:36
 msgid "Piano"
 msgstr "Piano"
 
 #: src/practice/mode-picker.tsx:22
-#: src/practice/practice-session.tsx:83
+#: src/practice/practice-session.tsx:89
 msgid "Practice"
 msgstr "Practice"
 
@@ -316,7 +312,7 @@ msgstr "Progress"
 
 #. placeholder {0}: session.questionNumber
 #. placeholder {1}: '∞'
-#: src/practice/practice-session.tsx:81
+#: src/practice/practice-session.tsx:87
 msgid "Question {0} of {1}"
 msgstr "Question {0} of {1}"
 
@@ -353,7 +349,7 @@ msgstr "Recognized notes"
 msgid "Research behind Nota"
 msgstr "Research behind Nota"
 
-#: src/practice/practice-session.tsx:88
+#: src/practice/practice-session.tsx:94
 msgid "Resume"
 msgstr "Resume"
 
@@ -375,8 +371,8 @@ msgid "Settings"
 msgstr "Settings"
 
 #: src/practice/mode-picker.tsx:31
-#: src/practice/practice-session.tsx:83
-#: src/practice/practice-session.tsx:154
+#: src/practice/practice-session.tsx:89
+#: src/practice/practice-session.tsx:160
 #: src/practice/session-setup.tsx:89
 #: src/research/research-papers.ts:12
 msgid "Speed"
@@ -401,7 +397,7 @@ msgid "This changes labels, never your progress."
 msgstr "This changes labels, never your progress."
 
 #: src/practice/feedback-banner.tsx:23
-#: src/practice/practice-session.tsx:109
+#: src/practice/practice-session.tsx:115
 msgid "Time"
 msgstr "Time"
 
@@ -435,11 +431,11 @@ msgstr "Treble"
 msgid "Treble + Bass"
 msgstr "Treble + Bass"
 
-#: src/practice/practice-session.tsx:154
+#: src/practice/practice-session.tsx:160
 msgid "Unlabeled piano"
 msgstr "Unlabeled piano"
 
-#: src/practice/practice-session.tsx:126
+#: src/practice/practice-session.tsx:132
 msgid "Use the piano key that matches the note."
 msgstr "Use the piano key that matches the note."
 

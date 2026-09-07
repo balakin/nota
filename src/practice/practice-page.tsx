@@ -27,7 +27,6 @@ export function PracticePage({
         feedback={practice.feedback}
         settings={state.settings}
         notes={state.notes}
-        keyboardMeasureRef={practice.keyboardMeasureRef}
         onAnswer={practice.answer}
         onPause={practice.togglePause}
         onFinish={practice.finish}

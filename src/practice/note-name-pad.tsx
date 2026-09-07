@@ -1,10 +1,11 @@
 import { useLingui } from '@lingui/react/macro';
 import type { Locale } from '../app-state/app-state';
-import { displayNoteName, type NamingSystem, type PitchName } from '../music/music';
+import { displayNoteName, type NamingSystem } from '../music/music';
+import { octaveWindow } from '../piano/piano-layout';
 import { pianoAnswer, type NormalizedAnswer } from '../training/input';
 
-const NAMES: PitchName[] = ['C', 'D', 'E', 'F', 'G', 'A', 'B'];
-const NAME_MIDI: Record<PitchName, number> = { C: 60, D: 62, E: 64, F: 65, G: 67, A: 69, B: 71 };
+/** Names are octave-free; a reference octave only supplies the pitch classes to answer with. */
+const PAD = octaveWindow(4);
 
 export function NoteNamePad({
   naming,
@@ -20,18 +21,40 @@ export function NoteNamePad({
   const { t } = useLingui();
   return (
     <div className="name-pad" aria-label={t`Note names`}>
-      {NAMES.map((name) => (
-        <button
-          className="name-choice"
-          type="button"
-          key={name}
-          disabled={disabled}
-          aria-label={displayNoteName({ name, octave: 4, midi: NAME_MIDI[name] }, naming, locale)}
-          onClick={() => onAnswer(pianoAnswer(NAME_MIDI[name]))}
-        >
-          {displayNoteName({ name, octave: 4, midi: NAME_MIDI[name] }, naming, locale)}
-        </button>
-      ))}
+      {PAD.blackKeys.map(({ midi, sharp, flat, afterWhiteIndex }) => {
+        const sharpName = displayNoteName(sharp, naming, locale);
+        const flatName = displayNoteName(flat, naming, locale);
+        return (
+          <button
+            className="name-choice name-choice-accidental"
+            style={{ gridColumn: `${afterWhiteIndex * 2 + 2} / span 2` }}
+            type="button"
+            key={midi}
+            disabled={disabled}
+            aria-label={`${sharpName} · ${flatName}`}
+            onClick={() => onAnswer(pianoAnswer(midi))}
+          >
+            {sharpName}
+            <small>{flatName}</small>
+          </button>
+        );
+      })}
+      {PAD.whiteKeys.map((key, index) => {
+        const name = displayNoteName(key, naming, locale);
+        return (
+          <button
+            className="name-choice"
+            style={{ gridColumn: `${index * 2 + 1} / span 2` }}
+            type="button"
+            key={key.midi}
+            disabled={disabled}
+            aria-label={name}
+            onClick={() => onAnswer(pianoAnswer(key.midi))}
+          >
+            {name}
+          </button>
+        );
+      })}
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { Formatter, Renderer, Stave, StaveNote, Voice } from 'vexflow';
+import { Accidental, Formatter, Renderer, Stave, StaveNote, Voice } from 'vexflow';
 import { vexFlowKey, type Clef, type CanonicalPitch } from '../music/music';
 
 export function renderNotation(container: HTMLDivElement, value: CanonicalPitch, clef: Clef): void {
@@ -17,6 +17,11 @@ export function renderNotation(container: HTMLDivElement, value: CanonicalPitch,
 
   const note = new StaveNote({ keys: [vexFlowKey(value)], duration: 'q', clef });
   note.setStyle({ fillStyle: foreground, strokeStyle: foreground });
+  if (value.accidental !== 'natural') {
+    const accidental = new Accidental(value.accidental === 'sharp' ? '#' : 'b');
+    accidental.setStyle({ fillStyle: foreground, strokeStyle: foreground });
+    note.addModifier(accidental, 0);
+  }
   const voice = new Voice({ numBeats: 1, beatValue: 4 });
   voice.addTickable(note);
   new Formatter().joinVoices([voice]).format([voice], Math.max(120, width - 150));

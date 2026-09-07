@@ -21,7 +21,6 @@ export default function App() {
   const { page, navigate } = usePage();
   const practice = usePracticeSession({
     notes: state.notes,
-    remeasureOn: [page],
     onNoteStats: recordNoteStats,
     onSessionComplete: appendSession,
   });

@@ -27,7 +27,7 @@ export function SessionSetup({
         </span>
       </div>
       <div className="start-grid">
-        <section ref={practice.keyboardMeasureRef} className="setup-panel">
+        <section className="setup-panel">
           <ModePicker mode={practice.mode} onChange={practice.setMode} />
           <TogglePicker
             label={t`Answer with`}

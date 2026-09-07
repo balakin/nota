@@ -22,15 +22,10 @@ export function Piano({
   onAnswer: (answer: NormalizedAnswer) => void;
 }) {
   const { t } = useLingui();
-  const visibleStart = window.whiteKeys[0]?.midi ?? 0;
-  const visibleEnd = window.whiteKeys.at(-1)?.midi ?? 0;
 
   return (
     <div className="piano-shell" aria-label={t`Piano`}>
-      <div
-        className="piano"
-        style={{ '--white-key-count': window.whiteKeys.length } as React.CSSProperties}
-      >
+      <div className="piano">
         <div className="white-keys">
           {window.whiteKeys.map((key) => (
             <button
@@ -45,20 +40,25 @@ export function Piano({
             </button>
           ))}
         </div>
-        <div className="black-keys" aria-hidden="true">
-          {window.blackKeys
-            .filter(({ midi }) => midi > visibleStart && midi < visibleEnd + 1)
-            .map(({ midi, name, afterWhiteIndex }) => (
-              <button
-                className="piano-key piano-key-black"
-                style={{ left: `calc(${afterWhiteIndex + 1} * (100% / var(--white-key-count)))` }}
-                type="button"
-                key={midi}
-                disabled
-                tabIndex={-1}
-                aria-label={`${name} · ${t`Not trained yet`}`}
-              />
-            ))}
+        <div className="black-keys">
+          {window.blackKeys.map(({ midi, sharp, flat, afterWhiteIndex }) => (
+            <button
+              className={`piano-key piano-key-black ${highlightMidi === midi ? 'is-highlighted' : ''}`}
+              style={{ left: `calc(${afterWhiteIndex + 1} * (100% / 7))` }}
+              type="button"
+              key={midi}
+              disabled={disabled}
+              aria-label={`${accessiblePitchLabel(sharp, naming, locale)} · ${accessiblePitchLabel(flat, naming, locale)}`}
+              onClick={() => onAnswer(pianoAnswer(midi))}
+            >
+              {showLabels ? (
+                <span>
+                  {displayNoteName(sharp, naming, locale)}
+                  <small>{displayNoteName(flat, naming, locale)}</small>
+                </span>
+              ) : null}
+            </button>
+          ))}
         </div>
       </div>
     </div>

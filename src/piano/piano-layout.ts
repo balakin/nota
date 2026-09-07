@@ -1,105 +1,59 @@
-import type { CanonicalPitch, RecognitionItem } from '../music/music';
-import { ALL_NATURAL_PITCHES } from '../music/music';
+import type { CanonicalPitch } from '../music/music';
+import { octaveForMidi, pitch } from '../music/music';
 
-export type PointerProfile = 'coarse' | 'fine';
-export type BlackPianoKey = { midi: number; name: string; afterWhiteIndex: number };
+/**
+ * The keyboard is always exactly one octave — seven white keys and the five black keys
+ * between them — so it looks and behaves identically on every screen. Only the octave it
+ * stands for changes, and since every octave is drawn the same way, re-anchoring it on the
+ * note being asked moves nothing on screen.
+ */
+
+export type BlackPianoKey = {
+  midi: number;
+  /** The two spellings of the same key; both are correct answers for it. */
+  sharp: CanonicalPitch;
+  flat: CanonicalPitch;
+  /** Index of the white key it sits to the right of. */
+  afterWhiteIndex: number;
+};
 
 export type KeyboardWindow = {
-  startIndex: number;
-  endIndex: number;
+  octave: number;
   whiteKeys: CanonicalPitch[];
   blackKeys: BlackPianoKey[];
 };
 
-export const POINTER_TARGET_WIDTH: Record<PointerProfile, number> = { coarse: 46, fine: 37 };
-const MIN_WHITE_KEYS = 7;
-const MAX_WHITE_KEYS = 32;
+export const WHITE_KEYS_PER_OCTAVE = 7;
+export const BLACK_KEYS_PER_OCTAVE = 5;
 
-export function targetWhiteKeyWidth(pointer: PointerProfile): number {
-  return POINTER_TARGET_WIDTH[pointer];
-}
+const WHITE_NAMES = ['C', 'D', 'E', 'F', 'G', 'A', 'B'] as const;
+const BLACK_KEYS = [
+  { sharpOf: 'C', flatOf: 'D', afterWhiteIndex: 0 },
+  { sharpOf: 'D', flatOf: 'E', afterWhiteIndex: 1 },
+  { sharpOf: 'F', flatOf: 'G', afterWhiteIndex: 3 },
+  { sharpOf: 'G', flatOf: 'A', afterWhiteIndex: 4 },
+  { sharpOf: 'A', flatOf: 'B', afterWhiteIndex: 5 },
+] as const;
 
-export function visibleWhiteKeyCount(availableWidth: number, pointer: PointerProfile): number {
-  if (!Number.isFinite(availableWidth) || availableWidth <= 0) return MIN_WHITE_KEYS;
-  return Math.max(
-    MIN_WHITE_KEYS,
-    Math.min(MAX_WHITE_KEYS, Math.floor(availableWidth / targetWhiteKeyWidth(pointer))),
-  );
-}
-
-export function naturalIndexForMidi(midi: number): number {
-  const index = ALL_NATURAL_PITCHES.findIndex((value) => value.midi === midi);
-  return index === -1 ? 0 : index;
-}
-
-export function keyboardWindow(
-  availableWidth: number,
-  pointer: PointerProfile,
-  anchorMidi?: number,
-): KeyboardWindow {
-  const count = Math.min(visibleWhiteKeyCount(availableWidth, pointer), ALL_NATURAL_PITCHES.length);
-  const anchor =
-    anchorMidi === undefined
-      ? Math.floor(ALL_NATURAL_PITCHES.length / 2)
-      : naturalIndexForMidi(anchorMidi);
-  const startIndex = Math.max(
-    0,
-    Math.min(ALL_NATURAL_PITCHES.length - count, anchor - Math.floor(count / 2)),
-  );
-  return makeWindow(startIndex, count);
-}
-
-export function makeWindow(startIndex: number, count: number): KeyboardWindow {
-  const safeStart = Math.max(0, Math.min(ALL_NATURAL_PITCHES.length - 1, startIndex));
-  const endIndex = Math.min(ALL_NATURAL_PITCHES.length - 1, safeStart + Math.max(1, count) - 1);
-  const whiteKeys = ALL_NATURAL_PITCHES.slice(safeStart, endIndex + 1) as CanonicalPitch[];
-  const firstMidi = whiteKeys[0]?.midi ?? ALL_NATURAL_PITCHES[0].midi;
-  const lastMidi = whiteKeys.at(-1)?.midi ?? firstMidi;
-  const blackNames: Record<number, string> = {
-    1: 'C♯',
-    3: 'D♯',
-    6: 'F♯',
-    8: 'G♯',
-    10: 'A♯',
-  };
-  const blackKeys = Array.from(
-    { length: Math.max(0, lastMidi - firstMidi) },
-    (_, index) => firstMidi + index + 1,
-  )
-    .filter((midi) => blackNames[midi % 12] !== undefined)
-    .map((midi) => ({
-      midi,
-      name: blackNames[midi % 12],
-      afterWhiteIndex: naturalIndexForMidi(midi - 1) - safeStart,
-    }));
-  return { startIndex: safeStart, endIndex, whiteKeys, blackKeys };
-}
-
-export function planKeyboard(
-  availableWidth: number,
-  pointer: PointerProfile,
-  candidates: readonly RecognitionItem[],
-  anchorMidi?: number,
-): { window: KeyboardWindow; candidates: RecognitionItem[] } {
-  const count = Math.min(visibleWhiteKeyCount(availableWidth, pointer), ALL_NATURAL_PITCHES.length);
-  const candidateIndices = candidates.map((item) => naturalIndexForMidi(item.pitch.midi));
-  const focusIndex =
-    anchorMidi === undefined
-      ? (candidateIndices[0] ?? Math.floor(ALL_NATURAL_PITCHES.length / 2))
-      : naturalIndexForMidi(anchorMidi);
-  const startIndex = Math.max(
-    0,
-    Math.min(ALL_NATURAL_PITCHES.length - count, focusIndex - Math.floor(count / 2)),
-  );
-  const window = makeWindow(startIndex, count);
-  const allowed = new Set(window.whiteKeys.map((value) => value.midi));
-  const fittingCandidates = candidates.filter((item) => allowed.has(item.pitch.midi));
+export function octaveWindow(octave: number): KeyboardWindow {
   return {
-    window,
-    candidates: fittingCandidates.length > 0 ? fittingCandidates : candidates.slice(0, 1),
+    octave,
+    whiteKeys: WHITE_NAMES.map((name) => pitch(name, octave)),
+    blackKeys: BLACK_KEYS.map(({ sharpOf, flatOf, afterWhiteIndex }) => {
+      const sharp = pitch(sharpOf, octave, 'sharp');
+      return { midi: sharp.midi, sharp, flat: pitch(flatOf, octave, 'flat'), afterWhiteIndex };
+    }),
   };
+}
+
+/** The octave window that contains a note, so the note is always answerable. */
+export function windowForMidi(midi: number): KeyboardWindow {
+  return octaveWindow(octaveForMidi(midi));
 }
 
 export function windowContains(window: KeyboardWindow, midi: number): boolean {
-  return window.whiteKeys.some((value) => value.midi === midi);
+  return (
+    window.whiteKeys.some((key) => key.midi === midi) ||
+    window.blackKeys.some((key) => key.midi === midi)
+  );
 }

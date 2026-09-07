@@ -12,15 +12,15 @@ import { FeedbackBanner } from './feedback-banner';
 import { NoteNamePad } from './note-name-pad';
 import type { Feedback, RuntimeSession } from './session';
 
-/** Home-row keys map onto the visible white keys, left to right. */
+/** Home row plays the seven white keys; the row above plays the five black keys. */
 const WHITE_KEY_SHORTCUTS: Record<string, number> = { a: 0, s: 1, d: 2, f: 3, g: 4, h: 5, j: 6 };
+const BLACK_KEY_SHORTCUTS: Record<string, number> = { w: 0, e: 1, t: 2, y: 3, u: 4 };
 
 export function PracticeSession({
   session,
   feedback,
   settings,
   notes,
-  keyboardMeasureRef,
   onAnswer,
   onPause,
   onFinish,
@@ -29,7 +29,6 @@ export function PracticeSession({
   feedback: Feedback | null;
   settings: AppSettings;
   notes: Readonly<Record<string, NoteStats>>;
-  keyboardMeasureRef: React.RefObject<HTMLDivElement | null>;
   onAnswer: (answer: NormalizedAnswer) => void;
   onPause: () => void;
   onFinish: () => void;
@@ -48,15 +47,22 @@ export function PracticeSession({
     if (input !== 'piano') return;
     const onKeyDown = (event: KeyboardEvent) => {
       if (answerDisabled || event.metaKey || event.ctrlKey || event.altKey) return;
-      const offset = WHITE_KEY_SHORTCUTS[event.key.toLowerCase()];
-      const target = offset === undefined ? undefined : session.keyboardWindow.whiteKeys[offset];
+      const key = event.key.toLowerCase();
+      const white = WHITE_KEY_SHORTCUTS[key];
+      const black = BLACK_KEY_SHORTCUTS[key];
+      const target =
+        white !== undefined
+          ? session.keyboardWindow.whiteKeys[white]
+          : black !== undefined
+            ? session.keyboardWindow.blackKeys[black]
+            : undefined;
       if (!target) return;
       event.preventDefault();
       onAnswer(keyboardAnswer(target.midi));
     };
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
-  }, [answerDisabled, input, onAnswer, session.keyboardWindow.whiteKeys]);
+  }, [answerDisabled, input, onAnswer, session.keyboardWindow]);
 
   const timingNow = session.paused && session.pausedAt !== null ? session.pausedAt : now;
   const elapsed = Math.min(
@@ -126,7 +132,7 @@ export function PracticeSession({
               : t`Use the piano key that matches the note.`}
           </p>
         )}
-        <div ref={keyboardMeasureRef} className="answer-area">
+        <div className="answer-area">
           {input === 'piano' ? (
             <Piano
               window={session.keyboardWindow}
