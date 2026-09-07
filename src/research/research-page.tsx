@@ -1,13 +1,19 @@
 import { useLingui } from '@lingui/react/macro';
+
 import type { Page } from '../router/pages';
 import { Icon } from '../ui/icon';
+
 import { RESEARCH_PAPERS } from './research-papers';
 
 export function ResearchPage({ navigate }: { navigate: (page: Page) => void }) {
   const { t } = useLingui();
   return (
     <div className="page research-page">
-      <button type="button" className="back-link" onClick={() => navigate('settings')}>
+      <button
+        type="button"
+        className="back-link"
+        onClick={() => navigate('settings')}
+      >
         <Icon name="arrow" size={16} /> {t`Back to settings`}
       </button>
       <div className="research-header">
@@ -20,7 +26,9 @@ export function ResearchPage({ navigate }: { navigate: (page: Page) => void }) {
       <div className="research-list">
         {RESEARCH_PAPERS.map((paper, index) => (
           <article className="surface research-card" key={paper.doi}>
-            <div className="research-number">{String(index + 1).padStart(2, '0')}</div>
+            <div className="research-number">
+              {String(index + 1).padStart(2, '0')}
+            </div>
             <div>
               <h2>{t(paper.title)}</h2>
               <p>{t(paper.body)}</p>

@@ -10,8 +10,8 @@ backend.
 pnpm dev            # vite dev server
 pnpm build          # tsc -b + vite build
 pnpm test           # vitest run
-pnpm lint           # oxlint
-pnpm format         # oxfmt
+pnpm lint           # eslint (type-checked); `lint:fix` applies fixes
+pnpm format         # prettier --check; `format:fix` rewrites
 pnpm i18n:extract   # extract messages into src/locales/*.po
 ```
 

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+
 import type { SessionSummary } from '../app-state/app-state';
 import type { Clef } from '../music/music';
 import { windowForMidi } from '../piano/piano-layout';
@@ -17,6 +18,7 @@ import {
   type NoteStats,
   type PracticeMode,
 } from '../training/training';
+
 import { pickNext } from './pick-next';
 import {
   CORRECTION_DELAY,
@@ -85,7 +87,9 @@ export function usePracticeSession({
       advanceTimeoutRef.current = null;
     }
     const successfulTimes = runtime.outcomes
-      .filter((outcome) => outcome.result === 'correct' && outcome.elapsedMs !== null)
+      .filter(
+        (outcome) => outcome.result === 'correct' && outcome.elapsedMs !== null,
+      )
       .map((outcome) => outcome.elapsedMs as number);
     const newRecognized = runtime.outcomes
       .filter(
@@ -96,9 +100,14 @@ export function usePracticeSession({
       )
       .map((outcome) => outcome.itemId);
     const newFluent = runtime.outcomes
-      .filter((outcome) => outcome.stateBefore !== 'fluent' && outcome.stateAfter === 'fluent')
+      .filter(
+        (outcome) =>
+          outcome.stateBefore !== 'fluent' && outcome.stateAfter === 'fluent',
+      )
       .map((outcome) => outcome.itemId);
-    const sessionNoteIds = new Set(runtime.outcomes.map((outcome) => outcome.itemId));
+    const sessionNoteIds = new Set(
+      runtime.outcomes.map((outcome) => outcome.itemId),
+    );
     const weakest = weakestNotes(
       [...sessionNoteIds]
         .map((id) => notesRef.current[id])
@@ -111,8 +120,12 @@ export function usePracticeSession({
       durationSeconds: runtime.durationSeconds,
       mode: runtime.mode,
       attempts: runtime.outcomes.length,
-      correct: runtime.outcomes.filter((outcome) => outcome.result === 'correct').length,
-      timeouts: runtime.outcomes.filter((outcome) => outcome.result === 'timeout').length,
+      correct: runtime.outcomes.filter(
+        (outcome) => outcome.result === 'correct',
+      ).length,
+      timeouts: runtime.outcomes.filter(
+        (outcome) => outcome.result === 'timeout',
+      ).length,
       medianResponseMs: median(successfulTimes),
       practiceSeconds: Math.min(
         runtime.durationSeconds,
@@ -153,7 +166,10 @@ export function usePracticeSession({
       keyboardWindow: windowForMidi(first.pitch.midi),
       current: first,
       currentStartedAt: now,
-      deadlineMs: adaptiveDeadlineMs(notes[first.id] ?? emptyNoteStats(first), mode),
+      deadlineMs: adaptiveDeadlineMs(
+        notes[first.id] ?? emptyNoteStats(first),
+        mode,
+      ),
       questionNumber: 1,
       recentItemIds: [first.id],
       outcomes: [],
@@ -178,7 +194,9 @@ export function usePracticeSession({
       ...runtime,
       current: next,
       keyboardWindow: windowForMidi(next.pitch.midi),
-      deferredQueue: runtime.deferredQueue.filter((entry) => entry.item.id !== next.id),
+      deferredQueue: runtime.deferredQueue.filter(
+        (entry) => entry.item.id !== next.id,
+      ),
       currentStartedAt: Date.now(),
       deadlineMs: adaptiveDeadlineMs(
         notesRef.current[next.id] ?? emptyNoteStats(next),
@@ -194,14 +212,18 @@ export function usePracticeSession({
     (answer: NormalizedAnswer | undefined, resultOverride?: AnswerResult) => {
       if (!session || session.paused || feedback) return;
       const elapsedMs =
-        resultOverride === 'timeout' ? null : Math.max(0, Date.now() - session.currentStartedAt);
+        resultOverride === 'timeout'
+          ? null
+          : Math.max(0, Date.now() - session.currentStartedAt);
       const correct = answer
         ? session.input === 'names'
           ? answer.midi % 12 === session.current.pitch.midi % 12
           : answer.midi === session.current.pitch.midi
         : false;
-      const outcomeResult: AnswerResult = resultOverride ?? (correct ? 'correct' : 'incorrect');
-      const previous = notesRef.current[session.current.id] ?? emptyNoteStats(session.current);
+      const outcomeResult: AnswerResult =
+        resultOverride ?? (correct ? 'correct' : 'incorrect');
+      const previous =
+        notesRef.current[session.current.id] ?? emptyNoteStats(session.current);
       const nextStats = recordOutcome(previous, {
         result: outcomeResult,
         elapsedMs,
@@ -224,14 +246,24 @@ export function usePracticeSession({
       const deferredQueue =
         outcomeResult === 'correct'
           ? session.deferredQueue
-          : requeueAfterWrong(session.deferredQueue, session.current, session.questionNumber, 3);
+          : requeueAfterWrong(
+              session.deferredQueue,
+              session.current,
+              session.questionNumber,
+              3,
+            );
       const runtime = {
         ...session,
         outcomes: [...session.outcomes, outcome],
         deferredQueue,
       };
       setSession(runtime);
-      setFeedback({ result: outcomeResult, item: session.current, elapsedMs, answer });
+      setFeedback({
+        result: outcomeResult,
+        item: session.current,
+        elapsedMs,
+        answer,
+      });
       advanceTimeoutRef.current = window.setTimeout(
         () => {
           advanceTimeoutRef.current = null;
@@ -246,8 +278,15 @@ export function usePracticeSession({
   useEffect(() => {
     if (!session || session.paused || feedback) return;
     if (session.deadlineMs === null) return;
-    const remaining = deadlineRemainingMs(session.currentStartedAt, Date.now(), session.deadlineMs);
-    const timeout = window.setTimeout(() => judge(undefined, 'timeout'), remaining);
+    const remaining = deadlineRemainingMs(
+      session.currentStartedAt,
+      Date.now(),
+      session.deadlineMs,
+    );
+    const timeout = window.setTimeout(
+      () => judge(undefined, 'timeout'),
+      remaining,
+    );
     return () => window.clearTimeout(timeout);
   }, [feedback, judge, session]);
 
@@ -262,8 +301,12 @@ export function usePracticeSession({
   const togglePause = useCallback(() => {
     setSession((current) => {
       if (!current) return current;
-      if (!current.paused) return { ...current, paused: true, pausedAt: Date.now() };
-      const pausedFor = current.pausedAt === null ? 0 : Math.max(0, Date.now() - current.pausedAt);
+      if (!current.paused)
+        return { ...current, paused: true, pausedAt: Date.now() };
+      const pausedFor =
+        current.pausedAt === null
+          ? 0
+          : Math.max(0, Date.now() - current.pausedAt);
       return {
         ...current,
         paused: false,
@@ -274,7 +317,10 @@ export function usePracticeSession({
     });
   }, []);
 
-  const answer = useCallback((value: NormalizedAnswer) => judge(value), [judge]);
+  const answer = useCallback(
+    (value: NormalizedAnswer) => judge(value),
+    [judge],
+  );
   const dismissResult = useCallback(() => setResult(null), []);
 
   return {

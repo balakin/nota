@@ -1,7 +1,9 @@
 import { useLingui } from '@lingui/react/macro';
+
 import type { Locale } from '../app-state/app-state';
 import { Icon } from '../ui/icon';
 import { TogglePicker } from '../ui/toggle-picker';
+
 import { ModePicker } from './mode-picker';
 import { SESSION_DURATIONS } from './session';
 import type { PracticeSessionController } from './use-practice-session';
@@ -50,7 +52,9 @@ export function SessionSetup({
               ] as const
             }
             value={practice.clefs.length === 2 ? 'both' : practice.clefs[0]}
-            onChange={(value) => practice.setClefs(value === 'both' ? ['treble', 'bass'] : [value])}
+            onChange={(value) =>
+              practice.setClefs(value === 'both' ? ['treble', 'bass'] : [value])
+            }
           />
           <div className="setting-row">
             <span className="setting-label">{t`Session length`}</span>
@@ -59,7 +63,9 @@ export function SessionSetup({
                 <button
                   type="button"
                   key={minutes}
-                  className={practice.durationMinutes === minutes ? 'selected' : ''}
+                  className={
+                    practice.durationMinutes === minutes ? 'selected' : ''
+                  }
                   aria-pressed={practice.durationMinutes === minutes}
                   onClick={() => practice.setDurationMinutes(minutes)}
                 >

@@ -8,7 +8,8 @@
 
 :root {
   --font-sans:
-    'Manrope', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    'Manrope', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    'Segoe UI', sans-serif;
   --background: oklch(0.97 0.005 240);
   --surface: oklch(0.995 0.003 240);
   --surface-secondary: oklch(0.96 0.004 240);
@@ -651,7 +652,8 @@ h2 {
   display: grid;
   place-items: center;
   overflow: hidden;
-  border: 1px solid color-mix(in oklch, var(--staff-ink) 12%, var(--staff-paper));
+  border: 1px solid
+    color-mix(in oklch, var(--staff-ink) 12%, var(--staff-paper));
   border-radius: 6px;
   color: var(--staff-ink);
   background: var(--staff-paper);
@@ -755,7 +757,8 @@ h2 {
   grid-template-columns: 1fr var(--key-area) 1fr;
   width: 100%;
   background: var(--key-case);
-  box-shadow: 0 -10px 24px -18px color-mix(in oklch, var(--foreground) 70%, transparent);
+  box-shadow: 0 -10px 24px -18px
+    color-mix(in oklch, var(--foreground) 70%, transparent);
 }
 /* The felt the keys rise out of, carried across the whole case. */
 .piano-shell::before {
@@ -776,7 +779,11 @@ h2 {
 /* Cheek blocks: solid where they meet the keys, plain case beyond, shaded under the felt. */
 .piano-case {
   background:
-    linear-gradient(to bottom, color-mix(in oklch, black 32%, transparent), transparent 24%),
+    linear-gradient(
+      to bottom,
+      color-mix(in oklch, black 32%, transparent),
+      transparent 24%
+    ),
     linear-gradient(
       to var(--case-direction),
       color-mix(in oklch, white 14%, var(--key-cheek)) 0 1px,
@@ -835,7 +842,8 @@ h2 {
     var(--key-white-face) 88%,
     color-mix(in oklch, var(--key-white-shade) 55%, var(--key-white-face))
   );
-  box-shadow: inset -1px 0 0 color-mix(in oklch, var(--foreground) 7%, transparent);
+  box-shadow: inset -1px 0 0
+    color-mix(in oklch, var(--foreground) 7%, transparent);
 }
 /* No separator on the outer edge: full-bleed, it would land on the screen border. */
 .piano-key-white:last-child {
@@ -850,19 +858,22 @@ h2 {
 }
 .piano-key-white:active {
   transform: translateY(2px);
-  box-shadow: inset 0 -3px 6px -4px color-mix(in oklch, var(--foreground) 45%, transparent);
+  box-shadow: inset 0 -3px 6px -4px
+    color-mix(in oklch, var(--foreground) 45%, transparent);
 }
 /* The only bright thing on the keyboard: light rising from the front of the key. */
 .piano-key-white.is-highlighted {
   background: linear-gradient(
     to top,
     var(--key-highlight-wash),
-    color-mix(in oklch, var(--key-highlight-wash) 40%, var(--key-white-face)) 45%,
+    color-mix(in oklch, var(--key-highlight-wash) 40%, var(--key-white-face))
+      45%,
     var(--key-white-face) 78%
   );
   box-shadow:
     inset 0 -4px 0 var(--key-highlight-edge),
-    inset 0 -16px 20px -14px color-mix(in oklch, var(--key-highlight-edge) 70%, transparent);
+    inset 0 -16px 20px -14px
+      color-mix(in oklch, var(--key-highlight-edge) 70%, transparent);
 }
 .piano-key-black {
   position: absolute;
@@ -1455,7 +1466,9 @@ h2 {
     padding-bottom: 0;
   }
   .practice-page:has(.answer-area-keyboard) {
-    padding-bottom: calc(var(--key-bed-height) + 61px + env(safe-area-inset-bottom) + 1rem);
+    padding-bottom: calc(
+      var(--key-bed-height) + 61px + env(safe-area-inset-bottom) + 1rem
+    );
   }
   .offline-status {
     bottom: 4.5rem;

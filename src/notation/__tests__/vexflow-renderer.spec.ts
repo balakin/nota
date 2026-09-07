@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+
 import { pitch } from '../../music/music';
 import { renderNotation } from '../vexflow-renderer';
 
@@ -28,6 +29,8 @@ describe('notation renderer', () => {
     }
     renderNotation(plain, pitch('F', 4), 'treble');
     renderNotation(sharp, pitch('F', 4, 'sharp'), 'treble');
-    expect(sharp.querySelectorAll('text').length).toBe(plain.querySelectorAll('text').length + 1);
+    expect(sharp.querySelectorAll('text').length).toBe(
+      plain.querySelectorAll('text').length + 1,
+    );
   });
 });

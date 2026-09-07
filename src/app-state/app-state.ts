@@ -41,11 +41,18 @@ export const DEFAULT_SETTINGS: AppSettings = {
   hasCompletedOnboarding: false,
 };
 
-export function createInitialState(settings: Partial<AppSettings> = {}): PersistedState {
+export function createInitialState(
+  settings: Partial<AppSettings> = {},
+): PersistedState {
   const notes = Object.fromEntries(
     allRecognitionItems().map((item) => [item.id, emptyNoteStats(item)]),
   );
-  return { schemaVersion: 1, settings: { ...DEFAULT_SETTINGS, ...settings }, notes, sessions: [] };
+  return {
+    schemaVersion: 1,
+    settings: { ...DEFAULT_SETTINGS, ...settings },
+    notes,
+    sessions: [],
+  };
 }
 
 export function migrateState(value: unknown): PersistedState {
@@ -53,7 +60,10 @@ export function migrateState(value: unknown): PersistedState {
   if (!value || typeof value !== 'object') return initial;
   const candidate = value as Partial<PersistedState>;
   const settings = { ...DEFAULT_SETTINGS, ...(candidate.settings ?? {}) };
-  const storedNotes = candidate.notes && typeof candidate.notes === 'object' ? candidate.notes : {};
+  const storedNotes =
+    candidate.notes && typeof candidate.notes === 'object'
+      ? candidate.notes
+      : {};
   const notes = Object.fromEntries(
     allRecognitionItems().map((item) => [
       item.id,
@@ -68,10 +78,15 @@ export function migrateState(value: unknown): PersistedState {
     settings: {
       locale: settings.locale === 'ru' ? 'ru' : 'en',
       naming: settings.naming === 'solfege' ? 'solfege' : 'letters',
-      theme: settings.theme === 'light' || settings.theme === 'dark' ? settings.theme : 'system',
+      theme:
+        settings.theme === 'light' || settings.theme === 'dark'
+          ? settings.theme
+          : 'system',
       hasCompletedOnboarding: Boolean(settings.hasCompletedOnboarding),
     },
     notes,
-    sessions: Array.isArray(candidate.sessions) ? candidate.sessions.slice(0, 100) : [],
+    sessions: Array.isArray(candidate.sessions)
+      ? candidate.sessions.slice(0, 100)
+      : [],
   };
 }

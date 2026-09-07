@@ -1,6 +1,8 @@
 import { useLingui } from '@lingui/react/macro';
+
 import type { AppSettings } from '../app-state/app-state';
 import { Icon } from '../ui/icon';
+
 import { NamingChoice } from './naming-choice';
 
 export function OnboardingPage({
@@ -42,7 +44,11 @@ export function OnboardingPage({
             example={t`Do · Re · Mi · Fa · Sol · La · Si`}
           />
         </fieldset>
-        <button className="button button-primary button-large" type="button" onClick={onComplete}>
+        <button
+          className="button button-primary button-large"
+          type="button"
+          onClick={onComplete}
+        >
           {t`Start training`} <Icon name="arrow" size={18} />
         </button>
         <p className="fine-print">

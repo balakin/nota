@@ -1,7 +1,12 @@
 import { useLingui } from '@lingui/react/macro';
 import { useEffect, useRef, useState } from 'react';
-import { accessiblePitchLabel, type Clef, type CanonicalPitch } from '../music/music';
+
 import type { Locale } from '../app-state/app-state';
+import {
+  accessiblePitchLabel,
+  type Clef,
+  type CanonicalPitch,
+} from '../music/music';
 
 export function NotationStaff({
   pitch,

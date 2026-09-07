@@ -15,7 +15,7 @@ pnpm install
 pnpm dev
 pnpm test
 pnpm lint
-pnpm format:check
+pnpm format
 pnpm build
 ```
 

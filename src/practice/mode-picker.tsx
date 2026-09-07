@@ -1,4 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
+
 import type { PracticeMode } from '../training/training';
 
 export function ModePicker({

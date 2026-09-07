@@ -15,7 +15,10 @@ export function OfflineStatus() {
     };
   }, []);
   return (
-    <div className={`offline-status ${online ? 'is-online' : ''}`} role="status">
+    <div
+      className={`offline-status ${online ? 'is-online' : ''}`}
+      role="status"
+    >
       <span className="status-dot" />{' '}
       {online ? t`Back online` : t`Offline — progress is saved on this device`}
     </div>

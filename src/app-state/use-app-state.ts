@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
+
 import { browserLocale } from '../i18n/i18n';
 import { loadPersistedState, savePersistedState } from '../storage/indexed-db';
 import type { NoteStats } from '../training/training';
+
 import {
   createInitialState,
   type AppSettings,
@@ -13,7 +15,10 @@ const MAX_STORED_SESSIONS = 100;
 
 function initialFromBrowser(): PersistedState {
   const locale = browserLocale();
-  return createInitialState({ locale, naming: locale === 'ru' ? 'solfege' : 'letters' });
+  return createInitialState({
+    locale,
+    naming: locale === 'ru' ? 'solfege' : 'letters',
+  });
 }
 
 export type AppState = {
@@ -42,11 +47,17 @@ export function useAppState(): AppState {
   }, [state, hydrated]);
 
   const updateSettings = useCallback((patch: Partial<AppSettings>) => {
-    setState((current) => ({ ...current, settings: { ...current.settings, ...patch } }));
+    setState((current) => ({
+      ...current,
+      settings: { ...current.settings, ...patch },
+    }));
   }, []);
 
   const recordNoteStats = useCallback((itemId: string, stats: NoteStats) => {
-    setState((current) => ({ ...current, notes: { ...current.notes, [itemId]: stats } }));
+    setState((current) => ({
+      ...current,
+      notes: { ...current.notes, [itemId]: stats },
+    }));
   }, []);
 
   const appendSession = useCallback((summary: SessionSummary) => {

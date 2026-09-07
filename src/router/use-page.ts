@@ -1,9 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
+
 import { pageFromHash, type Page } from './pages';
 
 /** Hash routing: the app is a single static bundle, so the hash is the whole router. */
 export function usePage(): { page: Page; navigate: (page: Page) => void } {
-  const [page, setPage] = useState<Page>(() => pageFromHash(window.location.hash));
+  const [page, setPage] = useState<Page>(() =>
+    pageFromHash(window.location.hash),
+  );
 
   useEffect(() => {
     const onLocationChange = () => setPage(pageFromHash(window.location.hash));

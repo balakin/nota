@@ -1,7 +1,7 @@
-import { VitePWA } from 'vite-plugin-pwa';
 import { lingui } from '@lingui/vite-plugin';
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
+import { VitePWA } from 'vite-plugin-pwa';
 
 export default defineConfig(({ mode }) => ({
   plugins: [
@@ -12,7 +12,12 @@ export default defineConfig(({ mode }) => ({
     lingui({ failOnMissing: mode === 'production', failOnCompileError: true }),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.svg', 'icons/icon.svg', 'icons/icon-192.svg', 'icons/icon-512.svg'],
+      includeAssets: [
+        'favicon.svg',
+        'icons/icon.svg',
+        'icons/icon-192.svg',
+        'icons/icon-512.svg',
+      ],
       manifest: {
         name: 'Nota — Musical Note Recognition',
         short_name: 'Nota',

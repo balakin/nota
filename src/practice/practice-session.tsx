@@ -1,5 +1,6 @@
 import { useLingui } from '@lingui/react/macro';
 import { useEffect, useState } from 'react';
+
 import type { AppSettings } from '../app-state/app-state';
 import { displayNoteName } from '../music/music';
 import { NotationStaff } from '../notation/notation-staff';
@@ -8,13 +9,28 @@ import { keyboardAnswer, type NormalizedAnswer } from '../training/input';
 import { SPEED_DEADLINE_MS, type NoteStats } from '../training/training';
 import { Icon } from '../ui/icon';
 import { formatDuration } from '../utils/format';
+
 import { FeedbackBanner } from './feedback-banner';
 import { NoteNamePad } from './note-name-pad';
 import type { Feedback, RuntimeSession } from './session';
 
 /** Home row plays the seven white keys; the row above plays the five black keys. */
-const WHITE_KEY_SHORTCUTS: Record<string, number> = { a: 0, s: 1, d: 2, f: 3, g: 4, h: 5, j: 6 };
-const BLACK_KEY_SHORTCUTS: Record<string, number> = { w: 0, e: 1, t: 2, y: 3, u: 4 };
+const WHITE_KEY_SHORTCUTS: Record<string, number> = {
+  a: 0,
+  s: 1,
+  d: 2,
+  f: 3,
+  g: 4,
+  h: 5,
+  j: 6,
+};
+const BLACK_KEY_SHORTCUTS: Record<string, number> = {
+  w: 0,
+  e: 1,
+  t: 2,
+  y: 3,
+  u: 4,
+};
 
 export function PracticeSession({
   session,
@@ -34,7 +50,7 @@ export function PracticeSession({
   onFinish: () => void;
 }) {
   const { t } = useLingui();
-  const [now, setNow] = useState(Date.now());
+  const [now, setNow] = useState(() => Date.now());
   const { mode, input } = session;
   const answerDisabled = Boolean(feedback) || session.paused;
 
@@ -46,7 +62,8 @@ export function PracticeSession({
   useEffect(() => {
     if (input !== 'piano') return;
     const onKeyDown = (event: KeyboardEvent) => {
-      if (answerDisabled || event.metaKey || event.ctrlKey || event.altKey) return;
+      if (answerDisabled || event.metaKey || event.ctrlKey || event.altKey)
+        return;
       const key = event.key.toLowerCase();
       const white = WHITE_KEY_SHORTCUTS[key];
       const black = BLACK_KEY_SHORTCUTS[key];
@@ -64,7 +81,8 @@ export function PracticeSession({
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [answerDisabled, input, onAnswer, session.keyboardWindow]);
 
-  const timingNow = session.paused && session.pausedAt !== null ? session.pausedAt : now;
+  const timingNow =
+    session.paused && session.pausedAt !== null ? session.pausedAt : now;
   const elapsed = Math.min(
     session.durationSeconds,
     Math.floor((timingNow - session.startedAt) / 1000),
@@ -78,22 +96,33 @@ export function PracticeSession({
     : null;
   const currentStats = notes[session.current.id];
   const isIntroduction =
-    !feedback && mode === 'practice' && (currentStats?.totalAttempts ?? 0) === 0;
-  const currentName = displayNoteName(session.current.pitch, settings.naming, settings.locale);
+    !feedback &&
+    mode === 'practice' &&
+    (currentStats?.totalAttempts ?? 0) === 0;
+  const currentName = displayNoteName(
+    session.current.pitch,
+    settings.naming,
+    settings.locale,
+  );
 
   return (
     <div className="practice-page">
       <div className="practice-toolbar">
         <span className="practice-counter">{t`Question ${session.questionNumber} of ${'∞'}`}</span>
         <span className="practice-mode-label">
-          {mode === 'speed' ? t`Speed` : t`Practice`} · {formatDuration(elapsed)}
+          {mode === 'speed' ? t`Speed` : t`Practice`} ·{' '}
+          {formatDuration(elapsed)}
         </span>
         <div className="toolbar-actions">
           <button className="quiet-button" type="button" onClick={onPause}>
             <Icon name={session.paused ? 'play' : 'clock'} size={16} />{' '}
             {session.paused ? t`Resume` : t`Pause`}
           </button>
-          <button className="quiet-button finish-button" type="button" onClick={onFinish}>
+          <button
+            className="quiet-button finish-button"
+            type="button"
+            onClick={onFinish}
+          >
             {t`Finish session`}
           </button>
         </div>
@@ -101,7 +130,11 @@ export function PracticeSession({
       <div className="practice-stage">
         <div
           className={`timing-line ${session.deadlineMs ? 'timed' : ''} ${feedback ? `feedback-${feedback.result}` : ''}`}
-          style={timerProgress === null ? undefined : { transform: `scaleX(${timerProgress})` }}
+          style={
+            timerProgress === null
+              ? undefined
+              : { transform: `scaleX(${timerProgress})` }
+          }
         />
         <div
           className={`staff-stage ${feedback ? `is-${feedback.result}` : ''} ${session.paused ? 'is-paused' : ''}`}
@@ -126,16 +159,24 @@ export function PracticeSession({
         {/* One slot for both, so the staff does not move when feedback replaces the prompt. */}
         <div className="answer-status">
           {feedback ? (
-            <FeedbackBanner feedback={feedback} naming={settings.naming} locale={settings.locale} />
+            <FeedbackBanner
+              feedback={feedback}
+              naming={settings.naming}
+              locale={settings.locale}
+            />
           ) : (
-            <p className={`answer-prompt ${isIntroduction ? 'intro-prompt' : ''}`}>
+            <p
+              className={`answer-prompt ${isIntroduction ? 'intro-prompt' : ''}`}
+            >
               {isIntroduction
                 ? t`New note: ${currentName} · press the highlighted key to meet it.`
                 : t`Use the piano key that matches the note.`}
             </p>
           )}
         </div>
-        <div className={`answer-area ${input === 'piano' ? 'answer-area-keyboard' : ''}`}>
+        <div
+          className={`answer-area ${input === 'piano' ? 'answer-area-keyboard' : ''}`}
+        >
           {input === 'piano' ? (
             <Piano
               window={session.keyboardWindow}

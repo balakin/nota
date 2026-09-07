@@ -1,4 +1,6 @@
 import { describe, expect, it } from 'vitest';
+
+import { pitch, pitchId } from '../../music/music';
 import {
   BLACK_KEYS_PER_OCTAVE,
   WHITE_KEYS_PER_OCTAVE,
@@ -6,7 +8,6 @@ import {
   windowContains,
   windowForMidi,
 } from '../piano-layout';
-import { pitch, pitchId } from '../../music/music';
 
 describe('one-octave piano layout', () => {
   it('always draws the same twelve keys, whatever the octave', () => {
@@ -14,8 +15,18 @@ describe('one-octave piano layout', () => {
       const window = octaveWindow(octave);
       expect(window.whiteKeys).toHaveLength(WHITE_KEYS_PER_OCTAVE);
       expect(window.blackKeys).toHaveLength(BLACK_KEYS_PER_OCTAVE);
-      expect(window.whiteKeys.map((key) => key.name)).toEqual(['C', 'D', 'E', 'F', 'G', 'A', 'B']);
-      expect(window.blackKeys.map((key) => key.afterWhiteIndex)).toEqual([0, 1, 3, 4, 5]);
+      expect(window.whiteKeys.map((key) => key.name)).toEqual([
+        'C',
+        'D',
+        'E',
+        'F',
+        'G',
+        'A',
+        'B',
+      ]);
+      expect(window.blackKeys.map((key) => key.afterWhiteIndex)).toEqual([
+        0, 1, 3, 4, 5,
+      ]);
     }
   });
 
@@ -35,11 +46,17 @@ describe('one-octave piano layout', () => {
       'Ab4',
       'Bb4',
     ]);
-    expect(window.blackKeys.every((key) => key.sharp.midi === key.flat.midi)).toBe(true);
+    expect(
+      window.blackKeys.every((key) => key.sharp.midi === key.flat.midi),
+    ).toBe(true);
   });
 
   it('anchors on the octave of the note being asked, so every note is answerable', () => {
-    for (const value of [pitch('C', 4), pitch('F', 5, 'sharp'), pitch('B', 2, 'flat')]) {
+    for (const value of [
+      pitch('C', 4),
+      pitch('F', 5, 'sharp'),
+      pitch('B', 2, 'flat'),
+    ]) {
       const window = windowForMidi(value.midi);
       expect(windowContains(window, value.midi)).toBe(true);
     }

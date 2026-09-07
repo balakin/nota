@@ -1,5 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { deadlineRemainingMs, isDeadlineReached, SPEED_DEADLINE_MS } from '../training';
+
+import {
+  deadlineRemainingMs,
+  isDeadlineReached,
+  SPEED_DEADLINE_MS,
+} from '../training';
 
 describe('speed timing contract', () => {
   it('keeps the product Speed deadline at exactly two seconds', () => {

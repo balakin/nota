@@ -1,7 +1,8 @@
 import { i18n } from '@lingui/core';
+
+import type { Locale } from '../app-state/app-state';
 import { messages as en } from '../locales/en.po';
 import { messages as ru } from '../locales/ru.po';
-import type { Locale } from '../app-state/app-state';
 
 export { i18n };
 
@@ -13,7 +14,8 @@ export function activateLocale(locale: Locale): void {
 }
 
 export function browserLocale(): Locale {
-  return typeof navigator !== 'undefined' && navigator.language.toLowerCase().startsWith('ru')
+  return typeof navigator !== 'undefined' &&
+    navigator.language.toLowerCase().startsWith('ru')
     ? 'ru'
     : 'en';
 }

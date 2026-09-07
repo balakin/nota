@@ -24,7 +24,8 @@ function openDatabase(): Promise<IDBDatabase> {
       request.result.createObjectStore(STORE_NAME);
     };
     request.onsuccess = () => resolve(request.result);
-    request.onerror = () => reject(request.error ?? new Error('Unable to open local storage'));
+    request.onerror = () =>
+      reject(request.error ?? new Error('Unable to open local storage'));
   });
 }
 
@@ -57,7 +58,8 @@ export async function loadPersistedState(): Promise<PersistedState | null> {
         .objectStore(STORE_NAME)
         .get(STATE_KEY);
       request.onsuccess = () => resolve(request.result);
-      request.onerror = () => reject(request.error);
+      request.onerror = () =>
+        reject(request.error ?? new Error('IndexedDB request failed'));
     });
     database.close();
     indexed = unwrap(value);
@@ -66,12 +68,19 @@ export async function loadPersistedState(): Promise<PersistedState | null> {
   }
   const local = readLocalStorage();
   if (!indexed && !local) return null;
-  const selected = indexed && local && local.savedAt > indexed.savedAt ? local : (indexed ?? local);
+  const selected =
+    indexed && local && local.savedAt > indexed.savedAt
+      ? local
+      : (indexed ?? local);
   return selected?.state ?? null;
 }
 
 export async function savePersistedState(state: PersistedState): Promise<void> {
-  const envelope: StoredEnvelope = { schemaVersion: 1, savedAt: Date.now(), state };
+  const envelope: StoredEnvelope = {
+    schemaVersion: 1,
+    savedAt: Date.now(),
+    state,
+  };
   try {
     const database = await openDatabase();
     await new Promise<void>((resolve, reject) => {
@@ -80,7 +89,8 @@ export async function savePersistedState(state: PersistedState): Promise<void> {
         .objectStore(STORE_NAME)
         .put(envelope, STATE_KEY);
       request.onsuccess = () => resolve();
-      request.onerror = () => reject(request.error);
+      request.onerror = () =>
+        reject(request.error ?? new Error('IndexedDB request failed'));
     });
     database.close();
   } catch {

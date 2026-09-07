@@ -1,5 +1,6 @@
 import { t } from '@lingui/core/macro';
 import { afterEach, describe, expect, it } from 'vitest';
+
 import { activateLocale, browserLocale, i18n } from '../i18n';
 
 afterEach(() => {

@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+
 import {
   displayNoteName,
   pitchFromId,
@@ -12,7 +13,12 @@ import {
 
 describe('canonical music mapping', () => {
   it('maps C4 to MIDI 60 and back', () => {
-    expect(pitch('C', 4)).toEqual({ name: 'C', accidental: 'natural', octave: 4, midi: 60 });
+    expect(pitch('C', 4)).toEqual({
+      name: 'C',
+      accidental: 'natural',
+      octave: 4,
+      midi: 60,
+    });
     expect(pitchFromMidi(60)).toEqual(pitch('C', 4));
     expect(pitchId(pitch('C', 4))).toBe('C4');
   });

@@ -1,4 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
+
 import type { AppSettings, SessionSummary } from '../app-state/app-state';
 import { displayNoteName } from '../music/music';
 import { findRecognitionItem } from '../music/recognition-items';
@@ -19,7 +20,9 @@ export function ResultPage({
   const names = (ids: string[]) =>
     ids.map((id) => {
       const item = findRecognitionItem(id);
-      return item ? displayNoteName(item.pitch, settings.naming, settings.locale) : id;
+      return item
+        ? displayNoteName(item.pitch, settings.naming, settings.locale)
+        : id;
     });
   return (
     <div className="page result-page">
@@ -53,11 +56,13 @@ export function ResultPage({
           <h2>{t`New progress`}</h2>
           {result.newRecognized.length + result.newFluent.length > 0 ? (
             <div className="result-tags">
-              {[...names(result.newRecognized), ...names(result.newFluent)].map((name) => (
-                <span className="tag" key={name}>
-                  {name}
-                </span>
-              ))}
+              {[...names(result.newRecognized), ...names(result.newFluent)].map(
+                (name) => (
+                  <span className="tag" key={name}>
+                    {name}
+                  </span>
+                ),
+              )}
             </div>
           ) : (
             <p className="muted-copy">{t`Keep going — your next recognition is forming.`}</p>
@@ -77,13 +82,19 @@ export function ResultPage({
         </section>
         <section className="surface result-detail">
           <h2>{t`Practice time`}</h2>
-          <strong className="big-number">{formatDuration(result.practiceSeconds)}</strong>
+          <strong className="big-number">
+            {formatDuration(result.practiceSeconds)}
+          </strong>
           <p className="muted-copy">
             {result.mode === 'speed'
               ? t`2 seconds per note · piano labels hidden`
               : t`Generous time while you build accuracy`}
           </p>
-          <button className="button button-primary" type="button" onClick={onDone}>
+          <button
+            className="button button-primary"
+            type="button"
+            onClick={onDone}
+          >
             {t`Back to training`} <Icon name="arrow" size={17} />
           </button>
         </section>

@@ -1,5 +1,6 @@
 import { I18nProvider } from '@lingui/react';
 import { useLingui } from '@lingui/react/macro';
+
 import { useAppState } from '../app-state/use-app-state';
 import { i18n } from '../i18n/i18n';
 import { OnboardingPage } from '../onboarding/onboarding-page';
@@ -10,6 +11,7 @@ import { ResearchPage } from '../research/research-page';
 import { usePage } from '../router/use-page';
 import { SettingsPage } from '../settings/settings-page';
 import { Icon } from '../ui/icon';
+
 import { Header } from './header';
 import { OfflineStatus } from './offline-status';
 import { PrimaryNav } from './primary-nav';
@@ -17,7 +19,8 @@ import { useDocumentChrome } from './use-document-chrome';
 
 export default function App() {
   const { t } = useLingui();
-  const { state, hydrated, updateSettings, recordNoteStats, appendSession } = useAppState();
+  const { state, hydrated, updateSettings, recordNoteStats, appendSession } =
+    useAppState();
   const { page, navigate } = usePage();
   const practice = usePracticeSession({
     notes: state.notes,
@@ -54,15 +57,23 @@ export default function App() {
       <div className={`app-shell ${inSession ? 'is-session' : ''}`}>
         {inSession ? null : <Header page={page} navigate={navigate} />}
         <main className="main-content">
-          {page === 'train' && <PracticePage practice={practice} state={state} />}
+          {page === 'train' && (
+            <PracticePage practice={practice} state={state} />
+          )}
           {page === 'progress' && <ProgressPage state={state} />}
           {page === 'settings' && (
-            <SettingsPage settings={state.settings} onChange={updateSettings} navigate={navigate} />
+            <SettingsPage
+              settings={state.settings}
+              onChange={updateSettings}
+              navigate={navigate}
+            />
           )}
           {page === 'research' && <ResearchPage navigate={navigate} />}
         </main>
         <OfflineStatus />
-        {inSession ? null : <PrimaryNav page={page} navigate={navigate} className="mobile-nav" />}
+        {inSession ? null : (
+          <PrimaryNav page={page} navigate={navigate} className="mobile-nav" />
+        )}
       </div>
     </I18nProvider>
   );

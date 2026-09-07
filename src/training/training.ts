@@ -38,11 +38,19 @@ export type NoteStats = {
 
 export const SPEED_DEADLINE_MS = 2000;
 
-export function deadlineRemainingMs(startedAt: number, now: number, deadlineMs: number): number {
+export function deadlineRemainingMs(
+  startedAt: number,
+  now: number,
+  deadlineMs: number,
+): number {
   return Math.max(0, deadlineMs - (now - startedAt));
 }
 
-export function isDeadlineReached(startedAt: number, now: number, deadlineMs: number): boolean {
+export function isDeadlineReached(
+  startedAt: number,
+  now: number,
+  deadlineMs: number,
+): boolean {
   return deadlineRemainingMs(startedAt, now, deadlineMs) === 0;
 }
 
@@ -104,18 +112,24 @@ export function median(values: readonly number[]): number | null {
   if (values.length === 0) return null;
   const sorted = [...values].sort((a, b) => a - b);
   const middle = Math.floor(sorted.length / 2);
-  return sorted.length % 2 ? sorted[middle] : (sorted[middle - 1] + sorted[middle]) / 2;
+  return sorted.length % 2
+    ? sorted[middle]
+    : (sorted[middle - 1] + sorted[middle]) / 2;
 }
 
-export function accuracy(stats: Pick<NoteStats, 'totalAttempts' | 'correctAttempts'>): number {
-  return stats.totalAttempts === 0 ? 0 : stats.correctAttempts / stats.totalAttempts;
+export function accuracy(
+  stats: Pick<NoteStats, 'totalAttempts' | 'correctAttempts'>,
+): number {
+  return stats.totalAttempts === 0
+    ? 0
+    : stats.correctAttempts / stats.totalAttempts;
 }
 
 export function recentAccuracy(stats: NoteStats): number {
   if (stats.recentAttempts.length === 0) return 0;
   return (
-    stats.recentAttempts.filter((attempt) => attempt.result === 'correct').length /
-    stats.recentAttempts.length
+    stats.recentAttempts.filter((attempt) => attempt.result === 'correct')
+      .length / stats.recentAttempts.length
   );
 }
 
@@ -138,7 +152,8 @@ function deriveState(stats: NoteStats): MasteryState {
   const fluent =
     stats.speedAttempts >= MASTERY_THRESHOLDS.fluentAttempts &&
     stats.sessions.length >= MASTERY_THRESHOLDS.fluentSessions &&
-    stats.speedCorrect / stats.speedAttempts >= MASTERY_THRESHOLDS.fluentAccuracy &&
+    stats.speedCorrect / stats.speedAttempts >=
+      MASTERY_THRESHOLDS.fluentAccuracy &&
     speedFailureRate <= MASTERY_THRESHOLDS.fluentFailureRate &&
     (median(stats.speedResponseTimes) ?? Number.POSITIVE_INFINITY) <=
       MASTERY_THRESHOLDS.fluentMedianMs;
@@ -154,13 +169,20 @@ export function updateReviewLevel(
   elapsedMs: number | null,
 ): number {
   if (result !== 'correct') return Math.max(0, previous.reviewLevel - 2);
-  const fastEnough = elapsedMs !== null && elapsedMs <= MASTERY_THRESHOLDS.recognizedMedianMs;
-  return Math.min(REVIEW_INTERVALS_MS.length - 1, previous.reviewLevel + (fastEnough ? 1 : 0));
+  const fastEnough =
+    elapsedMs !== null && elapsedMs <= MASTERY_THRESHOLDS.recognizedMedianMs;
+  return Math.min(
+    REVIEW_INTERVALS_MS.length - 1,
+    previous.reviewLevel + (fastEnough ? 1 : 0),
+  );
 }
 
 export function nextReviewAt(reviewLevel: number, now: number): number {
   return (
-    now + REVIEW_INTERVALS_MS[Math.max(0, Math.min(reviewLevel, REVIEW_INTERVALS_MS.length - 1))]
+    now +
+    REVIEW_INTERVALS_MS[
+      Math.max(0, Math.min(reviewLevel, REVIEW_INTERVALS_MS.length - 1))
+    ]
   );
 }
 
@@ -182,7 +204,9 @@ export function recordOutcome(
       ? [...previous.responseTimes, outcome.elapsedMs].slice(-40)
       : previous.responseTimes;
   const speedResponseTimes =
-    outcome.mode === 'speed' && outcome.result === 'correct' && outcome.elapsedMs !== null
+    outcome.mode === 'speed' &&
+    outcome.result === 'correct' &&
+    outcome.elapsedMs !== null
       ? [...previous.speedResponseTimes, outcome.elapsedMs].slice(-40)
       : previous.speedResponseTimes;
   const sessions = previous.sessions.includes(outcome.sessionId)
@@ -191,16 +215,20 @@ export function recordOutcome(
   const next: NoteStats = {
     ...previous,
     totalAttempts: previous.totalAttempts + 1,
-    correctAttempts: previous.correctAttempts + (outcome.result === 'correct' ? 1 : 0),
-    incorrectAttempts: previous.incorrectAttempts + (outcome.result === 'incorrect' ? 1 : 0),
+    correctAttempts:
+      previous.correctAttempts + (outcome.result === 'correct' ? 1 : 0),
+    incorrectAttempts:
+      previous.incorrectAttempts + (outcome.result === 'incorrect' ? 1 : 0),
     timeouts: previous.timeouts + (outcome.result === 'timeout' ? 1 : 0),
     responseTimes,
     speedResponseTimes,
     speedAttempts: previous.speedAttempts + (outcome.mode === 'speed' ? 1 : 0),
     speedCorrect:
-      previous.speedCorrect + (outcome.mode === 'speed' && outcome.result === 'correct' ? 1 : 0),
+      previous.speedCorrect +
+      (outcome.mode === 'speed' && outcome.result === 'correct' ? 1 : 0),
     speedTimeouts:
-      previous.speedTimeouts + (outcome.mode === 'speed' && outcome.result === 'timeout' ? 1 : 0),
+      previous.speedTimeouts +
+      (outcome.mode === 'speed' && outcome.result === 'timeout' ? 1 : 0),
     state: previous.state === 'new' ? 'learning' : previous.state,
     reviewLevel: updateReviewLevel(previous, outcome.result, outcome.elapsedMs),
     nextDueAt: 0,
@@ -219,7 +247,8 @@ export function noteWeight(stats: NoteStats, now: number): number {
   let weight = 1;
   if (stats.nextDueAt <= now && stats.totalAttempts > 0) weight += 7;
   if (stats.timeouts > 0) weight += Math.min(6, stats.timeouts * 1.5);
-  if (stats.incorrectAttempts > 0) weight += Math.min(5, stats.incorrectAttempts);
+  if (stats.incorrectAttempts > 0)
+    weight += Math.min(5, stats.incorrectAttempts);
   if (stats.state === 'learning') weight += 4;
   if (stats.state === 'recognized') weight += 2;
   if (stats.state === 'fluent') weight *= 0.6;
@@ -262,7 +291,9 @@ export function unlockedItems(
       const previous = curriculum.slice(0, count);
       const stable = previous.every((item) => {
         const stats = statsById[item.id];
-        return stats && (stats.state === 'recognized' || stats.state === 'fluent');
+        return (
+          stats && (stats.state === 'recognized' || stats.state === 'fluent')
+        );
       });
       if (!stable) break;
       count += 1;
@@ -271,18 +302,30 @@ export function unlockedItems(
   });
 }
 
-export function weakestNotes(stats: readonly NoteStats[], limit = 4): NoteStats[] {
+export function weakestNotes(
+  stats: readonly NoteStats[],
+  limit = 4,
+): NoteStats[] {
   return [...stats]
     .filter((item) => item.totalAttempts > 0)
     .sort((a, b) => {
-      const aScore = accuracy(a) - (median(a.responseTimes) ?? 5000) / 10_000 - a.timeouts / 100;
-      const bScore = accuracy(b) - (median(b.responseTimes) ?? 5000) / 10_000 - b.timeouts / 100;
+      const aScore =
+        accuracy(a) -
+        (median(a.responseTimes) ?? 5000) / 10_000 -
+        a.timeouts / 100;
+      const bScore =
+        accuracy(b) -
+        (median(b.responseTimes) ?? 5000) / 10_000 -
+        b.timeouts / 100;
       return aScore - bScore;
     })
     .slice(0, limit);
 }
 
-export type SessionQueueEntry = { item: RecognitionItem; notBeforeQuestion: number };
+export type SessionQueueEntry = {
+  item: RecognitionItem;
+  notBeforeQuestion: number;
+};
 
 export function requeueAfterWrong(
   queue: readonly SessionQueueEntry[],

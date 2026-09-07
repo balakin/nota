@@ -1,7 +1,9 @@
 import { useLingui } from '@lingui/react/macro';
+
 import type { AppSettings } from '../app-state/app-state';
 import type { Page } from '../router/pages';
 import { Icon } from '../ui/icon';
+
 import { SettingSection } from './setting-section';
 
 export function SettingsPage({
@@ -24,7 +26,11 @@ export function SettingsPage({
       </div>
       <div className="settings-list">
         <SettingSection title={t`Interface language`}>
-          <div className="segmented wide" role="group" aria-label={t`Choose interface language`}>
+          <div
+            className="segmented wide"
+            role="group"
+            aria-label={t`Choose interface language`}
+          >
             <button
               type="button"
               className={settings.locale === 'en' ? 'selected' : ''}
@@ -44,7 +50,11 @@ export function SettingsPage({
           </div>
         </SettingSection>
         <SettingSection title={t`Note naming`}>
-          <div className="segmented wide" role="group" aria-label={t`Choose note naming system`}>
+          <div
+            className="segmented wide"
+            role="group"
+            aria-label={t`Choose note naming system`}
+          >
             <button
               type="button"
               className={settings.naming === 'letters' ? 'selected' : ''}
@@ -65,7 +75,11 @@ export function SettingsPage({
           <p className="setting-hint">{t`This changes labels, never your progress.`}</p>
         </SettingSection>
         <SettingSection title={t`Appearance`}>
-          <div className="segmented wide" role="group" aria-label={t`Choose color theme`}>
+          <div
+            className="segmented wide"
+            role="group"
+            aria-label={t`Choose color theme`}
+          >
             <button
               type="button"
               className={settings.theme === 'system' ? 'selected' : ''}

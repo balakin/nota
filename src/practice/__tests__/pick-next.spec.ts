@@ -1,6 +1,11 @@
 import { describe, expect, it } from 'vitest';
+
 import { pitch, recognitionItem } from '../../music/music';
-import { emptyNoteStats, requeueAfterWrong, type NoteStats } from '../../training/training';
+import {
+  emptyNoteStats,
+  requeueAfterWrong,
+  type NoteStats,
+} from '../../training/training';
 import { pickNext } from '../pick-next';
 
 const items = [
@@ -11,10 +16,9 @@ const items = [
 ];
 
 function statsFor(list: readonly ReturnType<typeof recognitionItem>[]) {
-  return Object.fromEntries(list.map((item) => [item.id, emptyNoteStats(item)])) as Record<
-    string,
-    NoteStats
-  >;
+  return Object.fromEntries(
+    list.map((item) => [item.id, emptyNoteStats(item)]),
+  ) as Record<string, NoteStats>;
 }
 
 describe('pickNext', () => {
@@ -27,7 +31,9 @@ describe('pickNext', () => {
 
   it('skips notes deferred after a wrong answer until their delay has passed', () => {
     const queue = requeueAfterWrong([], items[0], 1, 3);
-    expect(pickNext(items, statsFor(items), [], queue, 2).id).not.toBe(items[0].id);
+    expect(pickNext(items, statsFor(items), [], queue, 2).id).not.toBe(
+      items[0].id,
+    );
     expect(
       [items[0].id, items[1].id, items[2].id, items[3].id].includes(
         pickNext(items, statsFor(items), [], queue, 5).id,
@@ -37,6 +43,8 @@ describe('pickNext', () => {
 
   it('falls back to the full candidate list when everything is blocked', () => {
     const single = [items[0]];
-    expect(pickNext(single, statsFor(single), [items[0].id]).id).toBe(items[0].id);
+    expect(pickNext(single, statsFor(single), [items[0].id]).id).toBe(
+      items[0].id,
+    );
   });
 });

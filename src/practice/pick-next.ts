@@ -22,7 +22,8 @@ export function pickNext(
   const availableAfterDelay = candidates.filter(
     (item) =>
       !deferredQueue.some(
-        (entry) => entry.item.id === item.id && entry.notBeforeQuestion > questionNumber,
+        (entry) =>
+          entry.item.id === item.id && entry.notBeforeQuestion > questionNumber,
       ),
   );
   const available =

@@ -1,4 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
+
 import type { Locale } from '../app-state/app-state';
 import {
   ACCIDENTAL_SIGN,

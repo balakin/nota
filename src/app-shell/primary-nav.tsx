@@ -1,5 +1,7 @@
 import { useLingui } from '@lingui/react/macro';
+
 import type { Page } from '../router/pages';
+
 import { NavButton } from './nav-button';
 
 /** The same three destinations back the desktop header and the mobile tab bar. */

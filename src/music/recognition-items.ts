@@ -4,7 +4,9 @@ export function allRecognitionItems(): RecognitionItem[] {
   return [...CURRICULUM.treble, ...CURRICULUM.bass];
 }
 
-export function findRecognitionItem(itemId: string): RecognitionItem | undefined {
+export function findRecognitionItem(
+  itemId: string,
+): RecognitionItem | undefined {
   return allRecognitionItems().find((candidate) => candidate.id === itemId);
 }
 

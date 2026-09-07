@@ -1,9 +1,17 @@
 import { useLingui } from '@lingui/react/macro';
+
 import type { Page } from '../router/pages';
 import { Icon } from '../ui/icon';
+
 import { PrimaryNav } from './primary-nav';
 
-export function Header({ page, navigate }: { page: Page; navigate: (page: Page) => void }) {
+export function Header({
+  page,
+  navigate,
+}: {
+  page: Page;
+  navigate: (page: Page) => void;
+}) {
   const { t } = useLingui();
   return (
     <header className="top-bar">

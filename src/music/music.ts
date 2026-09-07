@@ -30,11 +30,23 @@ const LETTER_INDEX: Record<PitchName, number> = {
   B: 6,
 };
 
-const ACCIDENTAL_SEMITONES: Record<Accidental, number> = { natural: 0, sharp: 1, flat: -1 };
+const ACCIDENTAL_SEMITONES: Record<Accidental, number> = {
+  natural: 0,
+  sharp: 1,
+  flat: -1,
+};
 
 /** The glyph shown to the learner, and the ASCII token used in stable ids. */
-export const ACCIDENTAL_SIGN: Record<Accidental, string> = { natural: '', sharp: '♯', flat: '♭' };
-const ACCIDENTAL_TOKEN: Record<Accidental, string> = { natural: '', sharp: '#', flat: 'b' };
+export const ACCIDENTAL_SIGN: Record<Accidental, string> = {
+  natural: '',
+  sharp: '♯',
+  flat: '♭',
+};
+const ACCIDENTAL_TOKEN: Record<Accidental, string> = {
+  natural: '',
+  sharp: '#',
+  flat: 'b',
+};
 
 const SOLFEGE: Record<PitchName, { en: string; ru: string }> = {
   C: { en: 'Do', ru: 'До' },
@@ -71,16 +83,20 @@ export function pitchId(value: CanonicalPitch): string {
 export function pitchFromId(id: string): CanonicalPitch | null {
   const match = /^([A-G])([#b]?)(\d+)$/.exec(id);
   if (!match) return null;
-  const accidental: Accidental = match[2] === '#' ? 'sharp' : match[2] === 'b' ? 'flat' : 'natural';
+  const accidental: Accidental =
+    match[2] === '#' ? 'sharp' : match[2] === 'b' ? 'flat' : 'natural';
   return pitch(match[1] as PitchName, Number(match[3]), accidental);
 }
 
 /** Resolves a MIDI number to its natural spelling; black keys have none, so they return null. */
 export function pitchFromMidi(midi: number): CanonicalPitch | null {
   const octave = Math.floor(midi / SEMITONES_PER_OCTAVE) - 1;
-  const semitone = ((midi % SEMITONES_PER_OCTAVE) + SEMITONES_PER_OCTAVE) % SEMITONES_PER_OCTAVE;
-  const name = (Object.entries(LETTER_SEMITONES).find(([, value]) => value === semitone)?.[0] ??
-    null) as PitchName | null;
+  const semitone =
+    ((midi % SEMITONES_PER_OCTAVE) + SEMITONES_PER_OCTAVE) %
+    SEMITONES_PER_OCTAVE;
+  const name = (Object.entries(LETTER_SEMITONES).find(
+    ([, value]) => value === semitone,
+  )?.[0] ?? null) as PitchName | null;
   return name ? pitch(name, octave) : null;
 }
 
@@ -144,7 +160,10 @@ export type RecognitionItem = {
   pitch: CanonicalPitch;
 };
 
-export function recognitionItem(clef: Clef, value: CanonicalPitch): RecognitionItem {
+export function recognitionItem(
+  clef: Clef,
+  value: CanonicalPitch,
+): RecognitionItem {
   return { id: `${clef}:${pitchId(value)}`, clef, pitch: value };
 }
 

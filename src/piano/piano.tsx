@@ -1,12 +1,15 @@
 import { useLingui } from '@lingui/react/macro';
-import type { KeyboardWindow } from './piano-layout';
-import { BLACK_KEY_WIDTH_RATIO, WHITE_KEYS_PER_OCTAVE } from './piano-layout';
-import { accessiblePitchLabel, type NamingSystem } from '../music/music';
+
 import type { Locale } from '../app-state/app-state';
+import { accessiblePitchLabel, type NamingSystem } from '../music/music';
 import { pianoAnswer, type NormalizedAnswer } from '../training/input';
 
+import type { KeyboardWindow } from './piano-layout';
+import { BLACK_KEY_WIDTH_RATIO, WHITE_KEYS_PER_OCTAVE } from './piano-layout';
+
 /** Positions in white-key widths become percentages of the one-octave key bed. */
-const octaveFraction = (widths: number) => `${(widths / WHITE_KEYS_PER_OCTAVE) * 100}%`;
+const octaveFraction = (widths: number) =>
+  `${(widths / WHITE_KEYS_PER_OCTAVE) * 100}%`;
 
 export function Piano({
   window,

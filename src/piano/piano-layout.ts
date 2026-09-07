@@ -49,16 +49,18 @@ export function octaveWindow(octave: number): KeyboardWindow {
   return {
     octave,
     whiteKeys: WHITE_NAMES.map((name) => pitch(name, octave)),
-    blackKeys: BLACK_KEYS.map(({ sharpOf, flatOf, afterWhiteIndex, center }) => {
-      const sharp = pitch(sharpOf, octave, 'sharp');
-      return {
-        midi: sharp.midi,
-        sharp,
-        flat: pitch(flatOf, octave, 'flat'),
-        afterWhiteIndex,
-        center,
-      };
-    }),
+    blackKeys: BLACK_KEYS.map(
+      ({ sharpOf, flatOf, afterWhiteIndex, center }) => {
+        const sharp = pitch(sharpOf, octave, 'sharp');
+        return {
+          midi: sharp.midi,
+          sharp,
+          flat: pitch(flatOf, octave, 'flat'),
+          afterWhiteIndex,
+          center,
+        };
+      },
+    ),
   };
 }
 
