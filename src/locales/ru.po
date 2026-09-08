@@ -25,12 +25,12 @@ msgstr "{0} д"
 
 #. placeholder {0}: locale === 'ru' ? '2,0' : '2.0'
 #. placeholder {0}: settings.locale === 'ru' ? '2,0' : '2.0'
-#: src/practice/practice-session.tsx:204
-#: src/practice/session-setup.tsx:105
+#: src/practice/practice-session.tsx:211
+#: src/practice/session-setup.tsx:108
 msgid "{0}s"
 msgstr "{0} с"
 
-#: src/practice/session-setup.tsx:83
+#: src/practice/session-setup.tsx:86
 msgid "{minutes} min"
 msgstr "{minutes} мин"
 
@@ -38,7 +38,7 @@ msgstr "{minutes} мин"
 #: src/practice/result-page.tsx:48
 #: src/progress/hardest-notes.tsx:101
 #: src/progress/note-map.tsx:32
-#: src/progress/progress-page.tsx:97
+#: src/progress/progress-page.tsx:99
 msgid "< 1s"
 msgstr "< 1 с"
 
@@ -60,12 +60,12 @@ msgid "accuracy"
 msgstr "Точность"
 
 #: src/practice/result-page.tsx:41
-#: src/progress/progress-page.tsx:84
+#: src/progress/progress-page.tsx:85
 #: src/progress/session-chart.tsx:154
 msgid "Accuracy"
 msgstr "Точность"
 
-#: src/progress/progress-page.tsx:125
+#: src/progress/progress-page.tsx:129
 msgid "Accuracy and speed"
 msgstr "Точность и скорость"
 
@@ -74,7 +74,7 @@ msgstr "Точность и скорость"
 msgid "All"
 msgstr "Все"
 
-#: src/practice/session-setup.tsx:39
+#: src/practice/session-setup.tsx:40
 msgid "Answer with"
 msgstr "Отвечать с помощью"
 
@@ -99,7 +99,7 @@ msgid "barely seen"
 msgstr "почти не встречалась"
 
 #: src/notation/notation-staff.tsx:55
-#: src/practice/session-setup.tsx:55
+#: src/practice/session-setup.tsx:58
 #: src/progress/note-map.tsx:90
 msgid "Bass"
 msgstr "Басовый"
@@ -124,11 +124,19 @@ msgstr "Выберите язык интерфейса"
 msgid "Choose note naming system"
 msgstr "Выберите систему названий нот"
 
-#: src/practice/session-setup.tsx:50
+#: src/practice/session-setup.tsx:53
 msgid "Clefs"
 msgstr "Ключи"
 
-#: src/practice/session-setup.tsx:93
+#: src/practice/midi-status.tsx:26
+msgid "Connect"
+msgstr "Подключить"
+
+#: src/practice/midi-status.tsx:38
+msgid "Connect a MIDI keyboard"
+msgstr "Подключить MIDI-клавиатуру"
+
+#: src/practice/session-setup.tsx:96
 msgid "Continue training"
 msgstr "Продолжить тренировку"
 
@@ -153,11 +161,11 @@ msgid "Do · Re · Mi · Fa · Sol · La · Si"
 msgstr "До · Ре · Ми · Фа · Соль · Ля · Си"
 
 #: src/onboarding/onboarding-page.tsx:28
-#: src/practice/session-setup.tsx:99
+#: src/practice/session-setup.tsx:102
 msgid "Don’t count. Recognize."
 msgstr "Не считайте. Узнавайте."
 
-#: src/progress/progress-page.tsx:131
+#: src/progress/progress-page.tsx:135
 msgid "Every note of the curriculum, in pitch order. Colour is your standing on it overall; the figure is how much you answered correctly in this range."
 msgstr "Все ноты курса по высоте. Цвет — общее владение нотой, число — доля верных ответов за выбранный период."
 
@@ -165,7 +173,7 @@ msgstr "Все ноты курса по высоте. Цвет — общее в
 msgid "Experimental work with musical notation has found measurable changes in visual processing after targeted training. That is evidence about trained visual tasks, not a claim to make an expert pianist or sight-reader."
 msgstr "Эксперименты с нотной записью обнаружили измеримые изменения зрительной обработки после целевой тренировки. Это данные о конкретных зрительных задачах, а не обещание сделать вас пианистом или мастером чтения с листа."
 
-#: src/practice/practice-session.tsx:126
+#: src/practice/practice-session.tsx:130
 msgid "Finish session"
 msgstr "Завершить"
 
@@ -177,7 +185,7 @@ msgstr "Фиксированная сольфеджио"
 msgid "Fluent"
 msgstr "Беглая"
 
-#: src/practice/session-setup.tsx:101
+#: src/practice/session-setup.tsx:104
 #: src/research/research-papers.ts:6
 msgid "Fluent note reading is a visual-perceptual skill. Targeted practice can focus on recognizing a note’s whole pattern instead of consciously calculating its position."
 msgstr "Беглое чтение нот — зрительно-перцептивный навык. Целенаправленная практика помогает узнавать целостный рисунок ноты, а не вычислять её положение."
@@ -187,7 +195,7 @@ msgstr "Беглое чтение нот — зрительно-перцепти
 msgid "Generous time while you build accuracy"
 msgstr "Больше времени для наработки точности"
 
-#: src/progress/progress-page.tsx:141
+#: src/progress/progress-page.tsx:145
 msgid "Hardest notes"
 msgstr "Самые трудные ноты"
 
@@ -219,7 +227,7 @@ msgstr "последний раз"
 msgid "Letters"
 msgstr "Буквы"
 
-#: src/progress/stat-tile.tsx:39
+#: src/progress/stat-tile.tsx:46
 msgid "level with previous"
 msgstr "как в прошлом периоде"
 
@@ -231,17 +239,21 @@ msgstr "Светлая"
 msgid "Loading Nota"
 msgstr "Загрузка Nota"
 
-#: src/practice/session-setup.tsx:114
+#: src/practice/session-setup.tsx:117
 msgid "Local"
 msgstr "Офлайн — прогресс сохранён на устройстве"
 
-#: src/practice/session-setup.tsx:98
+#: src/practice/session-setup.tsx:101
 msgid "Look → recognize → answer"
 msgstr "Смотрите → узнавайте → отвечайте"
 
-#: src/practice/session-setup.tsx:29
+#: src/practice/session-setup.tsx:30
 msgid "Look at the staff, then answer without counting."
 msgstr "Смотрите на нотный стан и отвечайте, не считая."
+
+#: src/practice/midi-status.tsx:32
+msgid "Looking for keyboards…"
+msgstr "Ищем клавиатуры…"
 
 #: src/practice/range-picker.tsx:52
 msgid "Lowest note"
@@ -255,11 +267,15 @@ msgstr "Настройте Nota под свой способ обучения."
 msgid "Median response"
 msgstr "Медиана ответа"
 
-#: src/progress/progress-page.tsx:96
+#: src/progress/progress-page.tsx:98
 msgid "Median time per note"
 msgstr "Медиана времени на ноту"
 
-#: src/progress/progress-page.tsx:118
+#: src/practice/session-setup.tsx:45
+msgid "MIDI keyboard"
+msgstr "MIDI-клавиатура"
+
+#: src/progress/progress-page.tsx:121
 msgid "min"
 msgstr "мин"
 
@@ -267,7 +283,7 @@ msgstr "мин"
 msgid "New"
 msgstr "Новая"
 
-#: src/practice/practice-session.tsx:172
+#: src/practice/practice-session.tsx:176
 msgid "New note: {currentName} · press the highlighted key to meet it."
 msgstr "Новая нота: {currentName} · нажмите подсвеченную клавишу."
 
@@ -275,9 +291,13 @@ msgstr "Новая нота: {currentName} · нажмите подсвечен�
 msgid "New progress"
 msgstr "Новый прогресс"
 
-#: src/progress/stat-tile.tsx:32
+#: src/progress/stat-tile.tsx:35
 msgid "no earlier window"
 msgstr "нет прошлого периода"
+
+#: src/practice/midi-status.tsx:46
+msgid "No keyboard yet. Pair it in your system Bluetooth settings and it will appear here."
+msgstr "Клавиатура пока не найдена. Подключите её в системных настройках Bluetooth — и она появится здесь."
 
 #: src/progress/session-history.tsx:21
 msgid "No practice in this range yet. Train, and accuracy and speed will appear here day by day."
@@ -312,7 +332,7 @@ msgid "Nota does not claim scientific certification or guarantee a result in a p
 msgstr "Nota не заявляет о научной сертификации и не гарантирует результат за определённое число часов."
 
 #: src/onboarding/onboarding-page.tsx:55
-#: src/practice/session-setup.tsx:121
+#: src/practice/session-setup.tsx:124
 #: src/settings/settings-page.tsx:122
 msgid "Nota is a small, local-first tool. Your progress stays on this device."
 msgstr "Nota — небольшой локальный инструмент. Прогресс хранится на этом устройстве."
@@ -321,20 +341,24 @@ msgstr "Nota — небольшой локальный инструмент. П�
 msgid "Nota is inspired by research on visual perceptual learning, musical-note recognition, retrieval practice, and spaced learning. The curriculum and thresholds are product-design hypotheses, not scientifically validated promises."
 msgstr "Nota вдохновлена исследованиями зрительного перцептивного обучения, распознавания нот, извлечения из памяти и интервального обучения. Учебная программа и пороги — продуктовые гипотезы, а не научно подтверждённые обещания."
 
+#: src/practice/midi-status.tsx:24
+msgid "Nota may not use MIDI devices. Allow it in the site permissions, then connect again."
+msgstr "Nota не разрешено использовать MIDI-устройства. Разрешите это в настройках сайта и подключитесь снова."
+
 #: src/app-shell/header.tsx:36
 msgid "Nota on GitHub"
 msgstr "Nota на GitHub"
 
-#: src/practice/session-setup.tsx:110
+#: src/practice/session-setup.tsx:113
 msgid "Note map"
 msgstr "Карта нот"
 
-#: src/progress/progress-page.tsx:130
+#: src/progress/progress-page.tsx:134
 msgid "Note mastery map"
 msgstr "Карта нот"
 
 #: src/practice/note-name-pad.tsx:25
-#: src/practice/session-setup.tsx:43
+#: src/practice/session-setup.tsx:44
 msgid "Note names"
 msgstr "Названий нот"
 
@@ -391,8 +415,8 @@ msgstr "Офлайн — прогресс сохранён на устройст
 msgid "often wrong"
 msgstr "часто ошибка"
 
-#: src/practice/practice-session.tsx:119
-#: src/practice/practice-session.tsx:145
+#: src/practice/practice-session.tsx:123
+#: src/practice/practice-session.tsx:149
 msgid "Pause"
 msgstr "Пауза"
 
@@ -405,12 +429,16 @@ msgid "per note"
 msgstr "на ноту"
 
 #: src/piano/piano.tsx:32
-#: src/practice/session-setup.tsx:42
+#: src/practice/session-setup.tsx:43
 msgid "Piano"
 msgstr "Клавиатуры"
 
+#: src/practice/practice-session.tsx:178
+msgid "Play the note on your keyboard."
+msgstr "Сыграйте ноту на своей клавиатуре."
+
 #: src/practice/mode-picker.tsx:23
-#: src/practice/practice-session.tsx:113
+#: src/practice/practice-session.tsx:117
 msgid "Practice"
 msgstr "Практика"
 
@@ -419,7 +447,7 @@ msgid "Practice changes perception"
 msgstr "Практика меняет восприятие"
 
 #: src/practice/result-page.tsx:84
-#: src/progress/progress-page.tsx:107
+#: src/progress/progress-page.tsx:110
 msgid "Practice time"
 msgstr "Время практики"
 
@@ -433,7 +461,7 @@ msgstr "Прогресс"
 
 #. placeholder {0}: session.questionNumber
 #. placeholder {1}: '∞'
-#: src/practice/practice-session.tsx:111
+#: src/practice/practice-session.tsx:115
 msgid "Question {0} of {1}"
 msgstr "Вопрос {0} из {1}"
 
@@ -442,7 +470,7 @@ msgstr "Вопрос {0} из {1}"
 msgid "Range"
 msgstr "Период"
 
-#: src/progress/progress-page.tsx:142
+#: src/progress/progress-page.tsx:146
 msgid "Ranked the way training picks its next question, so this is what a session will drill."
 msgstr "Порядок тот же, по которому тренировка выбирает следующий вопрос — именно это и будет отрабатываться."
 
@@ -454,7 +482,7 @@ msgstr "Открыть оригинальную статью"
 msgid "Read the research"
 msgstr "Читать исследования"
 
-#: src/practice/session-setup.tsx:32
+#: src/practice/session-setup.tsx:33
 msgid "Ready when you are."
 msgstr "Готовы, когда вы готовы."
 
@@ -462,7 +490,7 @@ msgstr "Готовы, когда вы готовы."
 msgid "Recognition gets useful when it is fast and retained."
 msgstr "Распознавание становится полезным, когда оно быстрое и сохраняется."
 
-#: src/practice/session-setup.tsx:28
+#: src/practice/session-setup.tsx:29
 msgid "Recognition practice"
 msgstr "Тренировка распознавания"
 
@@ -475,7 +503,7 @@ msgstr "Узнаётся"
 msgid "Research behind Nota"
 msgstr "Исследования Nota"
 
-#: src/practice/practice-session.tsx:119
+#: src/practice/practice-session.tsx:123
 msgid "Resume"
 msgstr "Продолжить"
 
@@ -491,7 +519,7 @@ msgstr "не хватает времени"
 msgid "Session complete"
 msgstr "Сессия завершена"
 
-#: src/practice/session-setup.tsx:71
+#: src/practice/session-setup.tsx:74
 msgid "Session length"
 msgstr "Длительность"
 
@@ -505,9 +533,9 @@ msgid "slow to come"
 msgstr "узнаётся медленно"
 
 #: src/practice/mode-picker.tsx:32
-#: src/practice/practice-session.tsx:113
-#: src/practice/practice-session.tsx:203
-#: src/practice/session-setup.tsx:106
+#: src/practice/practice-session.tsx:117
+#: src/practice/practice-session.tsx:210
+#: src/practice/session-setup.tsx:109
 #: src/research/research-papers.ts:12
 msgid "Speed"
 msgstr "Скорость"
@@ -526,12 +554,16 @@ msgstr "Начать тренировку"
 msgid "System"
 msgstr "Системная"
 
+#: src/practice/midi-status.tsx:17
+msgid "This browser has no Web MIDI. Chrome, Edge or Opera over https can talk to a keyboard."
+msgstr "В этом браузере нет Web MIDI. С клавиатурой умеют работать Chrome, Edge и Opera по https."
+
 #: src/settings/settings-page.tsx:75
 msgid "This changes labels, never your progress."
 msgstr "Меняет подписи, но не прогресс."
 
 #: src/practice/feedback-banner.tsx:25
-#: src/practice/practice-session.tsx:148
+#: src/practice/practice-session.tsx:152
 msgid "Time"
 msgstr "Время"
 
@@ -547,7 +579,7 @@ msgstr "Пропуски по времени"
 msgid "Train"
 msgstr "Тренировка"
 
-#: src/practice/session-setup.tsx:27
+#: src/practice/session-setup.tsx:28
 msgid "Train instant musical note recognition."
 msgstr "Тренируйте мгновенное распознавание нот."
 
@@ -556,16 +588,16 @@ msgid "Training mode"
 msgstr "Режим тренировки"
 
 #: src/notation/notation-staff.tsx:55
-#: src/practice/session-setup.tsx:54
+#: src/practice/session-setup.tsx:57
 #: src/progress/note-map.tsx:90
 msgid "Treble"
 msgstr "Скрипичный"
 
-#: src/practice/session-setup.tsx:53
+#: src/practice/session-setup.tsx:56
 msgid "Treble + Bass"
 msgstr "Скрипичный + Басовый"
 
-#: src/practice/practice-session.tsx:173
+#: src/practice/practice-session.tsx:179
 msgid "Use the piano key that matches the note."
 msgstr "Выберите клавишу, соответствующую ноте."
 
@@ -573,7 +605,7 @@ msgstr "Выберите клавишу, соответствующую ноте
 msgid "Visual recognition"
 msgstr "Зрительное распознавание"
 
-#: src/progress/stat-tile.tsx:36
+#: src/progress/stat-tile.tsx:43
 msgid "vs previous"
 msgstr "к прошлому периоду"
 

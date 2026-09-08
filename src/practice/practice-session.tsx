@@ -11,8 +11,10 @@ import { Icon } from '../ui/icon';
 import { formatDuration } from '../utils/format';
 
 import { FeedbackBanner } from './feedback-banner';
+import { MidiStatus } from './midi-status';
 import { NoteNamePad } from './note-name-pad';
 import type { Feedback, RuntimeSession } from './session';
+import type { MidiController } from './use-midi-input';
 
 /** Home row plays the seven white keys; the row above plays the five black keys. */
 const WHITE_KEY_SHORTCUTS: Record<string, number> = {
@@ -37,6 +39,7 @@ export function PracticeSession({
   feedback,
   settings,
   notes,
+  midi,
   onAnswer,
   onPause,
   onFinish,
@@ -45,6 +48,7 @@ export function PracticeSession({
   feedback: Feedback | null;
   settings: AppSettings;
   notes: Readonly<Record<string, NoteStats>>;
+  midi: MidiController;
   onAnswer: (answer: NormalizedAnswer) => void;
   onPause: () => void;
   onFinish: () => void;
@@ -60,7 +64,7 @@ export function PracticeSession({
   }, []);
 
   useEffect(() => {
-    if (input !== 'piano') return;
+    if (input === 'names') return;
     const onKeyDown = (event: KeyboardEvent) => {
       if (answerDisabled || event.metaKey || event.ctrlKey || event.altKey)
         return;
@@ -170,14 +174,23 @@ export function PracticeSession({
             >
               {isIntroduction
                 ? t`New note: ${currentName} · press the highlighted key to meet it.`
-                : t`Use the piano key that matches the note.`}
+                : input === 'midi'
+                  ? t`Play the note on your keyboard.`
+                  : t`Use the piano key that matches the note.`}
             </p>
           )}
         </div>
         <div
-          className={`answer-area ${input === 'piano' ? 'answer-area-keyboard' : ''}`}
+          className={`answer-area ${input === 'names' ? '' : 'answer-area-keyboard'}`}
         >
-          {input === 'piano' ? (
+          {input === 'names' ? (
+            <NoteNamePad
+              naming={settings.naming}
+              locale={settings.locale}
+              disabled={answerDisabled}
+              onAnswer={onAnswer}
+            />
+          ) : (
             <Piano
               window={session.keyboardWindow}
               naming={settings.naming}
@@ -189,15 +202,9 @@ export function PracticeSession({
               disabled={answerDisabled}
               onAnswer={onAnswer}
             />
-          ) : (
-            <NoteNamePad
-              naming={settings.naming}
-              locale={settings.locale}
-              disabled={answerDisabled}
-              onAnswer={onAnswer}
-            />
           )}
         </div>
+        {input === 'midi' ? <MidiStatus midi={midi} /> : null}
         {mode === 'speed' ? (
           <span className={`speed-caption ${feedback ? 'is-hidden' : ''}`}>
             <Icon name="clock" size={14} /> {t`Speed`} ·{' '}

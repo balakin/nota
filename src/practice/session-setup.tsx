@@ -5,6 +5,7 @@ import type { NamingSystem } from '../music/music';
 import { Icon } from '../ui/icon';
 import { TogglePicker } from '../ui/toggle-picker';
 
+import { MidiStatus } from './midi-status';
 import { ModePicker } from './mode-picker';
 import { TrainingRangePicker } from './range-picker';
 import { SESSION_DURATIONS } from './session';
@@ -41,11 +42,15 @@ export function SessionSetup({
               [
                 ['piano', t`Piano`],
                 ['names', t`Note names`],
+                ['midi', t`MIDI keyboard`],
               ] as const
             }
             value={practice.input}
             onChange={practice.setInput}
           />
+          {practice.input === 'midi' ? (
+            <MidiStatus midi={practice.midi} />
+          ) : null}
           <TogglePicker
             label={t`Clefs`}
             options={

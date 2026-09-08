@@ -4,7 +4,7 @@ import type { SessionSummary } from '../app-state/app-state';
 import type { RolledAttempt } from '../app-state/use-app-state';
 import type { Clef } from '../music/music';
 import { windowForMidi } from '../piano/piano-layout';
-import type { NormalizedAnswer } from '../training/input';
+import { midiAnswer, type NormalizedAnswer } from '../training/input';
 import {
   clampRange,
   rangeBounds,
@@ -34,6 +34,7 @@ import {
   type RuntimeSession,
   type SessionDuration,
 } from './session';
+import { useMidiInput, type MidiController } from './use-midi-input';
 
 export type PracticeSessionController = {
   session: RuntimeSession | null;
@@ -44,6 +45,7 @@ export type PracticeSessionController = {
   clefs: Clef[];
   range: PitchRange;
   durationMinutes: SessionDuration;
+  midi: MidiController;
   setMode: (mode: PracticeMode) => void;
   setInput: (input: InputMode) => void;
   setClefs: (clefs: Clef[]) => void;
@@ -80,6 +82,8 @@ export function usePracticeSession({
     rangeBounds(['treble', 'bass']),
   );
   const [clefs, setClefs] = useState<Clef[]>(['treble', 'bass']);
+  const midi = useMidiInput();
+  const { connect: connectMidi, subscribe: subscribeMidi } = midi;
   const advanceTimeoutRef = useRef<number | null>(null);
   const notesRef = useRef(notes);
   const onSessionCompleteRef = useRef(onSessionComplete);
@@ -339,6 +343,24 @@ export function usePracticeSession({
     (value: NormalizedAnswer) => judge(value),
     [judge],
   );
+
+  /** A key on the instrument is judged exactly like a tap on the on-screen piano. */
+  useEffect(() => {
+    if (!session || session.input !== 'midi') return;
+    return subscribeMidi((note) => judge(midiAnswer(note)));
+  }, [judge, session, subscribeMidi]);
+
+  /**
+   * Choosing MIDI is the deliberate press the permission prompt needs, so the
+   * connection is opened here rather than when a session starts.
+   */
+  const chooseInput = useCallback(
+    (next: InputMode) => {
+      setInput(next);
+      if (next === 'midi') connectMidi();
+    },
+    [connectMidi],
+  );
   const dismissResult = useCallback(() => setResult(null), []);
 
   return {
@@ -350,8 +372,9 @@ export function usePracticeSession({
     clefs,
     range: clampRange(range, clefs),
     durationMinutes,
+    midi,
     setMode,
-    setInput,
+    setInput: chooseInput,
     setClefs,
     setRange,
     setDurationMinutes,

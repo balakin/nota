@@ -2,7 +2,7 @@ import type { Clef, RecognitionItem } from '../music/music';
 
 export type MasteryState = 'new' | 'recognized' | 'fluent';
 export type PracticeMode = 'practice' | 'speed';
-export type InputMode = 'piano' | 'names';
+export type InputMode = 'piano' | 'names' | 'midi';
 export type AnswerResult = 'correct' | 'incorrect' | 'timeout';
 
 export type Attempt = {
