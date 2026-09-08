@@ -23,12 +23,12 @@ The production build includes a service worker and installable manifest. Progres
 
 ## Releases
 
-`main` is released by [semantic-release](https://semantic-release.gitbook.io/): every push runs
-`.github/workflows/release.yml`, which reads the Conventional Commit messages since the last tag and,
-when they warrant a version, tags it, writes `CHANGELOG.md`, and publishes GitHub release notes.
-`feat:` bumps the minor, `fix:`/`perf:` the patch, a `!` or `BREAKING CHANGE:` the major; `chore:`,
-`ci:`, `docs:`, `style:`, `test:` and `refactor:` release nothing on their own.
+Releases are managed by [release-please](https://github.com/googleapis/release-please). Every push to
+`main` runs `.github/workflows/release.yml`, which reads the Conventional Commit messages since the
+last tag and keeps a `chore(main): release x.y.z` pull request open, carrying the `CHANGELOG.md`
+entry and the `package.json` bump. Merging that pull request tags the version, publishes the release
+notes, and deploys the tagged build to GitHub Pages at
+[nota.balakin.io](https://nota.balakin.io). Nothing is deployed until the release is merged.
 
-Only a new release deploys: the workflow then builds the released tag and publishes `dist/` to GitHub
-Pages at [nota.balakin.io](https://nota.balakin.io). The domain is configured in the repository's
-Pages settings, so the site is served from the root and needs no Vite `base`.
+`feat:` bumps the minor, `fix:`/`perf:` the patch, a `!` or `BREAKING CHANGE:` the major; `chore:`,
+`ci:`, `style:` and `test:` release nothing on their own.
