@@ -4,4 +4,4 @@ coverage
 LICENSE
 src/locales/*.po
 CHANGELOG.md
-CHANGELOG.md
+.release-please-manifest.json
