@@ -1635,6 +1635,21 @@ h2 {
 .setting-hint {
   margin: 0.7rem 0 0;
 }
+/*
+ * The other cards put their hint under the control, where a top margin alone is the whole gap.
+ * The research card is the one that leads with its hint, so the spacing has to be built on the
+ * other side of it: the hint tucks up under the title it explains, and the button it introduces
+ * gets the separation it would otherwise take from a margin that is not there.
+ */
+.setting-section h2:has(+ .setting-hint) {
+  margin-bottom: 0.5rem;
+}
+.setting-section h2 + .setting-hint {
+  margin-top: 0;
+}
+.setting-section .setting-hint + .button {
+  margin-top: 0.9rem;
+}
 .about-copy {
   margin: 0.8rem 0.2rem;
 }
