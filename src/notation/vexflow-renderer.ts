@@ -10,6 +10,19 @@ import {
 
 import { vexFlowKey, type Clef, type CanonicalPitch } from '../music/music';
 
+/**
+ * Which note a shape is worth is not what this app asks about — but a note that is always
+ * a quarter is always the same picture, and the learner can end up reading the picture.
+ * A whole note has no stem at all, which leaves the note's place on the staff as the only
+ * thing left to read.
+ */
+export type NoteShape = 'quarter' | 'half' | 'whole';
+const DURATIONS: Record<NoteShape, string> = {
+  quarter: 'q',
+  half: 'h',
+  whole: 'w',
+};
+
 /** The staff is drawn in the container's CSS colour rather than a value read out of the DOM. */
 const INK = 'currentColor';
 
@@ -76,6 +89,7 @@ export function renderNotation(
   value: CanonicalPitch,
   clef: Clef,
   placement = 0,
+  shape: NoteShape = 'quarter',
 ): void {
   container.replaceChildren();
   const width = Math.max(280, container.clientWidth || 560);
@@ -99,7 +113,7 @@ export function renderNotation(
 
   const note = new StaveNote({
     keys: [vexFlowKey(value)],
-    duration: 'q',
+    duration: DURATIONS[shape],
     clef,
   });
   note.setStyle({ fillStyle: INK, strokeStyle: INK });
@@ -111,7 +125,11 @@ export function renderNotation(
   /* `placeNote` measures through `getAbsoluteX`, which ignores the stave until the note holds
    * one — `voice.draw` would attach it too late to be of any use here. */
   note.setStave(stave);
-  const voice = new Voice({ numBeats: 1, beatValue: 4 });
+  /*
+   * One note is not a bar, and the app never claims it is: a strict voice insists the
+   * ticks add up, which rejects a half or a whole note outright and leaves nothing drawn.
+   */
+  const voice = new Voice({ numBeats: 4, beatValue: 4 }).setStrict(false);
   voice.addTickable(note);
   voice.setStave(stave);
   new Formatter()

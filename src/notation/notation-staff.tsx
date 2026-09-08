@@ -8,6 +8,8 @@ import {
   type CanonicalPitch,
 } from '../music/music';
 
+import type { NoteShape } from './vexflow-renderer';
+
 /**
  * Where along the stave this question's note sits, as a fraction of the room the renderer has.
  * It is a hash of the seed rather than a roll at render time, because the staff redraws on every
@@ -31,12 +33,15 @@ export function NotationStaff({
   clef,
   locale,
   placementSeed = 0,
+  shape = 'quarter',
 }: {
   pitch: CanonicalPitch;
   clef: Clef;
   locale: Locale;
   /** Identifies the question, so the note keeps its spot for as long as it is being asked. */
   placementSeed?: number;
+  /** The head the note is drawn with. It never changes which note it is. */
+  shape?: NoteShape;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(0);
@@ -64,6 +69,7 @@ export function NotationStaff({
             pitch,
             clef,
             placementForSeed(placementSeed),
+            shape,
           );
         } catch {
           ref.current.replaceChildren();
@@ -73,7 +79,7 @@ export function NotationStaff({
     return () => {
       cancelled = true;
     };
-  }, [pitch, clef, width, placementSeed]);
+  }, [pitch, clef, width, placementSeed, shape]);
 
   return (
     <div className="staff-wrap">

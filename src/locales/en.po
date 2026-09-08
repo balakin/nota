@@ -109,7 +109,7 @@ msgstr "{speed}s"
 msgid "{steps} steps"
 msgstr "{steps} steps"
 
-#: src/learning/learning-run.tsx:174
+#: src/learning/learning-run.tsx:175
 #: src/practice/feedback-banner.tsx:31
 #: src/practice/result-page.tsx:54
 #: src/progress/hardest-notes.tsx:101
@@ -127,7 +127,7 @@ msgstr "< 1s"
 msgid "A calm practice for your eyes"
 msgstr "A calm practice for your eyes"
 
-#: src/learning/levels.ts:124
+#: src/learning/levels.ts:134
 msgid "A different clef, a different anchor: the F line the clef's two dots straddle."
 msgstr "A different clef, a different anchor: the F line the clef's two dots straddle."
 
@@ -139,7 +139,7 @@ msgstr "A note is learned once it comes back correctly in several separate runs.
 msgid "A small, useful block of practice."
 msgstr "A small, useful block of practice."
 
-#: src/learning/levels.ts:107
+#: src/learning/levels.ts:117
 msgid "Above the octave"
 msgstr "Above the octave"
 
@@ -171,7 +171,7 @@ msgstr "All"
 #~ msgid "All the time you need, on every note"
 #~ msgstr "All the time you need, on every note"
 
-#: src/learning/levels.ts:232
+#: src/learning/levels.ts:289
 msgid "All thirty-nine readings, in any order, with a clock running."
 msgstr "All thirty-nine readings, in any order, with a clock running."
 
@@ -224,7 +224,7 @@ msgstr "Back to training"
 msgid "barely seen"
 msgstr "barely seen"
 
-#: src/notation/notation-staff.tsx:84
+#: src/notation/notation-staff.tsx:90
 #: src/practice/session-setup.tsx:71
 #: src/progress/note-map.tsx:90
 msgid "Bass"
@@ -242,13 +242,17 @@ msgstr "Bass"
 #~ msgid "Bass · the octave below"
 #~ msgstr "Bass · the octave below"
 
-#: src/learning/levels.ts:208
+#: src/learning/levels.ts:265
 msgid "Bass flats"
 msgstr "Bass flats"
 
-#: src/learning/levels.ts:200
+#: src/learning/levels.ts:257
 msgid "Bass sharps"
 msgstr "Bass sharps"
+
+#: src/learning/levels.ts:187
+msgid "Beyond the staff"
+msgstr "Beyond the staff"
 
 #: src/learning/learning-page.tsx:91
 msgid "Blocks to learn a note, mixtures to keep it."
@@ -258,15 +262,15 @@ msgstr "Blocks to learn a note, mixtures to keep it."
 msgid "Blocks, then mixtures"
 msgstr "Blocks, then mixtures"
 
-#: src/learning/levels.ts:116
+#: src/learning/levels.ts:126
 msgid "Both octaves at once, on the clock. No block to lean on."
 msgstr "Both octaves at once, on the clock. No block to lean on."
 
-#: src/learning/levels.ts:154
+#: src/learning/levels.ts:164
 msgid "Both staves"
 msgstr "Both staves"
 
-#: src/learning/levels.ts:169
+#: src/learning/levels.ts:179
 msgid "Both staves, naturals"
 msgstr "Both staves, naturals"
 
@@ -330,7 +334,7 @@ msgstr "Connect a MIDI keyboard"
 msgid "correct"
 msgstr "correct"
 
-#: src/learning/learning-run.tsx:163
+#: src/learning/learning-run.tsx:164
 #: src/practice/feedback-banner.tsx:23
 msgid "Correct"
 msgstr "Correct"
@@ -352,6 +356,10 @@ msgstr "Do · Re · Mi · Fa · Sol · La · Si"
 msgid "Don’t count. Recognize."
 msgstr "Don’t count. Recognize."
 
+#: src/learning/levels.ts:195
+msgid "Down towards the left hand: the space below the staff, then out to the C on two short lines."
+msgstr "Down towards the left hand: the space below the staff, then out to the C on two short lines."
+
 #: src/learning/learning-page.tsx:93
 msgid "Each press of Start is a short run built from what you currently need. A note counts as learned once it comes back correctly in several separate runs — coming back is what makes it stick."
 msgstr "Each press of Start is a short run built from what you currently need. A note counts as learned once it comes back correctly in several separate runs — coming back is what makes it stick."
@@ -364,7 +372,7 @@ msgstr "Earned here"
 msgid "End run"
 msgstr "End run"
 
-#: src/learning/levels.ts:216
+#: src/learning/levels.ts:273
 msgid "Every accidental"
 msgstr "Every accidental"
 
@@ -372,7 +380,7 @@ msgstr "Every accidental"
 #~ msgid "Every natural of the bass staff, from C3 up to middle C."
 #~ msgstr "Every natural of the bass staff, from C3 up to middle C."
 
-#: src/learning/levels.ts:147
+#: src/learning/levels.ts:157
 msgid "Every natural of the bass staff, on the clock."
 msgstr "Every natural of the bass staff, on the clock."
 
@@ -401,11 +409,15 @@ msgstr "Every note here has come back correctly in enough separate runs to count
 msgid "Every note of the curriculum, in pitch order. Colour is your standing on it overall; the figure is how much you answered correctly in this range."
 msgstr "Every note of the curriculum, in pitch order. Colour is your standing on it overall; the figure is how much you answered correctly in this range."
 
-#: src/learning/levels.ts:231
+#: src/learning/levels.ts:227
+msgid "Every note outside the lines, shuffled and on the clock."
+msgstr "Every note outside the lines, shuffled and on the clock."
+
+#: src/learning/levels.ts:288
 msgid "Everything"
 msgstr "Everything"
 
-#: src/learning/levels.ts:225
+#: src/learning/levels.ts:282
 msgid "Everything the curriculum holds, shuffled, timed. One pass to prove it."
 msgstr "Everything the curriculum holds, shuffled, timed. One pass to prove it."
 
@@ -420,6 +432,10 @@ msgstr "Experimental work with musical notation has found measurable changes in 
 #: src/practice/practice-session.tsx:120
 msgid "Finish session"
 msgstr "Finish session"
+
+#: src/learning/levels.ts:188
+msgid "Five lines only reach so far. Past them a note gets short lines of its own, and reading it means counting outward from an edge instead of knowing a place between the lines."
+msgstr "Five lines only reach so far. Past them a note gets short lines of its own, and reading it means counting outward from an edge instead of knowing a place between the lines."
 
 #: src/onboarding/onboarding-page.tsx:43
 msgid "Fixed solfège"
@@ -450,7 +466,7 @@ msgstr "Fluent note reading is a visual-perceptual skill. Nothing here is on a c
 msgid "Fluent note reading is a visual-perceptual skill. Targeted practice can focus on recognizing a note’s whole pattern instead of consciously calculating its position."
 msgstr "Fluent note reading is a visual-perceptual skill. Targeted practice can focus on recognizing a note’s whole pattern instead of consciously calculating its position."
 
-#: src/learning/levels.ts:139
+#: src/learning/levels.ts:149
 msgid "From G to the middle C that sits above the bass staff."
 msgstr "From G to the middle C that sits above the bass staff."
 
@@ -499,7 +515,7 @@ msgstr "In perceptual-training studies, presentation became progressively more d
 msgid "Interface language"
 msgstr "Interface language"
 
-#: src/learning/learning-run.tsx:180
+#: src/learning/learning-run.tsx:181
 #: src/learning/note-hint.tsx:35
 msgid "It is"
 msgstr "It is"
@@ -581,7 +597,7 @@ msgstr "Median time per note"
 msgid "meet {0} new"
 msgstr "meet {0} new"
 
-#: src/learning/levels.ts:161
+#: src/learning/levels.ts:171
 msgid "Middle C, two ways"
 msgstr "Middle C, two ways"
 
@@ -637,7 +653,7 @@ msgstr "Next: {0}"
 msgid "No clock — look as long as you need"
 msgstr "No clock — look as long as you need"
 
-#: src/learning/learning-run.tsx:171
+#: src/learning/learning-run.tsx:172
 msgid "No credit for a hinted answer."
 msgstr "No credit for a hinted answer."
 
@@ -669,7 +685,7 @@ msgstr "Not in this range"
 msgid "Not practiced yet"
 msgstr "Not practiced yet"
 
-#: src/learning/learning-run.tsx:166
+#: src/learning/learning-run.tsx:167
 #: src/practice/feedback-banner.tsx:26
 msgid "Not quite"
 msgstr "Not quite"
@@ -772,6 +788,10 @@ msgstr "Nothing practiced in this range yet, so there is nothing to rank."
 msgid "of {0} notes read fluently"
 msgstr "of {0} notes read fluently"
 
+#: src/learning/levels.ts:226
+msgid "Off the staff, both clefs"
+msgstr "Off the staff, both clefs"
+
 #: src/app-shell/offline-status.tsx:23
 msgid "Offline — progress is saved on this device"
 msgstr "Offline — progress is saved on this device"
@@ -796,15 +816,15 @@ msgstr "On timeout"
 #~ msgid "One clef and one octave at a time."
 #~ msgstr "One clef and one octave at a time."
 
-#: src/learning/levels.ts:162
+#: src/learning/levels.ts:172
 msgid "One key, written below the treble staff and above the bass staff. The hinge between them."
 msgstr "One key, written below the treble staff and above the bass staff. The hinge between them."
 
-#: src/learning/pivots.ts:34
+#: src/learning/pivots.ts:37
 msgid "one short line above the staff"
 msgstr "one short line above the staff"
 
-#: src/learning/pivots.ts:31
+#: src/learning/pivots.ts:34
 msgid "one short line below the staff"
 msgstr "one short line below the staff"
 
@@ -815,6 +835,14 @@ msgstr "One step"
 #: src/learning/note-hint.tsx:45
 msgid "outside the staff"
 msgstr "outside the staff"
+
+#: src/learning/levels.ts:202
+msgid "Over the bass staff"
+msgstr "Over the bass staff"
+
+#: src/learning/levels.ts:218
+msgid "Over the treble staff"
+msgstr "Over the treble staff"
 
 #: src/practice/practice-session.tsx:113
 #: src/practice/practice-session.tsx:139
@@ -835,7 +863,7 @@ msgstr "per note"
 msgid "Piano"
 msgstr "Piano"
 
-#: src/learning/learning-run.tsx:200
+#: src/learning/learning-run.tsx:201
 msgid "Play the highlighted key to go on."
 msgstr "Play the highlighted key to go on."
 
@@ -875,7 +903,7 @@ msgstr "Practice time"
 msgid "practise {0}"
 msgstr "practise {0}"
 
-#: src/learning/learning-run.tsx:199
+#: src/learning/learning-run.tsx:200
 msgid "Press its name to go on."
 msgstr "Press its name to go on."
 
@@ -962,7 +990,7 @@ msgstr "Resume"
 msgid "Retrieval and spacing"
 msgstr "Retrieval and spacing"
 
-#: src/learning/learning-run.tsx:162
+#: src/learning/learning-run.tsx:163
 msgid "Right — but hinted"
 msgstr "Right — but hinted"
 
@@ -995,15 +1023,15 @@ msgstr "Session length"
 msgid "Settings"
 msgstr "Settings"
 
-#: src/learning/levels.ts:177
+#: src/learning/levels.ts:234
 msgid "Sharps and flats"
 msgstr "Sharps and flats"
 
-#: src/learning/levels.ts:217
+#: src/learning/levels.ts:274
 msgid "Sharps and flats, both staves, on the clock."
 msgstr "Sharps and flats, both staves, on the clock."
 
-#: src/learning/learning-run.tsx:208
+#: src/learning/learning-run.tsx:209
 msgid "Show me"
 msgstr "Show me"
 
@@ -1028,7 +1056,7 @@ msgstr "Speed mode ends a note when this runs out. Two seconds is the default."
 
 #. placeholder {0}: clef === 'treble' ? t`Treble` : t`Bass`
 #. placeholder {1}: accessiblePitchLabel(pitch, 'solfege', locale)
-#: src/notation/notation-staff.tsx:84
+#: src/notation/notation-staff.tsx:90
 msgid "Staff, {0}, {1}"
 msgstr "Staff, {0}, {1}"
 
@@ -1054,7 +1082,7 @@ msgstr "Start run {0}"
 msgid "Start training"
 msgstr "Start training"
 
-#: src/learning/levels.ts:93
+#: src/learning/levels.ts:103
 msgid "Start where the treble clef points: the G line its curl wraps around."
 msgstr "Start where the treble clef points: the G line its curl wraps around."
 
@@ -1062,39 +1090,39 @@ msgstr "Start where the treble clef points: the G line its curl wraps around."
 msgid "System"
 msgstr "System"
 
-#: src/learning/levels.ts:123
+#: src/learning/levels.ts:133
 msgid "The bass staff"
 msgstr "The bass staff"
 
-#: src/learning/levels.ts:209
+#: src/learning/levels.ts:266
 msgid "The bass staff's black keys read as flats."
 msgstr "The bass staff's black keys read as flats."
 
-#: src/learning/levels.ts:178
+#: src/learning/levels.ts:235
 msgid "The black keys, one clef and one sign at a time, then all of them together."
 msgstr "The black keys, one clef and one sign at a time, then all of them together."
 
-#: src/learning/levels.ts:130
+#: src/learning/pivots.ts:39
+msgid "the bottom line of the bass staff"
+msgstr "the bottom line of the bass staff"
+
+#: src/learning/levels.ts:140
 msgid "The F anchor"
 msgstr "The F anchor"
 
-#: src/learning/levels.ts:131
-msgid "The four naturals from C up to the F the clef marks."
-msgstr "The four naturals from C up to the F the clef marks."
-
-#: src/learning/pivots.ts:32
+#: src/learning/pivots.ts:35
 msgid "the line the bass clef's two dots straddle"
 msgstr "the line the bass clef's two dots straddle"
 
-#: src/learning/pivots.ts:29
+#: src/learning/pivots.ts:32
 msgid "the line the treble clef curls around"
 msgstr "the line the treble clef curls around"
 
-#: src/learning/levels.ts:99
+#: src/learning/levels.ts:109
 msgid "The middle octave"
 msgstr "The middle octave"
 
-#: src/learning/levels.ts:108
+#: src/learning/levels.ts:118
 msgid "The naturals that carry on above B, anchored on the C in the third space."
 msgstr "The naturals that carry on above B, anchored on the C in the third space."
 
@@ -1102,19 +1130,23 @@ msgstr "The naturals that carry on above B, anchored on the C in the third space
 #~ msgid "The naturals that carry on above B4, up to the top line of the staff."
 #~ msgstr "The naturals that carry on above B4, up to the top line of the staff."
 
-#: src/learning/levels.ts:193
+#: src/learning/levels.ts:211
+msgid "The notes between the two staves, read from above instead of below."
+msgstr "The notes between the two staves, read from above instead of below."
+
+#: src/learning/levels.ts:250
 msgid "The same black keys read the other way, as flats."
 msgstr "The same black keys read the other way, as flats."
 
-#: src/learning/levels.ts:155
+#: src/learning/levels.ts:165
 msgid "The same line means different notes in each clef. This is where that gets settled."
 msgstr "The same line means different notes in each clef. This is where that gets settled."
 
-#: src/learning/pivots.ts:33
+#: src/learning/pivots.ts:36
 msgid "the second space up"
 msgstr "the second space up"
 
-#: src/learning/levels.ts:100
+#: src/learning/levels.ts:110
 msgid "The seven naturals from middle C up to B, anchored on G."
 msgstr "The seven naturals from middle C up to B, anchored on G."
 
@@ -1122,31 +1154,35 @@ msgstr "The seven naturals from middle C up to B, anchored on G."
 #~ msgid "The seven naturals from middle C up to B, read on the treble staff."
 #~ msgstr "The seven naturals from middle C up to B, read on the treble staff."
 
-#: src/learning/levels.ts:201
+#: src/learning/levels.ts:141
+msgid "The seven naturals from the bottom line up to the F the clef marks."
+msgstr "The seven naturals from the bottom line up to the F the clef marks."
+
+#: src/learning/levels.ts:258
 msgid "The sharpened notes of the bass staff."
 msgstr "The sharpened notes of the bass staff."
 
-#: src/learning/levels.ts:185
+#: src/learning/levels.ts:242
 msgid "The sharpened notes of the treble staff, in circle-of-fifths order."
 msgstr "The sharpened notes of the treble staff, in circle-of-fifths order."
 
-#: src/learning/pivots.ts:30
+#: src/learning/pivots.ts:33
 msgid "the third space up"
 msgstr "the third space up"
 
-#: src/learning/levels.ts:92
+#: src/learning/levels.ts:102
 msgid "The treble staff"
 msgstr "The treble staff"
 
-#: src/learning/levels.ts:146
+#: src/learning/levels.ts:156
 msgid "The whole bass staff"
 msgstr "The whole bass staff"
 
-#: src/learning/levels.ts:224
+#: src/learning/levels.ts:281
 msgid "The whole staff"
 msgstr "The whole staff"
 
-#: src/learning/levels.ts:115
+#: src/learning/levels.ts:125
 msgid "The whole treble staff"
 msgstr "The whole treble staff"
 
@@ -1162,7 +1198,7 @@ msgstr "This changes labels, never your progress."
 msgid "This erases your sessions, note statistics and history on this device. It cannot be undone."
 msgstr "This erases your sessions, note statistics and history on this device. It cannot be undone."
 
-#: src/learning/learning-run.tsx:145
+#: src/learning/learning-run.tsx:146
 msgid "This is"
 msgstr "This is"
 
@@ -1171,7 +1207,7 @@ msgid "Three steps"
 msgstr "Three steps"
 
 #: src/learning/learning-run.tsx:124
-#: src/learning/learning-run.tsx:165
+#: src/learning/learning-run.tsx:166
 #: src/practice/feedback-banner.tsx:25
 #: src/practice/practice-session.tsx:142
 msgid "Time"
@@ -1201,7 +1237,7 @@ msgstr "Train instant musical note recognition."
 msgid "Training mode"
 msgstr "Training mode"
 
-#: src/notation/notation-staff.tsx:84
+#: src/notation/notation-staff.tsx:90
 #: src/practice/session-setup.tsx:70
 #: src/progress/note-map.tsx:90
 msgid "Treble"
@@ -1227,23 +1263,47 @@ msgstr "Treble"
 msgid "Treble + Bass"
 msgstr "Treble + Bass"
 
-#: src/learning/levels.ts:170
+#: src/learning/levels.ts:180
 msgid "Treble and bass shuffled together. The clef decides the answer."
 msgstr "Treble and bass shuffled together. The clef decides the answer."
 
-#: src/learning/levels.ts:192
+#: src/learning/levels.ts:249
 msgid "Treble flats"
 msgstr "Treble flats"
 
-#: src/learning/levels.ts:184
+#: src/learning/levels.ts:241
 msgid "Treble sharps"
 msgstr "Treble sharps"
+
+#: src/learning/pivots.ts:38
+msgid "two short lines above the staff"
+msgstr "two short lines above the staff"
+
+#: src/learning/pivots.ts:40
+msgid "two short lines below the staff"
+msgstr "two short lines below the staff"
 
 #: src/learning/note-hint.tsx:67
 msgid "Two steps"
 msgstr "Two steps"
 
-#: src/learning/levels.ts:138
+#: src/learning/levels.ts:194
+msgid "Under the bass staff"
+msgstr "Under the bass staff"
+
+#: src/learning/levels.ts:210
+msgid "Under the treble staff"
+msgstr "Under the treble staff"
+
+#: src/learning/levels.ts:203
+msgid "Up past middle C. The last of these is the treble staff's own G, written the long way round."
+msgstr "Up past middle C. The last of these is the treble staff's own G, written the long way round."
+
+#: src/learning/levels.ts:219
+msgid "Up past the top line, out to the C that sits on two short lines of its own."
+msgstr "Up past the top line, out to the C that sits on two short lines of its own."
+
+#: src/learning/levels.ts:148
 msgid "Up to middle C"
 msgstr "Up to middle C"
 

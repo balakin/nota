@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
+import { ledgerLineCount, pitch } from '../../music/music';
 import { allRecognitionItems } from '../../music/recognition-items';
 import { findLevel, LEVELS, SECTIONS, timesEveryQuestion } from '../levels';
 
@@ -61,6 +62,48 @@ describe('the learning path', () => {
   it('runs the clock on every question of a mixed level only', () => {
     expect(timesEveryQuestion(findLevel('treble-staff')!)).toBe(true);
     expect(timesEveryQuestion(findLevel('treble-middle')!)).toBe(false);
+  });
+
+  it('teaches the whole of both staves before anything leaves them', () => {
+    const onStaff = (id: string) =>
+      ['treble-middle', 'treble-upper', 'bass-anchor', 'bass-upper'].includes(
+        id,
+      );
+    const staffNotes = LEVELS.filter((level) => onStaff(level.id)).flatMap(
+      (level) => level.items,
+    );
+    /* Eleven naturals on each staff: the bass staff's bottom three used to be missing. */
+    expect(staffNotes.filter((item) => item.clef === 'treble')).toHaveLength(
+      11,
+    );
+    expect(staffNotes.filter((item) => item.clef === 'bass')).toHaveLength(11);
+    expect(findLevel('bass-anchor')?.items[0].id).toBe('bass:G2');
+  });
+
+  it('puts every note that needs a ledger line in the beyond section', () => {
+    const beyond = SECTIONS.find((section) => section.id === 'beyond');
+    const taught = new Set(
+      beyond?.levels
+        .filter((level) => level.kind === 'block')
+        .flatMap((level) => level.items.map((item) => item.id)),
+    );
+    const needsLedger = allRecognitionItems().filter(
+      (item) =>
+        item.pitch.accidental === 'natural' &&
+        ledgerLineCount(item.pitch, item.clef) > 1,
+    );
+    expect(needsLedger.length).toBeGreaterThan(0);
+    for (const item of needsLedger) expect(taught.has(item.id)).toBe(true);
+    /* Middle C keeps its single ledger line inside the staff levels that own it. */
+    expect(taught.has('treble:C4')).toBe(false);
+    expect(taught.has('bass:C4')).toBe(false);
+  });
+
+  it("reaches the treble staff's own G from under the bass staff", () => {
+    const above = findLevel('above-bass');
+    expect(above?.items.map((item) => item.id)).toContain('bass:G4');
+    /* The same key the treble staff calls its anchor, three ledger lines up. */
+    expect(ledgerLineCount(pitch('G', 4), 'bass')).toBe(3);
   });
 
   it('bridges the clefs on the one key both of them write', () => {

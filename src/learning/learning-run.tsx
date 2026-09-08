@@ -130,6 +130,7 @@ export function LearningRun({
               clef={item.clef}
               locale={settings.locale}
               placementSeed={run.answered}
+              shape={run.step.shape}
             />
           )}
         </div>

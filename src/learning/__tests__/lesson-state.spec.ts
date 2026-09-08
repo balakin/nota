@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
+import { allRecognitionItems } from '../../music/recognition-items';
 import {
   creditNote,
   currentStanding,
@@ -130,7 +131,8 @@ describe('level standings', () => {
     const levels = lessonWith(3);
     const totals = pathTotals(levels, pathStandings(levels));
     /* Seven notes learned, and the whole curriculum is the denominator. */
-    expect(totals).toMatchObject({ learned: 7, total: 39, levelsComplete: 1 });
+    expect(totals).toMatchObject({ learned: 7, levelsComplete: 1 });
+    expect(totals.total).toBe(allRecognitionItems().length);
   });
 
   it("gates each section behind the previous section's mixed level", () => {
