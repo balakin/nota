@@ -1,8 +1,11 @@
 import { useLingui } from '@lingui/react/macro';
+import { useState } from 'react';
 
 import type { AppSettings } from '../app-state/app-state';
 import type { Page } from '../router/pages';
+import { ConfirmDialog } from '../ui/confirm-dialog';
 import { Icon } from '../ui/icon';
+import { Toast } from '../ui/toast';
 
 import { SettingSection } from './setting-section';
 
@@ -10,12 +13,16 @@ export function SettingsPage({
   settings,
   onChange,
   navigate,
+  onResetProgress,
 }: {
   settings: AppSettings;
   onChange: (patch: Partial<AppSettings>) => void;
   navigate: (page: Page) => void;
+  onResetProgress: () => void;
 }) {
   const { t } = useLingui();
+  const [confirmingReset, setConfirmingReset] = useState(false);
+  const [resetDone, setResetDone] = useState(false);
   return (
     <div className="page settings-page">
       <div className="page-heading">
@@ -118,10 +125,43 @@ export function SettingsPage({
             {t`Read the research`} <Icon name="arrow" size={16} />
           </button>
         </SettingSection>
+        <SettingSection title={t`Reset progress`}>
+          <p className="setting-hint">
+            {t`Clears every practice session, note statistic and daily record on this device. Your settings stay as they are.`}
+          </p>
+          <button
+            className="button button-danger"
+            type="button"
+            onClick={() => setConfirmingReset(true)}
+          >
+            {t`Reset progress`}
+          </button>
+        </SettingSection>
         <p className="about-copy">
           {t`Nota is a small, local-first tool. Your progress stays on this device.`}
         </p>
       </div>
+      {confirmingReset && (
+        <ConfirmDialog
+          title={t`Reset all progress?`}
+          body={t`This erases your sessions, note statistics and history on this device. It cannot be undone.`}
+          confirmLabel={t`Reset everything`}
+          cancelLabel={t`Cancel`}
+          tone="danger"
+          onConfirm={() => {
+            setConfirmingReset(false);
+            onResetProgress();
+            setResetDone(true);
+          }}
+          onCancel={() => setConfirmingReset(false)}
+        />
+      )}
+      {resetDone && (
+        <Toast
+          message={t`Your progress has been reset.`}
+          onDismiss={() => setResetDone(false)}
+        />
+      )}
     </div>
   );
 }
