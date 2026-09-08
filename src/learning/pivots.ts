@@ -19,9 +19,12 @@ export const PIVOT_IDS: readonly string[] = [
   'treble:G4',
   'treble:C5',
   'treble:C4',
+  'treble:C6',
   'bass:F3',
   'bass:C3',
   'bass:C4',
+  'bass:G2',
+  'bass:C2',
 ];
 
 /** Why each landmark is findable without counting anything. */
@@ -32,6 +35,9 @@ export const PIVOT_REASONS: Record<string, MessageDescriptor> = {
   'bass:F3': msg`the line the bass clef's two dots straddle`,
   'bass:C3': msg`the second space up`,
   'bass:C4': msg`one short line above the staff`,
+  'treble:C6': msg`two short lines above the staff`,
+  'bass:G2': msg`the bottom line of the bass staff`,
+  'bass:C2': msg`two short lines below the staff`,
 };
 
 const PIVOTS: RecognitionItem[] = LEVELS.flatMap((level) => level.items).filter(

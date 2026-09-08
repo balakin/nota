@@ -2,7 +2,7 @@
 
 Nota is a focused, offline-capable PWA for learning to recognize written musical notes quickly.
 
-- Treble and bass clefs, naturals plus sharps and flats, and two naming systems
+- Treble and bass clefs, naturals plus sharps and flats, ledger lines either side of both staves, and two naming systems
 - Piano-key and note-name answers
 - Practice mode with no clock at all, and Speed mode with a deadline you choose (two seconds by default)
 - A Learning path of gated levels in sections, taught in blocks and then mixed, graded run by run

@@ -15,6 +15,7 @@ import {
   REPAIR_BLOCKS_INTRODUCTION,
   retentionPool,
   runOutline,
+  shapeFor,
   TARGET_ASKS,
 } from '../run-plan';
 
@@ -208,5 +209,68 @@ describe('a mixed level', () => {
     expect(plan.introducing).toHaveLength(0);
     expect(runOutline(mixed, undefined).introduce).toBe(0);
     expect(runOutline(mixed, undefined).consolidate).toBe(mixed.items.length);
+  });
+});
+
+describe('note shapes', () => {
+  it('draws a note plainly the first time it is met', () => {
+    const plan = planRun({
+      level,
+      lesson: undefined,
+      runId: 'r10',
+      random: () => 0.99,
+    });
+    for (const id of plan.introducing)
+      for (const step of plan.steps.filter((one) => one.item.id === id))
+        expect(step.shape).toBe('quarter');
+  });
+
+  it('varies the head once a note has been met, so the picture is not the answer', () => {
+    const met = Object.fromEntries(
+      level.items.map((item) => [item.id, { credits: 1 }]),
+    );
+    const shapes = new Set<string>();
+    for (let seed = 0; seed < 12; seed += 1) {
+      let calls = 0;
+      const plan = planRun({
+        level,
+        lesson: lesson(met),
+        runId: `r-${String(seed)}`,
+        random: () => ((calls += 1) * (seed + 1) * 0.137) % 1,
+      });
+      for (const step of plan.steps) shapes.add(step.shape);
+    }
+    expect(shapes).toContain('half');
+    expect(shapes).toContain('whole');
+    expect(shapes).toContain('quarter');
+  });
+
+  it('keeps the plain head for a first sight and a first credit', () => {
+    const fresh = emptyNoteLesson();
+    expect(shapeFor(level, fresh, 'credit', false, () => 0.99)).toBe('quarter');
+    expect(
+      shapeFor(level, { ...fresh, credits: 1 }, 'credit', true, () => 0.99),
+    ).toBe('quarter');
+    /* A mixed level teaches nothing, so nothing in it is a first sight. */
+    expect(shapeFor(mixed, fresh, 'credit', false, () => 0.99)).toBe('whole');
+  });
+
+  it('varies a note carried in from a level already finished', () => {
+    /* The current level knows nothing about a retention note — that is not innocence. */
+    expect(
+      shapeFor(level, emptyNoteLesson(), 'retain', false, () => 0.99),
+    ).toBe('whole');
+    const retained = planRun({
+      level,
+      lesson: undefined,
+      retention: retentionPool([findLevel('treble-upper')!], level),
+      runId: 'r11',
+      random: () => 0.99,
+    });
+    const heads = retained.steps
+      .filter((step) => step.kind === 'ask' && step.scoring === 'retain')
+      .map((step) => step.shape);
+    expect(heads.length).toBeGreaterThan(0);
+    expect(heads.every((head) => head === 'quarter')).toBe(false);
   });
 });

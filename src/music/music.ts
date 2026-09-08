@@ -171,6 +171,12 @@ export function recognitionItem(
  * Curricula are ordered: notes unlock from the front, so naturals come first and the
  * accidentals follow in circle-of-fifths order (sharps, then flats). Both spellings of a
  * black key are separate items — they are answered by the same key but read differently.
+ *
+ * Notes outside the staff come last in each list. Reading them is a different act from
+ * reading a note between the lines — counting outward from an edge rather than knowing a
+ * position — so they are taught after the staff itself is secure. A pitch may appear in
+ * both curricula: G3 on the bass staff and G3 two ledger lines under the treble staff are
+ * the same key and two quite different sights.
  */
 export const TREBLE_CURRICULUM: readonly RecognitionItem[] = [
   recognitionItem('treble', pitch('G', 4)),
@@ -194,6 +200,14 @@ export const TREBLE_CURRICULUM: readonly RecognitionItem[] = [
   recognitionItem('treble', pitch('A', 4, 'flat')),
   recognitionItem('treble', pitch('D', 5, 'flat')),
   recognitionItem('treble', pitch('G', 4, 'flat')),
+  /* Beyond the staff: the space just outside, then outward by ledger lines. */
+  recognitionItem('treble', pitch('G', 5)),
+  recognitionItem('treble', pitch('C', 6)),
+  recognitionItem('treble', pitch('A', 5)),
+  recognitionItem('treble', pitch('B', 5)),
+  recognitionItem('treble', pitch('B', 3)),
+  recognitionItem('treble', pitch('A', 3)),
+  recognitionItem('treble', pitch('G', 3)),
 ];
 
 export const BASS_CURRICULUM: readonly RecognitionItem[] = [
@@ -205,6 +219,10 @@ export const BASS_CURRICULUM: readonly RecognitionItem[] = [
   recognitionItem('bass', pitch('D', 3)),
   recognitionItem('bass', pitch('A', 3)),
   recognitionItem('bass', pitch('B', 3)),
+  /* The bottom of the bass staff, which the curriculum used to skip over entirely. */
+  recognitionItem('bass', pitch('G', 2)),
+  recognitionItem('bass', pitch('B', 2)),
+  recognitionItem('bass', pitch('A', 2)),
   recognitionItem('bass', pitch('F', 3, 'sharp')),
   recognitionItem('bass', pitch('C', 3, 'sharp')),
   recognitionItem('bass', pitch('G', 3, 'sharp')),
@@ -215,6 +233,15 @@ export const BASS_CURRICULUM: readonly RecognitionItem[] = [
   recognitionItem('bass', pitch('A', 3, 'flat')),
   recognitionItem('bass', pitch('D', 3, 'flat')),
   recognitionItem('bass', pitch('G', 3, 'flat')),
+  /* Beyond the staff: down towards the left hand, and up towards the treble's own G. */
+  recognitionItem('bass', pitch('F', 2)),
+  recognitionItem('bass', pitch('C', 2)),
+  recognitionItem('bass', pitch('E', 2)),
+  recognitionItem('bass', pitch('D', 2)),
+  recognitionItem('bass', pitch('D', 4)),
+  recognitionItem('bass', pitch('G', 4)),
+  recognitionItem('bass', pitch('E', 4)),
+  recognitionItem('bass', pitch('F', 4)),
 ];
 
 export const CURRICULUM: Record<Clef, readonly RecognitionItem[]> = {

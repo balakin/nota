@@ -1,4 +1,5 @@
 import { staffPosition, type RecognitionItem } from '../music/music';
+import type { NoteShape } from '../notation/vexflow-renderer';
 
 import {
   isPassed,
@@ -16,11 +17,13 @@ import { timesEveryQuestion, type Level } from './levels';
  * construction rather than by rationing.
  */
 export type RunStep =
-  | { kind: 'teach'; item: RecognitionItem }
+  | { kind: 'teach'; item: RecognitionItem; shape: NoteShape }
   | {
       kind: 'ask';
       item: RecognitionItem;
       timed: boolean;
+      /** The head the note is drawn with; it never changes which note it is. */
+      shape: NoteShape;
       /**
        * `credit` moves the level forward — one per note per run. `practice` is a further
        * rep of the same note inside the run: useful for getting it answerable at all,
@@ -65,6 +68,32 @@ export const TARGET_ASKS = 9;
 /** Learning's own deadline, gentler than Speed's, and not the learner's to set. */
 export const CHECK_DEADLINE_MS = 3000;
 
+/**
+ * A note drawn only ever as a quarter becomes a single picture, and a picture can be
+ * memorised without reading anything. Once a note has been met, its head starts to vary —
+ * a whole note has no stem at all, so its place on the staff is all that is left to go on.
+ * The first sight of a note is always the plain one, so nothing is in the way of learning it.
+ */
+const SHAPES: readonly NoteShape[] = ['quarter', 'quarter', 'half', 'whole'];
+
+export function shapeFor(
+  level: Level,
+  note: NoteLesson,
+  scoring: 'credit' | 'practice' | 'retain',
+  introducing: boolean,
+  random: () => number,
+): NoteShape {
+  /* The first sight of a note, and the reps that follow it in that run, are plain. */
+  if (introducing) return 'quarter';
+  /* So is a note's first credit in a block level. A note carried in from a level already
+     finished is not a first sight at all, whatever this level knows about it. */
+  if (scoring === 'credit' && note.credits === 0 && !timesEveryQuestion(level))
+    return 'quarter';
+  return SHAPES[
+    Math.min(SHAPES.length - 1, Math.floor(random() * SHAPES.length))
+  ];
+}
+
 function shuffled<T>(items: readonly T[], random: () => number): T[] {
   const copy = [...items];
   for (let index = copy.length - 1; index > 0; index -= 1) {
@@ -84,13 +113,16 @@ export function isConfusable(
   right: RecognitionItem,
 ): boolean {
   if (left.id === right.id) return false;
+  /* The same letter an octave apart. */
   if (
     left.pitch.name === right.pitch.name &&
     left.pitch.midi !== right.pitch.midi
   )
     return true;
+  if (left.clef === right.clef) return false;
+  /* One key written two ways, or two keys sharing a place on the page. */
   return (
-    left.clef !== right.clef &&
+    left.pitch.midi === right.pitch.midi ||
     staffPosition(left.pitch, left.clef) ===
       staffPosition(right.pitch, right.clef)
   );
@@ -221,8 +253,14 @@ export function planRun({
   const steps: RunStep[] = [];
   /* A new note is shown, then asked straight away: the first retrieval is what fixes it. */
   for (const item of introducing) {
-    steps.push({ kind: 'teach', item });
-    steps.push({ kind: 'ask', item, timed: false, scoring: 'credit' });
+    steps.push({ kind: 'teach', item, shape: 'quarter' });
+    steps.push({
+      kind: 'ask',
+      item,
+      timed: false,
+      scoring: 'credit',
+      shape: 'quarter',
+    });
   }
 
   type Entry = {
@@ -247,13 +285,19 @@ export function planRun({
 
   for (const entry of interleave(entries, random)) {
     const graded = entry.scoring === 'credit';
+    const note = noteLessonOf(lesson, entry.item.id);
     steps.push({
       kind: 'ask',
       item: entry.item,
-      timed: graded
-        ? askIsTimed(level, noteLessonOf(lesson, entry.item.id))
-        : timesEveryQuestion(level),
+      timed: graded ? askIsTimed(level, note) : timesEveryQuestion(level),
       scoring: entry.scoring,
+      shape: shapeFor(
+        level,
+        note,
+        entry.scoring,
+        introducing.some((one) => one.id === entry.item.id),
+        random,
+      ),
     });
   }
 

@@ -42,7 +42,7 @@ pnpm i18n:extract   # extract messages into src/locales/*.po
 - `app-shell/` — the root `App`, header, primary nav, offline banner, document `lang`/title/theme
 - `app-state/` — persisted state shape, migrations, and the `useAppState` hook that hydrates and saves it
 - `practice/` — the practice runtime: setup screen, `usePracticeSession`, live session UI, result page
-- `learning/` — the level path: sections and levels, per-note credits, the run planner, landmark hints, and the run runtime
+- `learning/` — the level path: sections and levels, per-note credits, the run planner, landmark hints, and the run runtime. The planner also picks each question's note head: a note drawn only ever as a quarter is one picture, and a picture can be memorised without reading it
 - `training/` — the pure training engine: mastery states, day rollups, question weighting, range selection, normalized answers
 - `music/` — pitches, naming systems, staff geometry, and the recognition curriculum
 - `notation/` — the staff component and its VexFlow renderer

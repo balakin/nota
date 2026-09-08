@@ -12,6 +12,32 @@ describe('notation renderer', () => {
     expect(container.querySelectorAll('path').length).toBeGreaterThan(5);
   });
 
+  /*
+   * A voice that insists its ticks add up rejects anything longer than it was built for,
+   * and the staff component answers a throw by clearing itself — so this failing looks
+   * like a blank stave rather than an error.
+   */
+  it('draws every note head the app asks for', () => {
+    for (const shape of ['quarter', 'half', 'whole'] as const) {
+      const container = document.createElement('div');
+      Object.defineProperty(container, 'clientWidth', { value: 540 });
+      expect(() =>
+        renderNotation(container, pitch('G', 4), 'treble', 0, shape),
+      ).not.toThrow();
+      expect(container.querySelectorAll('path').length).toBeGreaterThan(4);
+    }
+  });
+
+  it('leaves a whole note without a stem', () => {
+    const draw = (shape: 'quarter' | 'whole') => {
+      const container = document.createElement('div');
+      Object.defineProperty(container, 'clientWidth', { value: 540 });
+      renderNotation(container, pitch('G', 4), 'treble', 0, shape);
+      return container.querySelectorAll('path').length;
+    };
+    expect(draw('whole')).toBe(draw('quarter') - 1);
+  });
+
   it('paints in the container colour so the theme can drive the ink', () => {
     const container = document.createElement('div');
     Object.defineProperty(container, 'clientWidth', { value: 540 });
