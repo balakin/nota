@@ -50,6 +50,13 @@ export function clampSpeedDeadlineMs(value: unknown): number {
   return Math.min(last, Math.max(first, Math.round(value)));
 }
 
+/** Practice only puts a note on the clock once it is already familiar. */
+export const PRACTICE_DEADLINES_MS = {
+  new: null,
+  recognized: 3000,
+  fluent: 2500,
+} as const;
+
 export function deadlineRemainingMs(
   startedAt: number,
   now: number,
@@ -72,9 +79,7 @@ export function adaptiveDeadlineMs(
   speedDeadlineMs: number = DEFAULT_SPEED_DEADLINE_MS,
 ): number | null {
   if (mode === 'speed') return clampSpeedDeadlineMs(speedDeadlineMs);
-  if (stats.state === 'recognized') return 3000;
-  if (stats.state === 'fluent') return 2500;
-  return null;
+  return PRACTICE_DEADLINES_MS[stats.state];
 }
 
 export const MASTERY_THRESHOLDS = {

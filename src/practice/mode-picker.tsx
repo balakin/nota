@@ -38,7 +38,7 @@ export function ModePicker({
           onClick={() => onChange('speed')}
         >
           <strong>{t`Speed`}</strong>
-          <small>{t`${seconds}s per note · piano labels hidden`}</small>
+          <small>{t`${seconds}s per note · no new-note hints`}</small>
         </button>
       </div>
     </div>

@@ -1,13 +1,12 @@
 import { useLingui } from '@lingui/react/macro';
 
 import type { Locale } from '../app-state/app-state';
-import { decimalMark } from '../i18n/i18n';
 import type { NamingSystem } from '../music/music';
 import { Icon } from '../ui/icon';
 import { TogglePicker } from '../ui/toggle-picker';
-import { formatSeconds } from '../utils/format';
 
 import { MidiStatus } from './midi-status';
+import { ModeExplainer } from './mode-explainer';
 import { ModePicker } from './mode-picker';
 import { TrainingRangePicker } from './range-picker';
 import { SESSION_DURATIONS } from './session';
@@ -24,7 +23,6 @@ export function SessionSetup({
   naming: NamingSystem;
 }) {
   const { t } = useLingui();
-  const seconds = formatSeconds(practice.speedDeadlineMs, decimalMark(locale));
   return (
     <div className="page train-page">
       <div className="page-heading">
@@ -108,31 +106,14 @@ export function SessionSetup({
             type="button"
             onClick={practice.start}
           >
-            <Icon name="play" size={18} /> {t`Continue training`}
+            <Icon name="play" size={18} /> {t`Start`}
           </button>
         </section>
-        <section className="principle-panel">
-          <span className="principle-line" />
-          <p className="eyebrow">{t`Look → recognize → answer`}</p>
-          <h2>{t`Don’t count. Recognize.`}</h2>
-          <p>
-            {t`Fluent note reading is a visual-perceptual skill. Targeted practice can focus on recognizing a note’s whole pattern instead of consciously calculating its position.`}
-          </p>
-          <div className="principle-stats">
-            <span>
-              <strong>{t`${seconds}s`}</strong>
-              <small>{t`Speed`}</small>
-            </span>
-            <span>
-              <strong>7</strong>
-              <small>{t`Note map`}</small>
-            </span>
-            <span>
-              <strong>∞</strong>
-              <small>{t`Local`}</small>
-            </span>
-          </div>
-        </section>
+        <ModeExplainer
+          mode={practice.mode}
+          speedDeadlineMs={practice.speedDeadlineMs}
+          locale={locale}
+        />
       </div>
       <p className="local-note">
         <Icon name="check" size={16} />{' '}
