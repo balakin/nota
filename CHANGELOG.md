@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.2.0](https://github.com/balakin/nota/compare/v1.1.0...v1.2.0) (2026-09-08)
+
+
+### Features
+
+* **learning:** add a gated Learning path beside Train ([a124270](https://github.com/balakin/nota/commit/a1242700a26669255813500a5c5a6cb29775c4f8))
+* **learning:** add a gated Learning path beside Train ([0f639d7](https://github.com/balakin/nota/commit/0f639d7d74483d9984a0d8ab18b7e4a263a01b59))
+* **learning:** teach levels in runs, on a criterion instead of a clock ([58c8636](https://github.com/balakin/nota/commit/58c86361d41506ba4e4c8aa6cf7b081509cf3262))
+* **learning:** teach the notes outside the staff, and stop drawing one shape ([49936cb](https://github.com/balakin/nota/commit/49936cbba3c2dec0577f2ff6051200afd07be531))
+
+
+### Bug Fixes
+
+* **learning:** hold the run's status slot open so a hint cannot move the staff ([fa2e062](https://github.com/balakin/nota/commit/fa2e0620293a439410c82129a41c6c036cf18db6))
+* **learning:** show a run's progress, and offer the next thing rather than the last ([54819ff](https://github.com/balakin/nota/commit/54819ff3ce90488693f49600dddbc7d5753f8e00))
+
 ## [1.1.0](https://github.com/balakin/nota/compare/v1.0.0...v1.1.0) (2026-09-08)
 
 
