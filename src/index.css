@@ -654,8 +654,13 @@ h2 {
   background: var(--danger);
   transform: scaleX(1) !important;
 }
+/*
+ * Narrow enough that the clef, the note and the end of the stave are one glance: the note only
+ * roams the stave's first quarter, so the rest of a wide stave was empty paper that pushed the
+ * clef away from where the reader was looking.
+ */
 .staff-stage {
-  width: min(100%, 900px);
+  width: min(100%, 440px);
   min-height: 246px;
   display: grid;
   place-items: center;
