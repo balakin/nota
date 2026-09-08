@@ -21,6 +21,39 @@ describe('notation renderer', () => {
     expect(svg?.getAttribute('stroke')).toBe('currentColor');
   });
 
+  /*
+   * jsdom measures every glyph as zero-width, so this checks the placement arithmetic — which is
+   * driven by the stave's geometry — and not the note head anchoring, which depends on real font
+   * metrics and is only observable in a browser.
+   */
+  it('moves the note along the stave with its placement', () => {
+    const headX = (placement: number) => {
+      const container = document.createElement('div');
+      Object.defineProperty(container, 'clientWidth', { value: 540 });
+      renderNotation(container, pitch('C', 4), 'treble', placement);
+      const glyphs = container.querySelectorAll('text');
+      return Number(glyphs[glyphs.length - 1].getAttribute('x'));
+    };
+    const left = headX(0);
+    const middle = headX(0.5);
+    const right = headX(1);
+    expect(left).toBeLessThan(middle);
+    expect(middle).toBeLessThan(right);
+    // The whole note stays on the stave, which spans 16 to width - 16.
+    expect(left).toBeGreaterThan(16);
+    expect(right).toBeLessThan(540 - 16);
+  });
+
+  it('keeps the note on the stave when the placement is out of range', () => {
+    const container = document.createElement('div');
+    Object.defineProperty(container, 'clientWidth', { value: 540 });
+    renderNotation(container, pitch('C', 4), 'treble', 4);
+    const glyphs = container.querySelectorAll('text');
+    expect(Number(glyphs[glyphs.length - 1].getAttribute('x'))).toBeLessThan(
+      540 - 16,
+    );
+  });
+
   it('draws an accidental glyph beside the note head', () => {
     const plain = document.createElement('div');
     const sharp = document.createElement('div');

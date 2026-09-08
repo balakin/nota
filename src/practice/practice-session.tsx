@@ -157,6 +157,7 @@ export function PracticeSession({
               pitch={session.current.pitch}
               clef={session.current.clef}
               locale={settings.locale}
+              placementSeed={session.questionNumber}
             />
           )}
         </div>
