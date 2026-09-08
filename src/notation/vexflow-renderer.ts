@@ -13,6 +13,20 @@ import { vexFlowKey, type Clef, type CanonicalPitch } from '../music/music';
 /** The staff is drawn in the container's CSS colour rather than a value read out of the DOM. */
 const INK = 'currentColor';
 
+/*
+ * VexFlow registers its music font as a data URI when the module is imported, then lays a note
+ * out from the browser's text metrics for that font. Drawing before the face is ready measures
+ * the fallback font instead, which leaves the stem and the accidental parked away from the note
+ * head, so callers wait on this before the first render.
+ */
+export const notationFontReady: Promise<unknown> =
+  typeof document === 'undefined' || !document.fonts
+    ? Promise.resolve()
+    : Promise.all([
+        document.fonts.load('30pt Bravura'),
+        document.fonts.load('16pt Academico'),
+      ]).catch(() => undefined);
+
 export function renderNotation(
   container: HTMLDivElement,
   value: CanonicalPitch,

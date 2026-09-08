@@ -33,14 +33,17 @@ export function NotationStaff({
 
   useEffect(() => {
     let cancelled = false;
-    void import('./vexflow-renderer').then(({ renderNotation }) => {
-      if (!ref.current || cancelled) return;
-      try {
-        renderNotation(ref.current, pitch, clef);
-      } catch {
-        ref.current.replaceChildren();
-      }
-    });
+    void import('./vexflow-renderer').then(
+      async ({ renderNotation, notationFontReady }) => {
+        await notationFontReady;
+        if (!ref.current || cancelled) return;
+        try {
+          renderNotation(ref.current, pitch, clef);
+        } catch {
+          ref.current.replaceChildren();
+        }
+      },
+    );
     return () => {
       cancelled = true;
     };
