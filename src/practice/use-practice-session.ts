@@ -12,13 +12,13 @@ import {
   type PitchRange,
 } from '../training/selection';
 import {
-  adaptiveDeadlineMs,
   clampSpeedDeadlineMs,
   deadlineRemainingMs,
   emptyNoteStats,
   median,
   recordOutcome,
   requeueAfterWrong,
+  sessionDeadlineMs,
   weakestNotes,
   type AnswerResult,
   type InputMode,
@@ -191,11 +191,7 @@ export function usePracticeSession({
       keyboardWindow: windowForMidi(first.pitch.midi),
       current: first,
       currentStartedAt: now,
-      deadlineMs: adaptiveDeadlineMs(
-        notes[first.id] ?? emptyNoteStats(first),
-        mode,
-        speedDeadlineMs,
-      ),
+      deadlineMs: sessionDeadlineMs(mode, speedDeadlineMs),
       questionNumber: 1,
       recentItemIds: [first.id],
       outcomes: [],
@@ -224,11 +220,6 @@ export function usePracticeSession({
         (entry) => entry.item.id !== next.id,
       ),
       currentStartedAt: Date.now(),
-      deadlineMs: adaptiveDeadlineMs(
-        notesRef.current[next.id] ?? emptyNoteStats(next),
-        runtime.mode,
-        runtime.speedDeadlineMs,
-      ),
       questionNumber: nextQuestion,
       recentItemIds: [...runtime.recentItemIds, next.id].slice(-5),
     });

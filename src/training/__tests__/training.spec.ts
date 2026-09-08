@@ -3,46 +3,30 @@ import { describe, expect, it } from 'vitest';
 import { pitch, recognitionItem } from '../../music/music';
 import {
   accuracy,
-  adaptiveDeadlineMs,
   emptyNoteStats,
   median,
   recordOutcome,
   requeueAfterWrong,
+  sessionDeadlineMs,
   DEFAULT_SPEED_DEADLINE_MS,
-  PRACTICE_DEADLINES_MS,
   weakestNotes,
 } from '../training';
 
 describe('training engine', () => {
   const item = recognitionItem('treble', pitch('G', 4));
 
-  it('keeps the speed deadline deterministic and compresses stable practice', () => {
+  it('keeps the speed deadline deterministic and leaves Practice unclocked', () => {
     expect(DEFAULT_SPEED_DEADLINE_MS).toBe(2000);
-    expect(adaptiveDeadlineMs({ state: 'new' }, 'practice')).toBeNull();
-    expect(adaptiveDeadlineMs({ state: 'recognized' }, 'practice')).toBe(3000);
-    expect(adaptiveDeadlineMs({ state: 'fluent' }, 'practice')).toBe(2500);
-    expect(adaptiveDeadlineMs({ state: 'new' }, 'speed')).toBe(2000);
+    expect(sessionDeadlineMs('speed')).toBe(2000);
+    expect(sessionDeadlineMs('practice')).toBeNull();
   });
 
-  it('uses the chosen speed deadline for every note, whatever its state', () => {
-    expect(adaptiveDeadlineMs({ state: 'new' }, 'speed', 1000)).toBe(1000);
-    expect(adaptiveDeadlineMs({ state: 'fluent' }, 'speed', 5000)).toBe(5000);
-    expect(adaptiveDeadlineMs({ state: 'new' }, 'speed', 90_000)).toBe(5000);
-    /* A chosen speed deadline never leaks into Practice, which stays adaptive. */
-    expect(adaptiveDeadlineMs({ state: 'new' }, 'practice', 1000)).toBeNull();
-  });
-
-  /* The start screen quotes these numbers, so they must come from one place. */
-  it('reads every practice deadline from the published table', () => {
-    expect(PRACTICE_DEADLINES_MS).toEqual({
-      new: null,
-      recognized: 3000,
-      fluent: 2500,
-    });
-    for (const state of ['new', 'recognized', 'fluent'] as const)
-      expect(adaptiveDeadlineMs({ state }, 'practice')).toBe(
-        PRACTICE_DEADLINES_MS[state],
-      );
+  it('uses the chosen speed deadline, and never a deadline in Practice', () => {
+    expect(sessionDeadlineMs('speed', 1000)).toBe(1000);
+    expect(sessionDeadlineMs('speed', 5000)).toBe(5000);
+    expect(sessionDeadlineMs('speed', 90_000)).toBe(5000);
+    /* A chosen speed deadline never leaks into Practice, which stays untimed. */
+    expect(sessionDeadlineMs('practice', 1000)).toBeNull();
   });
 
   it('calculates a stable median', () => {

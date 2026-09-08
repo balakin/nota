@@ -30,34 +30,44 @@ msgstr "{0}d"
 #~ msgid "{0}s"
 #~ msgstr "{0}s"
 
-#: src/practice/mode-explainer.tsx:37
-msgid "{fluent}s"
-msgstr "{fluent}s"
+#: src/practice/mode-explainer.tsx:36
+#~ msgid "{fluent}s"
+#~ msgstr "{fluent}s"
 
-#: src/practice/session-setup.tsx:102
+#: src/practice/session-setup.tsx:99
 msgid "{minutes} min"
 msgstr "{minutes} min"
 
-#: src/practice/mode-explainer.tsx:36
-msgid "{recognized}s"
-msgstr "{recognized}s"
+#: src/practice/mode-explainer.tsx:35
+#~ msgid "{recognized}s"
+#~ msgstr "{recognized}s"
 
-#: src/practice/practice-session.tsx:216
+#: src/practice/practice-session.tsx:194
 #: src/practice/speed-deadline-picker.tsx:33
 msgid "{seconds}s"
 msgstr "{seconds}s"
 
 #: src/practice/mode-picker.tsx:41
 #: src/practice/result-page.tsx:96
-msgid "{seconds}s per note · no new-note hints"
-msgstr "{seconds}s per note · no new-note hints"
+#~ msgid "{seconds}s per note · no new-note hints"
+#~ msgstr "{seconds}s per note · no new-note hints"
 
 #: src/practice/mode-picker.tsx:41
 #: src/practice/result-page.tsx:96
 #~ msgid "{seconds}s per note · piano labels hidden"
 #~ msgstr "{seconds}s per note · piano labels hidden"
 
-#: src/practice/mode-explainer.tsx:30
+#: src/practice/mode-picker.tsx:41
+#: src/practice/result-page.tsx:96
+#~ msgid "{seconds}s per note, every note"
+#~ msgstr "{seconds}s per note, every note"
+
+#: src/practice/mode-picker.tsx:41
+#: src/practice/result-page.tsx:96
+msgid "{seconds}s to answer, or it counts as a miss"
+msgstr "{seconds}s to answer, or it counts as a miss"
+
+#: src/practice/mode-explainer.tsx:28
 msgid "{speed}s"
 msgstr "{speed}s"
 
@@ -101,7 +111,12 @@ msgstr "Accuracy and speed"
 msgid "All"
 msgstr "All"
 
-#: src/practice/session-setup.tsx:54
+#: src/practice/mode-picker.tsx:32
+#: src/practice/result-page.tsx:97
+#~ msgid "All the time you need, on every note"
+#~ msgstr "All the time you need, on every note"
+
+#: src/practice/session-setup.tsx:51
 msgid "Answer with"
 msgstr "Answer with"
 
@@ -126,7 +141,7 @@ msgid "barely seen"
 msgstr "barely seen"
 
 #: src/notation/notation-staff.tsx:84
-#: src/practice/session-setup.tsx:74
+#: src/practice/session-setup.tsx:71
 #: src/progress/note-map.tsx:90
 msgid "Bass"
 msgstr "Bass"
@@ -159,7 +174,7 @@ msgstr "Choose note naming system"
 msgid "Clears every practice session, note statistic and daily record on this device. Your settings stay as they are."
 msgstr "Clears every practice session, note statistic and daily record on this device. Your settings stay as they are."
 
-#: src/practice/session-setup.tsx:69
+#: src/practice/session-setup.tsx:66
 msgid "Clefs"
 msgstr "Clefs"
 
@@ -196,17 +211,30 @@ msgid "Do · Re · Mi · Fa · Sol · La · Si"
 msgstr "Do · Re · Mi · Fa · Sol · La · Si"
 
 #: src/onboarding/onboarding-page.tsx:28
-#: src/practice/mode-explainer.tsx:47
+#: src/practice/mode-explainer.tsx:44
 msgid "Don’t count. Recognize."
 msgstr "Don’t count. Recognize."
 
 #: src/practice/mode-explainer.tsx:30
-msgid "Every note"
-msgstr "Every note"
+msgid "Earned here"
+msgstr "Earned here"
+
+#: src/practice/mode-explainer.tsx:28
+#: src/practice/mode-explainer.tsx:32
+#~ msgid "Every note"
+#~ msgstr "Every note"
+
+#: src/practice/mode-explainer.tsx:48
+msgid "Every note gets the same deadline, whatever you know of it, and letting it run out counts as a miss. Fluent is earned only here: twenty quick, accurate answers on a note, across at least two sessions."
+msgstr "Every note gets the same deadline, whatever you know of it, and letting it run out counts as a miss. Fluent is earned only here: twenty quick, accurate answers on a note, across at least two sessions."
+
+#: src/practice/mode-explainer.tsx:47
+#~ msgid "Every note gets the same deadline, whatever you know of it, and letting it run out counts as a miss. Speed measures the recognition Practice builds."
+#~ msgstr "Every note gets the same deadline, whatever you know of it, and letting it run out counts as a miss. Speed measures the recognition Practice builds."
 
 #: src/practice/mode-explainer.tsx:51
-msgid "Every note gets the same deadline, whether you have met it before or not, and letting it run out counts as a miss. Speed measures the recognition Practice builds."
-msgstr "Every note gets the same deadline, whether you have met it before or not, and letting it run out counts as a miss. Speed measures the recognition Practice builds."
+#~ msgid "Every note gets the same deadline, whether you have met it before or not, and letting it run out counts as a miss. Speed measures the recognition Practice builds."
+#~ msgstr "Every note gets the same deadline, whether you have met it before or not, and letting it run out counts as a miss. Speed measures the recognition Practice builds."
 
 #: src/progress/progress-page.tsx:135
 msgid "Every note of the curriculum, in pitch order. Colour is your standing on it overall; the figure is how much you answered correctly in this range."
@@ -216,7 +244,7 @@ msgstr "Every note of the curriculum, in pitch order. Colour is your standing on
 msgid "Experimental work with musical notation has found measurable changes in visual processing after targeted training. That is evidence about trained visual tasks, not a claim to make an expert pianist or sight-reader."
 msgstr "Experimental work with musical notation has found measurable changes in visual processing after targeted training. That is evidence about trained visual tasks, not a claim to make an expert pianist or sight-reader."
 
-#: src/practice/practice-session.tsx:135
+#: src/practice/practice-session.tsx:120
 msgid "Finish session"
 msgstr "Finish session"
 
@@ -224,14 +252,26 @@ msgstr "Finish session"
 msgid "Fixed solfège"
 msgstr "Fixed solfège"
 
-#: src/practice/mode-explainer.tsx:37
+#: src/practice/mode-explainer.tsx:30
 #: src/progress/mastery-labels.ts:9
 msgid "Fluent"
 msgstr "Fluent"
 
+#: src/practice/mode-explainer.tsx:49
+msgid "Fluent note reading is a visual-perceptual skill. Nothing here is on a clock, so you can look until a note’s whole pattern lands instead of counting lines up to it. Miss one and it comes back a few questions later. Notes reach Recognized this way; Fluent is Speed’s to give."
+msgstr "Fluent note reading is a visual-perceptual skill. Nothing here is on a clock, so you can look until a note’s whole pattern lands instead of counting lines up to it. Miss one and it comes back a few questions later. Notes reach Recognized this way; Fluent is Speed’s to give."
+
 #: src/practice/mode-explainer.tsx:52
-msgid "Fluent note reading is a visual-perceptual skill. Practice leaves room to see a note’s whole pattern instead of calculating its position: a note you have never met is introduced on the keyboard, and the clock only appears once you know it."
-msgstr "Fluent note reading is a visual-perceptual skill. Practice leaves room to see a note’s whole pattern instead of calculating its position: a note you have never met is introduced on the keyboard, and the clock only appears once you know it."
+#~ msgid "Fluent note reading is a visual-perceptual skill. Practice leaves room to see a note’s whole pattern instead of calculating its position: a note you have never met is introduced on the keyboard, and the clock only appears once you know it."
+#~ msgstr "Fluent note reading is a visual-perceptual skill. Practice leaves room to see a note’s whole pattern instead of calculating its position: a note you have never met is introduced on the keyboard, and the clock only appears once you know it."
+
+#: src/practice/mode-explainer.tsx:48
+#~ msgid "Fluent note reading is a visual-perceptual skill. Practice leaves room to see a note’s whole pattern instead of calculating its position: no note is ever on the clock, so nothing hurries you into counting. When you want the pressure, that is what Speed is for."
+#~ msgstr "Fluent note reading is a visual-perceptual skill. Practice leaves room to see a note’s whole pattern instead of calculating its position: no note is ever on the clock, so nothing hurries you into counting. When you want the pressure, that is what Speed is for."
+
+#: src/practice/mode-explainer.tsx:51
+#~ msgid "Fluent note reading is a visual-perceptual skill. Practice leaves room to see a note’s whole pattern instead of calculating its position: the clock only appears once you recognize a note, and it tightens as you grow fluent."
+#~ msgstr "Fluent note reading is a visual-perceptual skill. Practice leaves room to see a note’s whole pattern instead of calculating its position: the clock only appears once you recognize a note, and it tightens as you grow fluent."
 
 #: src/research/research-papers.ts:6
 msgid "Fluent note reading is a visual-perceptual skill. Targeted practice can focus on recognizing a note’s whole pattern instead of consciously calculating its position."
@@ -239,16 +279,20 @@ msgstr "Fluent note reading is a visual-perceptual skill. Targeted practice can 
 
 #: src/practice/mode-picker.tsx:32
 #: src/practice/result-page.tsx:97
-msgid "Generous time while you build accuracy"
-msgstr "Generous time while you build accuracy"
+#~ msgid "Generous time while you build accuracy"
+#~ msgstr "Generous time while you build accuracy"
 
 #: src/progress/progress-page.tsx:145
 msgid "Hardest notes"
 msgstr "Hardest notes"
 
 #: src/practice/mode-explainer.tsx:32
-msgid "Hidden"
-msgstr "Hidden"
+#~ msgid "Hidden"
+#~ msgstr "Hidden"
+
+#: src/practice/mode-explainer.tsx:34
+msgid "Highest band"
+msgstr "Highest band"
 
 #: src/practice/range-picker.tsx:69
 msgid "Highest note"
@@ -302,7 +346,7 @@ msgstr "Loading Nota"
 #~ msgid "Look → recognize → answer"
 #~ msgstr "Look → recognize → answer"
 
-#: src/practice/session-setup.tsx:35
+#: src/practice/session-setup.tsx:32
 msgid "Look at the staff, then answer without counting."
 msgstr "Look at the staff, then answer without counting."
 
@@ -326,7 +370,7 @@ msgstr "Median response"
 msgid "Median time per note"
 msgstr "Median time per note"
 
-#: src/practice/session-setup.tsx:59
+#: src/practice/session-setup.tsx:56
 msgid "MIDI keyboard"
 msgstr "MIDI keyboard"
 
@@ -334,7 +378,7 @@ msgstr "MIDI keyboard"
 msgid "min"
 msgstr "min"
 
-#: src/practice/mode-explainer.tsx:31
+#: src/practice/mode-explainer.tsx:29
 msgid "Miss"
 msgstr "Miss"
 
@@ -343,20 +387,25 @@ msgid "New"
 msgstr "New"
 
 #: src/practice/practice-session.tsx:182
-msgid "New note: {currentName} · press the highlighted key to meet it."
-msgstr "New note: {currentName} · press the highlighted key to meet it."
+#~ msgid "New note: {currentName} · press the highlighted key to meet it."
+#~ msgstr "New note: {currentName} · press the highlighted key to meet it."
 
 #: src/practice/mode-explainer.tsx:35
-msgid "New notes"
-msgstr "New notes"
+#~ msgid "New notes"
+#~ msgstr "New notes"
 
 #: src/practice/result-page.tsx:62
 msgid "New progress"
 msgstr "New progress"
 
 #: src/practice/mode-explainer.tsx:32
-msgid "New-note hint"
-msgstr "New-note hint"
+#~ msgid "New-note hint"
+#~ msgstr "New-note hint"
+
+#: src/practice/mode-picker.tsx:32
+#: src/practice/result-page.tsx:97
+msgid "No clock — look as long as you need"
+msgstr "No clock — look as long as you need"
 
 #: src/progress/stat-tile.tsx:35
 msgid "no earlier window"
@@ -370,9 +419,13 @@ msgstr "No keyboard yet. Pair it in your system Bluetooth settings and it will a
 msgid "No practice in this range yet. Train, and accuracy and speed will appear here day by day."
 msgstr "No practice in this range yet. Train, and accuracy and speed will appear here day by day."
 
-#: src/practice/mode-explainer.tsx:47
+#: src/practice/mode-explainer.tsx:44
 msgid "No time to count."
 msgstr "No time to count."
+
+#: src/practice/mode-explainer.tsx:33
+#~ msgid "None"
+#~ msgstr "None"
 
 #: src/progress/note-map.tsx:36
 msgid "Not in this range"
@@ -403,7 +456,7 @@ msgid "Nota does not claim scientific certification or guarantee a result in a p
 msgstr "Nota does not claim scientific certification or guarantee a result in a particular number of hours."
 
 #: src/onboarding/onboarding-page.tsx:55
-#: src/practice/session-setup.tsx:123
+#: src/practice/session-setup.tsx:120
 #: src/settings/settings-page.tsx:141
 msgid "Nota is a small, local-first tool. Your progress stays on this device."
 msgstr "Nota is a small, local-first tool. Your progress stays on this device."
@@ -429,7 +482,7 @@ msgid "Note mastery map"
 msgstr "Note mastery map"
 
 #: src/practice/note-name-pad.tsx:25
-#: src/practice/session-setup.tsx:58
+#: src/practice/session-setup.tsx:55
 msgid "Note names"
 msgstr "Note names"
 
@@ -486,12 +539,12 @@ msgstr "Offline — progress is saved on this device"
 msgid "often wrong"
 msgstr "often wrong"
 
-#: src/practice/mode-explainer.tsx:31
+#: src/practice/mode-explainer.tsx:29
 msgid "On timeout"
 msgstr "On timeout"
 
-#: src/practice/practice-session.tsx:128
-#: src/practice/practice-session.tsx:154
+#: src/practice/practice-session.tsx:113
+#: src/practice/practice-session.tsx:139
 msgid "Pause"
 msgstr "Pause"
 
@@ -504,16 +557,16 @@ msgid "per note"
 msgstr "per note"
 
 #: src/piano/piano.tsx:32
-#: src/practice/session-setup.tsx:57
+#: src/practice/session-setup.tsx:54
 msgid "Piano"
 msgstr "Piano"
 
-#: src/practice/practice-session.tsx:184
+#: src/practice/practice-session.tsx:165
 msgid "Play the note on your keyboard."
 msgstr "Play the note on your keyboard."
 
 #: src/practice/mode-picker.tsx:31
-#: src/practice/practice-session.tsx:122
+#: src/practice/practice-session.tsx:107
 msgid "Practice"
 msgstr "Practice"
 
@@ -521,7 +574,7 @@ msgstr "Practice"
 msgid "Practice changes perception"
 msgstr "Practice changes perception"
 
-#: src/practice/mode-explainer.tsx:44
+#: src/practice/mode-explainer.tsx:41
 msgid "Practice mode"
 msgstr "Practice mode"
 
@@ -540,7 +593,7 @@ msgstr "Progress"
 
 #. placeholder {0}: session.questionNumber
 #. placeholder {1}: '∞'
-#: src/practice/practice-session.tsx:120
+#: src/practice/practice-session.tsx:105
 msgid "Question {0} of {1}"
 msgstr "Question {0} of {1}"
 
@@ -569,11 +622,11 @@ msgstr "Read the research"
 msgid "Recognition gets useful when it is fast and retained."
 msgstr "Recognition gets useful when it is fast and retained."
 
-#: src/practice/session-setup.tsx:34
+#: src/practice/session-setup.tsx:31
 msgid "Recognition practice"
 msgstr "Recognition practice"
 
-#: src/practice/mode-explainer.tsx:36
+#: src/practice/mode-explainer.tsx:34
 #: src/progress/mastery-labels.ts:8
 msgid "Recognized"
 msgstr "Recognized"
@@ -596,7 +649,7 @@ msgstr "Reset everything"
 msgid "Reset progress"
 msgstr "Reset progress"
 
-#: src/practice/practice-session.tsx:128
+#: src/practice/practice-session.tsx:113
 msgid "Resume"
 msgstr "Resume"
 
@@ -612,7 +665,7 @@ msgstr "running out of time"
 msgid "Session complete"
 msgstr "Session complete"
 
-#: src/practice/session-setup.tsx:90
+#: src/practice/session-setup.tsx:87
 msgid "Session length"
 msgstr "Session length"
 
@@ -626,13 +679,13 @@ msgid "slow to come"
 msgstr "slow to come"
 
 #: src/practice/mode-picker.tsx:40
-#: src/practice/practice-session.tsx:122
-#: src/practice/practice-session.tsx:216
+#: src/practice/practice-session.tsx:107
+#: src/practice/practice-session.tsx:194
 #: src/research/research-papers.ts:12
 msgid "Speed"
 msgstr "Speed"
 
-#: src/practice/mode-explainer.tsx:44
+#: src/practice/mode-explainer.tsx:41
 msgid "Speed mode"
 msgstr "Speed mode"
 
@@ -646,7 +699,7 @@ msgstr "Speed mode ends a note when this runs out. Two seconds is the default."
 msgid "Staff, {0}, {1}"
 msgstr "Staff, {0}, {1}"
 
-#: src/practice/session-setup.tsx:112
+#: src/practice/session-setup.tsx:109
 msgid "Start"
 msgstr "Start"
 
@@ -671,10 +724,12 @@ msgid "This erases your sessions, note statistics and history on this device. It
 msgstr "This erases your sessions, note statistics and history on this device. It cannot be undone."
 
 #: src/practice/feedback-banner.tsx:25
-#: src/practice/practice-session.tsx:157
+#: src/practice/practice-session.tsx:142
 msgid "Time"
 msgstr "Time"
 
+#: src/practice/mode-explainer.tsx:28
+#: src/practice/mode-explainer.tsx:33
 #: src/practice/speed-deadline-picker.tsx:21
 #: src/practice/speed-deadline-picker.tsx:22
 #: src/progress/session-chart.tsx:158
@@ -689,7 +744,7 @@ msgstr "Timeouts"
 msgid "Train"
 msgstr "Train"
 
-#: src/practice/session-setup.tsx:33
+#: src/practice/session-setup.tsx:30
 msgid "Train instant musical note recognition."
 msgstr "Train instant musical note recognition."
 
@@ -698,16 +753,16 @@ msgid "Training mode"
 msgstr "Training mode"
 
 #: src/notation/notation-staff.tsx:84
-#: src/practice/session-setup.tsx:73
+#: src/practice/session-setup.tsx:70
 #: src/progress/note-map.tsx:90
 msgid "Treble"
 msgstr "Treble"
 
-#: src/practice/session-setup.tsx:72
+#: src/practice/session-setup.tsx:69
 msgid "Treble + Bass"
 msgstr "Treble + Bass"
 
-#: src/practice/practice-session.tsx:185
+#: src/practice/practice-session.tsx:166
 msgid "Use the piano key that matches the note."
 msgstr "Use the piano key that matches the note."
 

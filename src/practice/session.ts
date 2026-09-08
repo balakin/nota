@@ -43,6 +43,7 @@ export type RuntimeSession = {
   keyboardWindow: KeyboardWindow;
   current: RecognitionItem;
   currentStartedAt: number;
+  /** Fixed for the whole session: the Speed deadline, or null in Practice, which never clocks a note. */
   deadlineMs: number | null;
   questionNumber: number;
   recentItemIds: string[];

@@ -93,8 +93,8 @@ export function ResultPage({
           </strong>
           <p className="muted-copy">
             {result.mode === 'speed'
-              ? t`${seconds}s per note · no new-note hints`
-              : t`Generous time while you build accuracy`}
+              ? t`${seconds}s to answer, or it counts as a miss`
+              : t`No clock — look as long as you need`}
           </p>
           <button
             className="button button-primary"

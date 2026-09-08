@@ -3,11 +3,9 @@ import { useEffect, useState } from 'react';
 
 import type { AppSettings } from '../app-state/app-state';
 import { decimalMark } from '../i18n/i18n';
-import { displayNoteName } from '../music/music';
 import { NotationStaff } from '../notation/notation-staff';
 import { Piano } from '../piano/piano';
 import { keyboardAnswer, type NormalizedAnswer } from '../training/input';
-import type { NoteStats } from '../training/training';
 import { Icon } from '../ui/icon';
 import { formatDuration, formatSeconds } from '../utils/format';
 
@@ -39,7 +37,6 @@ export function PracticeSession({
   session,
   feedback,
   settings,
-  notes,
   midi,
   onAnswer,
   onPause,
@@ -48,7 +45,6 @@ export function PracticeSession({
   session: RuntimeSession;
   feedback: Feedback | null;
   settings: AppSettings;
-  notes: Readonly<Record<string, NoteStats>>;
   midi: MidiController;
   onAnswer: (answer: NormalizedAnswer) => void;
   onPause: () => void;
@@ -103,17 +99,6 @@ export function PracticeSession({
     session.speedDeadlineMs,
     decimalMark(settings.locale),
   );
-  const currentStats = notes[session.current.id];
-  const isIntroduction =
-    !feedback &&
-    mode === 'practice' &&
-    (currentStats?.totalAttempts ?? 0) === 0;
-  const currentName = displayNoteName(
-    session.current.pitch,
-    settings.naming,
-    settings.locale,
-  );
-
   return (
     <div className="practice-page">
       <div className="practice-toolbar">
@@ -175,14 +160,10 @@ export function PracticeSession({
               locale={settings.locale}
             />
           ) : (
-            <p
-              className={`answer-prompt ${isIntroduction ? 'intro-prompt' : ''}`}
-            >
-              {isIntroduction
-                ? t`New note: ${currentName} · press the highlighted key to meet it.`
-                : input === 'midi'
-                  ? t`Play the note on your keyboard.`
-                  : t`Use the piano key that matches the note.`}
+            <p className="answer-prompt">
+              {input === 'midi'
+                ? t`Play the note on your keyboard.`
+                : t`Use the piano key that matches the note.`}
             </p>
           )}
         </div>
@@ -201,10 +182,7 @@ export function PracticeSession({
               window={session.keyboardWindow}
               naming={settings.naming}
               locale={settings.locale}
-              highlightMidi={
-                feedback?.item.pitch.midi ??
-                (isIntroduction ? session.current.pitch.midi : undefined)
-              }
+              highlightMidi={feedback?.item.pitch.midi}
               disabled={answerDisabled}
               onAnswer={onAnswer}
             />

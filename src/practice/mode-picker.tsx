@@ -29,7 +29,7 @@ export function ModePicker({
           onClick={() => onChange('practice')}
         >
           <strong>{t`Practice`}</strong>
-          <small>{t`Generous time while you build accuracy`}</small>
+          <small>{t`No clock — look as long as you need`}</small>
         </button>
         <button
           type="button"
@@ -38,7 +38,7 @@ export function ModePicker({
           onClick={() => onChange('speed')}
         >
           <strong>{t`Speed`}</strong>
-          <small>{t`${seconds}s per note · no new-note hints`}</small>
+          <small>{t`${seconds}s to answer, or it counts as a miss`}</small>
         </button>
       </div>
     </div>
