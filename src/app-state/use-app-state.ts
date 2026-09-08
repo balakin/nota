@@ -48,6 +48,8 @@ export type AppState = {
     outcome: RolledAttempt,
   ) => void;
   appendSession: (summary: SessionSummary) => void;
+  /** Clears every recorded attempt, session and day bucket. Settings are not progress, so they stay. */
+  resetProgress: () => void;
 };
 
 export function useAppState(): AppState {
@@ -100,5 +102,16 @@ export function useAppState(): AppState {
     }));
   }, []);
 
-  return { state, hydrated, updateSettings, recordAttempt, appendSession };
+  const resetProgress = useCallback(() => {
+    setState((current) => createInitialState(current.settings));
+  }, []);
+
+  return {
+    state,
+    hydrated,
+    updateSettings,
+    recordAttempt,
+    appendSession,
+    resetProgress,
+  };
 }

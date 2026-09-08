@@ -19,8 +19,14 @@ import { useDocumentChrome } from './use-document-chrome';
 
 export default function App() {
   const { t } = useLingui();
-  const { state, hydrated, updateSettings, recordAttempt, appendSession } =
-    useAppState();
+  const {
+    state,
+    hydrated,
+    updateSettings,
+    recordAttempt,
+    appendSession,
+    resetProgress,
+  } = useAppState();
   const { page, navigate } = usePage();
   const practice = usePracticeSession({
     notes: state.notes,
@@ -66,6 +72,7 @@ export default function App() {
               settings={state.settings}
               onChange={updateSettings}
               navigate={navigate}
+              onResetProgress={resetProgress}
             />
           )}
           {page === 'research' && <ResearchPage navigate={navigate} />}
