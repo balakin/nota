@@ -735,10 +735,6 @@ h2 {
   font-size: 0.74rem;
   text-align: center;
 }
-.answer-prompt.intro-prompt {
-  color: var(--accent-soft-foreground);
-  font-weight: 750;
-}
 .answer-area {
   width: 100%;
 }

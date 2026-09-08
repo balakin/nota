@@ -27,7 +27,6 @@ export function PracticePage({
         session={practice.session}
         feedback={practice.feedback}
         settings={state.settings}
-        notes={state.notes}
         midi={practice.midi}
         onAnswer={practice.answer}
         onPause={practice.togglePause}

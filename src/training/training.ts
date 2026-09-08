@@ -50,13 +50,6 @@ export function clampSpeedDeadlineMs(value: unknown): number {
   return Math.min(last, Math.max(first, Math.round(value)));
 }
 
-/** Practice only puts a note on the clock once it is already familiar. */
-export const PRACTICE_DEADLINES_MS = {
-  new: null,
-  recognized: 3000,
-  fluent: 2500,
-} as const;
-
 export function deadlineRemainingMs(
   startedAt: number,
   now: number,
@@ -73,13 +66,15 @@ export function isDeadlineReached(
   return deadlineRemainingMs(startedAt, now, deadlineMs) === 0;
 }
 
-export function adaptiveDeadlineMs(
-  stats: Pick<NoteStats, 'state'>,
+/**
+ * Practice never puts a note on the clock: it is where you look as long as you need to.
+ * A deadline is Speed's whole point, so that is where one lives, the same for every note.
+ */
+export function sessionDeadlineMs(
   mode: PracticeMode,
   speedDeadlineMs: number = DEFAULT_SPEED_DEADLINE_MS,
 ): number | null {
-  if (mode === 'speed') return clampSpeedDeadlineMs(speedDeadlineMs);
-  return PRACTICE_DEADLINES_MS[stats.state];
+  return mode === 'speed' ? clampSpeedDeadlineMs(speedDeadlineMs) : null;
 }
 
 export const MASTERY_THRESHOLDS = {
