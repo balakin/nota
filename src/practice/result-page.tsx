@@ -93,7 +93,7 @@ export function ResultPage({
           </strong>
           <p className="muted-copy">
             {result.mode === 'speed'
-              ? t`${seconds}s per note · piano labels hidden`
+              ? t`${seconds}s per note · no new-note hints`
               : t`Generous time while you build accuracy`}
           </p>
           <button

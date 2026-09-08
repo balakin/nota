@@ -9,6 +9,7 @@ import {
   recordOutcome,
   requeueAfterWrong,
   DEFAULT_SPEED_DEADLINE_MS,
+  PRACTICE_DEADLINES_MS,
   weakestNotes,
 } from '../training';
 
@@ -29,6 +30,19 @@ describe('training engine', () => {
     expect(adaptiveDeadlineMs({ state: 'new' }, 'speed', 90_000)).toBe(5000);
     /* A chosen speed deadline never leaks into Practice, which stays adaptive. */
     expect(adaptiveDeadlineMs({ state: 'new' }, 'practice', 1000)).toBeNull();
+  });
+
+  /* The start screen quotes these numbers, so they must come from one place. */
+  it('reads every practice deadline from the published table', () => {
+    expect(PRACTICE_DEADLINES_MS).toEqual({
+      new: null,
+      recognized: 3000,
+      fluent: 2500,
+    });
+    for (const state of ['new', 'recognized', 'fluent'] as const)
+      expect(adaptiveDeadlineMs({ state }, 'practice')).toBe(
+        PRACTICE_DEADLINES_MS[state],
+      );
   });
 
   it('calculates a stable median', () => {
