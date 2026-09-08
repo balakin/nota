@@ -1168,18 +1168,32 @@ h2 {
   white-space: nowrap;
 }
 .level-meter {
+  position: relative;
   height: 4px;
   margin-top: 0.8rem;
   border-radius: 999px;
   background: var(--surface-secondary);
   overflow: hidden;
 }
-.level-meter-fill {
-  display: block;
+.level-meter.is-tall {
+  height: 7px;
+  margin-top: 0;
+}
+.level-meter-fill,
+.level-meter-banked {
+  position: absolute;
+  top: 0;
+  left: 0;
   height: 100%;
   border-radius: 999px;
-  background: var(--accent);
   transition: width 0.3s ease;
+}
+.level-meter-fill {
+  background: var(--accent);
+}
+/* Credits banked towards notes not yet finished: real progress, quieter than a finished note. */
+.level-meter-banked {
+  background: color-mix(in oklch, var(--accent) 32%, transparent);
 }
 .status-complete .level-meter-fill {
   background: var(--success);
@@ -1200,6 +1214,9 @@ h2 {
   list-style: none;
 }
 .level-notes li {
+  display: grid;
+  gap: 0.22rem;
+  justify-items: center;
   min-width: 44px;
   padding: 0.35rem 0.5rem;
   border: 1px solid var(--border);
@@ -1222,6 +1239,19 @@ h2 {
   border-color: var(--accent);
   background: var(--accent-soft);
   color: var(--accent-soft-foreground);
+}
+.note-pips {
+  display: flex;
+  gap: 2px;
+}
+.note-pips span {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: color-mix(in oklch, currentColor 28%, transparent);
+}
+.note-pips span.is-full {
+  background: currentColor;
 }
 /* An anchor is the note the others are read against; it should look load-bearing. */
 .level-notes li.is-anchor {
@@ -1306,7 +1336,7 @@ h2 {
   border-color: var(--accent);
 }
 .run-meter-line {
-  margin: 0 0 0.6rem;
+  margin: 0.7rem 0 1.1rem;
   color: var(--muted);
   font-size: 0.85rem;
 }
@@ -1315,8 +1345,22 @@ h2 {
   font-family: ui-monospace, monospace;
   font-size: 1.3rem;
 }
-.run-summary .level-meter {
+.run-banked {
+  font-size: 0.78rem;
+}
+.run-summary .level-notes {
   margin-bottom: 1.2rem;
+}
+.run-moved {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0 0 0.4rem;
+  color: var(--accent-soft-foreground);
+  font-size: 0.8rem;
+}
+.run-moved.is-back {
+  color: var(--warning);
 }
 .run-actions {
   display: flex;

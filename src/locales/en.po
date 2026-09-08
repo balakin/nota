@@ -18,17 +18,22 @@ msgstr ""
 msgid "{0, plural, one {# note} other {# notes}}"
 msgstr "{0, plural, one {# note} other {# notes}}"
 
+#. placeholder {0}: percent(standing.earned, standing.required)
+#: src/learning/run-summary.tsx:81
+msgid "{0} done"
+msgstr "{0} done"
+
 #. placeholder {0}: totals.levelsComplete
 #. placeholder {1}: standings.length
-#: src/learning/learning-page.tsx:86
+#: src/learning/learning-page.tsx:101
 msgid "{0} of {1} levels"
 msgstr "{0} of {1} levels"
 
 #. placeholder {0}: note.credits
 #. placeholder {1}: level.credits
 #: src/learning/level-card.tsx:101
-msgid "{0} of {1} runs"
-msgstr "{0} of {1} runs"
+#~ msgid "{0} of {1} runs"
+#~ msgstr "{0} of {1} runs"
 
 #. placeholder {0}: option.days
 #: src/progress/range-bar.tsx:27
@@ -41,6 +46,11 @@ msgstr "{0}d"
 #: src/practice/session-setup.tsx:110
 #~ msgid "{0}s"
 #~ msgstr "{0}s"
+
+#. placeholder {0}: level.credits
+#: src/learning/level-notes.tsx:37
+msgid "{banked} of {0} runs"
+msgstr "{banked} of {0} runs"
 
 #: src/learning/note-hint.tsx:74
 msgid "{distance} above {anchor}"
@@ -99,7 +109,7 @@ msgstr "{speed}s"
 msgid "{steps} steps"
 msgstr "{steps} steps"
 
-#: src/learning/learning-run.tsx:177
+#: src/learning/learning-run.tsx:174
 #: src/practice/feedback-banner.tsx:31
 #: src/practice/result-page.tsx:54
 #: src/progress/hardest-notes.tsx:101
@@ -121,9 +131,9 @@ msgstr "A calm practice for your eyes"
 msgid "A different clef, a different anchor: the F line the clef's two dots straddle."
 msgstr "A different clef, a different anchor: the F line the clef's two dots straddle."
 
-#: src/learning/run-summary.tsx:91
-msgid "A note counts as learned after it comes back correctly in several separate runs. Coming back is what makes it stick — a single long sitting does not."
-msgstr "A note counts as learned after it comes back correctly in several separate runs. Coming back is what makes it stick — a single long sitting does not."
+#: src/learning/run-summary.tsx:106
+msgid "A note is learned once it comes back correctly in several separate runs. Coming back is what makes it stick — a single long sitting does not."
+msgstr "A note is learned once it comes back correctly in several separate runs. Coming back is what makes it stick — a single long sitting does not."
 
 #: src/practice/result-page.tsx:40
 msgid "A small, useful block of practice."
@@ -172,10 +182,15 @@ msgstr "An anchor"
 #. placeholder {0}: note.credits
 #. placeholder {1}: level.credits
 #: src/learning/level-card.tsx:100
-msgid "Anchor note · {0} of {1} runs"
-msgstr "Anchor note · {0} of {1} runs"
+#~ msgid "Anchor note · {0} of {1} runs"
+#~ msgstr "Anchor note · {0} of {1} runs"
 
-#: src/learning/learning-page.tsx:120
+#. placeholder {0}: level.credits
+#: src/learning/level-notes.tsx:36
+msgid "Anchor note · {banked} of {0} runs"
+msgstr "Anchor note · {banked} of {0} runs"
+
+#: src/learning/learning-page.tsx:135
 #: src/practice/session-setup.tsx:51
 msgid "Answer with"
 msgstr "Answer with"
@@ -188,17 +203,18 @@ msgstr "Appearance"
 msgid "Back online"
 msgstr "Back online"
 
-#: src/learning/run-summary.tsx:78
-msgid "Back to repair"
-msgstr "Back to repair"
+#: src/learning/run-summary.tsx:129
+msgid "Back to levels"
+msgstr "Back to levels"
+
+#. placeholder {0}: names(summary.lapsed).join(', ')
+#: src/learning/run-summary.tsx:100
+msgid "Back to repair: {0}"
+msgstr "Back to repair: {0}"
 
 #: src/research/research-page.tsx:17
 msgid "Back to settings"
 msgstr "Back to settings"
-
-#: src/learning/run-summary.tsx:102
-msgid "Back to the path"
-msgstr "Back to the path"
 
 #: src/practice/result-page.tsx:104
 msgid "Back to training"
@@ -234,7 +250,7 @@ msgstr "Bass flats"
 msgid "Bass sharps"
 msgstr "Bass sharps"
 
-#: src/learning/learning-page.tsx:76
+#: src/learning/learning-page.tsx:91
 msgid "Blocks to learn a note, mixtures to keep it."
 msgstr "Blocks to learn a note, mixtures to keep it."
 
@@ -266,7 +282,7 @@ msgstr "C · D · E · F · G · A · B"
 msgid "Cancel"
 msgstr "Cancel"
 
-#: src/learning/learning-run.tsx:90
+#: src/learning/learning-run.tsx:91
 msgid "Check"
 msgstr "Check"
 
@@ -314,7 +330,7 @@ msgstr "Connect a MIDI keyboard"
 msgid "correct"
 msgstr "correct"
 
-#: src/learning/learning-run.tsx:166
+#: src/learning/learning-run.tsx:163
 #: src/practice/feedback-banner.tsx:23
 msgid "Correct"
 msgstr "Correct"
@@ -336,7 +352,7 @@ msgstr "Do · Re · Mi · Fa · Sol · La · Si"
 msgid "Don’t count. Recognize."
 msgstr "Don’t count. Recognize."
 
-#: src/learning/learning-page.tsx:78
+#: src/learning/learning-page.tsx:93
 msgid "Each press of Start is a short run built from what you currently need. A note counts as learned once it comes back correctly in several separate runs — coming back is what makes it stick."
 msgstr "Each press of Start is a short run built from what you currently need. A note counts as learned once it comes back correctly in several separate runs — coming back is what makes it stick."
 
@@ -344,7 +360,7 @@ msgstr "Each press of Start is a short run built from what you currently need. A
 msgid "Earned here"
 msgstr "Earned here"
 
-#: src/learning/learning-run.tsx:106
+#: src/learning/learning-run.tsx:107
 msgid "End run"
 msgstr "End run"
 
@@ -377,9 +393,9 @@ msgstr "Every note gets the same deadline, whatever you know of it, and letting 
 #~ msgid "Every note gets the same deadline, whether you have met it before or not, and letting it run out counts as a miss. Speed measures the recognition Practice builds."
 #~ msgstr "Every note gets the same deadline, whether you have met it before or not, and letting it run out counts as a miss. Speed measures the recognition Practice builds."
 
-#: src/learning/run-summary.tsx:90
-msgid "Every note in this level has been recalled in enough separate runs to count as learned. You can still run it to sharpen it."
-msgstr "Every note in this level has been recalled in enough separate runs to count as learned. You can still run it to sharpen it."
+#: src/learning/run-summary.tsx:105
+msgid "Every note here has come back correctly in enough separate runs to count as learned. You can still run it to sharpen it."
+msgstr "Every note here has come back correctly in enough separate runs to count as learned. You can still run it to sharpen it."
 
 #: src/progress/progress-page.tsx:135
 msgid "Every note of the curriculum, in pitch order. Colour is your standing on it overall; the figure is how much you answered correctly in this range."
@@ -483,7 +499,7 @@ msgstr "In perceptual-training studies, presentation became progressively more d
 msgid "Interface language"
 msgstr "Interface language"
 
-#: src/learning/learning-run.tsx:183
+#: src/learning/learning-run.tsx:180
 #: src/learning/note-hint.tsx:35
 msgid "It is"
 msgstr "It is"
@@ -500,7 +516,7 @@ msgstr "last seen"
 msgid "Learning"
 msgstr "Learning"
 
-#: src/learning/learning-page.tsx:77
+#: src/learning/learning-page.tsx:92
 msgid "Learning path"
 msgstr "Learning path"
 
@@ -508,7 +524,7 @@ msgstr "Learning path"
 msgid "Letters"
 msgstr "Letters"
 
-#: src/learning/run-summary.tsx:46
+#: src/learning/run-summary.tsx:57
 msgid "Level complete"
 msgstr "Level complete"
 
@@ -561,7 +577,7 @@ msgid "Median time per note"
 msgstr "Median time per note"
 
 #. placeholder {0}: outline.introduce
-#: src/learning/level-card.tsx:48
+#: src/learning/level-card.tsx:42
 msgid "meet {0} new"
 msgstr "meet {0} new"
 
@@ -569,7 +585,7 @@ msgstr "meet {0} new"
 msgid "Middle C, two ways"
 msgstr "Middle C, two ways"
 
-#: src/learning/learning-page.tsx:125
+#: src/learning/learning-page.tsx:140
 #: src/practice/session-setup.tsx:56
 msgid "MIDI keyboard"
 msgstr "MIDI keyboard"
@@ -582,15 +598,16 @@ msgstr "min"
 msgid "Miss"
 msgstr "Miss"
 
-#: src/learning/run-summary.tsx:66
-msgid "Moved forward"
-msgstr "Moved forward"
+#. placeholder {0}: names(summary.credited).join(', ')
+#: src/learning/run-summary.tsx:94
+msgid "Moved forward: {0}"
+msgstr "Moved forward: {0}"
 
 #: src/progress/note-map.tsx:98
 msgid "New"
 msgstr "New"
 
-#: src/learning/learning-run.tsx:90
+#: src/learning/learning-run.tsx:91
 msgid "New note"
 msgstr "New note"
 
@@ -610,12 +627,17 @@ msgstr "New progress"
 #~ msgid "New-note hint"
 #~ msgstr "New-note hint"
 
+#. placeholder {0}: t(nextLevel.level.title)
+#: src/learning/run-summary.tsx:116
+msgid "Next: {0}"
+msgstr "Next: {0}"
+
 #: src/practice/mode-picker.tsx:32
 #: src/practice/result-page.tsx:97
 msgid "No clock — look as long as you need"
 msgstr "No clock — look as long as you need"
 
-#: src/learning/learning-run.tsx:174
+#: src/learning/learning-run.tsx:171
 msgid "No credit for a hinted answer."
 msgstr "No credit for a hinted answer."
 
@@ -647,7 +669,7 @@ msgstr "Not in this range"
 msgid "Not practiced yet"
 msgstr "Not practiced yet"
 
-#: src/learning/learning-run.tsx:169
+#: src/learning/learning-run.tsx:166
 #: src/practice/feedback-banner.tsx:26
 msgid "Not quite"
 msgstr "Not quite"
@@ -694,7 +716,7 @@ msgstr "Nota on GitHub"
 msgid "Note mastery map"
 msgstr "Note mastery map"
 
-#: src/learning/learning-page.tsx:124
+#: src/learning/learning-page.tsx:139
 #: src/practice/note-name-pad.tsx:25
 #: src/practice/session-setup.tsx:55
 msgid "Note names"
@@ -720,8 +742,8 @@ msgstr "Notes answered"
 msgid "Notes attempted"
 msgstr "Notes attempted"
 
-#: src/learning/learning-page.tsx:84
-#: src/learning/run-summary.tsx:54
+#: src/learning/learning-page.tsx:99
+#: src/learning/run-summary.tsx:76
 msgid "notes learned"
 msgstr "notes learned"
 
@@ -807,13 +829,13 @@ msgstr "per answer"
 msgid "per note"
 msgstr "per note"
 
-#: src/learning/learning-page.tsx:123
+#: src/learning/learning-page.tsx:138
 #: src/piano/piano.tsx:32
 #: src/practice/session-setup.tsx:54
 msgid "Piano"
 msgstr "Piano"
 
-#: src/learning/learning-run.tsx:150
+#: src/learning/learning-run.tsx:200
 msgid "Play the highlighted key to go on."
 msgstr "Play the highlighted key to go on."
 
@@ -821,11 +843,11 @@ msgstr "Play the highlighted key to go on."
 msgid "Play the note on your keyboard."
 msgstr "Play the note on your keyboard."
 
-#: src/learning/level-card.tsx:46
+#: src/learning/level-card.tsx:40
 msgid "Polish run — every note, on the clock"
 msgstr "Polish run — every note, on the clock"
 
-#: src/learning/learning-run.tsx:90
+#: src/learning/learning-run.tsx:91
 #: src/practice/mode-picker.tsx:31
 #: src/practice/practice-session.tsx:107
 msgid "Practice"
@@ -849,11 +871,11 @@ msgid "Practice time"
 msgstr "Practice time"
 
 #. placeholder {0}: outline.consolidate
-#: src/learning/level-card.tsx:50
+#: src/learning/level-card.tsx:44
 msgid "practise {0}"
 msgstr "practise {0}"
 
-#: src/learning/learning-run.tsx:149
+#: src/learning/learning-run.tsx:199
 msgid "Press its name to go on."
 msgstr "Press its name to go on."
 
@@ -910,7 +932,7 @@ msgid "Recognized"
 msgstr "Recognized"
 
 #. placeholder {0}: outline.repair
-#: src/learning/level-card.tsx:49
+#: src/learning/level-card.tsx:43
 msgid "repair {0}"
 msgstr "repair {0}"
 
@@ -940,19 +962,19 @@ msgstr "Resume"
 msgid "Retrieval and spacing"
 msgstr "Retrieval and spacing"
 
-#: src/learning/learning-run.tsx:165
+#: src/learning/learning-run.tsx:162
 msgid "Right — but hinted"
 msgstr "Right — but hinted"
 
-#: src/learning/run-summary.tsx:99
-msgid "Run again"
-msgstr "Run again"
-
-#: src/learning/run-summary.tsx:46
+#: src/learning/run-summary.tsx:57
 msgid "Run done"
 msgstr "Run done"
 
-#: src/learning/learning-run.tsx:92
+#: src/learning/run-summary.tsx:125
+msgid "Run it again"
+msgstr "Run it again"
+
+#: src/learning/learning-run.tsx:93
 msgid "Run progress"
 msgstr "Run progress"
 
@@ -981,7 +1003,7 @@ msgstr "Sharps and flats"
 msgid "Sharps and flats, both staves, on the clock."
 msgstr "Sharps and flats, both staves, on the clock."
 
-#: src/learning/learning-run.tsx:203
+#: src/learning/learning-run.tsx:208
 msgid "Show me"
 msgstr "Show me"
 
@@ -1010,7 +1032,7 @@ msgstr "Speed mode ends a note when this runs out. Two seconds is the default."
 msgid "Staff, {0}, {1}"
 msgstr "Staff, {0}, {1}"
 
-#: src/learning/level-card.tsx:121
+#: src/learning/level-card.tsx:100
 #: src/practice/session-setup.tsx:109
 msgid "Start"
 msgstr "Start"
@@ -1019,8 +1041,12 @@ msgstr "Start"
 #~ msgid "Start level"
 #~ msgstr "Start level"
 
+#: src/learning/run-summary.tsx:125
+msgid "Start next run"
+msgstr "Start next run"
+
 #. placeholder {0}: standing.runs + 1
-#: src/learning/level-card.tsx:121
+#: src/learning/level-card.tsx:100
 msgid "Start run {0}"
 msgstr "Start run {0}"
 
@@ -1136,7 +1162,7 @@ msgstr "This changes labels, never your progress."
 msgid "This erases your sessions, note statistics and history on this device. It cannot be undone."
 msgstr "This erases your sessions, note statistics and history on this device. It cannot be undone."
 
-#: src/learning/learning-run.tsx:139
+#: src/learning/learning-run.tsx:145
 msgid "This is"
 msgstr "This is"
 
@@ -1144,8 +1170,8 @@ msgstr "This is"
 msgid "Three steps"
 msgstr "Three steps"
 
-#: src/learning/learning-run.tsx:123
-#: src/learning/learning-run.tsx:168
+#: src/learning/learning-run.tsx:124
+#: src/learning/learning-run.tsx:165
 #: src/practice/feedback-banner.tsx:25
 #: src/practice/practice-session.tsx:142
 msgid "Time"

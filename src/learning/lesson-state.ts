@@ -100,6 +100,13 @@ export type LevelStanding = {
   unseen: number;
   /** Notes that broke since their last credit. */
   repairing: number;
+  /**
+   * Credits banked against credits needed. A note only counts as learned on its last
+   * credit, so this is the number that moves after every run — without it a good run
+   * on a fresh level reads as nothing happening at all.
+   */
+  earned: number;
+  required: number;
 };
 
 export function levelStanding(
@@ -116,7 +123,25 @@ export function levelStanding(
     runs: lesson?.runs ?? 0,
     unseen: phases.filter((phase) => phase === 'new').length,
     repairing: phases.filter((phase) => phase === 'repair').length,
+    earned: level.items.reduce(
+      (sum, item) =>
+        sum + Math.min(level.credits, noteLessonOf(lesson, item.id).credits),
+      0,
+    ),
+    required: level.items.length * level.credits,
   };
+}
+
+/** The next level the learner could open, once this one is done. */
+export function standingAfter(
+  standings: readonly LevelStanding[],
+  levelId: string,
+): LevelStanding | null {
+  const index = standings.findIndex((one) => one.level.id === levelId);
+  if (index < 0) return null;
+  return (
+    standings.slice(index + 1).find((one) => one.status !== 'locked') ?? null
+  );
 }
 
 /**

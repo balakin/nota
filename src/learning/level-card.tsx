@@ -3,15 +3,9 @@ import type { ReactNode } from 'react';
 
 import type { AppSettings } from '../app-state/app-state';
 import { Icon } from '../ui/icon';
-import { NoteLabel } from '../ui/note-label';
 
-import {
-  noteLessonOf,
-  phaseOf,
-  type LevelLesson,
-  type LevelStanding,
-} from './lesson-state';
-import { isPivot } from './pivots';
+import type { LevelLesson, LevelStanding } from './lesson-state';
+import { LevelNotes } from './level-notes';
 import { runOutline } from './run-plan';
 
 /**
@@ -37,7 +31,7 @@ export function LevelCard({
   children: ReactNode;
 }) {
   const { t } = useLingui();
-  const { level, status, learned, total } = standing;
+  const { level, status, learned, total, earned, required } = standing;
   const locked = status === 'locked';
   const outline = runOutline(level, lesson);
   const nextRun = locked
@@ -81,6 +75,13 @@ export function LevelCard({
         </span>
       </button>
       <div className="level-meter" aria-hidden="true">
+        {/* Credits banked towards notes still in progress, behind the notes finished. */}
+        <span
+          className="level-meter-banked"
+          style={{
+            width: `${String(Math.round((earned / Math.max(1, required)) * 100))}%`,
+          }}
+        />
         <span
           className="level-meter-fill"
           style={{ width: `${String(Math.round((learned / total) * 100))}%` }}
@@ -88,29 +89,7 @@ export function LevelCard({
       </div>
       {open ? (
         <div className="level-body">
-          <ul className="level-notes">
-            {level.items.map((item) => {
-              const note = noteLessonOf(lesson, item.id);
-              return (
-                <li
-                  key={item.id}
-                  className={`phase-${phaseOf(note, level)} ${isPivot(item) ? 'is-anchor' : ''}`}
-                  title={
-                    isPivot(item)
-                      ? t`Anchor note · ${note.credits} of ${level.credits} runs`
-                      : t`${note.credits} of ${level.credits} runs`
-                  }
-                >
-                  <NoteLabel
-                    value={item.pitch}
-                    naming={settings.naming}
-                    locale={settings.locale}
-                    octave
-                  />
-                </li>
-              );
-            })}
-          </ul>
+          <LevelNotes level={level} lesson={lesson} settings={settings} />
           {children}
           <button
             className="button button-primary button-large start-button"

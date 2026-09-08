@@ -5,28 +5,39 @@ import { displayNoteName } from '../music/music';
 import { findRecognitionItem } from '../music/recognition-items';
 import { Icon } from '../ui/icon';
 
-import type { LevelStanding } from './lesson-state';
+import type { LevelLesson, LevelStanding } from './lesson-state';
+import { LevelNotes } from './level-notes';
 import type { RunSummary as Summary } from './use-learning-run';
 
 /**
- * The end of a run, not the end of a level. It says what moved and what is still owed,
- * because the next press of Start is the point — a level is meant to take several.
+ * The end of a run, not the end of a level. It has to show movement even when no note
+ * finished — most runs end that way, by design — so the meter carries banked credits
+ * behind the notes actually learned, and every note shows what it has.
  */
 export function RunSummary({
   summary,
   standing,
+  lesson,
+  nextLevel,
   settings,
   onAgain,
+  onNext,
   onDone,
 }: {
   summary: Summary;
   standing: LevelStanding;
+  lesson: LevelLesson | undefined;
+  /** The level this one opens, when it has just been finished. */
+  nextLevel: LevelStanding | null;
   settings: AppSettings;
   onAgain: () => void;
+  onNext: () => void;
   onDone: () => void;
 }) {
   const { t } = useLingui();
   const complete = standing.status === 'complete';
+  const percent = (value: number, of: number) =>
+    `${String(Math.round((value / Math.max(1, of)) * 100))}%`;
   const names = (ids: readonly string[]) =>
     ids.map((id) => {
       const item = findRecognitionItem(id);
@@ -47,59 +58,75 @@ export function RunSummary({
         </div>
       </div>
       <section className="surface result-detail">
+        <div className="level-meter is-tall" aria-hidden="true">
+          {/* Behind the notes finished, the credits banked towards the rest. */}
+          <span
+            className="level-meter-banked"
+            style={{ width: percent(standing.earned, standing.required) }}
+          />
+          <span
+            className="level-meter-fill"
+            style={{ width: percent(standing.learned, standing.total) }}
+          />
+        </div>
         <p className="run-meter-line">
           <strong>
             {standing.learned}/{standing.total}
           </strong>{' '}
           {t`notes learned`}
+          {complete ? null : (
+            <>
+              {' · '}
+              <span className="run-banked">
+                {t`${percent(standing.earned, standing.required)} done`}
+              </span>
+            </>
+          )}
         </p>
-        <div className="level-meter" aria-hidden="true">
-          <span
-            className="level-meter-fill"
-            style={{
-              width: `${String(Math.round((standing.learned / standing.total) * 100))}%`,
-            }}
-          />
-        </div>
+        <LevelNotes
+          level={standing.level}
+          lesson={lesson}
+          settings={settings}
+        />
         {summary.credited.length > 0 ? (
-          <>
-            <h2>{t`Moved forward`}</h2>
-            <div className="result-tags">
-              {names(summary.credited).map((name) => (
-                <span className="tag" key={name}>
-                  {name}
-                </span>
-              ))}
-            </div>
-          </>
+          <p className="run-moved">
+            <Icon name="check" size={14} />{' '}
+            {t`Moved forward: ${names(summary.credited).join(', ')}`}
+          </p>
         ) : null}
         {summary.lapsed.length > 0 ? (
-          <>
-            <h2>{t`Back to repair`}</h2>
-            <div className="weak-list">
-              {names(summary.lapsed).map((name) => (
-                <span key={name}>
-                  <Icon name="arrow" size={14} /> {name}
-                </span>
-              ))}
-            </div>
-          </>
+          <p className="run-moved is-back">
+            <Icon name="arrow" size={14} />{' '}
+            {t`Back to repair: ${names(summary.lapsed).join(', ')}`}
+          </p>
         ) : null}
         <p className="muted-copy">
           {complete
-            ? t`Every note in this level has been recalled in enough separate runs to count as learned. You can still run it to sharpen it.`
-            : t`A note counts as learned after it comes back correctly in several separate runs. Coming back is what makes it stick — a single long sitting does not.`}
+            ? t`Every note here has come back correctly in enough separate runs to count as learned. You can still run it to sharpen it.`
+            : t`A note is learned once it comes back correctly in several separate runs. Coming back is what makes it stick — a single long sitting does not.`}
         </p>
         <div className="run-actions">
-          <button
-            className="button button-primary"
-            type="button"
-            onClick={onAgain}
-          >
-            <Icon name="play" size={17} /> {t`Run again`}
-          </button>
+          {complete && nextLevel ? (
+            <button
+              className="button button-primary"
+              type="button"
+              onClick={onNext}
+            >
+              <Icon name="play" size={17} />{' '}
+              {t`Next: ${t(nextLevel.level.title)}`}
+            </button>
+          ) : (
+            <button
+              className="button button-primary"
+              type="button"
+              onClick={onAgain}
+            >
+              <Icon name="play" size={17} />{' '}
+              {complete ? t`Run it again` : t`Start next run`}
+            </button>
+          )}
           <button className="button" type="button" onClick={onDone}>
-            {t`Back to the path`}
+            {t`Back to levels`}
           </button>
         </div>
       </section>

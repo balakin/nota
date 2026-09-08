@@ -10,6 +10,7 @@ import {
   currentStanding,
   pathTotals,
   sectionStandings,
+  standingAfter,
   type LevelStanding,
 } from './lesson-state';
 import { LevelCard } from './level-card';
@@ -54,17 +55,31 @@ export function LearningPage({
     const standing = standings.find(
       (one) => one.level.id === controller.summary?.levelId,
     );
+    const next = standingAfter(standings, standing?.level.id ?? '');
     if (standing)
       return (
         <RunSummary
           summary={controller.summary}
           standing={standing}
+          lesson={levels[standing.level.id]}
+          nextLevel={standing.status === 'complete' ? next : null}
           settings={state.settings}
           onAgain={() => {
             controller.dismissSummary();
             begin(standing);
           }}
-          onDone={controller.dismissSummary}
+          onNext={() => {
+            controller.dismissSummary();
+            if (next) {
+              setOpenId(next.level.id);
+              begin(next);
+            }
+          }}
+          onDone={() => {
+            controller.dismissSummary();
+            /* The path reopens on whatever comes next, not on the level just left. */
+            setOpenId(null);
+          }}
         />
       );
   }
