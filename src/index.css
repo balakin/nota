@@ -359,14 +359,6 @@ h2 {
 .back-link:hover {
   color: var(--foreground);
 }
-.session-note {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  color: var(--muted);
-  font-size: 0.76rem;
-}
-.session-note svg,
 .local-note svg {
   color: var(--success);
 }
@@ -462,6 +454,7 @@ h2 {
 .start-grid {
   display: grid;
   grid-template-columns: minmax(0, 1.25fr) minmax(290px, 0.75fr);
+  align-items: start;
   gap: 1rem;
 }
 .setup-panel,
@@ -550,35 +543,41 @@ h2 {
   width: 100%;
   margin-top: 0.1rem;
 }
+/* The setup panel is the tall column; the aside sizes to its own content and rides along. */
 .principle-panel {
-  position: relative;
+  position: sticky;
+  top: 1.25rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  gap: 0.8rem;
   overflow: hidden;
 }
 .principle-line {
-  width: 80px;
-  height: 1px;
-  margin-bottom: 2.2rem;
+  width: 52px;
+  height: 2px;
+  border-radius: 999px;
   background: var(--accent);
 }
+.principle-panel .eyebrow,
+.principle-panel h2,
+.principle-panel > p:not(.eyebrow) {
+  margin: 0;
+  max-width: none;
+}
 .principle-panel h2 {
-  max-width: 290px;
-  margin-bottom: 0.85rem;
-  font-size: clamp(1.7rem, 3vw, 2.5rem);
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
 }
 .principle-panel > p:not(.eyebrow) {
-  max-width: 340px;
   color: var(--muted);
   font-size: 0.85rem;
   line-height: 1.65;
 }
 .principle-stats {
-  display: flex;
-  gap: 2rem;
-  margin-top: 2rem;
-  padding-top: 1.2rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-top: 0.3rem;
+  padding-top: 1.1rem;
   border-top: 1px solid var(--separator);
 }
 .principle-stats strong,
@@ -1858,7 +1857,7 @@ h2 {
     grid-template-columns: 1fr;
   }
   .principle-panel {
-    min-height: 260px;
+    position: static;
   }
   .practice-page {
     width: 100%;

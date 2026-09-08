@@ -33,9 +33,6 @@ export function SessionSetup({
           <h1>{t`Recognition practice`}</h1>
           <p className="subheading">{t`Look at the staff, then answer without counting.`}</p>
         </div>
-        <span className="session-note">
-          <Icon name="note" size={17} /> {t`Ready when you are.`}
-        </span>
       </div>
       <div className="start-grid">
         <section className="setup-panel">

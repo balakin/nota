@@ -30,12 +30,12 @@ msgstr "{0}d"
 #~ msgid "{0}s"
 #~ msgstr "{0}s"
 
-#: src/practice/session-setup.tsx:104
+#: src/practice/session-setup.tsx:101
 msgid "{minutes} min"
 msgstr "{minutes} min"
 
 #: src/practice/practice-session.tsx:216
-#: src/practice/session-setup.tsx:126
+#: src/practice/session-setup.tsx:123
 #: src/practice/speed-deadline-picker.tsx:33
 msgid "{seconds}s"
 msgstr "{seconds}s"
@@ -85,7 +85,7 @@ msgstr "Accuracy and speed"
 msgid "All"
 msgstr "All"
 
-#: src/practice/session-setup.tsx:56
+#: src/practice/session-setup.tsx:53
 msgid "Answer with"
 msgstr "Answer with"
 
@@ -110,7 +110,7 @@ msgid "barely seen"
 msgstr "barely seen"
 
 #: src/notation/notation-staff.tsx:84
-#: src/practice/session-setup.tsx:76
+#: src/practice/session-setup.tsx:73
 #: src/progress/note-map.tsx:90
 msgid "Bass"
 msgstr "Bass"
@@ -143,7 +143,7 @@ msgstr "Choose note naming system"
 msgid "Clears every practice session, note statistic and daily record on this device. Your settings stay as they are."
 msgstr "Clears every practice session, note statistic and daily record on this device. Your settings stay as they are."
 
-#: src/practice/session-setup.tsx:71
+#: src/practice/session-setup.tsx:68
 msgid "Clefs"
 msgstr "Clefs"
 
@@ -155,7 +155,7 @@ msgstr "Connect"
 msgid "Connect a MIDI keyboard"
 msgstr "Connect a MIDI keyboard"
 
-#: src/practice/session-setup.tsx:114
+#: src/practice/session-setup.tsx:111
 msgid "Continue training"
 msgstr "Continue training"
 
@@ -180,7 +180,7 @@ msgid "Do · Re · Mi · Fa · Sol · La · Si"
 msgstr "Do · Re · Mi · Fa · Sol · La · Si"
 
 #: src/onboarding/onboarding-page.tsx:28
-#: src/practice/session-setup.tsx:120
+#: src/practice/session-setup.tsx:117
 msgid "Don’t count. Recognize."
 msgstr "Don’t count. Recognize."
 
@@ -204,7 +204,7 @@ msgstr "Fixed solfège"
 msgid "Fluent"
 msgstr "Fluent"
 
-#: src/practice/session-setup.tsx:122
+#: src/practice/session-setup.tsx:119
 #: src/research/research-papers.ts:6
 msgid "Fluent note reading is a visual-perceptual skill. Targeted practice can focus on recognizing a note’s whole pattern instead of consciously calculating its position."
 msgstr "Fluent note reading is a visual-perceptual skill. Targeted practice can focus on recognizing a note’s whole pattern instead of consciously calculating its position."
@@ -262,11 +262,11 @@ msgstr "Light"
 msgid "Loading Nota"
 msgstr "Loading Nota"
 
-#: src/practice/session-setup.tsx:135
+#: src/practice/session-setup.tsx:132
 msgid "Local"
 msgstr "Local"
 
-#: src/practice/session-setup.tsx:119
+#: src/practice/session-setup.tsx:116
 msgid "Look → recognize → answer"
 msgstr "Look → recognize → answer"
 
@@ -294,7 +294,7 @@ msgstr "Median response"
 msgid "Median time per note"
 msgstr "Median time per note"
 
-#: src/practice/session-setup.tsx:61
+#: src/practice/session-setup.tsx:58
 msgid "MIDI keyboard"
 msgstr "MIDI keyboard"
 
@@ -355,7 +355,7 @@ msgid "Nota does not claim scientific certification or guarantee a result in a p
 msgstr "Nota does not claim scientific certification or guarantee a result in a particular number of hours."
 
 #: src/onboarding/onboarding-page.tsx:55
-#: src/practice/session-setup.tsx:142
+#: src/practice/session-setup.tsx:139
 #: src/settings/settings-page.tsx:141
 msgid "Nota is a small, local-first tool. Your progress stays on this device."
 msgstr "Nota is a small, local-first tool. Your progress stays on this device."
@@ -372,7 +372,7 @@ msgstr "Nota may not use MIDI devices. Allow it in the site permissions, then co
 msgid "Nota on GitHub"
 msgstr "Nota on GitHub"
 
-#: src/practice/session-setup.tsx:131
+#: src/practice/session-setup.tsx:128
 msgid "Note map"
 msgstr "Note map"
 
@@ -381,7 +381,7 @@ msgid "Note mastery map"
 msgstr "Note mastery map"
 
 #: src/practice/note-name-pad.tsx:25
-#: src/practice/session-setup.tsx:60
+#: src/practice/session-setup.tsx:57
 msgid "Note names"
 msgstr "Note names"
 
@@ -452,7 +452,7 @@ msgid "per note"
 msgstr "per note"
 
 #: src/piano/piano.tsx:32
-#: src/practice/session-setup.tsx:59
+#: src/practice/session-setup.tsx:56
 msgid "Piano"
 msgstr "Piano"
 
@@ -506,8 +506,8 @@ msgid "Read the research"
 msgstr "Read the research"
 
 #: src/practice/session-setup.tsx:37
-msgid "Ready when you are."
-msgstr "Ready when you are."
+#~ msgid "Ready when you are."
+#~ msgstr "Ready when you are."
 
 #: src/progress/progress-page.tsx:61
 msgid "Recognition gets useful when it is fast and retained."
@@ -555,7 +555,7 @@ msgstr "running out of time"
 msgid "Session complete"
 msgstr "Session complete"
 
-#: src/practice/session-setup.tsx:92
+#: src/practice/session-setup.tsx:89
 msgid "Session length"
 msgstr "Session length"
 
@@ -571,7 +571,7 @@ msgstr "slow to come"
 #: src/practice/mode-picker.tsx:40
 #: src/practice/practice-session.tsx:122
 #: src/practice/practice-session.tsx:216
-#: src/practice/session-setup.tsx:127
+#: src/practice/session-setup.tsx:124
 #: src/research/research-papers.ts:12
 msgid "Speed"
 msgstr "Speed"
@@ -634,12 +634,12 @@ msgid "Training mode"
 msgstr "Training mode"
 
 #: src/notation/notation-staff.tsx:84
-#: src/practice/session-setup.tsx:75
+#: src/practice/session-setup.tsx:72
 #: src/progress/note-map.tsx:90
 msgid "Treble"
 msgstr "Treble"
 
-#: src/practice/session-setup.tsx:74
+#: src/practice/session-setup.tsx:71
 msgid "Treble + Bass"
 msgstr "Treble + Bass"
 
