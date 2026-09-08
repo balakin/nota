@@ -1234,7 +1234,29 @@ h2 {
   text-align: center;
 }
 
-/* A run: teach cards, questions, and a strip of pips instead of a clock. */
+/*
+ * A run: teach cards, questions, and a strip of pips instead of a clock.
+ *
+ * The status slot is three reserved rows. A hint arriving or leaving must not move the
+ * staff above it or the keys below, so the room is held whether or not it is used, and
+ * held generously enough that a hint wrapping to a second line still fits.
+ */
+.run-status {
+  display: grid;
+  grid-template-rows: minmax(48px, auto) minmax(2.4rem, auto) minmax(28px, auto);
+  align-content: start;
+  gap: 0.15rem;
+  min-height: 128px;
+}
+.run-status > div {
+  display: grid;
+  place-items: center;
+  width: 100%;
+}
+.status-hint {
+  align-content: center;
+}
+
 .run-pips {
   display: flex;
   gap: 3px;
@@ -1248,12 +1270,6 @@ h2 {
 }
 .run-pips span.is-done {
   background: var(--accent);
-}
-.teach-card {
-  display: grid;
-  gap: 0.3rem;
-  justify-items: center;
-  text-align: center;
 }
 .teach-name {
   margin: 0;
@@ -2173,6 +2189,13 @@ h2 {
   }
   .run-pips {
     display: none;
+  }
+  .run-status {
+    grid-template-rows: minmax(44px, auto) minmax(2.2rem, auto) minmax(
+        24px,
+        auto
+      );
+    min-height: 116px;
   }
   .hardest-list li {
     grid-template-columns: 3.6rem 1fr auto;

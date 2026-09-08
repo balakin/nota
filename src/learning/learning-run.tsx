@@ -74,12 +74,13 @@ export function LearningRun({
   const remaining = timed
     ? Math.max(0, 1 - (now - run.stepStartedAt) / CHECK_DEADLINE_MS)
     : null;
-  /* A teach card names the note outright; the hint ladder is for the questions. */
-  const hintDepth = teaching
-    ? 1
-    : feedback && feedback.result !== 'correct'
-      ? 1
-      : run.hint;
+  /*
+   * A teach card names the note outright, and a miss is answered with the landmark it
+   * should have been read against — the error is the moment the note lands. Otherwise
+   * the ladder is only as far up as the learner has asked for it.
+   */
+  const hintDepth =
+    teaching || (feedback && feedback.result !== 'correct') ? 1 : run.hint;
 
   return (
     <div className="practice-page learning-run">
@@ -132,88 +133,82 @@ export function LearningRun({
             />
           )}
         </div>
-        <div className="answer-status">
-          {teaching ? (
-            <div className="teach-card">
+        {/*
+          Three fixed rows, all of them always present: the note, the hint, the action.
+          A hint that appeared by growing this slot would push the staff and the keys —
+          so the room is reserved whether or not there is anything to put in it.
+        */}
+        <div className="answer-status run-status">
+          <div className="status-main">
+            {teaching ? (
               <p className="teach-name">
                 {t`This is`} <strong>{name}</strong>
               </p>
-              <NoteHint
-                item={item}
-                depth={hintDepth}
-                naming={settings.naming}
-                locale={settings.locale}
-              />
+            ) : feedback ? (
+              <div
+                className={`feedback-banner ${feedback.result}`}
+                role="status"
+              >
+                <span className="feedback-icon">
+                  <Icon
+                    name={feedback.result === 'correct' ? 'check' : 'clock'}
+                    size={18}
+                  />
+                </span>
+                <span>
+                  <strong>
+                    {feedback.result === 'correct'
+                      ? feedback.hinted
+                        ? t`Right — but hinted`
+                        : t`Correct`
+                      : feedback.result === 'timeout'
+                        ? t`Time`
+                        : t`Not quite`}
+                  </strong>
+                  {feedback.result === 'correct' ? (
+                    <small>
+                      {feedback.hinted
+                        ? t`No credit for a hinted answer.`
+                        : formatResponse(
+                            feedback.elapsedMs,
+                            t`< 1s`,
+                            settings.locale === 'ru' ? ' с' : 's',
+                          )}
+                    </small>
+                  ) : (
+                    <small>
+                      {t`It is`} {name}
+                    </small>
+                  )}
+                </span>
+              </div>
+            ) : null}
+          </div>
+          <div className="status-hint">
+            <NoteHint
+              item={item}
+              depth={hintDepth}
+              naming={settings.naming}
+              locale={settings.locale}
+            />
+          </div>
+          <div className="status-action">
+            {teaching ? (
               <p className="teach-prompt">
                 {input === 'names'
                   ? t`Press its name to go on.`
                   : t`Play the highlighted key to go on.`}
               </p>
-            </div>
-          ) : feedback ? (
-            <div className={`feedback-banner ${feedback.result}`} role="status">
-              <span className="feedback-icon">
-                <Icon
-                  name={feedback.result === 'correct' ? 'check' : 'clock'}
-                  size={18}
-                />
-              </span>
-              <span>
-                <strong>
-                  {feedback.result === 'correct'
-                    ? feedback.hinted
-                      ? t`Right — but hinted`
-                      : t`Correct`
-                    : feedback.result === 'timeout'
-                      ? t`Time`
-                      : t`Not quite`}
-                </strong>
-                {feedback.result === 'correct' ? (
-                  <small>
-                    {feedback.hinted
-                      ? t`No credit for a hinted answer.`
-                      : formatResponse(
-                          feedback.elapsedMs,
-                          t`< 1s`,
-                          settings.locale === 'ru' ? ' с' : 's',
-                        )}
-                  </small>
-                ) : (
-                  <small>
-                    {t`It is`} {name}
-                  </small>
-                )}
-              </span>
-            </div>
-          ) : (
-            <div className="ask-status">
-              <NoteHint
-                item={item}
-                depth={run.hint}
-                naming={settings.naming}
-                locale={settings.locale}
-              />
-              {run.hint === 0 ? (
-                <button
-                  type="button"
-                  className="quiet-button hint-button"
-                  onClick={controller.showHint}
-                  disabled={Boolean(timed)}
-                >
-                  <Icon name="lock" size={14} /> {t`Show me`}
-                </button>
-              ) : null}
-            </div>
-          )}
-          {/* The corrective hint follows a miss: the error is the moment the note lands. */}
-          {feedback && feedback.result !== 'correct' ? (
-            <NoteHint
-              item={item}
-              depth={1}
-              naming={settings.naming}
-              locale={settings.locale}
-            />
-          ) : null}
+            ) : !feedback && run.hint === 0 && !timed ? (
+              <button
+                type="button"
+                className="quiet-button hint-button"
+                onClick={controller.showHint}
+              >
+                <Icon name="book" size={14} /> {t`Show me`}
+              </button>
+            ) : null}
+          </div>
         </div>
         <div
           className={`answer-area ${input === 'names' ? '' : 'answer-area-keyboard'}`}
