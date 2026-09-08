@@ -1034,6 +1034,165 @@ h2 {
   font-size: 0.7rem;
 }
 
+/* Learning path: a ladder of levels, each one gated behind the level before it. */
+.path-total {
+  text-align: right;
+}
+.path-total strong {
+  display: block;
+  font-family: ui-monospace, monospace;
+  font-size: 1.7rem;
+  letter-spacing: -0.04em;
+}
+.path-total small {
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.level-list {
+  display: grid;
+  gap: 0.7rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.level-card {
+  padding: clamp(1rem, 2.5vw, 1.35rem);
+  border: 1px solid var(--separator);
+  border-radius: 18px;
+  background: var(--surface);
+}
+/* A level yet to open is drawn as an outline: visible, but not a surface you can act on. */
+.level-card.status-locked {
+  border-style: dashed;
+  background: transparent;
+}
+.level-card.is-open {
+  border-color: var(--accent);
+}
+.level-head {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.9rem;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+.level-head:disabled {
+  cursor: default;
+}
+.level-index {
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--surface-secondary);
+  color: var(--muted);
+  font-family: ui-monospace, monospace;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+.status-available .level-index {
+  background: var(--accent-soft);
+  color: var(--accent-soft-foreground);
+}
+.status-complete .level-index {
+  background: var(--success);
+  color: var(--surface);
+}
+.level-heading strong {
+  display: block;
+  font-size: 0.95rem;
+  letter-spacing: -0.02em;
+}
+.level-heading small {
+  display: block;
+  margin-top: 0.25rem;
+  color: var(--muted);
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+.level-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: var(--muted);
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.status-complete .level-status {
+  color: var(--success);
+}
+.level-meter {
+  height: 4px;
+  margin-top: 0.9rem;
+  border-radius: 999px;
+  background: var(--surface-secondary);
+  overflow: hidden;
+}
+.level-meter-fill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--accent);
+  transition: width 0.3s ease;
+}
+.status-complete .level-meter-fill {
+  background: var(--success);
+}
+.level-count {
+  margin: 0.45rem 0 0;
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+.level-body {
+  display: grid;
+  gap: 1.1rem;
+  margin-top: 1rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--separator);
+}
+.level-notes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.level-notes li {
+  min-width: 46px;
+  padding: 0.4rem 0.55rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface-secondary);
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-align: center;
+}
+/* A note the path has taught reads in the accent; the rest are still ahead. */
+.level-notes li.is-learned {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent-soft-foreground);
+}
+.level-setup {
+  display: grid;
+  gap: 1rem;
+}
+
 /* Results and progress */
 .result-page {
   max-width: 900px;
@@ -1892,6 +2051,16 @@ h2 {
   }
   .page-heading .range-bar {
     align-self: start;
+  }
+  .path-total {
+    text-align: left;
+  }
+  .level-head {
+    grid-template-columns: auto minmax(0, 1fr);
+    row-gap: 0.5rem;
+  }
+  .level-status {
+    grid-column: 1 / -1;
   }
   .hardest-list li {
     grid-template-columns: 3.6rem 1fr auto;

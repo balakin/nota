@@ -4,7 +4,7 @@ import type { Page } from '../router/pages';
 
 import { NavButton } from './nav-button';
 
-/** The same three destinations back the desktop header and the mobile tab bar. */
+/** The same four destinations back the desktop header and the mobile tab bar. */
 export function PrimaryNav({
   page,
   navigate,
@@ -22,6 +22,12 @@ export function PrimaryNav({
         icon="play"
         label={t`Train`}
         onClick={() => navigate('train')}
+      />
+      <NavButton
+        active={page === 'learning'}
+        icon="book"
+        label={t`Learning`}
+        onClick={() => navigate('learning')}
       />
       <NavButton
         active={page === 'progress'}

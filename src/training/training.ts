@@ -2,6 +2,8 @@ import type { Clef, RecognitionItem } from '../music/music';
 
 export type MasteryState = 'new' | 'recognized' | 'fluent';
 export type PracticeMode = 'practice' | 'speed';
+/** Train is the free-form tab; Learning is the gated level path, graded on its own stats. */
+export type TrainingTrack = 'train' | 'learning';
 export type InputMode = 'piano' | 'names' | 'midi';
 export type AnswerResult = 'correct' | 'incorrect' | 'timeout';
 

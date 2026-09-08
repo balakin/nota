@@ -4,6 +4,10 @@ Nota is a local-first web app for training instant musical-note recognition. Pro
 single `PersistedState` object, persisted to IndexedDB with a `localStorage` fallback. There is no
 backend.
 
+Two tracks answer the same questions. **Train** is free-form; **Learning** is a ladder of levels that
+open in order. A Learning answer writes the global note stats _and_ a second chain of its own under
+`state.learning.notes` — only that chain opens a level, so Train practice never unlocks anything.
+
 ## Commands
 
 ```bash
@@ -30,6 +34,7 @@ pnpm i18n:extract   # extract messages into src/locales/*.po
 - `app-shell/` — the root `App`, header, primary nav, offline banner, document `lang`/title/theme
 - `app-state/` — persisted state shape, migrations, and the `useAppState` hook that hydrates and saves it
 - `practice/` — the practice runtime: setup screen, `usePracticeSession`, live session UI, result page
+- `learning/` — the gated level path: level definitions, unlock rules, and the Learning page
 - `training/` — the pure training engine: mastery states, day rollups, question weighting, range selection, normalized answers
 - `music/` — pitches, naming systems, staff geometry, and the recognition curriculum
 - `notation/` — the staff component and its VexFlow renderer
