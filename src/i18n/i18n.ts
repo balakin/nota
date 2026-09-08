@@ -13,6 +13,11 @@ export function activateLocale(locale: Locale): void {
   i18n.activate(locale);
 }
 
+/** Russian writes a decimal comma; every number Nota shows follows the interface locale. */
+export function decimalMark(locale: Locale): string {
+  return locale === 'ru' ? ',' : '.';
+}
+
 export function browserLocale(): Locale {
   return typeof navigator !== 'undefined' &&
     navigator.language.toLowerCase().startsWith('ru')

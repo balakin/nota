@@ -8,7 +8,7 @@ import {
   median,
   recordOutcome,
   requeueAfterWrong,
-  SPEED_DEADLINE_MS,
+  DEFAULT_SPEED_DEADLINE_MS,
   weakestNotes,
 } from '../training';
 
@@ -16,11 +16,19 @@ describe('training engine', () => {
   const item = recognitionItem('treble', pitch('G', 4));
 
   it('keeps the speed deadline deterministic and compresses stable practice', () => {
-    expect(SPEED_DEADLINE_MS).toBe(2000);
+    expect(DEFAULT_SPEED_DEADLINE_MS).toBe(2000);
     expect(adaptiveDeadlineMs({ state: 'new' }, 'practice')).toBeNull();
     expect(adaptiveDeadlineMs({ state: 'recognized' }, 'practice')).toBe(3000);
     expect(adaptiveDeadlineMs({ state: 'fluent' }, 'practice')).toBe(2500);
     expect(adaptiveDeadlineMs({ state: 'new' }, 'speed')).toBe(2000);
+  });
+
+  it('uses the chosen speed deadline for every note, whatever its state', () => {
+    expect(adaptiveDeadlineMs({ state: 'new' }, 'speed', 1000)).toBe(1000);
+    expect(adaptiveDeadlineMs({ state: 'fluent' }, 'speed', 5000)).toBe(5000);
+    expect(adaptiveDeadlineMs({ state: 'new' }, 'speed', 90_000)).toBe(5000);
+    /* A chosen speed deadline never leaks into Practice, which stays adaptive. */
+    expect(adaptiveDeadlineMs({ state: 'new' }, 'practice', 1000)).toBeNull();
   });
 
   it('calculates a stable median', () => {

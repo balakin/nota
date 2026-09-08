@@ -35,6 +35,8 @@ export type RuntimeSession = {
   startedAt: number;
   durationSeconds: number;
   mode: PracticeMode;
+  /** The Speed deadline this session started with, so changing the setting mid-session cannot move it. */
+  speedDeadlineMs: number;
   input: InputMode;
   clefs: Clef[];
   candidates: RecognitionItem[];

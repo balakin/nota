@@ -2,13 +2,14 @@ import { useLingui } from '@lingui/react/macro';
 import { useEffect, useState } from 'react';
 
 import type { AppSettings } from '../app-state/app-state';
+import { decimalMark } from '../i18n/i18n';
 import { displayNoteName } from '../music/music';
 import { NotationStaff } from '../notation/notation-staff';
 import { Piano } from '../piano/piano';
 import { keyboardAnswer, type NormalizedAnswer } from '../training/input';
-import { SPEED_DEADLINE_MS, type NoteStats } from '../training/training';
+import type { NoteStats } from '../training/training';
 import { Icon } from '../ui/icon';
-import { formatDuration } from '../utils/format';
+import { formatDuration, formatSeconds } from '../utils/format';
 
 import { FeedbackBanner } from './feedback-banner';
 import { MidiStatus } from './midi-status';
@@ -92,12 +93,16 @@ export function PracticeSession({
     Math.floor((timingNow - session.startedAt) / 1000),
   );
   const questionElapsed = Math.min(
-    session.deadlineMs ?? SPEED_DEADLINE_MS,
+    session.deadlineMs ?? Number.POSITIVE_INFINITY,
     timingNow - session.currentStartedAt,
   );
   const timerProgress = session.deadlineMs
     ? Math.max(0, 1 - questionElapsed / session.deadlineMs)
     : null;
+  const seconds = formatSeconds(
+    session.speedDeadlineMs,
+    decimalMark(settings.locale),
+  );
   const currentStats = notes[session.current.id];
   const isIntroduction =
     !feedback &&
@@ -208,8 +213,7 @@ export function PracticeSession({
         {input === 'midi' ? <MidiStatus midi={midi} /> : null}
         {mode === 'speed' ? (
           <span className={`speed-caption ${feedback ? 'is-hidden' : ''}`}>
-            <Icon name="clock" size={14} /> {t`Speed`} ·{' '}
-            {t`${settings.locale === 'ru' ? '2,0' : '2.0'}s`}
+            <Icon name="clock" size={14} /> {t`Speed`} · {t`${seconds}s`}
           </span>
         ) : null}
       </div>

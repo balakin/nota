@@ -1,14 +1,17 @@
 import { useLingui } from '@lingui/react/macro';
 
 import type { Locale } from '../app-state/app-state';
+import { decimalMark } from '../i18n/i18n';
 import type { NamingSystem } from '../music/music';
 import { Icon } from '../ui/icon';
 import { TogglePicker } from '../ui/toggle-picker';
+import { formatSeconds } from '../utils/format';
 
 import { MidiStatus } from './midi-status';
 import { ModePicker } from './mode-picker';
 import { TrainingRangePicker } from './range-picker';
 import { SESSION_DURATIONS } from './session';
+import { SpeedDeadlinePicker } from './speed-deadline-picker';
 import type { PracticeSessionController } from './use-practice-session';
 
 export function SessionSetup({
@@ -21,6 +24,7 @@ export function SessionSetup({
   naming: NamingSystem;
 }) {
   const { t } = useLingui();
+  const seconds = formatSeconds(practice.speedDeadlineMs, decimalMark(locale));
   return (
     <div className="page train-page">
       <div className="page-heading">
@@ -35,7 +39,19 @@ export function SessionSetup({
       </div>
       <div className="start-grid">
         <section className="setup-panel">
-          <ModePicker mode={practice.mode} onChange={practice.setMode} />
+          <ModePicker
+            mode={practice.mode}
+            speedDeadlineMs={practice.speedDeadlineMs}
+            locale={locale}
+            onChange={practice.setMode}
+          />
+          {practice.mode === 'speed' ? (
+            <SpeedDeadlinePicker
+              deadlineMs={practice.speedDeadlineMs}
+              locale={locale}
+              onChange={practice.setSpeedDeadlineMs}
+            />
+          ) : null}
           <TogglePicker
             label={t`Answer with`}
             options={
@@ -107,7 +123,7 @@ export function SessionSetup({
           </p>
           <div className="principle-stats">
             <span>
-              <strong>{t`${locale === 'ru' ? '2,0' : '2.0'}s`}</strong>
+              <strong>{t`${seconds}s`}</strong>
               <small>{t`Speed`}</small>
             </span>
             <span>

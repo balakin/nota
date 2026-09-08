@@ -35,7 +35,20 @@ export type NoteStats = {
   recentAttempts: Attempt[];
 };
 
-export const SPEED_DEADLINE_MS = 2000;
+/** Speed mode's per-note deadline is the learner's to choose; two seconds is the default. */
+export const DEFAULT_SPEED_DEADLINE_MS = 2000;
+export const SPEED_DEADLINE_OPTIONS_MS = [
+  1000, 1500, 2000, 3000, 5000,
+] as const;
+
+/** Keeps a stored or hand-edited deadline inside the offered span. */
+export function clampSpeedDeadlineMs(value: unknown): number {
+  if (typeof value !== 'number' || !Number.isFinite(value))
+    return DEFAULT_SPEED_DEADLINE_MS;
+  const first = SPEED_DEADLINE_OPTIONS_MS[0];
+  const last = SPEED_DEADLINE_OPTIONS_MS[SPEED_DEADLINE_OPTIONS_MS.length - 1];
+  return Math.min(last, Math.max(first, Math.round(value)));
+}
 
 export function deadlineRemainingMs(
   startedAt: number,
@@ -56,8 +69,9 @@ export function isDeadlineReached(
 export function adaptiveDeadlineMs(
   stats: Pick<NoteStats, 'state'>,
   mode: PracticeMode,
+  speedDeadlineMs: number = DEFAULT_SPEED_DEADLINE_MS,
 ): number | null {
-  if (mode === 'speed') return SPEED_DEADLINE_MS;
+  if (mode === 'speed') return clampSpeedDeadlineMs(speedDeadlineMs);
   if (stats.state === 'recognized') return 3000;
   if (stats.state === 'fluent') return 2500;
   return null;

@@ -10,7 +10,7 @@ export const RESEARCH_PAPERS = [
   },
   {
     title: msg`Speed`,
-    body: msg`In perceptual-training studies, presentation became progressively more demanding as performance improved. Nota uses a gentle Practice mode and a separate two-second Speed mode inspired by that idea — not as a proven threshold.`,
+    body: msg`In perceptual-training studies, presentation became progressively more demanding as performance improved. Nota uses a gentle Practice mode and a separate timed Speed mode inspired by that idea — not as a proven threshold.`,
     doi: '10.1167/16.8.15',
     authors: 'Yetta Kwailing Wong & Alan C.-N. Wong · 2016',
     url: 'https://doi.org/10.1167/16.8.15',
