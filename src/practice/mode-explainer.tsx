@@ -25,12 +25,13 @@ export function ModeExplainer({
   const facts =
     mode === 'speed'
       ? [
-          { value: t`${speed}s`, label: t`Every note` },
+          { value: t`${speed}s`, label: t`Time per note` },
           { value: t`Miss`, label: t`On timeout` },
+          { value: t`Fluent`, label: t`Earned here` },
         ]
       : [
-          { value: '∞', label: t`Every note` },
-          { value: t`None`, label: t`Timeouts` },
+          { value: '∞', label: t`Time per note` },
+          { value: t`Recognized`, label: t`Highest band` },
         ];
 
   return (
@@ -44,8 +45,8 @@ export function ModeExplainer({
       </h2>
       <p>
         {mode === 'speed'
-          ? t`Every note gets the same deadline, whatever you know of it, and letting it run out counts as a miss. Speed measures the recognition Practice builds.`
-          : t`Fluent note reading is a visual-perceptual skill. Practice leaves room to see a note’s whole pattern instead of calculating its position: no note is ever on the clock, so nothing hurries you into counting. When you want the pressure, that is what Speed is for.`}
+          ? t`Every note gets the same deadline, whatever you know of it, and letting it run out counts as a miss. Fluent is earned only here: twenty quick, accurate answers on a note, across at least two sessions.`
+          : t`Fluent note reading is a visual-perceptual skill. Nothing here is on a clock, so you can look until a note’s whole pattern lands instead of counting lines up to it. Miss one and it comes back a few questions later. Notes reach Recognized this way; Fluent is Speed’s to give.`}
       </p>
       <div className="principle-stats">
         {facts.map((fact) => (

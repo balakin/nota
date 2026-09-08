@@ -59,8 +59,13 @@ msgstr "{seconds} с"
 
 #: src/practice/mode-picker.tsx:41
 #: src/practice/result-page.tsx:96
-msgid "{seconds}s per note, every note"
-msgstr "{seconds} с на ноту, на любую"
+#~ msgid "{seconds}s per note, every note"
+#~ msgstr "{seconds} с на ноту, на любую"
+
+#: src/practice/mode-picker.tsx:41
+#: src/practice/result-page.tsx:96
+msgid "{seconds}s to answer, or it counts as a miss"
+msgstr "{seconds} с на ответ, иначе — ошибка"
 
 #: src/practice/mode-explainer.tsx:28
 msgid "{speed}s"
@@ -108,8 +113,8 @@ msgstr "Все"
 
 #: src/practice/mode-picker.tsx:32
 #: src/practice/result-page.tsx:97
-msgid "All the time you need, on every note"
-msgstr "Сколько угодно времени на любую ноту"
+#~ msgid "All the time you need, on every note"
+#~ msgstr "Сколько угодно времени на любую ноту"
 
 #: src/practice/session-setup.tsx:51
 msgid "Answer with"
@@ -206,18 +211,26 @@ msgid "Do · Re · Mi · Fa · Sol · La · Si"
 msgstr "До · Ре · Ми · Фа · Соль · Ля · Си"
 
 #: src/onboarding/onboarding-page.tsx:28
-#: src/practice/mode-explainer.tsx:43
+#: src/practice/mode-explainer.tsx:44
 msgid "Don’t count. Recognize."
 msgstr "Не считайте. Узнавайте."
 
+#: src/practice/mode-explainer.tsx:30
+msgid "Earned here"
+msgstr "Только здесь"
+
 #: src/practice/mode-explainer.tsx:28
 #: src/practice/mode-explainer.tsx:32
-msgid "Every note"
-msgstr "Каждая нота"
+#~ msgid "Every note"
+#~ msgstr "Каждая нота"
+
+#: src/practice/mode-explainer.tsx:48
+msgid "Every note gets the same deadline, whatever you know of it, and letting it run out counts as a miss. Fluent is earned only here: twenty quick, accurate answers on a note, across at least two sessions."
+msgstr "Каждая нота получает одно и то же время, что бы вы о ней ни знали, а истёкшее время засчитывается как ошибка. Беглая ставится только здесь: двадцать быстрых и верных ответов по ноте минимум за две сессии."
 
 #: src/practice/mode-explainer.tsx:47
-msgid "Every note gets the same deadline, whatever you know of it, and letting it run out counts as a miss. Speed measures the recognition Practice builds."
-msgstr "Каждая нота получает одно и то же время, что бы вы о ней ни знали, а истёкшее время засчитывается как ошибка. Скорость измеряет узнавание, которое строит Практика."
+#~ msgid "Every note gets the same deadline, whatever you know of it, and letting it run out counts as a miss. Speed measures the recognition Practice builds."
+#~ msgstr "Каждая нота получает одно и то же время, что бы вы о ней ни знали, а истёкшее время засчитывается как ошибка. Скорость измеряет узнавание, которое строит Практика."
 
 #: src/practice/mode-explainer.tsx:51
 #~ msgid "Every note gets the same deadline, whether you have met it before or not, and letting it run out counts as a miss. Speed measures the recognition Practice builds."
@@ -239,17 +252,22 @@ msgstr "Завершить"
 msgid "Fixed solfège"
 msgstr "Фиксированная сольфеджио"
 
+#: src/practice/mode-explainer.tsx:30
 #: src/progress/mastery-labels.ts:9
 msgid "Fluent"
 msgstr "Беглая"
+
+#: src/practice/mode-explainer.tsx:49
+msgid "Fluent note reading is a visual-perceptual skill. Nothing here is on a clock, so you can look until a note’s whole pattern lands instead of counting lines up to it. Miss one and it comes back a few questions later. Notes reach Recognized this way; Fluent is Speed’s to give."
+msgstr "Беглое чтение нот — зрительно-перцептивный навык. Здесь ничто не идёт по таймеру: можно смотреть, пока не схватишь весь рисунок ноты, а не отсчитывать линейки. Ошиблись — нота вернётся через несколько вопросов. Так ноты доходят до «Узнаётся»; «Беглая» — за Скоростью."
 
 #: src/practice/mode-explainer.tsx:52
 #~ msgid "Fluent note reading is a visual-perceptual skill. Practice leaves room to see a note’s whole pattern instead of calculating its position: a note you have never met is introduced on the keyboard, and the clock only appears once you know it."
 #~ msgstr "Беглое чтение нот — зрительно-перцептивный навык. Практика оставляет время увидеть весь рисунок ноты, а не вычислять её положение: незнакомую ноту показывают на клавиатуре, а таймер появляется, только когда вы её уже знаете."
 
 #: src/practice/mode-explainer.tsx:48
-msgid "Fluent note reading is a visual-perceptual skill. Practice leaves room to see a note’s whole pattern instead of calculating its position: no note is ever on the clock, so nothing hurries you into counting. When you want the pressure, that is what Speed is for."
-msgstr "Беглое чтение нот — зрительно-перцептивный навык. Практика оставляет время увидеть весь рисунок ноты, а не вычислять её положение: здесь ни одна нота не идёт по таймеру, так что ничто не подталкивает считать. Нужен нажим — для этого есть Скорость."
+#~ msgid "Fluent note reading is a visual-perceptual skill. Practice leaves room to see a note’s whole pattern instead of calculating its position: no note is ever on the clock, so nothing hurries you into counting. When you want the pressure, that is what Speed is for."
+#~ msgstr "Беглое чтение нот — зрительно-перцептивный навык. Практика оставляет время увидеть весь рисунок ноты, а не вычислять её положение: здесь ни одна нота не идёт по таймеру, так что ничто не подталкивает считать. Нужен нажим — для этого есть Скорость."
 
 #: src/practice/mode-explainer.tsx:51
 #~ msgid "Fluent note reading is a visual-perceptual skill. Practice leaves room to see a note’s whole pattern instead of calculating its position: the clock only appears once you recognize a note, and it tightens as you grow fluent."
@@ -271,6 +289,10 @@ msgstr "Самые трудные ноты"
 #: src/practice/mode-explainer.tsx:32
 #~ msgid "Hidden"
 #~ msgstr "Скрыта"
+
+#: src/practice/mode-explainer.tsx:34
+msgid "Highest band"
+msgstr "Выше не поднять"
 
 #: src/practice/range-picker.tsx:69
 msgid "Highest note"
@@ -380,6 +402,11 @@ msgstr "Новый прогресс"
 #~ msgid "New-note hint"
 #~ msgstr "Подсказка для новой ноты"
 
+#: src/practice/mode-picker.tsx:32
+#: src/practice/result-page.tsx:97
+msgid "No clock — look as long as you need"
+msgstr "Без таймера — смотрите сколько нужно"
+
 #: src/progress/stat-tile.tsx:35
 msgid "no earlier window"
 msgstr "нет прошлого периода"
@@ -392,13 +419,13 @@ msgstr "Клавиатура пока не найдена. Подключите 
 msgid "No practice in this range yet. Train, and accuracy and speed will appear here day by day."
 msgstr "За этот период занятий не было. Начните тренировку — точность и скорость появятся здесь по дням."
 
-#: src/practice/mode-explainer.tsx:43
+#: src/practice/mode-explainer.tsx:44
 msgid "No time to count."
 msgstr "Считать некогда."
 
 #: src/practice/mode-explainer.tsx:33
-msgid "None"
-msgstr "Нет"
+#~ msgid "None"
+#~ msgstr "Нет"
 
 #: src/progress/note-map.tsx:36
 msgid "Not in this range"
@@ -547,7 +574,7 @@ msgstr "Практика"
 msgid "Practice changes perception"
 msgstr "Практика меняет восприятие"
 
-#: src/practice/mode-explainer.tsx:40
+#: src/practice/mode-explainer.tsx:41
 msgid "Practice mode"
 msgstr "Режим Практика"
 
@@ -599,6 +626,7 @@ msgstr "Распознавание становится полезным, ког
 msgid "Recognition practice"
 msgstr "Тренировка распознавания"
 
+#: src/practice/mode-explainer.tsx:34
 #: src/progress/mastery-labels.ts:8
 msgid "Recognized"
 msgstr "Узнаётся"
@@ -657,7 +685,7 @@ msgstr "узнаётся медленно"
 msgid "Speed"
 msgstr "Скорость"
 
-#: src/practice/mode-explainer.tsx:40
+#: src/practice/mode-explainer.tsx:41
 msgid "Speed mode"
 msgstr "Режим Скорость"
 
@@ -700,13 +728,14 @@ msgstr "Это удалит ваши занятия, статистику по �
 msgid "Time"
 msgstr "Время"
 
+#: src/practice/mode-explainer.tsx:28
+#: src/practice/mode-explainer.tsx:33
 #: src/practice/speed-deadline-picker.tsx:21
 #: src/practice/speed-deadline-picker.tsx:22
 #: src/progress/session-chart.tsx:158
 msgid "Time per note"
 msgstr "Время на ноту"
 
-#: src/practice/mode-explainer.tsx:33
 #: src/practice/result-page.tsx:58
 msgid "Timeouts"
 msgstr "Пропуски по времени"
