@@ -1,7 +1,12 @@
 import type { NamingSystem } from '../music/music';
 import { allRecognitionItems } from '../music/recognition-items';
 import { emptyRoll, type DayRoll } from '../training/rollups';
-import { emptyNoteStats, type NoteStats } from '../training/training';
+import {
+  clampSpeedDeadlineMs,
+  DEFAULT_SPEED_DEADLINE_MS,
+  emptyNoteStats,
+  type NoteStats,
+} from '../training/training';
 
 export type Locale = 'en' | 'ru';
 export type Theme = 'system' | 'light' | 'dark';
@@ -10,6 +15,8 @@ export type AppSettings = {
   locale: Locale;
   naming: NamingSystem;
   theme: Theme;
+  /** Speed mode's per-note deadline, in milliseconds. */
+  speedDeadlineMs: number;
   hasCompletedOnboarding: boolean;
 };
 
@@ -18,6 +25,8 @@ export type SessionSummary = {
   startedAt: number;
   durationSeconds: number;
   mode: 'practice' | 'speed';
+  /** The Speed deadline the session ran with; absent on sessions recorded before it was choosable. */
+  speedDeadlineMs?: number;
   attempts: number;
   correct: number;
   timeouts: number;
@@ -41,6 +50,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   locale: 'en',
   naming: 'letters',
   theme: 'system',
+  speedDeadlineMs: DEFAULT_SPEED_DEADLINE_MS,
   hasCompletedOnboarding: false,
 };
 
@@ -104,6 +114,7 @@ export function migrateState(value: unknown): PersistedState {
         settings.theme === 'light' || settings.theme === 'dark'
           ? settings.theme
           : 'system',
+      speedDeadlineMs: clampSpeedDeadlineMs(settings.speedDeadlineMs),
       hasCompletedOnboarding: Boolean(settings.hasCompletedOnboarding),
     },
     notes,

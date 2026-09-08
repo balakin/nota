@@ -27,3 +27,8 @@ export function formatResponse(
   if (ms === null) return '—';
   return ms < 1000 ? lessSecond : `${(ms / 1000).toFixed(1)}${secondUnit}`;
 }
+
+/** Seconds with one decimal, in whichever decimal mark the locale writes. */
+export function formatSeconds(ms: number, mark = '.'): string {
+  return (ms / 1000).toFixed(1).replace('.', mark);
+}

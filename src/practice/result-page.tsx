@@ -1,11 +1,13 @@
 import { useLingui } from '@lingui/react/macro';
 
 import type { AppSettings, SessionSummary } from '../app-state/app-state';
+import { decimalMark } from '../i18n/i18n';
 import { displayNoteName } from '../music/music';
 import { findRecognitionItem } from '../music/recognition-items';
+import { DEFAULT_SPEED_DEADLINE_MS } from '../training/training';
 import { Icon } from '../ui/icon';
 import { Metric } from '../ui/metric';
-import { formatDuration, formatResponse } from '../utils/format';
+import { formatDuration, formatResponse, formatSeconds } from '../utils/format';
 
 export function ResultPage({
   result,
@@ -17,6 +19,10 @@ export function ResultPage({
   onDone: () => void;
 }) {
   const { t } = useLingui();
+  const seconds = formatSeconds(
+    result.speedDeadlineMs ?? DEFAULT_SPEED_DEADLINE_MS,
+    decimalMark(settings.locale),
+  );
   const names = (ids: string[]) =>
     ids.map((id) => {
       const item = findRecognitionItem(id);
@@ -87,7 +93,7 @@ export function ResultPage({
           </strong>
           <p className="muted-copy">
             {result.mode === 'speed'
-              ? t`2 seconds per note · piano labels hidden`
+              ? t`${seconds}s per note · piano labels hidden`
               : t`Generous time while you build accuracy`}
           </p>
           <button

@@ -1,15 +1,23 @@
 import { useLingui } from '@lingui/react/macro';
 
+import type { Locale } from '../app-state/app-state';
+import { decimalMark } from '../i18n/i18n';
 import type { PracticeMode } from '../training/training';
+import { formatSeconds } from '../utils/format';
 
 export function ModePicker({
   mode,
+  speedDeadlineMs,
+  locale,
   onChange,
 }: {
   mode: PracticeMode;
+  speedDeadlineMs: number;
+  locale: Locale;
   onChange: (mode: PracticeMode) => void;
 }) {
   const { t } = useLingui();
+  const seconds = formatSeconds(speedDeadlineMs, decimalMark(locale));
   return (
     <div className="setting-row">
       <span className="setting-label">{t`Training mode`}</span>
@@ -30,7 +38,7 @@ export function ModePicker({
           onClick={() => onChange('speed')}
         >
           <strong>{t`Speed`}</strong>
-          <small>{t`2 seconds per note · piano labels hidden`}</small>
+          <small>{t`${seconds}s per note · piano labels hidden`}</small>
         </button>
       </div>
     </div>

@@ -22,6 +22,23 @@ describe('local state schema', () => {
       naming: 'solfege',
       theme: 'dark',
     });
+    /* An older state predates the setting, so it falls back to the default. */
+    expect(state.settings.speedDeadlineMs).toBe(2000);
     expect(state.notes['treble:G4']).toBeDefined();
+  });
+
+  it('keeps a chosen speed deadline and clamps an impossible one', () => {
+    expect(
+      migrateState({ settings: { speedDeadlineMs: 1000 } }).settings
+        .speedDeadlineMs,
+    ).toBe(1000);
+    expect(
+      migrateState({ settings: { speedDeadlineMs: 0 } }).settings
+        .speedDeadlineMs,
+    ).toBe(1000);
+    expect(
+      migrateState({ settings: { speedDeadlineMs: '2s' } }).settings
+        .speedDeadlineMs,
+    ).toBe(2000);
   });
 });

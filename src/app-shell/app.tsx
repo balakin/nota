@@ -30,8 +30,11 @@ export default function App() {
   const { page, navigate } = usePage();
   const practice = usePracticeSession({
     notes: state.notes,
+    speedDeadlineMs: state.settings.speedDeadlineMs,
     onAttempt: recordAttempt,
     onSessionComplete: appendSession,
+    onSpeedDeadlineChange: (speedDeadlineMs) =>
+      updateSettings({ speedDeadlineMs }),
   });
 
   useDocumentChrome(state.settings);

@@ -13,6 +13,7 @@ import {
 } from '../training/selection';
 import {
   adaptiveDeadlineMs,
+  clampSpeedDeadlineMs,
   deadlineRemainingMs,
   emptyNoteStats,
   median,
@@ -45,12 +46,15 @@ export type PracticeSessionController = {
   clefs: Clef[];
   range: PitchRange;
   durationMinutes: SessionDuration;
+  /** Speed mode's per-note deadline; persisted with the settings, not with the session. */
+  speedDeadlineMs: number;
   midi: MidiController;
   setMode: (mode: PracticeMode) => void;
   setInput: (input: InputMode) => void;
   setClefs: (clefs: Clef[]) => void;
   setRange: (range: PitchRange) => void;
   setDurationMinutes: (minutes: SessionDuration) => void;
+  setSpeedDeadlineMs: (ms: number) => void;
   start: () => void;
   answer: (answer: NormalizedAnswer) => void;
   togglePause: () => void;
@@ -65,12 +69,16 @@ export type PracticeSessionController = {
  */
 export function usePracticeSession({
   notes,
+  speedDeadlineMs,
   onAttempt,
   onSessionComplete,
+  onSpeedDeadlineChange,
 }: {
   notes: Readonly<Record<string, NoteStats>>;
+  speedDeadlineMs: number;
   onAttempt: (itemId: string, stats: NoteStats, outcome: RolledAttempt) => void;
   onSessionComplete: (summary: SessionSummary) => void;
+  onSpeedDeadlineChange: (ms: number) => void;
 }): PracticeSessionController {
   const [session, setSession] = useState<RuntimeSession | null>(null);
   const [feedback, setFeedback] = useState<Feedback | null>(null);
@@ -134,6 +142,7 @@ export function usePracticeSession({
       startedAt: runtime.startedAt,
       durationSeconds: runtime.durationSeconds,
       mode: runtime.mode,
+      speedDeadlineMs: runtime.speedDeadlineMs,
       attempts: runtime.outcomes.length,
       correct: runtime.outcomes.filter(
         (outcome) => outcome.result === 'correct',
@@ -175,6 +184,7 @@ export function usePracticeSession({
       startedAt: now,
       durationSeconds: durationMinutes * 60,
       mode,
+      speedDeadlineMs,
       input,
       clefs,
       candidates,
@@ -184,6 +194,7 @@ export function usePracticeSession({
       deadlineMs: adaptiveDeadlineMs(
         notes[first.id] ?? emptyNoteStats(first),
         mode,
+        speedDeadlineMs,
       ),
       questionNumber: 1,
       recentItemIds: [first.id],
@@ -194,7 +205,7 @@ export function usePracticeSession({
     });
     setFeedback(null);
     setResult(null);
-  }, [clefs, durationMinutes, input, mode, notes, range]);
+  }, [clefs, durationMinutes, input, mode, notes, range, speedDeadlineMs]);
 
   const advance = useCallback((runtime: RuntimeSession) => {
     const nextQuestion = runtime.questionNumber + 1;
@@ -216,6 +227,7 @@ export function usePracticeSession({
       deadlineMs: adaptiveDeadlineMs(
         notesRef.current[next.id] ?? emptyNoteStats(next),
         runtime.mode,
+        runtime.speedDeadlineMs,
       ),
       questionNumber: nextQuestion,
       recentItemIds: [...runtime.recentItemIds, next.id].slice(-5),
@@ -361,6 +373,10 @@ export function usePracticeSession({
     },
     [connectMidi],
   );
+  const setSpeedDeadlineMs = useCallback(
+    (ms: number) => onSpeedDeadlineChange(clampSpeedDeadlineMs(ms)),
+    [onSpeedDeadlineChange],
+  );
   const dismissResult = useCallback(() => setResult(null), []);
 
   return {
@@ -372,12 +388,14 @@ export function usePracticeSession({
     clefs,
     range: clampRange(range, clefs),
     durationMinutes,
+    speedDeadlineMs,
     midi,
     setMode,
     setInput: chooseInput,
     setClefs,
     setRange,
     setDurationMinutes,
+    setSpeedDeadlineMs,
     start,
     answer,
     togglePause,
