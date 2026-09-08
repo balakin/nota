@@ -3,4 +3,3 @@ dist
 coverage
 LICENSE
 src/locales/*.po
-CHANGELOG.md

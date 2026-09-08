@@ -32,8 +32,6 @@
     "@lingui/babel-plugin-lingui-macro": "^6.6.0",
     "@lingui/cli": "^6.6.0",
     "@lingui/vite-plugin": "^6.6.0",
-    "@semantic-release/changelog": "^7.0.0",
-    "@semantic-release/git": "^11.0.1",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
     "@types/react": "^19.1.8",
