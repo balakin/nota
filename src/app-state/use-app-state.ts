@@ -37,18 +37,23 @@ export type RolledAttempt = {
   at: number;
 };
 
+export type AttemptRecord = {
+  itemId: string;
+  /** The note's running stats for the global map; every answer writes them. */
+  stats: NoteStats;
+  /** The Learning path's own chain for the note, or null when the answer came from Train. */
+  learningStats: NoteStats | null;
+  outcome: RolledAttempt;
+};
+
 export type AppState = {
   state: PersistedState;
   /** False until the stored state has been read back, so we never overwrite it with defaults. */
   hydrated: boolean;
   updateSettings: (patch: Partial<AppSettings>) => void;
-  recordAttempt: (
-    itemId: string,
-    stats: NoteStats,
-    outcome: RolledAttempt,
-  ) => void;
+  recordAttempt: (record: AttemptRecord) => void;
   appendSession: (summary: SessionSummary) => void;
-  /** Clears every recorded attempt, session and day bucket. Settings are not progress, so they stay. */
+  /** Clears every recorded attempt, session, level and day bucket. Settings are not progress, so they stay. */
   resetProgress: () => void;
 };
 
@@ -75,9 +80,12 @@ export function useAppState(): AppState {
     }));
   }, []);
 
-  /** One update writes both the note's running stats and the day bucket behind the ranges. */
+  /**
+   * One update writes the note's running stats, the day bucket behind the ranges, and —
+   * for an answer given on the Learning path — that path's separate chain for the note.
+   */
   const recordAttempt = useCallback(
-    (itemId: string, stats: NoteStats, outcome: RolledAttempt) => {
+    ({ itemId, stats, learningStats, outcome }: AttemptRecord) => {
       setState((current) => {
         const day = dayKeyOf(outcome.at);
         const key = rollKey(itemId, day);
@@ -85,6 +93,9 @@ export function useAppState(): AppState {
         return {
           ...current,
           notes: { ...current.notes, [itemId]: stats },
+          learning: learningStats
+            ? { notes: { ...current.learning.notes, [itemId]: learningStats } }
+            : current.learning,
           rolls: {
             ...pruneRolls(current.rolls, KEEP_ROLL_DAYS, outcome.at),
             [key]: addAttempt(roll, outcome),

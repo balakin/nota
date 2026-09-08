@@ -46,6 +46,7 @@ function session(day: string, seconds: number): SessionSummary {
     startedAt: new Date(`${day}T10:00`).getTime(),
     durationSeconds: seconds,
     mode: 'practice',
+    track: 'train',
     attempts: 10,
     correct: 8,
     timeouts: 0,

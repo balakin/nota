@@ -6,6 +6,7 @@ describe('hash routing', () => {
   it('reads a known page out of the hash', () => {
     expect(pageFromHash('#progress')).toBe('progress');
     expect(pageFromHash('research')).toBe('research');
+    expect(pageFromHash('#learning')).toBe('learning');
   });
 
   it('falls back to training for unknown or empty hashes', () => {

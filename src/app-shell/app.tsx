@@ -3,6 +3,7 @@ import { useLingui } from '@lingui/react/macro';
 
 import { useAppState } from '../app-state/use-app-state';
 import { i18n } from '../i18n/i18n';
+import { LearningPage } from '../learning/learning-page';
 import { OnboardingPage } from '../onboarding/onboarding-page';
 import { PracticePage } from '../practice/practice-page';
 import { usePracticeSession } from '../practice/use-practice-session';
@@ -30,6 +31,7 @@ export default function App() {
   const { page, navigate } = usePage();
   const practice = usePracticeSession({
     notes: state.notes,
+    learningNotes: state.learning.notes,
     speedDeadlineMs: state.settings.speedDeadlineMs,
     onAttempt: recordAttempt,
     onSessionComplete: appendSession,
@@ -68,6 +70,9 @@ export default function App() {
         <main className="main-content">
           {page === 'train' && (
             <PracticePage practice={practice} state={state} />
+          )}
+          {page === 'learning' && (
+            <LearningPage practice={practice} state={state} />
           )}
           {page === 'progress' && <ProgressPage state={state} />}
           {page === 'settings' && (

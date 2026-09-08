@@ -8,6 +8,7 @@ import type {
   MasteryState,
   PracticeMode,
   SessionQueueEntry,
+  TrainingTrack,
 } from '../training/training';
 
 export const SESSION_DURATIONS = [2, 5, 10] as const;
@@ -35,6 +36,10 @@ export type RuntimeSession = {
   startedAt: number;
   durationSeconds: number;
   mode: PracticeMode;
+  /** Which tab started the session; Learning grades its levels only on its own answers. */
+  track: TrainingTrack;
+  /** The level being worked on, or null outside the Learning path. */
+  levelId: string | null;
   /** The Speed deadline this session started with, so changing the setting mid-session cannot move it. */
   speedDeadlineMs: number;
   input: InputMode;

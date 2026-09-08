@@ -1,7 +1,8 @@
-export type Page = 'train' | 'progress' | 'settings' | 'research';
+export type Page = 'train' | 'learning' | 'progress' | 'settings' | 'research';
 
 export const PAGES: readonly Page[] = [
   'train',
+  'learning',
   'progress',
   'settings',
   'research',
