@@ -3,130 +3,139 @@ import { useMemo, useState } from 'react';
 
 import type { PersistedState } from '../app-state/app-state';
 import { MidiStatus } from '../practice/midi-status';
-import { PracticeSession } from '../practice/practice-session';
-import { ResultPage } from '../practice/result-page';
-import { SESSION_DURATIONS } from '../practice/session';
-import type { PracticeSessionController } from '../practice/use-practice-session';
 import { TogglePicker } from '../ui/toggle-picker';
 
-import { LevelCard } from './level-card';
+import { LearningRun } from './learning-run';
 import {
-  currentLevel,
-  levelProgress,
+  currentStanding,
   pathTotals,
-  type LevelProgress,
-} from './level-progress';
-
-/** The card the page opens on: whichever level the path is waiting for. */
-function defaultOpenId(progress: readonly LevelProgress[]): string | null {
-  const current = currentLevel(progress);
-  if (current) return current.level.id;
-  const last = progress[progress.length - 1];
-  return last ? last.level.id : null;
-}
+  sectionStandings,
+  type LevelStanding,
+} from './lesson-state';
+import { LevelCard } from './level-card';
+import { retentionPool } from './run-plan';
+import { RunSummary } from './run-summary';
+import type { LearningRunController } from './use-learning-run';
 
 export function LearningPage({
-  practice,
+  controller,
   state,
 }: {
-  practice: PracticeSessionController;
+  controller: LearningRunController;
   state: PersistedState;
 }) {
   const { t } = useLingui();
-  const learningNotes = state.learning.notes;
-  const progress = useMemo(() => levelProgress(learningNotes), [learningNotes]);
-  const totals = pathTotals(progress);
+  const levels = state.learning.levels;
+  const sections = useMemo(() => sectionStandings(levels), [levels]);
+  const standings = useMemo(
+    () => sections.flatMap((section) => section.levels),
+    [sections],
+  );
+  const totals = pathTotals(levels, standings);
+  const current = currentStanding(standings);
   const [openId, setOpenId] = useState<string | null>(null);
-  const shown = openId ?? defaultOpenId(progress);
+  const shown = openId ?? current?.level.id ?? null;
 
-  if (practice.session?.track === 'learning')
-    return (
-      <PracticeSession
-        session={practice.session}
-        feedback={practice.feedback}
-        settings={state.settings}
-        midi={practice.midi}
-        onAnswer={practice.answer}
-        onPause={practice.togglePause}
-        onFinish={practice.finish}
-      />
+  const begin = (standing: LevelStanding) => {
+    const done = standings
+      .filter((one) => one.status === 'complete')
+      .map((one) => one.level);
+    controller.start(
+      standing.level,
+      levels[standing.level.id],
+      retentionPool(done, standing.level),
     );
-  if (practice.result?.track === 'learning')
-    return (
-      <ResultPage
-        result={practice.result}
-        settings={state.settings}
-        onDone={practice.dismissResult}
-      />
+  };
+
+  if (controller.run)
+    return <LearningRun controller={controller} settings={state.settings} />;
+
+  if (controller.summary) {
+    const standing = standings.find(
+      (one) => one.level.id === controller.summary?.levelId,
     );
+    if (standing)
+      return (
+        <RunSummary
+          summary={controller.summary}
+          standing={standing}
+          settings={state.settings}
+          onAgain={() => {
+            controller.dismissSummary();
+            begin(standing);
+          }}
+          onDone={controller.dismissSummary}
+        />
+      );
+  }
 
   return (
     <div className="page learning-page">
       <div className="page-heading">
         <div>
-          <p className="eyebrow">{t`One clef and one octave at a time.`}</p>
+          <p className="eyebrow">{t`Blocks to learn a note, mixtures to keep it.`}</p>
           <h1>{t`Learning path`}</h1>
-          <p className="subheading">{t`Levels open in order: a level is finished when every note in it is recognized here, on the path. Train stays free — nothing you do there opens a level.`}</p>
+          <p className="subheading">{t`Each press of Start is a short run built from what you currently need. A note counts as learned once it comes back correctly in several separate runs — coming back is what makes it stick.`}</p>
         </div>
         <div className="path-total">
           <strong>
             {totals.learned}/{totals.total}
           </strong>
           <small>{t`notes learned`}</small>
+          <small className="path-levels">
+            {t`${totals.levelsComplete} of ${standings.length} levels`}
+          </small>
         </div>
       </div>
-      <ol className="level-list">
-        {progress.map((entry, index) => (
-          <LevelCard
-            key={entry.level.id}
-            progress={entry}
-            index={index}
-            open={entry.level.id === shown && entry.status !== 'locked'}
-            learningNotes={learningNotes}
-            settings={state.settings}
-            onOpen={() =>
-              setOpenId(entry.level.id === shown ? null : entry.level.id)
-            }
-            onStart={() =>
-              practice.startLevel(entry.level.id, entry.level.items)
-            }
-          >
-            <TogglePicker
-              label={t`Answer with`}
-              options={
-                [
-                  ['piano', t`Piano`],
-                  ['names', t`Note names`],
-                  ['midi', t`MIDI keyboard`],
-                ] as const
-              }
-              value={practice.input}
-              onChange={practice.setInput}
-            />
-            {practice.input === 'midi' ? (
-              <MidiStatus midi={practice.midi} />
-            ) : null}
-            <div className="setting-row">
-              <span className="setting-label">{t`Session length`}</span>
-              <div className="segmented">
-                {SESSION_DURATIONS.map((minutes) => (
-                  <button
-                    type="button"
-                    key={minutes}
-                    className={
-                      practice.durationMinutes === minutes ? 'selected' : ''
-                    }
-                    aria-pressed={practice.durationMinutes === minutes}
-                    onClick={() => practice.setDurationMinutes(minutes)}
-                  >
-                    {t`${minutes} min`}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </LevelCard>
-        ))}
-      </ol>
+      {sections.map((section) => (
+        <section
+          className={`path-section status-${section.status}`}
+          key={section.section.id}
+        >
+          <header className="section-head">
+            <h2>{t(section.section.title)}</h2>
+            <span className="section-tally">
+              {section.levelsComplete}/{section.levels.length}
+            </span>
+          </header>
+          <p className="section-blurb">{t(section.section.blurb)}</p>
+          <ol className="level-list">
+            {section.levels.map((standing) => (
+              <LevelCard
+                key={standing.level.id}
+                standing={standing}
+                lesson={levels[standing.level.id]}
+                open={
+                  standing.level.id === shown && standing.status !== 'locked'
+                }
+                settings={state.settings}
+                onOpen={() =>
+                  setOpenId(
+                    standing.level.id === shown ? null : standing.level.id,
+                  )
+                }
+                onStart={() => begin(standing)}
+              >
+                <TogglePicker
+                  label={t`Answer with`}
+                  options={
+                    [
+                      ['piano', t`Piano`],
+                      ['names', t`Note names`],
+                      ['midi', t`MIDI keyboard`],
+                    ] as const
+                  }
+                  value={controller.input}
+                  onChange={controller.setInput}
+                />
+                {controller.input === 'midi' ? (
+                  <MidiStatus midi={controller.midi} />
+                ) : null}
+              </LevelCard>
+            ))}
+          </ol>
+        </section>
+      ))}
     </div>
   );
 }

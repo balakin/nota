@@ -18,6 +18,18 @@ msgstr ""
 msgid "{0, plural, one {# note} other {# notes}}"
 msgstr "{0, plural, one {# нота} few {# ноты} many {# нот} other {# ноты}}"
 
+#. placeholder {0}: totals.levelsComplete
+#. placeholder {1}: standings.length
+#: src/learning/learning-page.tsx:86
+msgid "{0} of {1} levels"
+msgstr "{0} из {1} уровней"
+
+#. placeholder {0}: note.credits
+#. placeholder {1}: level.credits
+#: src/learning/level-card.tsx:101
+msgid "{0} of {1} runs"
+msgstr "{0} из {1} прогонов"
+
 #. placeholder {0}: option.days
 #: src/progress/range-bar.tsx:27
 msgid "{0}d"
@@ -30,15 +42,22 @@ msgstr "{0} д"
 #~ msgid "{0}s"
 #~ msgstr "{0} с"
 
+#: src/learning/note-hint.tsx:74
+msgid "{distance} above {anchor}"
+msgstr "{distance} выше {anchor}"
+
+#: src/learning/note-hint.tsx:75
+msgid "{distance} below {anchor}"
+msgstr "{distance} ниже {anchor}"
+
 #: src/practice/mode-explainer.tsx:36
 #~ msgid "{fluent}s"
 #~ msgstr "{fluent} с"
 
 #: src/learning/level-card.tsx:73
-msgid "{learned} of {total} notes learned"
-msgstr "{learned} из {total} нот выучено"
+#~ msgid "{learned} of {total} notes learned"
+#~ msgstr "{learned} из {total} нот выучено"
 
-#: src/learning/learning-page.tsx:122
 #: src/practice/session-setup.tsx:99
 msgid "{minutes} min"
 msgstr "{minutes} мин"
@@ -76,6 +95,11 @@ msgstr "{seconds} с на ответ, иначе — ошибка"
 msgid "{speed}s"
 msgstr "{speed} с"
 
+#: src/learning/note-hint.tsx:70
+msgid "{steps} steps"
+msgstr "{steps} ступеней"
+
+#: src/learning/learning-run.tsx:177
 #: src/practice/feedback-banner.tsx:31
 #: src/practice/result-page.tsx:54
 #: src/progress/hardest-notes.tsx:101
@@ -93,9 +117,21 @@ msgstr "< 1 с"
 msgid "A calm practice for your eyes"
 msgstr "Спокойная тренировка для глаз"
 
+#: src/learning/levels.ts:124
+msgid "A different clef, a different anchor: the F line the clef's two dots straddle."
+msgstr "Другой ключ — другой ориентир: линия фа, которую обхватывают две точки басового ключа."
+
+#: src/learning/run-summary.tsx:91
+msgid "A note counts as learned after it comes back correctly in several separate runs. Coming back is what makes it stick — a single long sitting does not."
+msgstr "Нота считается выученной, когда она правильно вспоминается в нескольких отдельных прогонах. Именно возвращение закрепляет её — одно долгое занятие этого не даёт."
+
 #: src/practice/result-page.tsx:40
 msgid "A small, useful block of practice."
 msgstr "Небольшой полезный блок практики."
+
+#: src/learning/levels.ts:107
+msgid "Above the octave"
+msgstr "Выше октавы"
 
 #: src/progress/session-chart.tsx:50
 msgid "accuracy"
@@ -111,6 +147,10 @@ msgstr "Точность"
 msgid "Accuracy and speed"
 msgstr "Точность и скорость"
 
+#: src/research/research-papers.ts:34
+msgid "Across many studies, practising categories mixed together helped more than practising them one block at a time, most of all for visual material. Later work adds that beginners need an unmixed block first. The path teaches notes in blocks and then asks for them mixed, which is where the block's local cues stop working."
+msgstr "Во многих исследованиях перемешанная отработка категорий помогала больше, чем отработка блоками, и сильнее всего — на зрительном материале. Более поздние работы добавляют, что новичкам сначала нужен несмешанный блок. Путь учит ноты блоками, а затем спрашивает их вперемешку — там, где локальные подсказки блока перестают работать."
+
 #: src/practice/range-picker.tsx:90
 #: src/progress/range-bar.tsx:27
 msgid "All"
@@ -121,7 +161,21 @@ msgstr "Все"
 #~ msgid "All the time you need, on every note"
 #~ msgstr "Сколько угодно времени на любую ноту"
 
-#: src/learning/learning-page.tsx:95
+#: src/learning/levels.ts:232
+msgid "All thirty-nine readings, in any order, with a clock running."
+msgstr "Все тридцать девять прочтений, в любом порядке, под часы."
+
+#: src/learning/note-hint.tsx:52
+msgid "An anchor"
+msgstr "Ориентир"
+
+#. placeholder {0}: note.credits
+#. placeholder {1}: level.credits
+#: src/learning/level-card.tsx:100
+msgid "Anchor note · {0} of {1} runs"
+msgstr "Опорная нота · {0} из {1} прогонов"
+
+#: src/learning/learning-page.tsx:120
 #: src/practice/session-setup.tsx:51
 msgid "Answer with"
 msgstr "Отвечать с помощью"
@@ -134,9 +188,17 @@ msgstr "Внешний вид"
 msgid "Back online"
 msgstr "Снова онлайн"
 
+#: src/learning/run-summary.tsx:78
+msgid "Back to repair"
+msgstr "Обратно в работу"
+
 #: src/research/research-page.tsx:17
 msgid "Back to settings"
 msgstr "Назад к настройкам"
+
+#: src/learning/run-summary.tsx:102
+msgid "Back to the path"
+msgstr "Назад к пути"
 
 #: src/practice/result-page.tsx:104
 msgid "Back to training"
@@ -153,16 +215,44 @@ msgid "Bass"
 msgstr "Басовый"
 
 #: src/learning/levels.ts:90
-msgid "Bass · flats"
-msgstr "Бас · бемоли"
+#~ msgid "Bass · flats"
+#~ msgstr "Бас · бемоли"
 
 #: src/learning/levels.ts:83
-msgid "Bass · sharps"
-msgstr "Бас · диезы"
+#~ msgid "Bass · sharps"
+#~ msgstr "Бас · диезы"
 
 #: src/learning/levels.ts:62
-msgid "Bass · the octave below"
-msgstr "Бас · октава ниже"
+#~ msgid "Bass · the octave below"
+#~ msgstr "Бас · октава ниже"
+
+#: src/learning/levels.ts:208
+msgid "Bass flats"
+msgstr "Бас · бемоли"
+
+#: src/learning/levels.ts:200
+msgid "Bass sharps"
+msgstr "Бас · диезы"
+
+#: src/learning/learning-page.tsx:76
+msgid "Blocks to learn a note, mixtures to keep it."
+msgstr "Блоки — чтобы выучить ноту, смешение — чтобы её удержать."
+
+#: src/research/research-papers.ts:33
+msgid "Blocks, then mixtures"
+msgstr "Сначала блоки, потом смешение"
+
+#: src/learning/levels.ts:116
+msgid "Both octaves at once, on the clock. No block to lean on."
+msgstr "Обе октавы сразу и под часы. Опереться на блок больше нельзя."
+
+#: src/learning/levels.ts:154
+msgid "Both staves"
+msgstr "Оба стана"
+
+#: src/learning/levels.ts:169
+msgid "Both staves, naturals"
+msgstr "Оба стана, без знаков"
 
 #: src/onboarding/onboarding-page.tsx:30
 msgid "Build a direct connection between the note on the staff and its place on the piano. Start with a few landmarks, then let accuracy become speed."
@@ -175,6 +265,10 @@ msgstr "C · D · E · F · G · A · B"
 #: src/settings/settings-page.tsx:149
 msgid "Cancel"
 msgstr "Отмена"
+
+#: src/learning/learning-run.tsx:90
+msgid "Check"
+msgstr "Проверка"
 
 #: src/settings/settings-page.tsx:88
 msgid "Choose color theme"
@@ -196,9 +290,13 @@ msgstr "Удаляет все занятия, статистику по нота
 msgid "Clefs"
 msgstr "Ключи"
 
+#: src/research/research-papers.ts:26
+msgid "Coming back beats staying"
+msgstr "Возвращение важнее задержки"
+
 #: src/learning/level-card.tsx:41
-msgid "Complete"
-msgstr "Пройден"
+#~ msgid "Complete"
+#~ msgstr "Пройден"
 
 #: src/practice/midi-status.tsx:26
 msgid "Connect"
@@ -216,6 +314,7 @@ msgstr "Подключить MIDI-клавиатуру"
 msgid "correct"
 msgstr "верно"
 
+#: src/learning/learning-run.tsx:166
 #: src/practice/feedback-banner.tsx:23
 msgid "Correct"
 msgstr "Верно"
@@ -237,13 +336,29 @@ msgstr "До · Ре · Ми · Фа · Соль · Ля · Си"
 msgid "Don’t count. Recognize."
 msgstr "Не считайте. Узнавайте."
 
+#: src/learning/learning-page.tsx:78
+msgid "Each press of Start is a short run built from what you currently need. A note counts as learned once it comes back correctly in several separate runs — coming back is what makes it stick."
+msgstr "Каждое нажатие «Начать» — короткий прогон, собранный из того, что вам сейчас нужно. Нота считается выученной, когда правильно вспоминается в нескольких отдельных прогонах: закрепляет именно возвращение."
+
 #: src/practice/mode-explainer.tsx:30
 msgid "Earned here"
 msgstr "Только здесь"
 
+#: src/learning/learning-run.tsx:106
+msgid "End run"
+msgstr "Завершить прогон"
+
+#: src/learning/levels.ts:216
+msgid "Every accidental"
+msgstr "Все знаки"
+
 #: src/learning/levels.ts:63
-msgid "Every natural of the bass staff, from C3 up to middle C."
-msgstr "Все ноты без знаков на басовом стане — от до малой октавы до до первой."
+#~ msgid "Every natural of the bass staff, from C3 up to middle C."
+#~ msgstr "Все ноты без знаков на басовом стане — от до малой октавы до до первой."
+
+#: src/learning/levels.ts:147
+msgid "Every natural of the bass staff, on the clock."
+msgstr "Все ноты без знаков на басовом стане, под часы."
 
 #: src/practice/mode-explainer.tsx:28
 #: src/practice/mode-explainer.tsx:32
@@ -262,17 +377,29 @@ msgstr "Каждая нота получает одно и то же время,
 #~ msgid "Every note gets the same deadline, whether you have met it before or not, and letting it run out counts as a miss. Speed measures the recognition Practice builds."
 #~ msgstr "Каждая нота получает одно и то же время, знакомы вы с ней или нет, а истёкшее время засчитывается как ошибка. Скорость измеряет узнавание, которое строит Практика."
 
+#: src/learning/run-summary.tsx:90
+msgid "Every note in this level has been recalled in enough separate runs to count as learned. You can still run it to sharpen it."
+msgstr "Каждая нота уровня вспомнилась в достаточном числе отдельных прогонов, чтобы считаться выученной. Прогоны можно продолжать — ради скорости и точности."
+
 #: src/progress/progress-page.tsx:135
 msgid "Every note of the curriculum, in pitch order. Colour is your standing on it overall; the figure is how much you answered correctly in this range."
 msgstr "Все ноты курса по высоте. Цвет — общее владение нотой, число — доля верных ответов за выбранный период."
+
+#: src/learning/levels.ts:231
+msgid "Everything"
+msgstr "Всё целиком"
+
+#: src/learning/levels.ts:225
+msgid "Everything the curriculum holds, shuffled, timed. One pass to prove it."
+msgstr "Всё, что есть в программе, вперемешку и под часы. Один проход, чтобы это подтвердить."
 
 #: src/research/research-papers.ts:20
 msgid "Experimental work with musical notation has found measurable changes in visual processing after targeted training. That is evidence about trained visual tasks, not a claim to make an expert pianist or sight-reader."
 msgstr "Эксперименты с нотной записью обнаружили измеримые изменения зрительной обработки после целевой тренировки. Это данные о конкретных зрительных задачах, а не обещание сделать вас пианистом или мастером чтения с листа."
 
 #: src/learning/level-card.tsx:43
-msgid "Finish level {previous}"
-msgstr "Пройдите уровень {previous}"
+#~ msgid "Finish level {previous}"
+#~ msgstr "Пройдите уровень {previous}"
 
 #: src/practice/practice-session.tsx:120
 msgid "Finish session"
@@ -307,6 +434,10 @@ msgstr "Беглое чтение нот — зрительно-перцепти
 msgid "Fluent note reading is a visual-perceptual skill. Targeted practice can focus on recognizing a note’s whole pattern instead of consciously calculating its position."
 msgstr "Беглое чтение нот — зрительно-перцептивный навык. Целенаправленная практика помогает узнавать целостный рисунок ноты, а не вычислять её положение."
 
+#: src/learning/levels.ts:139
+msgid "From G to the middle C that sits above the bass staff."
+msgstr "От соль до до первой октавы, что стоит над басовым станом."
+
 #: src/practice/mode-picker.tsx:32
 #: src/practice/result-page.tsx:97
 #~ msgid "Generous time while you build accuracy"
@@ -332,6 +463,10 @@ msgstr "Верхняя нота"
 msgid "How should note names appear?"
 msgstr "Как показывать названия нот?"
 
+#: src/learning/note-hint.tsx:40
+msgid "in a space"
+msgstr "между линейками"
+
 #: src/research/research-papers.ts:13
 msgid "In perceptual-training studies, presentation became progressively more demanding as performance improved. Nota uses a gentle Practice mode and a separate timed Speed mode inspired by that idea — not as a proven threshold."
 msgstr "В исследованиях перцептивной тренировки сложность постепенно увеличивалась по мере улучшения результата. Nota использует спокойную Практику и отдельный режим Скорость с ограничением времени — это идея, а не доказанный порог."
@@ -341,12 +476,17 @@ msgstr "В исследованиях перцептивной трениров�
 #~ msgstr "В исследованиях перцептивной тренировки сложность постепенно увеличивалась по мере улучшения результата. Nota использует спокойную Практику и отдельный двухсекундный режим Скорость — это идея, а не доказанный порог."
 
 #: src/learning/level-card.tsx:44
-msgid "In progress"
-msgstr "В процессе"
+#~ msgid "In progress"
+#~ msgstr "В процессе"
 
 #: src/settings/settings-page.tsx:35
 msgid "Interface language"
 msgstr "Язык интерфейса"
+
+#: src/learning/learning-run.tsx:183
+#: src/learning/note-hint.tsx:35
+msgid "It is"
+msgstr "Это"
 
 #: src/practice/result-page.tsx:74
 msgid "Keep going — your next recognition is forming."
@@ -360,7 +500,7 @@ msgstr "последний раз"
 msgid "Learning"
 msgstr "Обучение"
 
-#: src/learning/learning-page.tsx:68
+#: src/learning/learning-page.tsx:77
 msgid "Learning path"
 msgstr "Путь обучения"
 
@@ -368,19 +508,23 @@ msgstr "Путь обучения"
 msgid "Letters"
 msgstr "Буквы"
 
+#: src/learning/run-summary.tsx:46
+msgid "Level complete"
+msgstr "Уровень пройден"
+
 #: src/progress/stat-tile.tsx:46
 msgid "level with previous"
 msgstr "как в прошлом периоде"
 
 #: src/learning/learning-page.tsx:69
-msgid "Levels open in order: a level is finished when every note in it is recognized here, on the path. Train stays free — nothing you do there opens a level."
-msgstr "Уровни открываются по очереди: уровень пройден, когда каждая его нота узнаётся здесь, на этом пути. Тренировка остаётся свободной — то, что вы делаете там, уровней не открывает."
+#~ msgid "Levels open in order: a level is finished when every note in it is recognized here, on the path. Train stays free — nothing you do there opens a level."
+#~ msgstr "Уровни открываются по очереди: уровень пройден, когда каждая его нота узнаётся здесь, на этом пути. Тренировка остаётся свободной — то, что вы делаете там, уровней не открывает."
 
 #: src/settings/settings-page.tsx:104
 msgid "Light"
 msgstr "Светлая"
 
-#: src/app-shell/app.tsx:48
+#: src/app-shell/app.tsx:58
 msgid "Loading Nota"
 msgstr "Загрузка Nota"
 
@@ -416,7 +560,16 @@ msgstr "Медиана ответа"
 msgid "Median time per note"
 msgstr "Медиана времени на ноту"
 
-#: src/learning/learning-page.tsx:100
+#. placeholder {0}: outline.introduce
+#: src/learning/level-card.tsx:48
+msgid "meet {0} new"
+msgstr "{0} новых"
+
+#: src/learning/levels.ts:161
+msgid "Middle C, two ways"
+msgstr "До первой октавы, двумя способами"
+
+#: src/learning/learning-page.tsx:125
 #: src/practice/session-setup.tsx:56
 msgid "MIDI keyboard"
 msgstr "MIDI-клавиатура"
@@ -429,9 +582,17 @@ msgstr "мин"
 msgid "Miss"
 msgstr "Ошибка"
 
+#: src/learning/run-summary.tsx:66
+msgid "Moved forward"
+msgstr "Продвинулись"
+
 #: src/progress/note-map.tsx:98
 msgid "New"
 msgstr "Новая"
+
+#: src/learning/learning-run.tsx:90
+msgid "New note"
+msgstr "Новая нота"
 
 #: src/practice/practice-session.tsx:182
 #~ msgid "New note: {currentName} · press the highlighted key to meet it."
@@ -453,6 +614,10 @@ msgstr "Новый прогресс"
 #: src/practice/result-page.tsx:97
 msgid "No clock — look as long as you need"
 msgstr "Без таймера — смотрите сколько нужно"
+
+#: src/learning/learning-run.tsx:174
+msgid "No credit for a hinted answer."
+msgstr "Ответ с подсказкой не засчитывается."
 
 #: src/progress/stat-tile.tsx:35
 msgid "no earlier window"
@@ -482,6 +647,7 @@ msgstr "Нет за этот период"
 msgid "Not practiced yet"
 msgstr "Ещё не отработано"
 
+#: src/learning/learning-run.tsx:169
 #: src/practice/feedback-banner.tsx:26
 msgid "Not quite"
 msgstr "Не совсем"
@@ -528,7 +694,7 @@ msgstr "Nota на GitHub"
 msgid "Note mastery map"
 msgstr "Карта нот"
 
-#: src/learning/learning-page.tsx:99
+#: src/learning/learning-page.tsx:124
 #: src/practice/note-name-pad.tsx:25
 #: src/practice/session-setup.tsx:55
 msgid "Note names"
@@ -554,7 +720,8 @@ msgstr "Отвечено нот"
 msgid "Notes attempted"
 msgstr "Нот пройдено"
 
-#: src/learning/learning-page.tsx:75
+#: src/learning/learning-page.tsx:84
+#: src/learning/run-summary.tsx:54
 msgid "notes learned"
 msgstr "нот выучено"
 
@@ -566,7 +733,7 @@ msgstr "Пройдено нот и доля верных ответов в эт�
 msgid "Notes practiced"
 msgstr "Нот в работе"
 
-#: src/research/research-papers.ts:27
+#: src/research/research-papers.ts:41
 msgid "Notes return after a pause because retrieving an answer and spacing practice can support retention better than simply looking at the answer again."
 msgstr "Ноты возвращаются после паузы, потому что извлечение ответа и интервальная практика могут лучше поддерживать запоминание, чем простое повторное рассматривание ответа."
 
@@ -591,13 +758,41 @@ msgstr "Офлайн — прогресс сохранён на устройст
 msgid "often wrong"
 msgstr "часто ошибка"
 
+#: src/learning/note-hint.tsx:40
+msgid "on a line"
+msgstr "на линейке"
+
+#: src/learning/note-hint.tsx:44
+msgid "on a short line outside the staff"
+msgstr "на добавочной линейке вне стана"
+
 #: src/practice/mode-explainer.tsx:29
 msgid "On timeout"
 msgstr "При истечении времени"
 
 #: src/learning/learning-page.tsx:67
-msgid "One clef and one octave at a time."
-msgstr "По одному ключу и одной октаве за раз."
+#~ msgid "One clef and one octave at a time."
+#~ msgstr "По одному ключу и одной октаве за раз."
+
+#: src/learning/levels.ts:162
+msgid "One key, written below the treble staff and above the bass staff. The hinge between them."
+msgstr "Одна клавиша, записанная под скрипичным станом и над басовым. Шарнир между ними."
+
+#: src/learning/pivots.ts:34
+msgid "one short line above the staff"
+msgstr "одна добавочная линейка над станом"
+
+#: src/learning/pivots.ts:31
+msgid "one short line below the staff"
+msgstr "одна добавочная линейка под станом"
+
+#: src/learning/note-hint.tsx:65
+msgid "One step"
+msgstr "Одна ступень"
+
+#: src/learning/note-hint.tsx:45
+msgid "outside the staff"
+msgstr "вне стана"
 
 #: src/practice/practice-session.tsx:113
 #: src/practice/practice-session.tsx:139
@@ -612,24 +807,33 @@ msgstr "на ответ"
 msgid "per note"
 msgstr "на ноту"
 
-#: src/learning/learning-page.tsx:98
+#: src/learning/learning-page.tsx:123
 #: src/piano/piano.tsx:32
 #: src/practice/session-setup.tsx:54
 msgid "Piano"
 msgstr "Клавиатуры"
 
+#: src/learning/learning-run.tsx:150
+msgid "Play the highlighted key to go on."
+msgstr "Нажмите подсвеченную клавишу, чтобы продолжить."
+
 #: src/practice/practice-session.tsx:165
 msgid "Play the note on your keyboard."
 msgstr "Сыграйте ноту на своей клавиатуре."
 
+#: src/learning/level-card.tsx:46
+msgid "Polish run — every note, on the clock"
+msgstr "Шлифовка — все ноты под часы"
+
+#: src/learning/learning-run.tsx:90
 #: src/practice/mode-picker.tsx:31
 #: src/practice/practice-session.tsx:107
 msgid "Practice"
 msgstr "Практика"
 
 #: src/learning/level-card.tsx:101
-msgid "Practice again"
-msgstr "Пройти снова"
+#~ msgid "Practice again"
+#~ msgstr "Пройти снова"
 
 #: src/research/research-papers.ts:19
 msgid "Practice changes perception"
@@ -643,6 +847,15 @@ msgstr "Режим Практика"
 #: src/progress/progress-page.tsx:110
 msgid "Practice time"
 msgstr "Время практики"
+
+#. placeholder {0}: outline.consolidate
+#: src/learning/level-card.tsx:50
+msgid "practise {0}"
+msgstr "повторить {0}"
+
+#: src/learning/learning-run.tsx:149
+msgid "Press its name to go on."
+msgstr "Нажмите её название, чтобы продолжить."
 
 #: src/app-shell/primary-nav.tsx:19
 msgid "Primary navigation"
@@ -679,6 +892,10 @@ msgstr "Читать исследования"
 #~ msgid "Ready when you are."
 #~ msgstr "Готовы, когда вы готовы."
 
+#: src/research/research-papers.ts:27
+msgid "Recalling something once in each of several spaced sessions has been found to retain far better than recalling it several times in one sitting, and a higher bar in the first session did not survive later ones. The Learning path is built on that: a note earns one credit per run, and a level takes several runs by design."
+msgstr "По данным исследований, вспомнить материал по одному разу в нескольких разнесённых занятиях удерживает его заметно лучше, чем вспомнить его несколько раз за одно занятие; более высокая планка на первом занятии до последующих не доживала. Путь обучения на этом и построен: нота получает один зачёт за прогон, и уровень намеренно требует нескольких прогонов."
+
 #: src/progress/progress-page.tsx:61
 msgid "Recognition gets useful when it is fast and retained."
 msgstr "Распознавание становится полезным, когда оно быстрое и сохраняется."
@@ -691,6 +908,11 @@ msgstr "Тренировка распознавания"
 #: src/progress/mastery-labels.ts:8
 msgid "Recognized"
 msgstr "Узнаётся"
+
+#. placeholder {0}: outline.repair
+#: src/learning/level-card.tsx:49
+msgid "repair {0}"
+msgstr "исправить {0}"
 
 #: src/research/research-page.tsx:21
 #: src/settings/settings-page.tsx:116
@@ -714,9 +936,25 @@ msgstr "Сбросить прогресс"
 msgid "Resume"
 msgstr "Продолжить"
 
-#: src/research/research-papers.ts:26
+#: src/research/research-papers.ts:40
 msgid "Retrieval and spacing"
 msgstr "Извлечение и интервалы"
+
+#: src/learning/learning-run.tsx:165
+msgid "Right — but hinted"
+msgstr "Верно, но с подсказкой"
+
+#: src/learning/run-summary.tsx:99
+msgid "Run again"
+msgstr "Ещё прогон"
+
+#: src/learning/run-summary.tsx:46
+msgid "Run done"
+msgstr "Прогон завершён"
+
+#: src/learning/learning-run.tsx:92
+msgid "Run progress"
+msgstr "Ход прогона"
 
 #: src/progress/hardest-notes.tsx:14
 msgid "running out of time"
@@ -726,7 +964,6 @@ msgstr "не хватает времени"
 msgid "Session complete"
 msgstr "Сессия завершена"
 
-#: src/learning/learning-page.tsx:110
 #: src/practice/session-setup.tsx:87
 msgid "Session length"
 msgstr "Длительность"
@@ -735,6 +972,18 @@ msgstr "Длительность"
 #: src/settings/settings-page.tsx:31
 msgid "Settings"
 msgstr "Настройки"
+
+#: src/learning/levels.ts:177
+msgid "Sharps and flats"
+msgstr "Диезы и бемоли"
+
+#: src/learning/levels.ts:217
+msgid "Sharps and flats, both staves, on the clock."
+msgstr "Диезы и бемоли, оба стана, под часы."
+
+#: src/learning/learning-run.tsx:203
+msgid "Show me"
+msgstr "Подсказать"
 
 #: src/progress/hardest-notes.tsx:16
 msgid "slow to come"
@@ -761,45 +1010,119 @@ msgstr "В режиме Скорость нота заканчивается, к
 msgid "Staff, {0}, {1}"
 msgstr "Нотный стан, ключ {0}, нота {1}"
 
+#: src/learning/level-card.tsx:121
 #: src/practice/session-setup.tsx:109
 msgid "Start"
 msgstr "Начать"
 
 #: src/learning/level-card.tsx:101
-msgid "Start level"
-msgstr "Начать уровень"
+#~ msgid "Start level"
+#~ msgstr "Начать уровень"
+
+#. placeholder {0}: standing.runs + 1
+#: src/learning/level-card.tsx:121
+msgid "Start run {0}"
+msgstr "Прогон {0}"
 
 #: src/onboarding/onboarding-page.tsx:52
 msgid "Start training"
 msgstr "Начать тренировку"
 
+#: src/learning/levels.ts:93
+msgid "Start where the treble clef points: the G line its curl wraps around."
+msgstr "Начните там, куда указывает скрипичный ключ: линия соль, которую обвивает его завиток."
+
 #: src/settings/settings-page.tsx:96
 msgid "System"
 msgstr "Системная"
 
-#: src/learning/levels.ts:91
+#: src/learning/levels.ts:123
+msgid "The bass staff"
+msgstr "Басовый стан"
+
+#: src/learning/levels.ts:209
 msgid "The bass staff's black keys read as flats."
 msgstr "Чёрные клавиши басового стана, записанные бемолями."
 
-#: src/learning/levels.ts:56
-msgid "The naturals that carry on above B4, up to the top line of the staff."
-msgstr "Ноты без знаков выше си первой октавы, до верхней линейки стана."
+#: src/learning/levels.ts:178
+msgid "The black keys, one clef and one sign at a time, then all of them together."
+msgstr "Чёрные клавиши — по одному ключу и знаку за раз, а затем все вместе."
 
-#: src/learning/levels.ts:77
+#: src/learning/levels.ts:130
+msgid "The F anchor"
+msgstr "Ориентир фа"
+
+#: src/learning/levels.ts:131
+msgid "The four naturals from C up to the F the clef marks."
+msgstr "Четыре ноты без знаков от до до фа, которую отмечает ключ."
+
+#: src/learning/pivots.ts:32
+msgid "the line the bass clef's two dots straddle"
+msgstr "линия, которую обхватывают две точки басового ключа"
+
+#: src/learning/pivots.ts:29
+msgid "the line the treble clef curls around"
+msgstr "линия, которую обвивает скрипичный ключ"
+
+#: src/learning/levels.ts:99
+msgid "The middle octave"
+msgstr "Первая октава"
+
+#: src/learning/levels.ts:108
+msgid "The naturals that carry on above B, anchored on the C in the third space."
+msgstr "Ноты без знаков выше си, с опорой на до в третьем промежутке."
+
+#: src/learning/levels.ts:56
+#~ msgid "The naturals that carry on above B4, up to the top line of the staff."
+#~ msgstr "Ноты без знаков выше си первой октавы, до верхней линейки стана."
+
+#: src/learning/levels.ts:193
 msgid "The same black keys read the other way, as flats."
 msgstr "Те же чёрные клавиши, записанные иначе — бемолями."
 
-#: src/learning/levels.ts:49
-msgid "The seven naturals from middle C up to B, read on the treble staff."
-msgstr "Семь нот без знаков от до первой октавы до си, на скрипичном стане."
+#: src/learning/levels.ts:155
+msgid "The same line means different notes in each clef. This is where that gets settled."
+msgstr "Одна и та же линейка означает разные ноты в разных ключах. Здесь это и разбирается."
 
-#: src/learning/levels.ts:84
+#: src/learning/pivots.ts:33
+msgid "the second space up"
+msgstr "второй промежуток снизу"
+
+#: src/learning/levels.ts:100
+msgid "The seven naturals from middle C up to B, anchored on G."
+msgstr "Семь нот без знаков от до первой октавы до си, с опорой на соль."
+
+#: src/learning/levels.ts:49
+#~ msgid "The seven naturals from middle C up to B, read on the treble staff."
+#~ msgstr "Семь нот без знаков от до первой октавы до си, на скрипичном стане."
+
+#: src/learning/levels.ts:201
 msgid "The sharpened notes of the bass staff."
 msgstr "Ноты с диезами на басовом стане."
 
-#: src/learning/levels.ts:70
+#: src/learning/levels.ts:185
 msgid "The sharpened notes of the treble staff, in circle-of-fifths order."
 msgstr "Ноты с диезами на скрипичном стане, в порядке квинтового круга."
+
+#: src/learning/pivots.ts:30
+msgid "the third space up"
+msgstr "третий промежуток снизу"
+
+#: src/learning/levels.ts:92
+msgid "The treble staff"
+msgstr "Скрипичный стан"
+
+#: src/learning/levels.ts:146
+msgid "The whole bass staff"
+msgstr "Весь басовый стан"
+
+#: src/learning/levels.ts:224
+msgid "The whole staff"
+msgstr "Весь нотный стан"
+
+#: src/learning/levels.ts:115
+msgid "The whole treble staff"
+msgstr "Весь скрипичный стан"
 
 #: src/practice/midi-status.tsx:17
 msgid "This browser has no Web MIDI. Chrome, Edge or Opera over https can talk to a keyboard."
@@ -813,6 +1136,16 @@ msgstr "Меняет подписи, но не прогресс."
 msgid "This erases your sessions, note statistics and history on this device. It cannot be undone."
 msgstr "Это удалит ваши занятия, статистику по нотам и историю на этом устройстве. Отменить будет нельзя."
 
+#: src/learning/learning-run.tsx:139
+msgid "This is"
+msgstr "Это"
+
+#: src/learning/note-hint.tsx:69
+msgid "Three steps"
+msgstr "Три ступени"
+
+#: src/learning/learning-run.tsx:123
+#: src/learning/learning-run.tsx:168
 #: src/practice/feedback-banner.tsx:25
 #: src/practice/practice-session.tsx:142
 msgid "Time"
@@ -849,24 +1182,44 @@ msgid "Treble"
 msgstr "Скрипичный"
 
 #: src/learning/levels.ts:55
-msgid "Treble · above the octave"
-msgstr "Скрипичный · выше октавы"
+#~ msgid "Treble · above the octave"
+#~ msgstr "Скрипичный · выше октавы"
 
 #: src/learning/levels.ts:76
-msgid "Treble · flats"
-msgstr "Скрипичный · бемоли"
+#~ msgid "Treble · flats"
+#~ msgstr "Скрипичный · бемоли"
 
 #: src/learning/levels.ts:69
-msgid "Treble · sharps"
-msgstr "Скрипичный · диезы"
+#~ msgid "Treble · sharps"
+#~ msgstr "Скрипичный · диезы"
 
 #: src/learning/levels.ts:48
-msgid "Treble · the middle octave"
-msgstr "Скрипичный · первая октава"
+#~ msgid "Treble · the middle octave"
+#~ msgstr "Скрипичный · первая октава"
 
 #: src/practice/session-setup.tsx:69
 msgid "Treble + Bass"
 msgstr "Скрипичный + Басовый"
+
+#: src/learning/levels.ts:170
+msgid "Treble and bass shuffled together. The clef decides the answer."
+msgstr "Скрипичный и басовый вперемешку. Ответ определяет ключ."
+
+#: src/learning/levels.ts:192
+msgid "Treble flats"
+msgstr "Скрипичный · бемоли"
+
+#: src/learning/levels.ts:184
+msgid "Treble sharps"
+msgstr "Скрипичный · диезы"
+
+#: src/learning/note-hint.tsx:67
+msgid "Two steps"
+msgstr "Две ступени"
+
+#: src/learning/levels.ts:138
+msgid "Up to middle C"
+msgstr "До первой октавы"
 
 #: src/practice/practice-session.tsx:166
 msgid "Use the piano key that matches the note."
