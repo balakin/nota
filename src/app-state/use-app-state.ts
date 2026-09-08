@@ -1,6 +1,14 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import { browserLocale } from '../i18n/i18n';
+import {
+  creditNote,
+  emptyLevelLesson,
+  isPassed,
+  lapseNote,
+  noteLessonOf,
+} from '../learning/lesson-state';
+import { findLevel } from '../learning/levels';
 import { loadPersistedState, savePersistedState } from '../storage/indexed-db';
 import {
   addAttempt,
@@ -41,9 +49,16 @@ export type AttemptRecord = {
   itemId: string;
   /** The note's running stats for the global map; every answer writes them. */
   stats: NoteStats;
-  /** The Learning path's own chain for the note, or null when the answer came from Train. */
-  learningStats: NoteStats | null;
   outcome: RolledAttempt;
+};
+
+/** One graded answer inside a Learning run. Retention asks are not graded and never land here. */
+export type LessonAnswer = {
+  levelId: string;
+  itemId: string;
+  runId: string;
+  correct: boolean;
+  at: number;
 };
 
 export type AppState = {
@@ -52,6 +67,10 @@ export type AppState = {
   hydrated: boolean;
   updateSettings: (patch: Partial<AppSettings>) => void;
   recordAttempt: (record: AttemptRecord) => void;
+  /** Counts a run against the level, so its state exists from the first question. */
+  startLearningRun: (levelId: string) => void;
+  /** Moves one note of one level forward, or back, on the strength of a single answer. */
+  recordLessonAnswer: (answer: LessonAnswer) => void;
   appendSession: (summary: SessionSummary) => void;
   /** Clears every recorded attempt, session, level and day bucket. Settings are not progress, so they stay. */
   resetProgress: () => void;
@@ -81,11 +100,11 @@ export function useAppState(): AppState {
   }, []);
 
   /**
-   * One update writes the note's running stats, the day bucket behind the ranges, and —
-   * for an answer given on the Learning path — that path's separate chain for the note.
+   * One update writes the note's running stats and the day bucket behind the ranges.
+   * Both tracks answer through here, so the dashboard reports everything practiced.
    */
   const recordAttempt = useCallback(
-    ({ itemId, stats, learningStats, outcome }: AttemptRecord) => {
+    ({ itemId, stats, outcome }: AttemptRecord) => {
       setState((current) => {
         const day = dayKeyOf(outcome.at);
         const key = rollKey(itemId, day);
@@ -93,12 +112,56 @@ export function useAppState(): AppState {
         return {
           ...current,
           notes: { ...current.notes, [itemId]: stats },
-          learning: learningStats
-            ? { notes: { ...current.learning.notes, [itemId]: learningStats } }
-            : current.learning,
           rolls: {
             ...pruneRolls(current.rolls, KEEP_ROLL_DAYS, outcome.at),
             [key]: addAttempt(roll, outcome),
+          },
+        };
+      });
+    },
+    [],
+  );
+
+  const startLearningRun = useCallback((levelId: string) => {
+    setState((current) => {
+      const lesson = current.learning.levels[levelId] ?? emptyLevelLesson();
+      return {
+        ...current,
+        learning: {
+          levels: {
+            ...current.learning.levels,
+            [levelId]: { ...lesson, runs: lesson.runs + 1 },
+          },
+        },
+      };
+    });
+  }, []);
+
+  const recordLessonAnswer = useCallback(
+    ({ levelId, itemId, runId, correct, at }: LessonAnswer) => {
+      const level = findLevel(levelId);
+      if (!level) return;
+      setState((current) => {
+        const lesson = current.learning.levels[levelId] ?? emptyLevelLesson();
+        const note = noteLessonOf(lesson, itemId);
+        const notes = {
+          ...lesson.notes,
+          [itemId]: correct ? creditNote(note, runId, at) : lapseNote(note),
+        };
+        const complete = level.items.every((item) =>
+          isPassed(notes[item.id] ?? noteLessonOf(lesson, item.id), level),
+        );
+        return {
+          ...current,
+          learning: {
+            levels: {
+              ...current.learning.levels,
+              [levelId]: {
+                ...lesson,
+                notes,
+                completedAt: complete ? (lesson.completedAt ?? at) : null,
+              },
+            },
           },
         };
       });
@@ -122,6 +185,8 @@ export function useAppState(): AppState {
     hydrated,
     updateSettings,
     recordAttempt,
+    startLearningRun,
+    recordLessonAnswer,
     appendSession,
     resetProgress,
   };

@@ -1,3 +1,10 @@
+import {
+  emptyLevelLesson,
+  type LearningLevels,
+  type LevelLesson,
+  type NoteLesson,
+} from '../learning/lesson-state';
+import { LEVELS } from '../learning/levels';
 import type { NamingSystem } from '../music/music';
 import { allRecognitionItems } from '../music/recognition-items';
 import { emptyRoll, type DayRoll } from '../training/rollups';
@@ -43,16 +50,17 @@ export type SessionSummary = {
 };
 
 /**
- * The Learning path grades its levels on answers given inside it, so it carries its own
- * chain of note stats. A Learning answer still updates `notes` and `rolls` — the progress
- * dashboard reports everything practiced — but only this chain opens the next level.
+ * The Learning path grades its levels on the runs taken inside them, note by note, so it
+ * carries its own state rather than reading the global note map. A Learning answer still
+ * updates `notes` and `rolls` — the progress dashboard reports everything practiced — but
+ * only these credits open a level.
  */
 export type LearningState = {
-  notes: Record<string, NoteStats>;
+  levels: LearningLevels;
 };
 
 export type PersistedState = {
-  schemaVersion: 3;
+  schemaVersion: 4;
   settings: AppSettings;
   notes: Record<string, NoteStats>;
   learning: LearningState;
@@ -93,10 +101,10 @@ export function createInitialState(
   settings: Partial<AppSettings> = {},
 ): PersistedState {
   return {
-    schemaVersion: 3,
+    schemaVersion: 4,
     settings: { ...DEFAULT_SETTINGS, ...settings },
     notes: freshNotes(),
-    learning: { notes: freshNotes() },
+    learning: { levels: {} },
     sessions: [],
     rolls: {},
   };
@@ -127,13 +135,80 @@ function readSessions(value: unknown): SessionSummary[] {
   }));
 }
 
+function readNoteLesson(value: unknown): NoteLesson | null {
+  if (!value || typeof value !== 'object') return null;
+  const stored = value as Partial<NoteLesson>;
+  if (typeof stored.credits !== 'number' || !Number.isFinite(stored.credits))
+    return null;
+  return {
+    introduced: Boolean(stored.introduced),
+    credits: Math.max(0, Math.round(stored.credits)),
+    lastRunId: typeof stored.lastRunId === 'string' ? stored.lastRunId : null,
+    lastCreditAt:
+      typeof stored.lastCreditAt === 'number' ? stored.lastCreditAt : 0,
+    lapses: typeof stored.lapses === 'number' ? Math.max(0, stored.lapses) : 0,
+  };
+}
+
+/**
+ * The path used to grade itself on a second chain of `NoteStats`. Anything it had already
+ * taught is carried over as a finished note rather than asked for again from nothing.
+ */
+function levelsFromLegacyNotes(value: unknown): LearningLevels {
+  if (!value || typeof value !== 'object') return {};
+  const stored = value as Record<string, Partial<NoteStats>>;
+  const levels: LearningLevels = {};
+  for (const level of LEVELS) {
+    const notes: Record<string, NoteLesson> = {};
+    for (const item of level.items) {
+      if (!stored[item.id] || stored[item.id].state === 'new') continue;
+      notes[item.id] = {
+        introduced: true,
+        credits: level.credits,
+        lastRunId: null,
+        lastCreditAt: stored[item.id].lastPracticedAt ?? 0,
+        lapses: 0,
+      };
+    }
+    if (Object.keys(notes).length > 0)
+      levels[level.id] = { ...emptyLevelLesson(), notes };
+  }
+  return levels;
+}
+
+function readLearning(value: unknown): LearningState {
+  if (!value || typeof value !== 'object') return { levels: {} };
+  const candidate = value as { levels?: unknown; notes?: unknown };
+  if (!candidate.levels || typeof candidate.levels !== 'object')
+    return { levels: levelsFromLegacyNotes(candidate.notes) };
+  const known = new Set(LEVELS.map((level) => level.id));
+  const levels: LearningLevels = {};
+  for (const [levelId, stored] of Object.entries(
+    candidate.levels as Record<string, Partial<LevelLesson>>,
+  )) {
+    if (!known.has(levelId) || !stored || typeof stored !== 'object') continue;
+    const notes: Record<string, NoteLesson> = {};
+    for (const [itemId, note] of Object.entries(stored.notes ?? {})) {
+      const parsed = readNoteLesson(note);
+      if (parsed) notes[itemId] = parsed;
+    }
+    levels[levelId] = {
+      notes,
+      runs: typeof stored.runs === 'number' ? Math.max(0, stored.runs) : 0,
+      completedAt:
+        typeof stored.completedAt === 'number' ? stored.completedAt : null,
+    };
+  }
+  return { levels };
+}
+
 export function migrateState(value: unknown): PersistedState {
   if (!value || typeof value !== 'object') return createInitialState();
   const candidate = value as Partial<PersistedState>;
   const settings = { ...DEFAULT_SETTINGS, ...(candidate.settings ?? {}) };
   const stored = readRolls((candidate as { rolls?: unknown }).rolls);
   return {
-    schemaVersion: 3,
+    schemaVersion: 4,
     settings: {
       locale: settings.locale === 'ru' ? 'ru' : 'en',
       naming: settings.naming === 'solfege' ? 'solfege' : 'letters',
@@ -145,8 +220,7 @@ export function migrateState(value: unknown): PersistedState {
       hasCompletedOnboarding: Boolean(settings.hasCompletedOnboarding),
     },
     notes: notesFrom(candidate.notes),
-    /* A state saved before the Learning path has no chain of its own: the path starts fresh. */
-    learning: { notes: notesFrom(candidate.learning?.notes) },
+    learning: readLearning(candidate.learning),
     sessions: readSessions(candidate.sessions),
     rolls: stored ?? {},
   };

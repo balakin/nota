@@ -4,6 +4,7 @@ import { useLingui } from '@lingui/react/macro';
 import { useAppState } from '../app-state/use-app-state';
 import { i18n } from '../i18n/i18n';
 import { LearningPage } from '../learning/learning-page';
+import { useLearningRun } from '../learning/use-learning-run';
 import { OnboardingPage } from '../onboarding/onboarding-page';
 import { PracticePage } from '../practice/practice-page';
 import { usePracticeSession } from '../practice/use-practice-session';
@@ -25,13 +26,14 @@ export default function App() {
     hydrated,
     updateSettings,
     recordAttempt,
+    startLearningRun,
+    recordLessonAnswer,
     appendSession,
     resetProgress,
   } = useAppState();
   const { page, navigate } = usePage();
   const practice = usePracticeSession({
     notes: state.notes,
-    learningNotes: state.learning.notes,
     speedDeadlineMs: state.settings.speedDeadlineMs,
     onAttempt: recordAttempt,
     onSessionComplete: appendSession,
@@ -39,9 +41,17 @@ export default function App() {
       updateSettings({ speedDeadlineMs }),
   });
 
+  const learning = useLearningRun({
+    notes: state.notes,
+    onAttempt: recordAttempt,
+    onLessonAnswer: recordLessonAnswer,
+    onRunStart: startLearningRun,
+    onRunComplete: appendSession,
+  });
+
   useDocumentChrome(state.settings);
   /* A running session is a focused mode: there is nowhere to navigate until it ends. */
-  const inSession = practice.session !== null;
+  const inSession = practice.session !== null || learning.run !== null;
 
   if (!hydrated)
     return (
@@ -72,7 +82,7 @@ export default function App() {
             <PracticePage practice={practice} state={state} />
           )}
           {page === 'learning' && (
-            <LearningPage practice={practice} state={state} />
+            <LearningPage controller={learning} state={state} />
           )}
           {page === 'progress' && <ProgressPage state={state} />}
           {page === 'settings' && (

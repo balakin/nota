@@ -23,6 +23,20 @@ export const RESEARCH_PAPERS = [
     url: 'https://doi.org/10.1167/19.7.8',
   },
   {
+    title: msg`Coming back beats staying`,
+    body: msg`Recalling something once in each of several spaced sessions has been found to retain far better than recalling it several times in one sitting, and a higher bar in the first session did not survive later ones. The Learning path is built on that: a note earns one credit per run, and a level takes several runs by design.`,
+    doi: '10.1177/09637214221100484',
+    authors: 'Katherine A. Rawson & John Dunlosky · 2022',
+    url: 'https://doi.org/10.1177/09637214221100484',
+  },
+  {
+    title: msg`Blocks, then mixtures`,
+    body: msg`Across many studies, practising categories mixed together helped more than practising them one block at a time, most of all for visual material. Later work adds that beginners need an unmixed block first. The path teaches notes in blocks and then asks for them mixed, which is where the block's local cues stop working.`,
+    doi: '10.1037/bul0000209',
+    authors: 'Matthias Brunmair & Tobias Richter · 2019',
+    url: 'https://doi.org/10.1037/bul0000209',
+  },
+  {
     title: msg`Retrieval and spacing`,
     body: msg`Notes return after a pause because retrieving an answer and spacing practice can support retention better than simply looking at the answer again.`,
     doi: '10.1038/s44159-022-00089-1',

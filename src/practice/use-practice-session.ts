@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 import type { SessionSummary } from '../app-state/app-state';
 import type { AttemptRecord } from '../app-state/use-app-state';
-import type { Clef, RecognitionItem } from '../music/music';
+import type { Clef } from '../music/music';
 import { windowForMidi } from '../piano/piano-layout';
 import { midiAnswer, type NormalizedAnswer } from '../training/input';
 import {
@@ -24,7 +24,6 @@ import {
   type InputMode,
   type NoteStats,
   type PracticeMode,
-  type TrainingTrack,
 } from '../training/training';
 
 import { pickNext } from './pick-next';
@@ -57,8 +56,6 @@ export type PracticeSessionController = {
   setDurationMinutes: (minutes: SessionDuration) => void;
   setSpeedDeadlineMs: (ms: number) => void;
   start: () => void;
-  /** Starts a Learning session over one level's notes; never on the clock. */
-  startLevel: (levelId: string, items: readonly RecognitionItem[]) => void;
   answer: (answer: NormalizedAnswer) => void;
   togglePause: () => void;
   finish: () => void;
@@ -72,14 +69,12 @@ export type PracticeSessionController = {
  */
 export function usePracticeSession({
   notes,
-  learningNotes,
   speedDeadlineMs,
   onAttempt,
   onSessionComplete,
   onSpeedDeadlineChange,
 }: {
   notes: Readonly<Record<string, NoteStats>>;
-  learningNotes: Readonly<Record<string, NoteStats>>;
   speedDeadlineMs: number;
   onAttempt: (record: AttemptRecord) => void;
   onSessionComplete: (summary: SessionSummary) => void;
@@ -99,7 +94,6 @@ export function usePracticeSession({
   const { connect: connectMidi, subscribe: subscribeMidi } = midi;
   const advanceTimeoutRef = useRef<number | null>(null);
   const notesRef = useRef(notes);
-  const learningNotesRef = useRef(learningNotes);
   const onSessionCompleteRef = useRef(onSessionComplete);
 
   useEffect(() => {
@@ -107,86 +101,71 @@ export function usePracticeSession({
   }, [notes]);
 
   useEffect(() => {
-    learningNotesRef.current = learningNotes;
-  }, [learningNotes]);
-
-  /** Question weighting and level grading read the track's own chain of stats. */
-  const trackNotes = useCallback(
-    (track: TrainingTrack) =>
-      track === 'learning' ? learningNotesRef.current : notesRef.current,
-    [],
-  );
-
-  useEffect(() => {
     onSessionCompleteRef.current = onSessionComplete;
   }, [onSessionComplete]);
 
-  const completeSession = useCallback(
-    (runtime: RuntimeSession) => {
-      if (advanceTimeoutRef.current !== null) {
-        window.clearTimeout(advanceTimeoutRef.current);
-        advanceTimeoutRef.current = null;
-      }
-      const successfulTimes = runtime.outcomes
-        .filter(
-          (outcome) =>
-            outcome.result === 'correct' && outcome.elapsedMs !== null,
-        )
-        .map((outcome) => outcome.elapsedMs as number);
-      const newRecognized = runtime.outcomes
-        .filter(
-          (outcome) =>
-            outcome.stateBefore !== 'recognized' &&
-            outcome.stateBefore !== 'fluent' &&
-            outcome.stateAfter === 'recognized',
-        )
-        .map((outcome) => outcome.itemId);
-      const newFluent = runtime.outcomes
-        .filter(
-          (outcome) =>
-            outcome.stateBefore !== 'fluent' && outcome.stateAfter === 'fluent',
-        )
-        .map((outcome) => outcome.itemId);
-      const sessionNoteIds = new Set(
-        runtime.outcomes.map((outcome) => outcome.itemId),
-      );
-      const weakest = weakestNotes(
-        [...sessionNoteIds]
-          .map((id) => trackNotes(runtime.track)[id])
-          .filter((note): note is NoteStats => Boolean(note)),
-        3,
-      ).map((note) => note.itemId);
-      const summary: SessionSummary = {
-        id: runtime.id,
-        startedAt: runtime.startedAt,
-        durationSeconds: runtime.durationSeconds,
-        mode: runtime.mode,
-        track: runtime.track,
-        ...(runtime.levelId ? { levelId: runtime.levelId } : {}),
-        speedDeadlineMs: runtime.speedDeadlineMs,
-        attempts: runtime.outcomes.length,
-        correct: runtime.outcomes.filter(
-          (outcome) => outcome.result === 'correct',
-        ).length,
-        timeouts: runtime.outcomes.filter(
-          (outcome) => outcome.result === 'timeout',
-        ).length,
-        medianResponseMs: median(successfulTimes),
-        practiceSeconds: Math.min(
-          runtime.durationSeconds,
-          Math.round((Date.now() - runtime.startedAt) / 1000),
-        ),
-        newRecognized: [...new Set(newRecognized)],
-        newFluent: [...new Set(newFluent)],
-        weakestItemIds: weakest,
-      };
-      onSessionCompleteRef.current(summary);
-      setResult(summary);
-      setSession(null);
-      setFeedback(null);
-    },
-    [trackNotes],
-  );
+  const completeSession = useCallback((runtime: RuntimeSession) => {
+    if (advanceTimeoutRef.current !== null) {
+      window.clearTimeout(advanceTimeoutRef.current);
+      advanceTimeoutRef.current = null;
+    }
+    const successfulTimes = runtime.outcomes
+      .filter(
+        (outcome) => outcome.result === 'correct' && outcome.elapsedMs !== null,
+      )
+      .map((outcome) => outcome.elapsedMs as number);
+    const newRecognized = runtime.outcomes
+      .filter(
+        (outcome) =>
+          outcome.stateBefore !== 'recognized' &&
+          outcome.stateBefore !== 'fluent' &&
+          outcome.stateAfter === 'recognized',
+      )
+      .map((outcome) => outcome.itemId);
+    const newFluent = runtime.outcomes
+      .filter(
+        (outcome) =>
+          outcome.stateBefore !== 'fluent' && outcome.stateAfter === 'fluent',
+      )
+      .map((outcome) => outcome.itemId);
+    const sessionNoteIds = new Set(
+      runtime.outcomes.map((outcome) => outcome.itemId),
+    );
+    const weakest = weakestNotes(
+      [...sessionNoteIds]
+        .map((id) => notesRef.current[id])
+        .filter((note): note is NoteStats => Boolean(note)),
+      3,
+    ).map((note) => note.itemId);
+    const summary: SessionSummary = {
+      id: runtime.id,
+      startedAt: runtime.startedAt,
+      durationSeconds: runtime.durationSeconds,
+      mode: runtime.mode,
+      track: runtime.track,
+      ...(runtime.levelId ? { levelId: runtime.levelId } : {}),
+      speedDeadlineMs: runtime.speedDeadlineMs,
+      attempts: runtime.outcomes.length,
+      correct: runtime.outcomes.filter(
+        (outcome) => outcome.result === 'correct',
+      ).length,
+      timeouts: runtime.outcomes.filter(
+        (outcome) => outcome.result === 'timeout',
+      ).length,
+      medianResponseMs: median(successfulTimes),
+      practiceSeconds: Math.min(
+        runtime.durationSeconds,
+        Math.round((Date.now() - runtime.startedAt) / 1000),
+      ),
+      newRecognized: [...new Set(newRecognized)],
+      newFluent: [...new Set(newFluent)],
+      weakestItemIds: weakest,
+    };
+    onSessionCompleteRef.current(summary);
+    setResult(summary);
+    setSession(null);
+    setFeedback(null);
+  }, []);
 
   useEffect(() => {
     if (!session || session.paused) return;
@@ -197,99 +176,59 @@ export function usePracticeSession({
     return () => window.clearInterval(timer);
   }, [session, completeSession]);
 
-  /** The one way a session is opened; both tabs hand it the notes it should ask about. */
-  const begin = useCallback(
-    (
-      candidates: readonly RecognitionItem[],
-      options: {
-        mode: PracticeMode;
-        clefs: Clef[];
-        track: TrainingTrack;
-        levelId: string | null;
-      },
-    ) => {
-      if (candidates.length === 0) return;
-      const items = [...candidates];
-      const first = pickNext(items, trackNotes(options.track), [], [], 1);
-      const now = Date.now();
-      setSession({
-        id: `session-${now}-${Math.random().toString(36).slice(2, 8)}`,
-        startedAt: now,
-        durationSeconds: durationMinutes * 60,
-        mode: options.mode,
-        track: options.track,
-        levelId: options.levelId,
-        speedDeadlineMs,
-        input,
-        clefs: options.clefs,
-        candidates: items,
-        keyboardWindow: windowForMidi(first.pitch.midi),
-        current: first,
-        currentStartedAt: now,
-        deadlineMs: sessionDeadlineMs(options.mode, speedDeadlineMs),
-        questionNumber: 1,
-        recentItemIds: [first.id],
-        outcomes: [],
-        deferredQueue: [],
-        paused: false,
-        pausedAt: null,
-      });
-      setFeedback(null);
-      setResult(null);
-    },
-    [durationMinutes, input, speedDeadlineMs, trackNotes],
-  );
-
   const start = useCallback(() => {
-    begin(selectedItems(clefs, clampRange(range, clefs)), {
+    const candidates = selectedItems(clefs, clampRange(range, clefs));
+    if (candidates.length === 0) return;
+    const first = pickNext(candidates, notes, [], [], 1);
+    const now = Date.now();
+    setSession({
+      id: `session-${now}-${Math.random().toString(36).slice(2, 8)}`,
+      startedAt: now,
+      durationSeconds: durationMinutes * 60,
       mode,
-      clefs,
       track: 'train',
       levelId: null,
+      speedDeadlineMs,
+      input,
+      clefs,
+      candidates,
+      keyboardWindow: windowForMidi(first.pitch.midi),
+      current: first,
+      currentStartedAt: now,
+      deadlineMs: sessionDeadlineMs(mode, speedDeadlineMs),
+      questionNumber: 1,
+      recentItemIds: [first.id],
+      outcomes: [],
+      deferredQueue: [],
+      paused: false,
+      pausedAt: null,
     });
-  }, [begin, clefs, mode, range]);
+    setFeedback(null);
+    setResult(null);
+  }, [clefs, durationMinutes, input, mode, notes, range, speedDeadlineMs]);
 
-  /**
-   * A level is about learning to read its notes, so it always runs untimed — a clock
-   * belongs to Speed, which is Train's to offer.
-   */
-  const startLevel = useCallback(
-    (levelId: string, items: readonly RecognitionItem[]) => {
-      begin(items, {
-        mode: 'practice',
-        clefs: [...new Set(items.map((item) => item.clef))],
-        track: 'learning',
-        levelId,
-      });
-    },
-    [begin],
-  );
-
-  const advance = useCallback(
-    (runtime: RuntimeSession) => {
-      const nextQuestion = runtime.questionNumber + 1;
-      const next = pickNext(
-        runtime.candidates,
-        trackNotes(runtime.track),
-        runtime.recentItemIds,
-        runtime.deferredQueue,
-        nextQuestion,
-      );
-      setSession({
-        ...runtime,
-        current: next,
-        keyboardWindow: windowForMidi(next.pitch.midi),
-        deferredQueue: runtime.deferredQueue.filter(
-          (entry) => entry.item.id !== next.id,
-        ),
-        currentStartedAt: Date.now(),
-        questionNumber: nextQuestion,
-        recentItemIds: [...runtime.recentItemIds, next.id].slice(-5),
-      });
-      setFeedback(null);
-    },
-    [trackNotes],
-  );
+  const advance = useCallback((runtime: RuntimeSession) => {
+    const nextQuestion = runtime.questionNumber + 1;
+    const next = pickNext(
+      runtime.candidates,
+      notesRef.current,
+      runtime.recentItemIds,
+      runtime.deferredQueue,
+      nextQuestion,
+    );
+    setSession({
+      ...runtime,
+      current: next,
+      keyboardWindow: windowForMidi(next.pitch.midi),
+      deferredQueue: runtime.deferredQueue.filter(
+        (entry) => entry.item.id !== next.id,
+      ),
+      currentStartedAt: Date.now(),
+      questionNumber: nextQuestion,
+      recentItemIds: [...runtime.recentItemIds, next.id].slice(-5),
+    });
+    setFeedback(null);
+  }, []);
 
   const judge = useCallback(
     (answer: NormalizedAnswer | undefined, resultOverride?: AnswerResult) => {
@@ -314,22 +253,12 @@ export function usePracticeSession({
         sessionId: session.id,
         at,
       };
-      /* Every answer moves the global note map; a Learning answer moves its path too. */
       const previous =
         notesRef.current[session.current.id] ?? emptyNoteStats(session.current);
       const nextStats = recordOutcome(previous, attempt);
-      const learningPrevious =
-        session.track === 'learning'
-          ? (learningNotesRef.current[session.current.id] ??
-            emptyNoteStats(session.current))
-          : null;
-      const learningStats = learningPrevious
-        ? recordOutcome(learningPrevious, attempt)
-        : null;
       onAttempt({
         itemId: session.current.id,
         stats: nextStats,
-        learningStats,
         outcome: {
           result: outcomeResult,
           elapsedMs,
@@ -337,7 +266,6 @@ export function usePracticeSession({
           at,
         },
       });
-      /* The session reports on the track it ran, so a level's gains read as the level's. */
       const outcome: RuntimeOutcome = {
         sessionId: session.id,
         result: outcomeResult,
@@ -346,8 +274,8 @@ export function usePracticeSession({
         input: session.input,
         at,
         itemId: session.current.id,
-        stateBefore: (learningPrevious ?? previous).state,
-        stateAfter: (learningStats ?? nextStats).state,
+        stateBefore: previous.state,
+        stateAfter: nextStats.state,
       };
       const deferredQueue =
         outcomeResult === 'correct'
@@ -469,7 +397,6 @@ export function usePracticeSession({
     setDurationMinutes,
     setSpeedDeadlineMs,
     start,
-    startLevel,
     answer,
     togglePause,
     finish,
