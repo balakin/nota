@@ -8,6 +8,7 @@ import { TogglePicker } from '../ui/toggle-picker';
 import { MidiStatus } from './midi-status';
 import { ModeExplainer } from './mode-explainer';
 import { ModePicker } from './mode-picker';
+import { PresetPicker } from './preset-picker';
 import { TrainingRangePicker } from './range-picker';
 import { SESSION_DURATIONS } from './session';
 import { ShapeSetting } from './shape-setting';
@@ -63,6 +64,12 @@ export function SessionSetup({
           {practice.input === 'midi' ? (
             <MidiStatus midi={practice.midi} />
           ) : null}
+          <PresetPicker
+            clefs={practice.clefs}
+            range={practice.range}
+            accidentals={practice.accidentals}
+            onPick={practice.applyPreset}
+          />
           <TogglePicker
             label={t`Clefs`}
             options={
@@ -80,9 +87,11 @@ export function SessionSetup({
           <TrainingRangePicker
             clefs={practice.clefs}
             range={practice.range}
+            accidentals={practice.accidentals}
             naming={naming}
             locale={locale}
             onChange={practice.setRange}
+            onAccidentalsChange={practice.setAccidentals}
           />
           <div className="setting-row">
             <span className="setting-label">{t`Session length`}</span>
