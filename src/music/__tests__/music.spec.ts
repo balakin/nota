@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import {
+  CURRICULUM,
   displayNoteName,
   pitchFromId,
   ledgerLineCount,
@@ -63,5 +64,31 @@ describe('canonical music mapping', () => {
     expect(ledgerLineCount(pitch('G', 5), 'treble')).toBe(0);
     expect(ledgerLineCount(pitch('C', 4), 'bass')).toBe(1);
     expect(vexFlowKey(pitch('F', 5))).toBe('f/5');
+  });
+});
+
+describe('curriculum coverage', () => {
+  it.each(['treble', 'bass'] as const)(
+    'asks every key between the ends of the %s range, black keys in both spellings',
+    (clef) => {
+      const items = CURRICULUM[clef];
+      const midis = items.map((item) => item.pitch.midi);
+      const low = Math.min(...midis);
+      const high = Math.max(...midis);
+      for (let midi = low; midi <= high; midi += 1) {
+        const spellings = items.filter((item) => item.pitch.midi === midi);
+        const black = [1, 3, 6, 8, 10].includes(midi % 12);
+        expect(spellings.map((item) => item.pitch.accidental).sort()).toEqual(
+          black ? ['flat', 'sharp'] : ['natural'],
+        );
+      }
+    },
+  );
+
+  it('has no item twice', () => {
+    const ids = [...CURRICULUM.treble, ...CURRICULUM.bass].map(
+      (item) => item.id,
+    );
+    expect(new Set(ids).size).toBe(ids.length);
   });
 });

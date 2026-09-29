@@ -167,6 +167,28 @@ export function recognitionItem(
   return { id: `${clef}:${pitchId(value)}`, clef, pitch: value };
 }
 
+const FLAT_NAME_OF_SHARP: Partial<Record<PitchName, PitchName>> = {
+  C: 'D',
+  D: 'E',
+  F: 'G',
+  G: 'A',
+  A: 'B',
+};
+
+/** A black key in both spellings — it is one key on the piano and two different sights on the staff. */
+function blackKey(
+  clef: Clef,
+  sharpOf: PitchName,
+  octave: number,
+): RecognitionItem[] {
+  const flatOf = FLAT_NAME_OF_SHARP[sharpOf];
+  if (!flatOf) return [];
+  return [
+    recognitionItem(clef, pitch(sharpOf, octave, 'sharp')),
+    recognitionItem(clef, pitch(flatOf, octave, 'flat')),
+  ];
+}
+
 /**
  * Curricula are ordered: notes unlock from the front, so naturals come first and the
  * accidentals follow in circle-of-fifths order (sharps, then flats). Both spellings of a
@@ -174,7 +196,8 @@ export function recognitionItem(
  *
  * Notes outside the staff come last in each list. Reading them is a different act from
  * reading a note between the lines — counting outward from an edge rather than knowing a
- * position — so they are taught after the staff itself is secure. A pitch may appear in
+ * position — so they are taught after the staff itself is secure. The black keys among them
+ * come last of all. A pitch may appear in
  * both curricula: G3 on the bass staff and G3 two ledger lines under the treble staff are
  * the same key and two quite different sights.
  */
@@ -212,6 +235,17 @@ export const TREBLE_CURRICULUM: readonly RecognitionItem[] = [
   recognitionItem('treble', pitch('D', 6)),
   recognitionItem('treble', pitch('E', 6)),
   recognitionItem('treble', pitch('F', 3)),
+  /* The black keys among the notes outside the staff. */
+  ...blackKey('treble', 'C', 4),
+  ...blackKey('treble', 'D', 4),
+  ...blackKey('treble', 'F', 3),
+  ...blackKey('treble', 'G', 3),
+  ...blackKey('treble', 'A', 3),
+  ...blackKey('treble', 'F', 5),
+  ...blackKey('treble', 'G', 5),
+  ...blackKey('treble', 'A', 5),
+  ...blackKey('treble', 'C', 6),
+  ...blackKey('treble', 'D', 6),
 ];
 
 export const BASS_CURRICULUM: readonly RecognitionItem[] = [
@@ -249,6 +283,16 @@ export const BASS_CURRICULUM: readonly RecognitionItem[] = [
   /* Down to the third ledger line under the staff: A1. The third above is G4, already here. */
   recognitionItem('bass', pitch('B', 1)),
   recognitionItem('bass', pitch('A', 1)),
+  /* The black keys among the notes outside the staff. */
+  ...blackKey('bass', 'A', 1),
+  ...blackKey('bass', 'C', 2),
+  ...blackKey('bass', 'D', 2),
+  ...blackKey('bass', 'F', 2),
+  ...blackKey('bass', 'G', 2),
+  ...blackKey('bass', 'A', 2),
+  ...blackKey('bass', 'C', 4),
+  ...blackKey('bass', 'D', 4),
+  ...blackKey('bass', 'F', 4),
 ];
 
 export const CURRICULUM: Record<Clef, readonly RecognitionItem[]> = {
