@@ -1,5 +1,22 @@
 # Changelog
 
+## [2.0.0](https://github.com/balakin/nota/compare/v1.2.0...v2.0.0) (2026-09-29)
+
+
+### ⚠ BREAKING CHANGES
+
+* remove the Learning track and the Research page
+
+### Features
+
+* draw notes as random note values, behind an advanced setting ([7940f82](https://github.com/balakin/nota/commit/7940f82743f2ffb1acb281e03e2c8b09a6e91cf0))
+* draw notes as random note values, behind an advanced setting ([688daf7](https://github.com/balakin/nota/commit/688daf7acb4cebed6a1a056450622984a4cbd368))
+* preview the selected note range on the staff ([ab7bcb5](https://github.com/balakin/nota/commit/ab7bcb51fde21008b2dc8b0ee52b51b9072c5745))
+* preview the selected note range on the staff ([75da67f](https://github.com/balakin/nota/commit/75da67f34edeeb486148b28029264615b41cdf20))
+* remove the Learning track and the Research page ([a1c444d](https://github.com/balakin/nota/commit/a1c444dac1d8f64db9dc1f4521af0ee41f0397fb))
+* teach notes out to the third ledger line ([5868ef3](https://github.com/balakin/nota/commit/5868ef3f81102797a94f926bd7e9bb1a39a062e2))
+* teach notes out to the third ledger line ([2b10b6f](https://github.com/balakin/nota/commit/2b10b6fab21f24c247d8ba058869d7fec1ef36c8))
+
 ## [1.2.0](https://github.com/balakin/nota/compare/v1.1.0...v1.2.0) (2026-09-08)
 
 
