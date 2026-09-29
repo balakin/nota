@@ -5,8 +5,7 @@ import { ResultPage } from './result-page';
 import { SessionSetup } from './session-setup';
 import type { PracticeSessionController } from './use-practice-session';
 
-/** Entry point of the Train tab: setup, live session, or the session summary. A Learning
- * session runs on its own page, so this one only shows what Train itself started. */
+/** Entry point of the Train tab: setup, live session, or the session summary. */
 export function PracticePage({
   practice,
   state,
@@ -14,7 +13,7 @@ export function PracticePage({
   practice: PracticeSessionController;
   state: PersistedState;
 }) {
-  if (practice.result?.track === 'train')
+  if (practice.result)
     return (
       <ResultPage
         result={practice.result}
@@ -22,7 +21,7 @@ export function PracticePage({
         onDone={practice.dismissResult}
       />
     );
-  if (practice.session?.track === 'train')
+  if (practice.session)
     return (
       <PracticeSession
         session={practice.session}

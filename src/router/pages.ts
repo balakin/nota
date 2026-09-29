@@ -1,12 +1,6 @@
-export type Page = 'train' | 'learning' | 'progress' | 'settings' | 'research';
+export type Page = 'train' | 'progress' | 'settings';
 
-export const PAGES: readonly Page[] = [
-  'train',
-  'learning',
-  'progress',
-  'settings',
-  'research',
-];
+export const PAGES: readonly Page[] = ['train', 'progress', 'settings'];
 
 export function pageFromHash(hash: string): Page {
   const candidate = hash.replace(/^#/, '') as Page;

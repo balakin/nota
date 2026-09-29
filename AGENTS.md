@@ -4,17 +4,7 @@ Nota is a local-first web app for training instant musical-note recognition. Pro
 single `PersistedState` object, persisted to IndexedDB with a `localStorage` fallback. There is no
 backend.
 
-Two tracks answer the same questions, with different engines.
-
-**Train** is free-form: pick clefs and a range, run a session against a clock.
-
-**Learning** is a ladder of levels in sections, each section walled off by a mixed level. It has no
-session length: one press of Start plans a short **run** from what the level currently needs. A note
-earns at most **one credit per run** and needs several credits to count as learned, so a level takes
-several runs by construction — recalling something once in each of several spaced sessions retains
-far better than recalling it repeatedly in one. That state lives in `state.learning.levels`, keyed by
-level then by note; a Learning answer also writes the global note stats and day rolls, so the
-progress dashboard reports everything practised, but only credits open a level.
+Train is free-form: pick clefs and a range, run a session against a clock.
 
 ## Commands
 
@@ -42,13 +32,12 @@ pnpm i18n:extract   # extract messages into src/locales/*.po
 - `app-shell/` — the root `App`, header, primary nav, offline banner, document `lang`/title/theme
 - `app-state/` — persisted state shape, migrations, and the `useAppState` hook that hydrates and saves it
 - `practice/` — the practice runtime: setup screen, `usePracticeSession`, live session UI, result page
-- `learning/` — the level path: sections and levels, per-note credits, the run planner, landmark hints, and the run runtime. The planner also picks each question's note head: a note drawn only ever as a quarter is one picture, and a picture can be memorised without reading it
 - `training/` — the pure training engine: mastery states, day rollups, question weighting, range selection, normalized answers
 - `music/` — pitches, naming systems, staff geometry, and the recognition curriculum
 - `notation/` — the staff component and its VexFlow renderer
 - `piano/` — the fixed one-octave keyboard layout and the piano component
 - `progress/` — the progress dashboard: a global date range over the day rollups, feeding every panel
-- `onboarding/`, `settings/`, `research/` — the remaining pages
+- `onboarding/`, `settings/` — the remaining pages
 - `router/` — hash routing (`usePage`)
 - `storage/` — IndexedDB persistence
 - `i18n/`, `locales/` — Lingui setup and `.po` catalogs

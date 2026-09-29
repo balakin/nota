@@ -1,6 +1,5 @@
 import {
   LuArrowRight,
-  LuBook,
   LuChartLine,
   LuCheck,
   LuClock,
@@ -20,7 +19,6 @@ const icons = {
   check: LuCheck,
   clock: LuClock,
   lock: LuLock,
-  book: LuBook,
   github: SiGithub,
 };
 
