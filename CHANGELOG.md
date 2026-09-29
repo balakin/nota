@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.1.0](https://github.com/balakin/nota/compare/v2.0.0...v2.1.0) (2026-09-29)
+
+
+### Features
+
+* add range presets and a naturals-only option ([#27](https://github.com/balakin/nota/issues/27)) ([d1908b5](https://github.com/balakin/nota/commit/d1908b5f6c3b194de72c21ff6ff3ba4fdb83022a))
+* let learners save their own range presets ([#29](https://github.com/balakin/nota/issues/29)) ([1a0e737](https://github.com/balakin/nota/commit/1a0e7370b67ebe75e0a28002d09e5f5d59b4179e))
+* move most of the Train setup into advanced settings ([#30](https://github.com/balakin/nota/issues/30)) ([8a7ffae](https://github.com/balakin/nota/commit/8a7ffae70025044082d32684f81864bd95c5bfb7))
+
 ## [2.0.0](https://github.com/balakin/nota/compare/v1.2.0...v2.0.0) (2026-09-29)
 
 
