@@ -49,6 +49,24 @@ export function SessionSetup({
               onChange={practice.setSpeedDeadlineMs}
             />
           ) : null}
+          <div className="setting-row">
+            <span className="setting-label">{t`Session length`}</span>
+            <div className="segmented">
+              {SESSION_DURATIONS.map((minutes) => (
+                <button
+                  type="button"
+                  key={minutes}
+                  className={
+                    practice.durationMinutes === minutes ? 'selected' : ''
+                  }
+                  aria-pressed={practice.durationMinutes === minutes}
+                  onClick={() => practice.setDurationMinutes(minutes)}
+                >
+                  {t`${minutes} min`}
+                </button>
+              ))}
+            </div>
+          </div>
           <TogglePicker
             label={t`Answer with`}
             options={
@@ -73,53 +91,39 @@ export function SessionSetup({
             onSave={practice.saveCustomPreset}
             onDelete={practice.deleteCustomPreset}
           />
-          <TogglePicker
-            label={t`Clefs`}
-            options={
-              [
-                ['both', t`Treble + Bass`],
-                ['treble', t`Treble`],
-                ['bass', t`Bass`],
-              ] as const
-            }
-            value={practice.clefs.length === 2 ? 'both' : practice.clefs[0]}
-            onChange={(value) =>
-              practice.setClefs(value === 'both' ? ['treble', 'bass'] : [value])
-            }
-          />
-          <TrainingRangePicker
-            clefs={practice.clefs}
-            range={practice.range}
-            accidentals={practice.accidentals}
-            naming={naming}
-            locale={locale}
-            onChange={practice.setRange}
-            onAccidentalsChange={practice.setAccidentals}
-          />
-          <div className="setting-row">
-            <span className="setting-label">{t`Session length`}</span>
-            <div className="segmented">
-              {SESSION_DURATIONS.map((minutes) => (
-                <button
-                  type="button"
-                  key={minutes}
-                  className={
-                    practice.durationMinutes === minutes ? 'selected' : ''
-                  }
-                  aria-pressed={practice.durationMinutes === minutes}
-                  onClick={() => practice.setDurationMinutes(minutes)}
-                >
-                  {t`${minutes} min`}
-                </button>
-              ))}
-            </div>
-          </div>
           <details className="advanced-settings">
             <summary>{t`Advanced settings`}</summary>
-            <ShapeSetting
-              enabled={practice.varyNoteShapes}
-              onChange={practice.setVaryNoteShapes}
-            />
+            <div className="advanced-body">
+              <TogglePicker
+                label={t`Clefs`}
+                options={
+                  [
+                    ['both', t`Treble + Bass`],
+                    ['treble', t`Treble`],
+                    ['bass', t`Bass`],
+                  ] as const
+                }
+                value={practice.clefs.length === 2 ? 'both' : practice.clefs[0]}
+                onChange={(value) =>
+                  practice.setClefs(
+                    value === 'both' ? ['treble', 'bass'] : [value],
+                  )
+                }
+              />
+              <TrainingRangePicker
+                clefs={practice.clefs}
+                range={practice.range}
+                accidentals={practice.accidentals}
+                naming={naming}
+                locale={locale}
+                onChange={practice.setRange}
+                onAccidentalsChange={practice.setAccidentals}
+              />
+              <ShapeSetting
+                enabled={practice.varyNoteShapes}
+                onChange={practice.setVaryNoteShapes}
+              />
+            </div>
           </details>
           <button
             className="button button-primary button-large start-button"

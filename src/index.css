@@ -478,9 +478,9 @@ h2 {
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
-.advanced-settings {
+.advanced-body {
   display: grid;
-  gap: 0.9rem;
+  gap: 1.3rem;
 }
 .advanced-settings summary {
   color: var(--muted);
