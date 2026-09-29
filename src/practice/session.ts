@@ -1,4 +1,5 @@
 import type { Clef, RecognitionItem } from '../music/music';
+import type { NoteShape } from '../notation/note-shapes';
 import type { KeyboardWindow } from '../piano/piano-layout';
 import type { NormalizedAnswer } from '../training/input';
 import type {
@@ -42,6 +43,10 @@ export type RuntimeSession = {
   candidates: RecognitionItem[];
   keyboardWindow: KeyboardWindow;
   current: RecognitionItem;
+  /** How the current note is drawn; fixed for the question so a redraw cannot change it. */
+  shape: NoteShape;
+  /** Fixed for the whole session: whether questions get a random note value or always a quarter. */
+  varyNoteShapes: boolean;
   currentStartedAt: number;
   /** Fixed for the whole session: the Speed deadline, or null in Practice, which never clocks a note. */
   deadlineMs: number | null;

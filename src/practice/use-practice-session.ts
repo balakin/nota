@@ -3,6 +3,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import type { SessionSummary } from '../app-state/app-state';
 import type { AttemptRecord } from '../app-state/use-app-state';
 import type { Clef } from '../music/music';
+import { pickNoteShape } from '../notation/note-shapes';
 import { windowForMidi } from '../piano/piano-layout';
 import { midiAnswer, type NormalizedAnswer } from '../training/input';
 import {
@@ -48,6 +49,8 @@ export type PracticeSessionController = {
   durationMinutes: SessionDuration;
   /** Speed mode's per-note deadline; persisted with the settings, not with the session. */
   speedDeadlineMs: number;
+  /** Whether questions are drawn with random note values; persisted with the settings. */
+  varyNoteShapes: boolean;
   midi: MidiController;
   setMode: (mode: PracticeMode) => void;
   setInput: (input: InputMode) => void;
@@ -55,6 +58,7 @@ export type PracticeSessionController = {
   setRange: (range: PitchRange) => void;
   setDurationMinutes: (minutes: SessionDuration) => void;
   setSpeedDeadlineMs: (ms: number) => void;
+  setVaryNoteShapes: (vary: boolean) => void;
   start: () => void;
   answer: (answer: NormalizedAnswer) => void;
   togglePause: () => void;
@@ -70,15 +74,19 @@ export type PracticeSessionController = {
 export function usePracticeSession({
   notes,
   speedDeadlineMs,
+  varyNoteShapes,
   onAttempt,
   onSessionComplete,
   onSpeedDeadlineChange,
+  onVaryNoteShapesChange,
 }: {
   notes: Readonly<Record<string, NoteStats>>;
   speedDeadlineMs: number;
+  varyNoteShapes: boolean;
   onAttempt: (record: AttemptRecord) => void;
   onSessionComplete: (summary: SessionSummary) => void;
   onSpeedDeadlineChange: (ms: number) => void;
+  onVaryNoteShapesChange: (vary: boolean) => void;
 }): PracticeSessionController {
   const [session, setSession] = useState<RuntimeSession | null>(null);
   const [feedback, setFeedback] = useState<Feedback | null>(null);
@@ -190,6 +198,8 @@ export function usePracticeSession({
       candidates,
       keyboardWindow: windowForMidi(first.pitch.midi),
       current: first,
+      shape: pickNoteShape(varyNoteShapes),
+      varyNoteShapes,
       currentStartedAt: now,
       deadlineMs: sessionDeadlineMs(mode, speedDeadlineMs),
       questionNumber: 1,
@@ -201,7 +211,16 @@ export function usePracticeSession({
     });
     setFeedback(null);
     setResult(null);
-  }, [clefs, durationMinutes, input, mode, notes, range, speedDeadlineMs]);
+  }, [
+    clefs,
+    durationMinutes,
+    input,
+    mode,
+    notes,
+    range,
+    speedDeadlineMs,
+    varyNoteShapes,
+  ]);
 
   const advance = useCallback((runtime: RuntimeSession) => {
     const nextQuestion = runtime.questionNumber + 1;
@@ -215,6 +234,7 @@ export function usePracticeSession({
     setSession({
       ...runtime,
       current: next,
+      shape: pickNoteShape(runtime.varyNoteShapes),
       keyboardWindow: windowForMidi(next.pitch.midi),
       deferredQueue: runtime.deferredQueue.filter(
         (entry) => entry.item.id !== next.id,
@@ -385,6 +405,7 @@ export function usePracticeSession({
     range: clampRange(range, clefs),
     durationMinutes,
     speedDeadlineMs,
+    varyNoteShapes,
     midi,
     setMode,
     setInput: chooseInput,
@@ -392,6 +413,7 @@ export function usePracticeSession({
     setRange,
     setDurationMinutes,
     setSpeedDeadlineMs,
+    setVaryNoteShapes: onVaryNoteShapesChange,
     start,
     answer,
     togglePause,

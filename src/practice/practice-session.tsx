@@ -148,6 +148,7 @@ export function PracticeSession({
               clef={session.current.clef}
               locale={settings.locale}
               placementSeed={session.questionNumber}
+              shape={session.shape}
             />
           )}
         </div>

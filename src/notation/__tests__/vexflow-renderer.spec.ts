@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { pitch } from '../../music/music';
+import { NOTE_SHAPES } from '../note-shapes';
 import { renderNotation, renderRange } from '../vexflow-renderer';
 
 describe('notation renderer', () => {
@@ -18,7 +19,7 @@ describe('notation renderer', () => {
    * like a blank stave rather than an error.
    */
   it('draws every note head the app asks for', () => {
-    for (const shape of ['quarter', 'half', 'whole'] as const) {
+    for (const shape of NOTE_SHAPES) {
       const container = document.createElement('div');
       Object.defineProperty(container, 'clientWidth', { value: 540 });
       expect(() =>
@@ -105,5 +106,20 @@ describe('notation renderer', () => {
     const two = draw([pitch('F', 3), pitch('E', 6)]);
     expect(one).toBeGreaterThan(empty);
     expect(two).toBeGreaterThan(one);
+  });
+
+  it('flags eighths and sixteenths, each with its own flag', () => {
+    const draw = (shape: (typeof NOTE_SHAPES)[number]) => {
+      const container = document.createElement('div');
+      Object.defineProperty(container, 'clientWidth', { value: 540 });
+      renderNotation(container, pitch('G', 4), 'treble', 0, shape);
+      return container;
+    };
+    /* The flag is a music-font glyph, drawn as text rather than as a path. */
+    const glyphs = (shape: (typeof NOTE_SHAPES)[number]) =>
+      draw(shape).querySelectorAll('text').length;
+    expect(glyphs('eighth')).toBe(glyphs('quarter') + 1);
+    expect(glyphs('sixteenth')).toBe(glyphs('quarter') + 1);
+    expect(draw('sixteenth').innerHTML).not.toBe(draw('eighth').innerHTML);
   });
 });

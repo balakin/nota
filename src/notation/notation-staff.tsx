@@ -8,8 +8,8 @@ import {
   type CanonicalPitch,
 } from '../music/music';
 
+import type { NoteShape } from './note-shapes';
 import { useContainerWidth } from './use-container-width';
-import type { NoteShape } from './vexflow-renderer';
 
 /**
  * Where along the stave this question's note sits, as a fraction of the room the renderer has.
