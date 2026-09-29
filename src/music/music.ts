@@ -208,6 +208,10 @@ export const TREBLE_CURRICULUM: readonly RecognitionItem[] = [
   recognitionItem('treble', pitch('B', 3)),
   recognitionItem('treble', pitch('A', 3)),
   recognitionItem('treble', pitch('G', 3)),
+  /* Out to the third ledger line either way: E6 above, F3 below. */
+  recognitionItem('treble', pitch('D', 6)),
+  recognitionItem('treble', pitch('E', 6)),
+  recognitionItem('treble', pitch('F', 3)),
 ];
 
 export const BASS_CURRICULUM: readonly RecognitionItem[] = [
@@ -242,6 +246,9 @@ export const BASS_CURRICULUM: readonly RecognitionItem[] = [
   recognitionItem('bass', pitch('G', 4)),
   recognitionItem('bass', pitch('E', 4)),
   recognitionItem('bass', pitch('F', 4)),
+  /* Down to the third ledger line under the staff: A1. The third above is G4, already here. */
+  recognitionItem('bass', pitch('B', 1)),
+  recognitionItem('bass', pitch('A', 1)),
 ];
 
 export const CURRICULUM: Record<Clef, readonly RecognitionItem[]> = {
