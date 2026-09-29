@@ -13,7 +13,6 @@ function mountSettings() {
       <SettingsPage
         settings={DEFAULT_SETTINGS}
         onChange={vi.fn()}
-        navigate={vi.fn()}
         onResetProgress={onResetProgress}
       />
     </I18nProvider>,

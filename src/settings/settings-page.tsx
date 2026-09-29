@@ -2,9 +2,7 @@ import { useLingui } from '@lingui/react/macro';
 import { useState } from 'react';
 
 import type { AppSettings } from '../app-state/app-state';
-import type { Page } from '../router/pages';
 import { ConfirmDialog } from '../ui/confirm-dialog';
-import { Icon } from '../ui/icon';
 import { Toast } from '../ui/toast';
 
 import { SettingSection } from './setting-section';
@@ -12,12 +10,10 @@ import { SettingSection } from './setting-section';
 export function SettingsPage({
   settings,
   onChange,
-  navigate,
   onResetProgress,
 }: {
   settings: AppSettings;
   onChange: (patch: Partial<AppSettings>) => void;
-  navigate: (page: Page) => void;
   onResetProgress: () => void;
 }) {
   const { t } = useLingui();
@@ -112,18 +108,6 @@ export function SettingsPage({
               {t`Dark`}
             </button>
           </div>
-        </SettingSection>
-        <SettingSection title={t`Research behind Nota`}>
-          <p className="setting-hint">
-            {t`Why Nota uses visual retrieval, timing, and spaced review.`}
-          </p>
-          <button
-            className="button button-secondary"
-            type="button"
-            onClick={() => navigate('research')}
-          >
-            {t`Read the research`} <Icon name="arrow" size={16} />
-          </button>
         </SettingSection>
         <SettingSection title={t`Reset progress`}>
           <p className="setting-hint">
