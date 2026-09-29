@@ -1,5 +1,6 @@
 import {
   Accidental,
+  BarNote,
   Formatter,
   Renderer,
   SVGContext,
@@ -8,7 +9,12 @@ import {
   Voice,
 } from 'vexflow';
 
-import { vexFlowKey, type Clef, type CanonicalPitch } from '../music/music';
+import {
+  staffPosition,
+  vexFlowKey,
+  type Clef,
+  type CanonicalPitch,
+} from '../music/music';
 
 import type { NoteShape } from './note-shapes';
 
@@ -141,10 +147,75 @@ export function renderNotation(
   voice.draw(context, stave);
 }
 
+/*
+ * The width a whole note asks for on a preview stave: an accidental sits to the left of its head
+ * and needs the room. Rows are filled until the next note would not fit.
+ */
+const RANGE_NATURAL_WIDTH = 30;
+const RANGE_ACCIDENTAL_WIDTH = 42;
+/** A bar line closes each octave, so a long row reads in bars instead of one run of notes. */
+const RANGE_BAR_WIDTH = 14;
+/** The clef and the space after it, which a row cannot use for notes. */
+const RANGE_CLEF_WIDTH = 72;
+const RANGE_PADDING = 8;
+/** A staff line is ten pixels apart, and a step (line to space) is half of that. */
+const RANGE_STEP = 5;
+
+function rangeWidth(value: CanonicalPitch): number {
+  return value.accidental === 'natural'
+    ? RANGE_NATURAL_WIDTH
+    : RANGE_ACCIDENTAL_WIDTH;
+}
+
+/** The notes of a row with a bar line before each C; a row never starts on one. */
+function withBars(row: readonly CanonicalPitch[]): (CanonicalPitch | 'bar')[] {
+  return row.flatMap((value, index) =>
+    index > 0 && value.name === 'C' && value.accidental === 'natural'
+      ? (['bar', value] as const)
+      : [value],
+  );
+}
+
+function rowWidth(row: readonly CanonicalPitch[]): number {
+  return withBars(row).reduce(
+    (sum, one) => sum + (one === 'bar' ? RANGE_BAR_WIDTH : rangeWidth(one)),
+    0,
+  );
+}
+
 /**
- * A stave with the given pitches side by side as whole notes, low to high: the edges of a range,
- * drawn small so a newcomer can see what the two ends of "C4 – G5" look like. The stave has room
- * for three ledger lines either way, which is as far as the curriculum goes.
+ * Splits the notes into as few rows as fit, then evens the rows out: filling each to the brim
+ * would leave the last with a single note stranded on a stave of its own.
+ */
+function rangeRows(
+  pitches: readonly CanonicalPitch[],
+  capacity: number,
+): CanonicalPitch[][] {
+  const total = rowWidth(pitches);
+  const fill = (limit: number) => {
+    const rows: CanonicalPitch[][] = [];
+    for (const value of pitches) {
+      const last = rows[rows.length - 1];
+      if (!last || rowWidth([...last, value]) > limit) rows.push([value]);
+      else last.push(value);
+    }
+    return rows;
+  };
+  /* Try the fewest rows first; a note that does not divide evenly can push the last row over,
+   * and then one more row is needed. */
+  for (let count = Math.max(1, Math.ceil(total / capacity)); ; count += 1) {
+    const rows = fill(
+      Math.min(capacity, total / count + RANGE_ACCIDENTAL_WIDTH / 2),
+    );
+    if (rows.length <= count || count >= pitches.length) return rows;
+  }
+}
+
+/**
+ * Every pitch of a range, low to high, as whole notes laid out left to right and wrapped onto
+ * further staves when they run out of width — so a newcomer sees each note the range will ask,
+ * sharps and flats included, rather than only its two ends. Each row reserves room for exactly
+ * the ledger lines its own notes need, so a row of middle notes stays short.
  */
 export function renderRange(
   container: HTMLDivElement,
@@ -153,7 +224,23 @@ export function renderRange(
 ): void {
   container.replaceChildren();
   const width = Math.max(240, container.clientWidth || 360);
-  const height = 150;
+  const staveWidth = width - RANGE_PADDING * 2;
+  const rows = rangeRows(pitches, staveWidth - RANGE_CLEF_WIDTH - 8);
+  if (rows.length === 0) rows.push([]);
+
+  /* The top line of a stave sits at position 8; the bottom at 0. */
+  const extents = rows.map((row) => {
+    const positions = row.map((value) => staffPosition(value, clef));
+    const above = Math.max(0, ...positions.map((position) => position - 8));
+    const below = Math.max(0, ...positions.map((position) => -position));
+    return {
+      above: 1.5 + (above * RANGE_STEP) / 10,
+      below: 1.5 + (below * RANGE_STEP) / 10,
+    };
+  });
+  const heights = extents.map(({ above, below }) => (above + 4 + below) * 10);
+  const height = heights.reduce((sum, one) => sum + one, 0) + RANGE_PADDING * 2;
+
   const renderer = new Renderer(container, Renderer.Backends.SVG);
   renderer.resize(width, height);
   const context = renderer.getContext();
@@ -161,23 +248,36 @@ export function renderRange(
     context.svg.setAttribute('fill', INK);
     context.svg.setAttribute('stroke', INK);
   }
-  const stave = new Stave(8, 12, width - 16);
-  stave.addClef(clef);
-  stave.setStyle({ fillStyle: INK, strokeStyle: INK });
-  stave.setContext(context).draw();
-  if (pitches.length === 0) return;
 
-  const notes = pitches.map((value) => {
-    const note = buildNote(value, clef, 'w');
-    note.setStave(stave);
-    return note;
+  let top = RANGE_PADDING;
+  rows.forEach((row, index) => {
+    const { above, below } = extents[index];
+    const stave = new Stave(RANGE_PADDING, top, staveWidth, {
+      spaceAboveStaffLn: above,
+      spaceBelowStaffLn: below,
+    });
+    stave.addClef(clef);
+    stave.setStyle({ fillStyle: INK, strokeStyle: INK });
+    stave.setContext(context).draw();
+    top += heights[index];
+    if (row.length === 0) return;
+
+    const notes = withBars(row).map((one) => {
+      const note =
+        one === 'bar'
+          ? new BarNote().setStyle({ fillStyle: INK, strokeStyle: INK })
+          : buildNote(one, clef, 'w');
+      note.setStave(stave);
+      return note;
+    });
+    const voice = new Voice({ numBeats: 4 * row.length, beatValue: 4 })
+      .setStrict(false)
+      .addTickables(notes);
+    voice.setStave(stave);
+    const needed = rowWidth(row);
+    new Formatter()
+      .joinVoices([voice])
+      .format([voice], Math.min(needed, staveWidth - RANGE_CLEF_WIDTH - 8));
+    voice.draw(context, stave);
   });
-  const voice = new Voice({ numBeats: 4 * notes.length, beatValue: 4 })
-    .setStrict(false)
-    .addTickables(notes);
-  voice.setStave(stave);
-  new Formatter()
-    .joinVoices([voice])
-    .format([voice], Math.max(80, width - 110));
-  voice.draw(context, stave);
 }

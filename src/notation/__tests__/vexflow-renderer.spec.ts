@@ -94,7 +94,7 @@ describe('notation renderer', () => {
     );
   });
 
-  it('draws both edges of a range on one stave, and just the stave when empty', () => {
+  it('draws every pitch of a range, and just the stave when empty', () => {
     const draw = (pitches: Parameters<typeof renderRange>[2]) => {
       const container = document.createElement('div');
       Object.defineProperty(container, 'clientWidth', { value: 360 });
@@ -108,18 +108,24 @@ describe('notation renderer', () => {
     expect(two).toBeGreaterThan(one);
   });
 
-  it('flags eighths and sixteenths, each with its own flag', () => {
-    const draw = (shape: (typeof NOTE_SHAPES)[number]) => {
+  it('wraps a long range onto more staves instead of squeezing it', () => {
+    const height = (count: number) => {
       const container = document.createElement('div');
-      Object.defineProperty(container, 'clientWidth', { value: 540 });
-      renderNotation(container, pitch('G', 4), 'treble', 0, shape);
-      return container;
+      Object.defineProperty(container, 'clientWidth', { value: 360 });
+      const pitches = Array.from({ length: count }, () => pitch('C', 5));
+      renderRange(container, 'treble', pitches);
+      return Number(container.querySelector('svg')?.getAttribute('height'));
     };
-    /* The flag is a music-font glyph, drawn as text rather than as a path. */
-    const glyphs = (shape: (typeof NOTE_SHAPES)[number]) =>
-      draw(shape).querySelectorAll('text').length;
-    expect(glyphs('eighth')).toBe(glyphs('quarter') + 1);
-    expect(glyphs('sixteenth')).toBe(glyphs('quarter') + 1);
-    expect(draw('sixteenth').innerHTML).not.toBe(draw('eighth').innerHTML);
+    expect(height(30)).toBeGreaterThan(height(3));
+  });
+
+  it('keeps a row of middle notes shorter than a row that needs ledger lines', () => {
+    const height = (value: ReturnType<typeof pitch>) => {
+      const container = document.createElement('div');
+      Object.defineProperty(container, 'clientWidth', { value: 360 });
+      renderRange(container, 'treble', [value]);
+      return Number(container.querySelector('svg')?.getAttribute('height'));
+    };
+    expect(height(pitch('C', 5))).toBeLessThan(height(pitch('E', 6)));
   });
 });

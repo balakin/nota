@@ -10,7 +10,7 @@ import {
 
 import { useContainerWidth } from './use-container-width';
 
-/** One clef's stave with the lowest and highest note of the chosen range drawn on it. */
+/** One clef's notes of the chosen range, low to high, drawn on as many staves as they need. */
 export function RangeStaff({
   clef,
   pitches,
@@ -41,15 +41,19 @@ export function RangeStaff({
     };
   }, [ref, clef, pitches, width]);
 
-  const notes = pitches
-    .map((value) => accessiblePitchLabel(value, 'solfege', locale))
-    .join(', ');
+  const low = accessiblePitchLabel(pitches[0], 'solfege', locale);
+  const high = accessiblePitchLabel(
+    pitches[pitches.length - 1],
+    'solfege',
+    locale,
+  );
+  const count = pitches.length;
   return (
     <div
       ref={ref}
       className="range-staff"
       role="img"
-      aria-label={t`Range on the ${clef === 'treble' ? t`Treble` : t`Bass`} staff: ${notes}`}
+      aria-label={t`Range on the ${clef === 'treble' ? t`Treble` : t`Bass`} staff: ${low} to ${high}, ${count} notes`}
     />
   );
 }

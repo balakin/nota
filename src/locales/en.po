@@ -27,7 +27,7 @@ msgstr "{0}d"
 msgid "{count} notes"
 msgstr "{count} notes"
 
-#: src/practice/session-setup.tsx:112
+#: src/practice/session-setup.tsx:65
 msgid "{minutes} min"
 msgstr "{minutes} min"
 
@@ -75,7 +75,7 @@ msgstr "Accuracy"
 msgid "Accuracy and speed"
 msgstr "Accuracy and speed"
 
-#: src/practice/session-setup.tsx:118
+#: src/practice/session-setup.tsx:95
 msgid "Advanced settings"
 msgstr "Advanced settings"
 
@@ -88,7 +88,7 @@ msgstr "All"
 msgid "All notes"
 msgstr "All notes"
 
-#: src/practice/session-setup.tsx:53
+#: src/practice/session-setup.tsx:71
 msgid "Answer with"
 msgstr "Answer with"
 
@@ -109,9 +109,9 @@ msgid "barely seen"
 msgstr "barely seen"
 
 #: src/notation/notation-staff.tsx:80
-#: src/notation/range-staff.tsx:52
+#: src/notation/range-staff.tsx:56
 #: src/practice/preset-picker.tsx:53
-#: src/practice/session-setup.tsx:82
+#: src/practice/session-setup.tsx:103
 #: src/progress/note-map.tsx:90
 msgid "Bass"
 msgstr "Bass"
@@ -150,7 +150,7 @@ msgstr "Choose note naming system"
 msgid "Clears every practice session, note statistic and daily record on this device. Your settings stay as they are."
 msgstr "Clears every practice session, note statistic and daily record on this device. Your settings stay as they are."
 
-#: src/practice/session-setup.tsx:77
+#: src/practice/session-setup.tsx:98
 msgid "Clefs"
 msgstr "Clefs"
 
@@ -311,7 +311,7 @@ msgstr "Median response"
 msgid "Median time per note"
 msgstr "Median time per note"
 
-#: src/practice/session-setup.tsx:58
+#: src/practice/session-setup.tsx:76
 msgid "MIDI keyboard"
 msgstr "MIDI keyboard"
 
@@ -331,10 +331,6 @@ msgstr "My presets"
 #: src/practice/preset-picker.tsx:157
 msgid "Name"
 msgstr "Name"
-
-#: src/training/presets.ts:119
-msgid "Naturals"
-msgstr "Naturals"
 
 #: src/progress/note-map.tsx:98
 msgid "New"
@@ -390,7 +386,7 @@ msgid "Nota"
 msgstr "Nota"
 
 #: src/onboarding/onboarding-page.tsx:55
-#: src/practice/session-setup.tsx:140
+#: src/practice/session-setup.tsx:144
 #: src/settings/settings-page.tsx:125
 msgid "Nota is a small, local-first tool. Your progress stays on this device."
 msgstr "Nota is a small, local-first tool. Your progress stays on this device."
@@ -408,7 +404,7 @@ msgid "Note mastery map"
 msgstr "Note mastery map"
 
 #: src/practice/note-name-pad.tsx:25
-#: src/practice/session-setup.tsx:57
+#: src/practice/session-setup.tsx:75
 msgid "Note names"
 msgstr "Note names"
 
@@ -479,7 +475,7 @@ msgid "per note"
 msgstr "per note"
 
 #: src/piano/piano.tsx:32
-#: src/practice/session-setup.tsx:56
+#: src/practice/session-setup.tsx:74
 msgid "Piano"
 msgstr "Piano"
 
@@ -529,9 +525,9 @@ msgid "Range"
 msgstr "Range"
 
 #. placeholder {0}: clef === 'treble' ? t`Treble` : t`Bass`
-#: src/notation/range-staff.tsx:52
-msgid "Range on the {0} staff: {notes}"
-msgstr "Range on the {0} staff: {notes}"
+#: src/notation/range-staff.tsx:56
+msgid "Range on the {0} staff: {low} to {high}, {count} notes"
+msgstr "Range on the {0} staff: {low} to {high}, {count} notes"
 
 #: src/progress/progress-page.tsx:146
 msgid "Ranked the way training picks its next question, so this is what a session will drill."
@@ -588,7 +584,7 @@ msgstr "Second octave"
 msgid "Session complete"
 msgstr "Session complete"
 
-#: src/practice/session-setup.tsx:100
+#: src/practice/session-setup.tsx:53
 msgid "Session length"
 msgstr "Session length"
 
@@ -625,7 +621,7 @@ msgstr "Speed mode ends a note when this runs out. Two seconds is the default."
 msgid "Staff, {0}, {1}"
 msgstr "Staff, {0}, {1}"
 
-#: src/practice/session-setup.tsx:129
+#: src/practice/session-setup.tsx:133
 msgid "Start"
 msgstr "Start"
 
@@ -683,15 +679,15 @@ msgid "Training mode"
 msgstr "Training mode"
 
 #: src/notation/notation-staff.tsx:80
-#: src/notation/range-staff.tsx:52
+#: src/notation/range-staff.tsx:56
 #: src/practice/preset-picker.tsx:51
-#: src/practice/session-setup.tsx:81
+#: src/practice/session-setup.tsx:102
 #: src/progress/note-map.tsx:90
 msgid "Treble"
 msgstr "Treble"
 
 #: src/practice/preset-picker.tsx:54
-#: src/practice/session-setup.tsx:80
+#: src/practice/session-setup.tsx:101
 msgid "Treble + Bass"
 msgstr "Treble + Bass"
 
@@ -706,6 +702,10 @@ msgstr "vs previous"
 #: src/practice/shape-setting.tsx:28
 msgid "What is this?"
 msgstr "What is this?"
+
+#: src/training/presets.ts:119
+msgid "White keys only"
+msgstr "White keys only"
 
 #: src/practice/result-page.tsx:76
 msgid "Worth another look"

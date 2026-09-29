@@ -116,7 +116,7 @@ export const RANGE_PRESETS: readonly RangePreset[] = [
   {
     id: 'both-naturals',
     group: 'both',
-    title: msg`Naturals`,
+    title: msg`White keys only`,
     clefs: ['treble', 'bass'],
     range: span(['C', 2], ['B', 5]),
     accidentals: false,

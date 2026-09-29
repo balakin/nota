@@ -6,7 +6,7 @@ import { RangeStaff } from '../notation/range-staff';
 import { selectedItems, type PitchRange } from '../training/selection';
 
 /**
- * The edges of the chosen range on the staff, one stave per clef in play. A clef the range does
+ * Every note of the chosen range on the staff, one stave per clef in play. A clef the range does
  * not reach is left out rather than drawn empty.
  */
 export function RangePreview({
@@ -26,12 +26,7 @@ export function RangePreview({
       .filter((clef) => clefs.includes(clef))
       .map((clef) => {
         const own = items.filter((item) => item.clef === clef);
-        const low = own[0]?.pitch;
-        const high = own[own.length - 1]?.pitch;
-        return {
-          clef,
-          pitches: !low || !high ? [] : low === high ? [low] : [low, high],
-        };
+        return { clef, pitches: own.map((item) => item.pitch) };
       })
       .filter(({ pitches }) => pitches.length > 0);
   }, [accidentals, clefs, range]);
