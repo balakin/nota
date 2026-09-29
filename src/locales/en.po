@@ -23,11 +23,11 @@ msgstr "{0, plural, one {# note} other {# notes}}"
 msgid "{0}d"
 msgstr "{0}d"
 
-#: src/practice/preset-picker.tsx:78
+#: src/practice/preset-picker.tsx:104
 msgid "{count} notes"
 msgstr "{count} notes"
 
-#: src/practice/session-setup.tsx:109
+#: src/practice/session-setup.tsx:112
 msgid "{minutes} min"
 msgstr "{minutes} min"
 
@@ -75,7 +75,7 @@ msgstr "Accuracy"
 msgid "Accuracy and speed"
 msgstr "Accuracy and speed"
 
-#: src/practice/session-setup.tsx:115
+#: src/practice/session-setup.tsx:118
 msgid "Advanced settings"
 msgstr "Advanced settings"
 
@@ -84,7 +84,7 @@ msgstr "Advanced settings"
 msgid "All"
 msgstr "All"
 
-#: src/training/presets.ts:110
+#: src/training/presets.ts:127
 msgid "All notes"
 msgstr "All notes"
 
@@ -110,14 +110,14 @@ msgstr "barely seen"
 
 #: src/notation/notation-staff.tsx:80
 #: src/notation/range-staff.tsx:52
-#: src/practice/preset-picker.tsx:41
-#: src/practice/session-setup.tsx:79
+#: src/practice/preset-picker.tsx:53
+#: src/practice/session-setup.tsx:82
 #: src/progress/note-map.tsx:90
 msgid "Bass"
 msgstr "Bass"
 
-#: src/training/presets.ts:62
-#: src/training/presets.ts:94
+#: src/training/presets.ts:79
+#: src/training/presets.ts:111
 msgid "Both octaves + ♯♭"
 msgstr "Both octaves + ♯♭"
 
@@ -129,6 +129,7 @@ msgstr "Build a direct connection between the note on the staff and its place on
 msgid "C · D · E · F · G · A · B"
 msgstr "C · D · E · F · G · A · B"
 
+#: src/practice/preset-picker.tsx:177
 #: src/settings/settings-page.tsx:133
 msgid "Cancel"
 msgstr "Cancel"
@@ -149,7 +150,7 @@ msgstr "Choose note naming system"
 msgid "Clears every practice session, note statistic and daily record on this device. Your settings stay as they are."
 msgstr "Clears every practice session, note statistic and daily record on this device. Your settings stay as they are."
 
-#: src/practice/session-setup.tsx:74
+#: src/practice/session-setup.tsx:77
 msgid "Clefs"
 msgstr "Clefs"
 
@@ -177,6 +178,11 @@ msgstr "Correct answer"
 msgid "Dark"
 msgstr "Dark"
 
+#. placeholder {0}: preset.name
+#: src/practice/preset-picker.tsx:138
+msgid "Delete preset {0}"
+msgstr "Delete preset {0}"
+
 #: src/practice/shape-setting.tsx:23
 msgid "Different note shapes"
 msgstr "Different note shapes"
@@ -194,7 +200,7 @@ msgstr "Don’t count. Recognize."
 msgid "Each note is drawn as a whole, half, quarter, eighth or sixteenth note at random. How long a note lasts never changes which note it is. Mixing the shapes stops you from memorising one picture instead of reading the staff. Turn it off to always see quarter notes."
 msgstr "Each note is drawn as a whole, half, quarter, eighth or sixteenth note at random. How long a note lasts never changes which note it is. Mixing the shapes stops you from memorising one picture instead of reading the staff. Turn it off to always see quarter notes."
 
-#: src/practice/preset-picker.tsx:90
+#: src/practice/preset-picker.tsx:204
 msgid "Each row goes from easiest to hardest. Start anywhere."
 msgstr "Each row goes from easiest to hardest. Start anywhere."
 
@@ -214,13 +220,13 @@ msgstr "Every note of the curriculum, in pitch order. Colour is your standing on
 msgid "Finish session"
 msgstr "Finish session"
 
-#: src/training/presets.ts:38
-#: src/training/presets.ts:70
+#: src/training/presets.ts:55
+#: src/training/presets.ts:87
 msgid "First octave"
 msgstr "First octave"
 
-#: src/training/presets.ts:46
-#: src/training/presets.ts:78
+#: src/training/presets.ts:63
+#: src/training/presets.ts:95
 msgid "First octave + ♯♭"
 msgstr "First octave + ♯♭"
 
@@ -277,7 +283,7 @@ msgstr "level with previous"
 msgid "Light"
 msgstr "Light"
 
-#: src/app-shell/app.tsx:48
+#: src/app-shell/app.tsx:50
 msgid "Loading Nota"
 msgstr "Loading Nota"
 
@@ -317,7 +323,16 @@ msgstr "min"
 msgid "Miss"
 msgstr "Miss"
 
-#: src/training/presets.ts:102
+#: src/practice/preset-picker.tsx:115
+#: src/practice/preset-picker.tsx:117
+msgid "My presets"
+msgstr "My presets"
+
+#: src/practice/preset-picker.tsx:157
+msgid "Name"
+msgstr "Name"
+
+#: src/training/presets.ts:119
 msgid "Naturals"
 msgstr "Naturals"
 
@@ -375,7 +390,7 @@ msgid "Nota"
 msgstr "Nota"
 
 #: src/onboarding/onboarding-page.tsx:55
-#: src/practice/session-setup.tsx:137
+#: src/practice/session-setup.tsx:140
 #: src/settings/settings-page.tsx:125
 msgid "Nota is a small, local-first tool. Your progress stays on this device."
 msgstr "Nota is a small, local-first tool. Your progress stays on this device."
@@ -486,7 +501,11 @@ msgstr "Practice mode"
 msgid "Practice time"
 msgstr "Practice time"
 
-#: src/practice/preset-picker.tsx:46
+#: src/practice/preset-picker.tsx:158
+msgid "Preset name"
+msgstr "Preset name"
+
+#: src/practice/preset-picker.tsx:72
 msgid "Presets"
 msgstr "Presets"
 
@@ -552,8 +571,16 @@ msgstr "Resume"
 msgid "running out of time"
 msgstr "running out of time"
 
-#: src/training/presets.ts:54
-#: src/training/presets.ts:86
+#: src/practice/preset-picker.tsx:170
+msgid "Save"
+msgstr "Save"
+
+#: src/practice/preset-picker.tsx:198
+msgid "Save current setup"
+msgstr "Save current setup"
+
+#: src/training/presets.ts:71
+#: src/training/presets.ts:103
 msgid "Second octave"
 msgstr "Second octave"
 
@@ -561,7 +588,7 @@ msgstr "Second octave"
 msgid "Session complete"
 msgstr "Session complete"
 
-#: src/practice/session-setup.tsx:97
+#: src/practice/session-setup.tsx:100
 msgid "Session length"
 msgstr "Session length"
 
@@ -598,7 +625,7 @@ msgstr "Speed mode ends a note when this runs out. Two seconds is the default."
 msgid "Staff, {0}, {1}"
 msgstr "Staff, {0}, {1}"
 
-#: src/practice/session-setup.tsx:126
+#: src/practice/session-setup.tsx:129
 msgid "Start"
 msgstr "Start"
 
@@ -621,6 +648,10 @@ msgstr "This changes labels, never your progress."
 #: src/settings/settings-page.tsx:131
 msgid "This erases your sessions, note statistics and history on this device. It cannot be undone."
 msgstr "This erases your sessions, note statistics and history on this device. It cannot be undone."
+
+#: src/practice/preset-picker.tsx:186
+msgid "This setup is already saved."
+msgstr "This setup is already saved."
 
 #: src/practice/feedback-banner.tsx:25
 #: src/practice/practice-session.tsx:142
@@ -653,14 +684,14 @@ msgstr "Training mode"
 
 #: src/notation/notation-staff.tsx:80
 #: src/notation/range-staff.tsx:52
-#: src/practice/preset-picker.tsx:39
-#: src/practice/session-setup.tsx:78
+#: src/practice/preset-picker.tsx:51
+#: src/practice/session-setup.tsx:81
 #: src/progress/note-map.tsx:90
 msgid "Treble"
 msgstr "Treble"
 
-#: src/practice/preset-picker.tsx:42
-#: src/practice/session-setup.tsx:77
+#: src/practice/preset-picker.tsx:54
+#: src/practice/session-setup.tsx:80
 msgid "Treble + Bass"
 msgstr "Treble + Bass"
 

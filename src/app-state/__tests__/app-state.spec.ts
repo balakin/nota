@@ -23,3 +23,26 @@ describe('local state schema', () => {
     expect(state).not.toHaveProperty('learning');
   });
 });
+
+describe('saved presets in settings', () => {
+  it('starts with none and keeps the ones stored', () => {
+    expect(createInitialState().settings.customPresets).toEqual([]);
+    const state = migrateState({
+      settings: {
+        customPresets: [
+          {
+            id: 'custom-1',
+            name: 'Mine',
+            clefs: ['bass'],
+            range: { from: 48, to: 59 },
+            accidentals: true,
+          },
+          { id: 'broken' },
+        ],
+      },
+    });
+    expect(state.settings.customPresets.map((preset) => preset.name)).toEqual([
+      'Mine',
+    ]);
+  });
+});

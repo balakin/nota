@@ -31,12 +31,14 @@ export default function App() {
     notes: state.notes,
     speedDeadlineMs: state.settings.speedDeadlineMs,
     varyNoteShapes: state.settings.varyNoteShapes,
+    customPresets: state.settings.customPresets,
     onAttempt: recordAttempt,
     onSessionComplete: appendSession,
     onSpeedDeadlineChange: (speedDeadlineMs) =>
       updateSettings({ speedDeadlineMs }),
     onVaryNoteShapesChange: (varyNoteShapes) =>
       updateSettings({ varyNoteShapes }),
+    onCustomPresetsChange: (customPresets) => updateSettings({ customPresets }),
   });
 
   useDocumentChrome(state.settings);

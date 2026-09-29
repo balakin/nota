@@ -1,6 +1,10 @@
 import { describe, expect, it } from 'vitest';
 
-import { RANGE_PRESETS } from '../presets';
+import {
+  MAX_CUSTOM_PRESETS,
+  RANGE_PRESETS,
+  readCustomPresets,
+} from '../presets';
 import {
   clampRange,
   matchesPreset,
@@ -63,5 +67,42 @@ describe('naturals only', () => {
     expect(
       matchesPreset(preset, ['bass'], preset.range, preset.accidentals),
     ).toBe(false);
+  });
+});
+
+describe('saved presets', () => {
+  const good = {
+    id: 'custom-1',
+    name: '  Warm-up  ',
+    clefs: ['treble'],
+    range: { from: 60, to: 71 },
+    accidentals: false,
+  };
+
+  it('reads a well-formed preset back, trimming the name', () => {
+    expect(readCustomPresets([good])).toEqual([{ ...good, name: 'Warm-up' }]);
+  });
+
+  it('drops anything that is not a usable preset instead of repairing it', () => {
+    expect(readCustomPresets('nope')).toEqual([]);
+    expect(
+      readCustomPresets([
+        null,
+        { ...good, id: 7 },
+        { ...good, name: '   ' },
+        { ...good, clefs: ['flute'] },
+        { ...good, range: { from: 71, to: 60 } },
+        { ...good, range: { from: 0, to: 200 } },
+        good,
+      ]),
+    ).toHaveLength(1);
+  });
+
+  it('keeps at most the allowed number', () => {
+    const many = Array.from({ length: MAX_CUSTOM_PRESETS + 5 }, (_, index) => ({
+      ...good,
+      id: `custom-${String(index)}`,
+    }));
+    expect(readCustomPresets(many)).toHaveLength(MAX_CUSTOM_PRESETS);
   });
 });

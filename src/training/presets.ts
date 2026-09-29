@@ -3,7 +3,24 @@ import { msg } from '@lingui/core/macro';
 
 import { pitch, type Clef } from '../music/music';
 
-import type { PitchRange } from './selection';
+import { rangeBounds, type PitchRange } from './selection';
+
+/** What applying a preset sets, whether it ships with the app or was saved by the learner. */
+export type PresetValues = {
+  clefs: readonly Clef[];
+  range: PitchRange;
+  accidentals: boolean;
+};
+
+/** A setup the learner saved under their own name. */
+export type CustomPreset = PresetValues & {
+  id: string;
+  name: string;
+  clefs: Clef[];
+};
+
+export const MAX_CUSTOM_PRESETS = 12;
+export const MAX_PRESET_NAME_LENGTH = 32;
 
 /** A ready-made choice of clefs, range and accidentals, for someone who does not know where to start. */
 export type PresetGroup = 'treble' | 'bass' | 'both';
@@ -113,3 +130,44 @@ export const RANGE_PRESETS: readonly RangePreset[] = [
     accidentals: true,
   },
 ];
+
+/**
+ * Saved presets come back from storage, so nothing about them is trusted: a preset that does not
+ * read as a name, at least one known clef, and a range inside what those clefs offer is dropped
+ * rather than repaired.
+ */
+export function readCustomPresets(value: unknown): CustomPreset[] {
+  if (!Array.isArray(value)) return [];
+  const presets: CustomPreset[] = [];
+  for (const stored of value as Partial<CustomPreset>[]) {
+    if (!stored || typeof stored !== 'object') continue;
+    const clefs = (['treble', 'bass'] as const).filter(
+      (clef) => Array.isArray(stored.clefs) && stored.clefs.includes(clef),
+    );
+    const range = stored.range;
+    const name =
+      typeof stored.name === 'string'
+        ? stored.name.trim().slice(0, MAX_PRESET_NAME_LENGTH)
+        : '';
+    if (
+      typeof stored.id !== 'string' ||
+      !name ||
+      clefs.length === 0 ||
+      !range ||
+      !Number.isFinite(range.from) ||
+      !Number.isFinite(range.to) ||
+      range.from > range.to
+    )
+      continue;
+    const bounds = rangeBounds(clefs);
+    if (range.from < bounds.from || range.to > bounds.to) continue;
+    presets.push({
+      id: stored.id,
+      name,
+      clefs,
+      range: { from: range.from, to: range.to },
+      accidentals: stored.accidentals !== false,
+    });
+  }
+  return presets.slice(0, MAX_CUSTOM_PRESETS);
+}

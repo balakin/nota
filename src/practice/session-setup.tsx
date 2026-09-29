@@ -68,7 +68,10 @@ export function SessionSetup({
             clefs={practice.clefs}
             range={practice.range}
             accidentals={practice.accidentals}
+            customPresets={practice.customPresets}
             onPick={practice.applyPreset}
+            onSave={practice.saveCustomPreset}
+            onDelete={practice.deleteCustomPreset}
           />
           <TogglePicker
             label={t`Clefs`}

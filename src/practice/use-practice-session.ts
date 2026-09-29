@@ -6,7 +6,12 @@ import type { Clef } from '../music/music';
 import { pickNoteShape } from '../notation/note-shapes';
 import { windowForMidi } from '../piano/piano-layout';
 import { midiAnswer, type NormalizedAnswer } from '../training/input';
-import type { RangePreset } from '../training/presets';
+import {
+  MAX_CUSTOM_PRESETS,
+  MAX_PRESET_NAME_LENGTH,
+  type CustomPreset,
+  type PresetValues,
+} from '../training/presets';
 import {
   clampRange,
   rangeBounds,
@@ -60,7 +65,11 @@ export type PracticeSessionController = {
   setClefs: (clefs: Clef[]) => void;
   setRange: (range: PitchRange) => void;
   setAccidentals: (accidentals: boolean) => void;
-  applyPreset: (preset: RangePreset) => void;
+  applyPreset: (preset: PresetValues) => void;
+  customPresets: CustomPreset[];
+  /** Saves the clefs, range and accidentals as they are now under a name. */
+  saveCustomPreset: (name: string) => void;
+  deleteCustomPreset: (id: string) => void;
   setDurationMinutes: (minutes: SessionDuration) => void;
   setSpeedDeadlineMs: (ms: number) => void;
   setVaryNoteShapes: (vary: boolean) => void;
@@ -80,18 +89,22 @@ export function usePracticeSession({
   notes,
   speedDeadlineMs,
   varyNoteShapes,
+  customPresets,
   onAttempt,
   onSessionComplete,
   onSpeedDeadlineChange,
   onVaryNoteShapesChange,
+  onCustomPresetsChange,
 }: {
   notes: Readonly<Record<string, NoteStats>>;
   speedDeadlineMs: number;
   varyNoteShapes: boolean;
+  customPresets: CustomPreset[];
   onAttempt: (record: AttemptRecord) => void;
   onSessionComplete: (summary: SessionSummary) => void;
   onSpeedDeadlineChange: (ms: number) => void;
   onVaryNoteShapesChange: (vary: boolean) => void;
+  onCustomPresetsChange: (presets: CustomPreset[]) => void;
 }): PracticeSessionController {
   const [session, setSession] = useState<RuntimeSession | null>(null);
   const [feedback, setFeedback] = useState<Feedback | null>(null);
@@ -404,11 +417,33 @@ export function usePracticeSession({
     (ms: number) => onSpeedDeadlineChange(clampSpeedDeadlineMs(ms)),
     [onSpeedDeadlineChange],
   );
-  const applyPreset = useCallback((preset: RangePreset) => {
+  const applyPreset = useCallback((preset: PresetValues) => {
     setClefs([...preset.clefs]);
     setRange(preset.range);
     setAccidentals(preset.accidentals);
   }, []);
+  const saveCustomPreset = useCallback(
+    (name: string) => {
+      const trimmed = name.trim().slice(0, MAX_PRESET_NAME_LENGTH);
+      if (!trimmed || customPresets.length >= MAX_CUSTOM_PRESETS) return;
+      onCustomPresetsChange([
+        ...customPresets,
+        {
+          id: `custom-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
+          name: trimmed,
+          clefs: [...clefs],
+          range: clampRange(range, clefs),
+          accidentals,
+        },
+      ]);
+    },
+    [accidentals, clefs, customPresets, onCustomPresetsChange, range],
+  );
+  const deleteCustomPreset = useCallback(
+    (id: string) =>
+      onCustomPresetsChange(customPresets.filter((one) => one.id !== id)),
+    [customPresets, onCustomPresetsChange],
+  );
   const dismissResult = useCallback(() => setResult(null), []);
 
   return {
@@ -430,6 +465,9 @@ export function usePracticeSession({
     setRange,
     setAccidentals,
     applyPreset,
+    customPresets,
+    saveCustomPreset,
+    deleteCustomPreset,
     setDurationMinutes,
     setSpeedDeadlineMs,
     setVaryNoteShapes: onVaryNoteShapesChange,
