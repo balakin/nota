@@ -1,4 +1,5 @@
 import { lingui } from '@lingui/vite-plugin';
+import babel from '@rolldown/plugin-babel';
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
@@ -7,7 +8,8 @@ export default defineConfig(({ mode }) => ({
   plugins: [
     // The macro plugin expands `t`...`` / `<Trans>` into plain i18n calls, so it
     // has to run on every file Babel sees — dev, build and tests alike.
-    react({ babel: { plugins: ['@lingui/babel-plugin-lingui-macro'] } }),
+    react(),
+    babel({ plugins: ['@lingui/babel-plugin-lingui-macro'] }),
     // Compiles src/locales/*.po on the fly; `lingui compile` is not needed.
     lingui({ failOnMissing: mode === 'production', failOnCompileError: true }),
     VitePWA({
