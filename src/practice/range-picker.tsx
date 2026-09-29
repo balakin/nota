@@ -24,20 +24,24 @@ function pitchStops(clefs: readonly Clef[]) {
 export function TrainingRangePicker({
   clefs,
   range,
+  accidentals,
   naming,
   locale,
   onChange,
+  onAccidentalsChange,
 }: {
   clefs: Clef[];
   range: PitchRange;
+  accidentals: boolean;
   naming: NamingSystem;
   locale: Locale;
   onChange: (range: PitchRange) => void;
+  onAccidentalsChange: (accidentals: boolean) => void;
 }) {
   const { t } = useLingui();
   const stops = pitchStops(clefs);
   const bounds = rangeBounds(clefs);
-  const count = selectedItems(clefs, range).length;
+  const count = selectedItems(clefs, range, accidentals).length;
   const name = (midi: number) => {
     const stop = stops.find((one) => one.pitch.midi === midi);
     return stop
@@ -92,7 +96,20 @@ export function TrainingRangePicker({
           {t`All`}
         </button>
       </div>
-      <RangePreview clefs={clefs} range={range} locale={locale} />
+      <label className="switch">
+        <input
+          type="checkbox"
+          checked={accidentals}
+          onChange={(event) => onAccidentalsChange(event.target.checked)}
+        />
+        <span>{t`Sharps and flats`}</span>
+      </label>
+      <RangePreview
+        clefs={clefs}
+        range={range}
+        accidentals={accidentals}
+        locale={locale}
+      />
       <small className="range-count">
         {count} {t`notes selected`}
       </small>

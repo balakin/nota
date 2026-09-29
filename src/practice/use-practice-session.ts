@@ -6,6 +6,7 @@ import type { Clef } from '../music/music';
 import { pickNoteShape } from '../notation/note-shapes';
 import { windowForMidi } from '../piano/piano-layout';
 import { midiAnswer, type NormalizedAnswer } from '../training/input';
+import type { RangePreset } from '../training/presets';
 import {
   clampRange,
   rangeBounds,
@@ -46,6 +47,8 @@ export type PracticeSessionController = {
   input: InputMode;
   clefs: Clef[];
   range: PitchRange;
+  /** Whether sharps and flats inside the range are asked; off leaves the naturals only. */
+  accidentals: boolean;
   durationMinutes: SessionDuration;
   /** Speed mode's per-note deadline; persisted with the settings, not with the session. */
   speedDeadlineMs: number;
@@ -56,6 +59,8 @@ export type PracticeSessionController = {
   setInput: (input: InputMode) => void;
   setClefs: (clefs: Clef[]) => void;
   setRange: (range: PitchRange) => void;
+  setAccidentals: (accidentals: boolean) => void;
+  applyPreset: (preset: RangePreset) => void;
   setDurationMinutes: (minutes: SessionDuration) => void;
   setSpeedDeadlineMs: (ms: number) => void;
   setVaryNoteShapes: (vary: boolean) => void;
@@ -98,6 +103,7 @@ export function usePracticeSession({
     rangeBounds(['treble', 'bass']),
   );
   const [clefs, setClefs] = useState<Clef[]>(['treble', 'bass']);
+  const [accidentals, setAccidentals] = useState(true);
   const midi = useMidiInput();
   const { connect: connectMidi, subscribe: subscribeMidi } = midi;
   const advanceTimeoutRef = useRef<number | null>(null);
@@ -183,7 +189,11 @@ export function usePracticeSession({
   }, [session, completeSession]);
 
   const start = useCallback(() => {
-    const candidates = selectedItems(clefs, clampRange(range, clefs));
+    const candidates = selectedItems(
+      clefs,
+      clampRange(range, clefs),
+      accidentals,
+    );
     if (candidates.length === 0) return;
     const first = pickNext(candidates, notes, [], [], 1);
     const now = Date.now();
@@ -212,6 +222,7 @@ export function usePracticeSession({
     setFeedback(null);
     setResult(null);
   }, [
+    accidentals,
     clefs,
     durationMinutes,
     input,
@@ -393,6 +404,11 @@ export function usePracticeSession({
     (ms: number) => onSpeedDeadlineChange(clampSpeedDeadlineMs(ms)),
     [onSpeedDeadlineChange],
   );
+  const applyPreset = useCallback((preset: RangePreset) => {
+    setClefs([...preset.clefs]);
+    setRange(preset.range);
+    setAccidentals(preset.accidentals);
+  }, []);
   const dismissResult = useCallback(() => setResult(null), []);
 
   return {
@@ -403,6 +419,7 @@ export function usePracticeSession({
     input,
     clefs,
     range: clampRange(range, clefs),
+    accidentals,
     durationMinutes,
     speedDeadlineMs,
     varyNoteShapes,
@@ -411,6 +428,8 @@ export function usePracticeSession({
     setInput: chooseInput,
     setClefs,
     setRange,
+    setAccidentals,
+    applyPreset,
     setDurationMinutes,
     setSpeedDeadlineMs,
     setVaryNoteShapes: onVaryNoteShapesChange,

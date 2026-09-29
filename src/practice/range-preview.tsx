@@ -12,14 +12,16 @@ import { selectedItems, type PitchRange } from '../training/selection';
 export function RangePreview({
   clefs,
   range,
+  accidentals,
   locale,
 }: {
   clefs: readonly Clef[];
   range: PitchRange;
+  accidentals: boolean;
   locale: Locale;
 }) {
   const edges = useMemo(() => {
-    const items = selectedItems(clefs, range);
+    const items = selectedItems(clefs, range, accidentals);
     return (['treble', 'bass'] as const)
       .filter((clef) => clefs.includes(clef))
       .map((clef) => {
@@ -32,7 +34,7 @@ export function RangePreview({
         };
       })
       .filter(({ pitches }) => pitches.length > 0);
-  }, [clefs, range]);
+  }, [accidentals, clefs, range]);
 
   return (
     <div className="range-preview">
