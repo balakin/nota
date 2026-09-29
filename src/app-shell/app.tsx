@@ -3,13 +3,10 @@ import { useLingui } from '@lingui/react/macro';
 
 import { useAppState } from '../app-state/use-app-state';
 import { i18n } from '../i18n/i18n';
-import { LearningPage } from '../learning/learning-page';
-import { useLearningRun } from '../learning/use-learning-run';
 import { OnboardingPage } from '../onboarding/onboarding-page';
 import { PracticePage } from '../practice/practice-page';
 import { usePracticeSession } from '../practice/use-practice-session';
 import { ProgressPage } from '../progress/progress-page';
-import { ResearchPage } from '../research/research-page';
 import { usePage } from '../router/use-page';
 import { SettingsPage } from '../settings/settings-page';
 import { Icon } from '../ui/icon';
@@ -26,8 +23,6 @@ export default function App() {
     hydrated,
     updateSettings,
     recordAttempt,
-    startLearningRun,
-    recordLessonAnswer,
     appendSession,
     resetProgress,
   } = useAppState();
@@ -41,17 +36,9 @@ export default function App() {
       updateSettings({ speedDeadlineMs }),
   });
 
-  const learning = useLearningRun({
-    notes: state.notes,
-    onAttempt: recordAttempt,
-    onLessonAnswer: recordLessonAnswer,
-    onRunStart: startLearningRun,
-    onRunComplete: appendSession,
-  });
-
   useDocumentChrome(state.settings);
   /* A running session is a focused mode: there is nowhere to navigate until it ends. */
-  const inSession = practice.session !== null || learning.run !== null;
+  const inSession = practice.session !== null;
 
   if (!hydrated)
     return (
@@ -81,19 +68,14 @@ export default function App() {
           {page === 'train' && (
             <PracticePage practice={practice} state={state} />
           )}
-          {page === 'learning' && (
-            <LearningPage controller={learning} state={state} />
-          )}
           {page === 'progress' && <ProgressPage state={state} />}
           {page === 'settings' && (
             <SettingsPage
               settings={state.settings}
               onChange={updateSettings}
-              navigate={navigate}
               onResetProgress={resetProgress}
             />
           )}
-          {page === 'research' && <ResearchPage navigate={navigate} />}
         </main>
         <OfflineStatus />
         {inSession ? null : (

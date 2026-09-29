@@ -7,7 +7,7 @@ export function NavButton({
   onClick,
 }: {
   active: boolean;
-  icon: 'play' | 'book' | 'chart' | 'settings';
+  icon: 'play' | 'chart' | 'settings';
   label: string;
   onClick: () => void;
 }) {

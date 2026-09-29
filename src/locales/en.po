@@ -18,83 +18,19 @@ msgstr ""
 msgid "{0, plural, one {# note} other {# notes}}"
 msgstr "{0, plural, one {# note} other {# notes}}"
 
-#. placeholder {0}: percent(standing.earned, standing.required)
-#: src/learning/run-summary.tsx:81
-msgid "{0} done"
-msgstr "{0} done"
-
-#. placeholder {0}: totals.levelsComplete
-#. placeholder {1}: standings.length
-#: src/learning/learning-page.tsx:101
-msgid "{0} of {1} levels"
-msgstr "{0} of {1} levels"
-
-#. placeholder {0}: note.credits
-#. placeholder {1}: level.credits
-#: src/learning/level-card.tsx:101
-#~ msgid "{0} of {1} runs"
-#~ msgstr "{0} of {1} runs"
-
 #. placeholder {0}: option.days
 #: src/progress/range-bar.tsx:27
 msgid "{0}d"
 msgstr "{0}d"
 
-#. placeholder {0}: locale === 'ru' ? '2,0' : '2.0'
-#. placeholder {0}: settings.locale === 'ru' ? '2,0' : '2.0'
-#: src/practice/practice-session.tsx:212
-#: src/practice/session-setup.tsx:110
-#~ msgid "{0}s"
-#~ msgstr "{0}s"
-
-#. placeholder {0}: level.credits
-#: src/learning/level-notes.tsx:37
-msgid "{banked} of {0} runs"
-msgstr "{banked} of {0} runs"
-
-#: src/learning/note-hint.tsx:74
-msgid "{distance} above {anchor}"
-msgstr "{distance} above {anchor}"
-
-#: src/learning/note-hint.tsx:75
-msgid "{distance} below {anchor}"
-msgstr "{distance} below {anchor}"
-
-#: src/practice/mode-explainer.tsx:36
-#~ msgid "{fluent}s"
-#~ msgstr "{fluent}s"
-
-#: src/learning/level-card.tsx:73
-#~ msgid "{learned} of {total} notes learned"
-#~ msgstr "{learned} of {total} notes learned"
-
 #: src/practice/session-setup.tsx:99
 msgid "{minutes} min"
 msgstr "{minutes} min"
-
-#: src/practice/mode-explainer.tsx:35
-#~ msgid "{recognized}s"
-#~ msgstr "{recognized}s"
 
 #: src/practice/practice-session.tsx:194
 #: src/practice/speed-deadline-picker.tsx:33
 msgid "{seconds}s"
 msgstr "{seconds}s"
-
-#: src/practice/mode-picker.tsx:41
-#: src/practice/result-page.tsx:96
-#~ msgid "{seconds}s per note · no new-note hints"
-#~ msgstr "{seconds}s per note · no new-note hints"
-
-#: src/practice/mode-picker.tsx:41
-#: src/practice/result-page.tsx:96
-#~ msgid "{seconds}s per note · piano labels hidden"
-#~ msgstr "{seconds}s per note · piano labels hidden"
-
-#: src/practice/mode-picker.tsx:41
-#: src/practice/result-page.tsx:96
-#~ msgid "{seconds}s per note, every note"
-#~ msgstr "{seconds}s per note, every note"
 
 #: src/practice/mode-picker.tsx:41
 #: src/practice/result-page.tsx:96
@@ -105,11 +41,6 @@ msgstr "{seconds}s to answer, or it counts as a miss"
 msgid "{speed}s"
 msgstr "{speed}s"
 
-#: src/learning/note-hint.tsx:70
-msgid "{steps} steps"
-msgstr "{steps} steps"
-
-#: src/learning/learning-run.tsx:175
 #: src/practice/feedback-banner.tsx:31
 #: src/practice/result-page.tsx:54
 #: src/progress/hardest-notes.tsx:101
@@ -118,30 +49,13 @@ msgstr "{steps} steps"
 msgid "< 1s"
 msgstr "< 1s"
 
-#: src/practice/mode-picker.tsx:33
-#: src/practice/result-page.tsx:90
-#~ msgid "2 seconds per note · piano labels hidden"
-#~ msgstr "2 seconds per note · piano labels hidden"
-
 #: src/onboarding/onboarding-page.tsx:27
 msgid "A calm practice for your eyes"
 msgstr "A calm practice for your eyes"
 
-#: src/learning/levels.ts:134
-msgid "A different clef, a different anchor: the F line the clef's two dots straddle."
-msgstr "A different clef, a different anchor: the F line the clef's two dots straddle."
-
-#: src/learning/run-summary.tsx:106
-msgid "A note is learned once it comes back correctly in several separate runs. Coming back is what makes it stick — a single long sitting does not."
-msgstr "A note is learned once it comes back correctly in several separate runs. Coming back is what makes it stick — a single long sitting does not."
-
 #: src/practice/result-page.tsx:40
 msgid "A small, useful block of practice."
 msgstr "A small, useful block of practice."
-
-#: src/learning/levels.ts:117
-msgid "Above the octave"
-msgstr "Above the octave"
 
 #: src/progress/session-chart.tsx:50
 msgid "accuracy"
@@ -157,64 +71,22 @@ msgstr "Accuracy"
 msgid "Accuracy and speed"
 msgstr "Accuracy and speed"
 
-#: src/research/research-papers.ts:34
-msgid "Across many studies, practising categories mixed together helped more than practising them one block at a time, most of all for visual material. Later work adds that beginners need an unmixed block first. The path teaches notes in blocks and then asks for them mixed, which is where the block's local cues stop working."
-msgstr "Across many studies, practising categories mixed together helped more than practising them one block at a time, most of all for visual material. Later work adds that beginners need an unmixed block first. The path teaches notes in blocks and then asks for them mixed, which is where the block's local cues stop working."
-
 #: src/practice/range-picker.tsx:90
 #: src/progress/range-bar.tsx:27
 msgid "All"
 msgstr "All"
 
-#: src/practice/mode-picker.tsx:32
-#: src/practice/result-page.tsx:97
-#~ msgid "All the time you need, on every note"
-#~ msgstr "All the time you need, on every note"
-
-#: src/learning/levels.ts:289
-msgid "All thirty-nine readings, in any order, with a clock running."
-msgstr "All thirty-nine readings, in any order, with a clock running."
-
-#: src/learning/note-hint.tsx:52
-msgid "An anchor"
-msgstr "An anchor"
-
-#. placeholder {0}: note.credits
-#. placeholder {1}: level.credits
-#: src/learning/level-card.tsx:100
-#~ msgid "Anchor note · {0} of {1} runs"
-#~ msgstr "Anchor note · {0} of {1} runs"
-
-#. placeholder {0}: level.credits
-#: src/learning/level-notes.tsx:36
-msgid "Anchor note · {banked} of {0} runs"
-msgstr "Anchor note · {banked} of {0} runs"
-
-#: src/learning/learning-page.tsx:135
 #: src/practice/session-setup.tsx:51
 msgid "Answer with"
 msgstr "Answer with"
 
-#: src/settings/settings-page.tsx:84
+#: src/settings/settings-page.tsx:80
 msgid "Appearance"
 msgstr "Appearance"
 
 #: src/app-shell/offline-status.tsx:23
 msgid "Back online"
 msgstr "Back online"
-
-#: src/learning/run-summary.tsx:129
-msgid "Back to levels"
-msgstr "Back to levels"
-
-#. placeholder {0}: names(summary.lapsed).join(', ')
-#: src/learning/run-summary.tsx:100
-msgid "Back to repair: {0}"
-msgstr "Back to repair: {0}"
-
-#: src/research/research-page.tsx:17
-msgid "Back to settings"
-msgstr "Back to settings"
 
 #: src/practice/result-page.tsx:104
 msgid "Back to training"
@@ -230,50 +102,6 @@ msgstr "barely seen"
 msgid "Bass"
 msgstr "Bass"
 
-#: src/learning/levels.ts:90
-#~ msgid "Bass · flats"
-#~ msgstr "Bass · flats"
-
-#: src/learning/levels.ts:83
-#~ msgid "Bass · sharps"
-#~ msgstr "Bass · sharps"
-
-#: src/learning/levels.ts:62
-#~ msgid "Bass · the octave below"
-#~ msgstr "Bass · the octave below"
-
-#: src/learning/levels.ts:265
-msgid "Bass flats"
-msgstr "Bass flats"
-
-#: src/learning/levels.ts:257
-msgid "Bass sharps"
-msgstr "Bass sharps"
-
-#: src/learning/levels.ts:187
-msgid "Beyond the staff"
-msgstr "Beyond the staff"
-
-#: src/learning/learning-page.tsx:91
-msgid "Blocks to learn a note, mixtures to keep it."
-msgstr "Blocks to learn a note, mixtures to keep it."
-
-#: src/research/research-papers.ts:33
-msgid "Blocks, then mixtures"
-msgstr "Blocks, then mixtures"
-
-#: src/learning/levels.ts:126
-msgid "Both octaves at once, on the clock. No block to lean on."
-msgstr "Both octaves at once, on the clock. No block to lean on."
-
-#: src/learning/levels.ts:164
-msgid "Both staves"
-msgstr "Both staves"
-
-#: src/learning/levels.ts:179
-msgid "Both staves, naturals"
-msgstr "Both staves, naturals"
-
 #: src/onboarding/onboarding-page.tsx:30
 msgid "Build a direct connection between the note on the staff and its place on the piano. Start with a few landmarks, then let accuracy become speed."
 msgstr "Build a direct connection between the note on the staff and its place on the piano. Start with a few landmarks, then let accuracy become speed."
@@ -282,41 +110,29 @@ msgstr "Build a direct connection between the note on the staff and its place on
 msgid "C · D · E · F · G · A · B"
 msgstr "C · D · E · F · G · A · B"
 
-#: src/settings/settings-page.tsx:149
+#: src/settings/settings-page.tsx:133
 msgid "Cancel"
 msgstr "Cancel"
 
-#: src/learning/learning-run.tsx:91
-msgid "Check"
-msgstr "Check"
-
-#: src/settings/settings-page.tsx:88
+#: src/settings/settings-page.tsx:84
 msgid "Choose color theme"
 msgstr "Choose color theme"
 
-#: src/settings/settings-page.tsx:39
+#: src/settings/settings-page.tsx:35
 msgid "Choose interface language"
 msgstr "Choose interface language"
 
-#: src/settings/settings-page.tsx:63
+#: src/settings/settings-page.tsx:59
 msgid "Choose note naming system"
 msgstr "Choose note naming system"
 
-#: src/settings/settings-page.tsx:130
+#: src/settings/settings-page.tsx:114
 msgid "Clears every practice session, note statistic and daily record on this device. Your settings stay as they are."
 msgstr "Clears every practice session, note statistic and daily record on this device. Your settings stay as they are."
 
 #: src/practice/session-setup.tsx:66
 msgid "Clefs"
 msgstr "Clefs"
-
-#: src/research/research-papers.ts:26
-msgid "Coming back beats staying"
-msgstr "Coming back beats staying"
-
-#: src/learning/level-card.tsx:41
-#~ msgid "Complete"
-#~ msgstr "Complete"
 
 #: src/practice/midi-status.tsx:26
 msgid "Connect"
@@ -326,15 +142,10 @@ msgstr "Connect"
 msgid "Connect a MIDI keyboard"
 msgstr "Connect a MIDI keyboard"
 
-#: src/practice/session-setup.tsx:114
-#~ msgid "Continue training"
-#~ msgstr "Continue training"
-
 #: src/progress/note-map.tsx:30
 msgid "correct"
 msgstr "correct"
 
-#: src/learning/learning-run.tsx:164
 #: src/practice/feedback-banner.tsx:23
 msgid "Correct"
 msgstr "Correct"
@@ -343,7 +154,7 @@ msgstr "Correct"
 msgid "Correct answer"
 msgstr "Correct answer"
 
-#: src/settings/settings-page.tsx:112
+#: src/settings/settings-page.tsx:108
 msgid "Dark"
 msgstr "Dark"
 
@@ -356,86 +167,21 @@ msgstr "Do · Re · Mi · Fa · Sol · La · Si"
 msgid "Don’t count. Recognize."
 msgstr "Don’t count. Recognize."
 
-#: src/learning/levels.ts:195
-msgid "Down towards the left hand: the space below the staff, then out to the C on two short lines."
-msgstr "Down towards the left hand: the space below the staff, then out to the C on two short lines."
-
-#: src/learning/learning-page.tsx:93
-msgid "Each press of Start is a short run built from what you currently need. A note counts as learned once it comes back correctly in several separate runs — coming back is what makes it stick."
-msgstr "Each press of Start is a short run built from what you currently need. A note counts as learned once it comes back correctly in several separate runs — coming back is what makes it stick."
-
 #: src/practice/mode-explainer.tsx:30
 msgid "Earned here"
 msgstr "Earned here"
-
-#: src/learning/learning-run.tsx:107
-msgid "End run"
-msgstr "End run"
-
-#: src/learning/levels.ts:273
-msgid "Every accidental"
-msgstr "Every accidental"
-
-#: src/learning/levels.ts:63
-#~ msgid "Every natural of the bass staff, from C3 up to middle C."
-#~ msgstr "Every natural of the bass staff, from C3 up to middle C."
-
-#: src/learning/levels.ts:157
-msgid "Every natural of the bass staff, on the clock."
-msgstr "Every natural of the bass staff, on the clock."
-
-#: src/practice/mode-explainer.tsx:28
-#: src/practice/mode-explainer.tsx:32
-#~ msgid "Every note"
-#~ msgstr "Every note"
 
 #: src/practice/mode-explainer.tsx:48
 msgid "Every note gets the same deadline, whatever you know of it, and letting it run out counts as a miss. Fluent is earned only here: twenty quick, accurate answers on a note, across at least two sessions."
 msgstr "Every note gets the same deadline, whatever you know of it, and letting it run out counts as a miss. Fluent is earned only here: twenty quick, accurate answers on a note, across at least two sessions."
 
-#: src/practice/mode-explainer.tsx:47
-#~ msgid "Every note gets the same deadline, whatever you know of it, and letting it run out counts as a miss. Speed measures the recognition Practice builds."
-#~ msgstr "Every note gets the same deadline, whatever you know of it, and letting it run out counts as a miss. Speed measures the recognition Practice builds."
-
-#: src/practice/mode-explainer.tsx:51
-#~ msgid "Every note gets the same deadline, whether you have met it before or not, and letting it run out counts as a miss. Speed measures the recognition Practice builds."
-#~ msgstr "Every note gets the same deadline, whether you have met it before or not, and letting it run out counts as a miss. Speed measures the recognition Practice builds."
-
-#: src/learning/run-summary.tsx:105
-msgid "Every note here has come back correctly in enough separate runs to count as learned. You can still run it to sharpen it."
-msgstr "Every note here has come back correctly in enough separate runs to count as learned. You can still run it to sharpen it."
-
 #: src/progress/progress-page.tsx:135
 msgid "Every note of the curriculum, in pitch order. Colour is your standing on it overall; the figure is how much you answered correctly in this range."
 msgstr "Every note of the curriculum, in pitch order. Colour is your standing on it overall; the figure is how much you answered correctly in this range."
 
-#: src/learning/levels.ts:227
-msgid "Every note outside the lines, shuffled and on the clock."
-msgstr "Every note outside the lines, shuffled and on the clock."
-
-#: src/learning/levels.ts:288
-msgid "Everything"
-msgstr "Everything"
-
-#: src/learning/levels.ts:282
-msgid "Everything the curriculum holds, shuffled, timed. One pass to prove it."
-msgstr "Everything the curriculum holds, shuffled, timed. One pass to prove it."
-
-#: src/research/research-papers.ts:20
-msgid "Experimental work with musical notation has found measurable changes in visual processing after targeted training. That is evidence about trained visual tasks, not a claim to make an expert pianist or sight-reader."
-msgstr "Experimental work with musical notation has found measurable changes in visual processing after targeted training. That is evidence about trained visual tasks, not a claim to make an expert pianist or sight-reader."
-
-#: src/learning/level-card.tsx:43
-#~ msgid "Finish level {previous}"
-#~ msgstr "Finish level {previous}"
-
 #: src/practice/practice-session.tsx:120
 msgid "Finish session"
 msgstr "Finish session"
-
-#: src/learning/levels.ts:188
-msgid "Five lines only reach so far. Past them a note gets short lines of its own, and reading it means counting outward from an edge instead of knowing a place between the lines."
-msgstr "Five lines only reach so far. Past them a note gets short lines of its own, and reading it means counting outward from an edge instead of knowing a place between the lines."
 
 #: src/onboarding/onboarding-page.tsx:43
 msgid "Fixed solfège"
@@ -450,38 +196,9 @@ msgstr "Fluent"
 msgid "Fluent note reading is a visual-perceptual skill. Nothing here is on a clock, so you can look until a note’s whole pattern lands instead of counting lines up to it. Miss one and it comes back a few questions later. Notes reach Recognized this way; Fluent is Speed’s to give."
 msgstr "Fluent note reading is a visual-perceptual skill. Nothing here is on a clock, so you can look until a note’s whole pattern lands instead of counting lines up to it. Miss one and it comes back a few questions later. Notes reach Recognized this way; Fluent is Speed’s to give."
 
-#: src/practice/mode-explainer.tsx:52
-#~ msgid "Fluent note reading is a visual-perceptual skill. Practice leaves room to see a note’s whole pattern instead of calculating its position: a note you have never met is introduced on the keyboard, and the clock only appears once you know it."
-#~ msgstr "Fluent note reading is a visual-perceptual skill. Practice leaves room to see a note’s whole pattern instead of calculating its position: a note you have never met is introduced on the keyboard, and the clock only appears once you know it."
-
-#: src/practice/mode-explainer.tsx:48
-#~ msgid "Fluent note reading is a visual-perceptual skill. Practice leaves room to see a note’s whole pattern instead of calculating its position: no note is ever on the clock, so nothing hurries you into counting. When you want the pressure, that is what Speed is for."
-#~ msgstr "Fluent note reading is a visual-perceptual skill. Practice leaves room to see a note’s whole pattern instead of calculating its position: no note is ever on the clock, so nothing hurries you into counting. When you want the pressure, that is what Speed is for."
-
-#: src/practice/mode-explainer.tsx:51
-#~ msgid "Fluent note reading is a visual-perceptual skill. Practice leaves room to see a note’s whole pattern instead of calculating its position: the clock only appears once you recognize a note, and it tightens as you grow fluent."
-#~ msgstr "Fluent note reading is a visual-perceptual skill. Practice leaves room to see a note’s whole pattern instead of calculating its position: the clock only appears once you recognize a note, and it tightens as you grow fluent."
-
-#: src/research/research-papers.ts:6
-msgid "Fluent note reading is a visual-perceptual skill. Targeted practice can focus on recognizing a note’s whole pattern instead of consciously calculating its position."
-msgstr "Fluent note reading is a visual-perceptual skill. Targeted practice can focus on recognizing a note’s whole pattern instead of consciously calculating its position."
-
-#: src/learning/levels.ts:149
-msgid "From G to the middle C that sits above the bass staff."
-msgstr "From G to the middle C that sits above the bass staff."
-
-#: src/practice/mode-picker.tsx:32
-#: src/practice/result-page.tsx:97
-#~ msgid "Generous time while you build accuracy"
-#~ msgstr "Generous time while you build accuracy"
-
 #: src/progress/progress-page.tsx:145
 msgid "Hardest notes"
 msgstr "Hardest notes"
-
-#: src/practice/mode-explainer.tsx:32
-#~ msgid "Hidden"
-#~ msgstr "Hidden"
 
 #: src/practice/mode-explainer.tsx:34
 msgid "Highest band"
@@ -495,30 +212,9 @@ msgstr "Highest note"
 msgid "How should note names appear?"
 msgstr "How should note names appear?"
 
-#: src/learning/note-hint.tsx:40
-msgid "in a space"
-msgstr "in a space"
-
-#: src/research/research-papers.ts:13
-msgid "In perceptual-training studies, presentation became progressively more demanding as performance improved. Nota uses a gentle Practice mode and a separate timed Speed mode inspired by that idea — not as a proven threshold."
-msgstr "In perceptual-training studies, presentation became progressively more demanding as performance improved. Nota uses a gentle Practice mode and a separate timed Speed mode inspired by that idea — not as a proven threshold."
-
-#: src/research/research-papers.ts:13
-#~ msgid "In perceptual-training studies, presentation became progressively more demanding as performance improved. Nota uses a gentle Practice mode and a separate two-second Speed mode inspired by that idea — not as a proven threshold."
-#~ msgstr "In perceptual-training studies, presentation became progressively more demanding as performance improved. Nota uses a gentle Practice mode and a separate two-second Speed mode inspired by that idea — not as a proven threshold."
-
-#: src/learning/level-card.tsx:44
-#~ msgid "In progress"
-#~ msgstr "In progress"
-
-#: src/settings/settings-page.tsx:35
+#: src/settings/settings-page.tsx:31
 msgid "Interface language"
 msgstr "Interface language"
-
-#: src/learning/learning-run.tsx:181
-#: src/learning/note-hint.tsx:35
-msgid "It is"
-msgstr "It is"
 
 #: src/practice/result-page.tsx:74
 msgid "Keep going — your next recognition is forming."
@@ -528,45 +224,21 @@ msgstr "Keep going — your next recognition is forming."
 msgid "last seen"
 msgstr "last seen"
 
-#: src/app-shell/primary-nav.tsx:29
-msgid "Learning"
-msgstr "Learning"
-
-#: src/learning/learning-page.tsx:92
-msgid "Learning path"
-msgstr "Learning path"
-
 #: src/onboarding/onboarding-page.tsx:37
 msgid "Letters"
 msgstr "Letters"
-
-#: src/learning/run-summary.tsx:57
-msgid "Level complete"
-msgstr "Level complete"
 
 #: src/progress/stat-tile.tsx:46
 msgid "level with previous"
 msgstr "level with previous"
 
-#: src/learning/learning-page.tsx:69
-#~ msgid "Levels open in order: a level is finished when every note in it is recognized here, on the path. Train stays free — nothing you do there opens a level."
-#~ msgstr "Levels open in order: a level is finished when every note in it is recognized here, on the path. Train stays free — nothing you do there opens a level."
-
-#: src/settings/settings-page.tsx:104
+#: src/settings/settings-page.tsx:100
 msgid "Light"
 msgstr "Light"
 
-#: src/app-shell/app.tsx:58
+#: src/app-shell/app.tsx:45
 msgid "Loading Nota"
 msgstr "Loading Nota"
-
-#: src/practice/session-setup.tsx:135
-#~ msgid "Local"
-#~ msgstr "Local"
-
-#: src/practice/session-setup.tsx:119
-#~ msgid "Look → recognize → answer"
-#~ msgstr "Look → recognize → answer"
 
 #: src/practice/session-setup.tsx:32
 msgid "Look at the staff, then answer without counting."
@@ -580,7 +252,7 @@ msgstr "Looking for keyboards…"
 msgid "Lowest note"
 msgstr "Lowest note"
 
-#: src/settings/settings-page.tsx:30
+#: src/settings/settings-page.tsx:26
 msgid "Make Nota fit the way you learn."
 msgstr "Make Nota fit the way you learn."
 
@@ -592,16 +264,6 @@ msgstr "Median response"
 msgid "Median time per note"
 msgstr "Median time per note"
 
-#. placeholder {0}: outline.introduce
-#: src/learning/level-card.tsx:42
-msgid "meet {0} new"
-msgstr "meet {0} new"
-
-#: src/learning/levels.ts:171
-msgid "Middle C, two ways"
-msgstr "Middle C, two ways"
-
-#: src/learning/learning-page.tsx:140
 #: src/practice/session-setup.tsx:56
 msgid "MIDI keyboard"
 msgstr "MIDI keyboard"
@@ -614,48 +276,18 @@ msgstr "min"
 msgid "Miss"
 msgstr "Miss"
 
-#. placeholder {0}: names(summary.credited).join(', ')
-#: src/learning/run-summary.tsx:94
-msgid "Moved forward: {0}"
-msgstr "Moved forward: {0}"
-
 #: src/progress/note-map.tsx:98
 msgid "New"
 msgstr "New"
-
-#: src/learning/learning-run.tsx:91
-msgid "New note"
-msgstr "New note"
-
-#: src/practice/practice-session.tsx:182
-#~ msgid "New note: {currentName} · press the highlighted key to meet it."
-#~ msgstr "New note: {currentName} · press the highlighted key to meet it."
-
-#: src/practice/mode-explainer.tsx:35
-#~ msgid "New notes"
-#~ msgstr "New notes"
 
 #: src/practice/result-page.tsx:62
 msgid "New progress"
 msgstr "New progress"
 
-#: src/practice/mode-explainer.tsx:32
-#~ msgid "New-note hint"
-#~ msgstr "New-note hint"
-
-#. placeholder {0}: t(nextLevel.level.title)
-#: src/learning/run-summary.tsx:116
-msgid "Next: {0}"
-msgstr "Next: {0}"
-
 #: src/practice/mode-picker.tsx:32
 #: src/practice/result-page.tsx:97
 msgid "No clock — look as long as you need"
 msgstr "No clock — look as long as you need"
-
-#: src/learning/learning-run.tsx:172
-msgid "No credit for a hinted answer."
-msgstr "No credit for a hinted answer."
 
 #: src/progress/stat-tile.tsx:35
 msgid "no earlier window"
@@ -673,10 +305,6 @@ msgstr "No practice in this range yet. Train, and accuracy and speed will appear
 msgid "No time to count."
 msgstr "No time to count."
 
-#: src/practice/mode-explainer.tsx:33
-#~ msgid "None"
-#~ msgstr "None"
-
 #: src/progress/note-map.tsx:36
 msgid "Not in this range"
 msgstr "Not in this range"
@@ -685,7 +313,6 @@ msgstr "Not in this range"
 msgid "Not practiced yet"
 msgstr "Not practiced yet"
 
-#: src/learning/learning-run.tsx:167
 #: src/practice/feedback-banner.tsx:26
 msgid "Not quite"
 msgstr "Not quite"
@@ -702,19 +329,11 @@ msgstr "Not yet"
 msgid "Nota"
 msgstr "Nota"
 
-#: src/research/research-page.tsx:48
-msgid "Nota does not claim scientific certification or guarantee a result in a particular number of hours."
-msgstr "Nota does not claim scientific certification or guarantee a result in a particular number of hours."
-
 #: src/onboarding/onboarding-page.tsx:55
 #: src/practice/session-setup.tsx:120
-#: src/settings/settings-page.tsx:141
+#: src/settings/settings-page.tsx:125
 msgid "Nota is a small, local-first tool. Your progress stays on this device."
 msgstr "Nota is a small, local-first tool. Your progress stays on this device."
-
-#: src/research/research-page.tsx:23
-msgid "Nota is inspired by research on visual perceptual learning, musical-note recognition, retrieval practice, and spaced learning. The curriculum and thresholds are product-design hypotheses, not scientifically validated promises."
-msgstr "Nota is inspired by research on visual perceptual learning, musical-note recognition, retrieval practice, and spaced learning. The curriculum and thresholds are product-design hypotheses, not scientifically validated promises."
 
 #: src/practice/midi-status.tsx:24
 msgid "Nota may not use MIDI devices. Allow it in the site permissions, then connect again."
@@ -724,21 +343,16 @@ msgstr "Nota may not use MIDI devices. Allow it in the site permissions, then co
 msgid "Nota on GitHub"
 msgstr "Nota on GitHub"
 
-#: src/practice/session-setup.tsx:131
-#~ msgid "Note map"
-#~ msgstr "Note map"
-
 #: src/progress/progress-page.tsx:134
 msgid "Note mastery map"
 msgstr "Note mastery map"
 
-#: src/learning/learning-page.tsx:139
 #: src/practice/note-name-pad.tsx:25
 #: src/practice/session-setup.tsx:55
 msgid "Note names"
 msgstr "Note names"
 
-#: src/settings/settings-page.tsx:59
+#: src/settings/settings-page.tsx:55
 msgid "Note naming"
 msgstr "Note naming"
 
@@ -758,11 +372,6 @@ msgstr "Notes answered"
 msgid "Notes attempted"
 msgstr "Notes attempted"
 
-#: src/learning/learning-page.tsx:99
-#: src/learning/run-summary.tsx:76
-msgid "notes learned"
-msgstr "notes learned"
-
 #: src/progress/note-map.tsx:93
 msgid "Notes met, and correct answers across this clef"
 msgstr "Notes met, and correct answers across this clef"
@@ -770,10 +379,6 @@ msgstr "Notes met, and correct answers across this clef"
 #: src/progress/progress-page.tsx:75
 msgid "Notes practiced"
 msgstr "Notes practiced"
-
-#: src/research/research-papers.ts:41
-msgid "Notes return after a pause because retrieving an answer and spacing practice can support retention better than simply looking at the answer again."
-msgstr "Notes return after a pause because retrieving an answer and spacing practice can support retention better than simply looking at the answer again."
 
 #: src/practice/range-picker.tsx:94
 msgid "notes selected"
@@ -788,10 +393,6 @@ msgstr "Nothing practiced in this range yet, so there is nothing to rank."
 msgid "of {0} notes read fluently"
 msgstr "of {0} notes read fluently"
 
-#: src/learning/levels.ts:226
-msgid "Off the staff, both clefs"
-msgstr "Off the staff, both clefs"
-
 #: src/app-shell/offline-status.tsx:23
 msgid "Offline — progress is saved on this device"
 msgstr "Offline — progress is saved on this device"
@@ -800,49 +401,9 @@ msgstr "Offline — progress is saved on this device"
 msgid "often wrong"
 msgstr "often wrong"
 
-#: src/learning/note-hint.tsx:40
-msgid "on a line"
-msgstr "on a line"
-
-#: src/learning/note-hint.tsx:44
-msgid "on a short line outside the staff"
-msgstr "on a short line outside the staff"
-
 #: src/practice/mode-explainer.tsx:29
 msgid "On timeout"
 msgstr "On timeout"
-
-#: src/learning/learning-page.tsx:67
-#~ msgid "One clef and one octave at a time."
-#~ msgstr "One clef and one octave at a time."
-
-#: src/learning/levels.ts:172
-msgid "One key, written below the treble staff and above the bass staff. The hinge between them."
-msgstr "One key, written below the treble staff and above the bass staff. The hinge between them."
-
-#: src/learning/pivots.ts:37
-msgid "one short line above the staff"
-msgstr "one short line above the staff"
-
-#: src/learning/pivots.ts:34
-msgid "one short line below the staff"
-msgstr "one short line below the staff"
-
-#: src/learning/note-hint.tsx:65
-msgid "One step"
-msgstr "One step"
-
-#: src/learning/note-hint.tsx:45
-msgid "outside the staff"
-msgstr "outside the staff"
-
-#: src/learning/levels.ts:202
-msgid "Over the bass staff"
-msgstr "Over the bass staff"
-
-#: src/learning/levels.ts:218
-msgid "Over the treble staff"
-msgstr "Over the treble staff"
 
 #: src/practice/practice-session.tsx:113
 #: src/practice/practice-session.tsx:139
@@ -857,37 +418,19 @@ msgstr "per answer"
 msgid "per note"
 msgstr "per note"
 
-#: src/learning/learning-page.tsx:138
 #: src/piano/piano.tsx:32
 #: src/practice/session-setup.tsx:54
 msgid "Piano"
 msgstr "Piano"
 
-#: src/learning/learning-run.tsx:201
-msgid "Play the highlighted key to go on."
-msgstr "Play the highlighted key to go on."
-
 #: src/practice/practice-session.tsx:165
 msgid "Play the note on your keyboard."
 msgstr "Play the note on your keyboard."
 
-#: src/learning/level-card.tsx:40
-msgid "Polish run — every note, on the clock"
-msgstr "Polish run — every note, on the clock"
-
-#: src/learning/learning-run.tsx:91
 #: src/practice/mode-picker.tsx:31
 #: src/practice/practice-session.tsx:107
 msgid "Practice"
 msgstr "Practice"
-
-#: src/learning/level-card.tsx:101
-#~ msgid "Practice again"
-#~ msgstr "Practice again"
-
-#: src/research/research-papers.ts:19
-msgid "Practice changes perception"
-msgstr "Practice changes perception"
 
 #: src/practice/mode-explainer.tsx:41
 msgid "Practice mode"
@@ -898,20 +441,11 @@ msgstr "Practice mode"
 msgid "Practice time"
 msgstr "Practice time"
 
-#. placeholder {0}: outline.consolidate
-#: src/learning/level-card.tsx:44
-msgid "practise {0}"
-msgstr "practise {0}"
-
-#: src/learning/learning-run.tsx:200
-msgid "Press its name to go on."
-msgstr "Press its name to go on."
-
 #: src/app-shell/primary-nav.tsx:19
 msgid "Primary navigation"
 msgstr "Primary navigation"
 
-#: src/app-shell/primary-nav.tsx:35
+#: src/app-shell/primary-nav.tsx:29
 msgid "Progress"
 msgstr "Progress"
 
@@ -930,22 +464,6 @@ msgstr "Range"
 msgid "Ranked the way training picks its next question, so this is what a session will drill."
 msgstr "Ranked the way training picks its next question, so this is what a session will drill."
 
-#: src/research/research-page.tsx:41
-msgid "Read the original paper"
-msgstr "Read the original paper"
-
-#: src/settings/settings-page.tsx:125
-msgid "Read the research"
-msgstr "Read the research"
-
-#: src/practice/session-setup.tsx:37
-#~ msgid "Ready when you are."
-#~ msgstr "Ready when you are."
-
-#: src/research/research-papers.ts:27
-msgid "Recalling something once in each of several spaced sessions has been found to retain far better than recalling it several times in one sitting, and a higher bar in the first session did not survive later ones. The Learning path is built on that: a note earns one credit per run, and a level takes several runs by design."
-msgstr "Recalling something once in each of several spaced sessions has been found to retain far better than recalling it several times in one sitting, and a higher bar in the first session did not survive later ones. The Learning path is built on that: a note earns one credit per run, and a level takes several runs by design."
-
 #: src/progress/progress-page.tsx:61
 msgid "Recognition gets useful when it is fast and retained."
 msgstr "Recognition gets useful when it is fast and retained."
@@ -959,52 +477,22 @@ msgstr "Recognition practice"
 msgid "Recognized"
 msgstr "Recognized"
 
-#. placeholder {0}: outline.repair
-#: src/learning/level-card.tsx:43
-msgid "repair {0}"
-msgstr "repair {0}"
-
-#: src/research/research-page.tsx:21
-#: src/settings/settings-page.tsx:116
-msgid "Research behind Nota"
-msgstr "Research behind Nota"
-
-#: src/settings/settings-page.tsx:146
+#: src/settings/settings-page.tsx:130
 msgid "Reset all progress?"
 msgstr "Reset all progress?"
 
-#: src/settings/settings-page.tsx:148
+#: src/settings/settings-page.tsx:132
 msgid "Reset everything"
 msgstr "Reset everything"
 
-#: src/settings/settings-page.tsx:128
-#: src/settings/settings-page.tsx:137
+#: src/settings/settings-page.tsx:112
+#: src/settings/settings-page.tsx:121
 msgid "Reset progress"
 msgstr "Reset progress"
 
 #: src/practice/practice-session.tsx:113
 msgid "Resume"
 msgstr "Resume"
-
-#: src/research/research-papers.ts:40
-msgid "Retrieval and spacing"
-msgstr "Retrieval and spacing"
-
-#: src/learning/learning-run.tsx:163
-msgid "Right — but hinted"
-msgstr "Right — but hinted"
-
-#: src/learning/run-summary.tsx:57
-msgid "Run done"
-msgstr "Run done"
-
-#: src/learning/run-summary.tsx:125
-msgid "Run it again"
-msgstr "Run it again"
-
-#: src/learning/learning-run.tsx:93
-msgid "Run progress"
-msgstr "Run progress"
 
 #: src/progress/hardest-notes.tsx:14
 msgid "running out of time"
@@ -1018,22 +506,10 @@ msgstr "Session complete"
 msgid "Session length"
 msgstr "Session length"
 
-#: src/app-shell/primary-nav.tsx:41
-#: src/settings/settings-page.tsx:31
+#: src/app-shell/primary-nav.tsx:35
+#: src/settings/settings-page.tsx:27
 msgid "Settings"
 msgstr "Settings"
-
-#: src/learning/levels.ts:234
-msgid "Sharps and flats"
-msgstr "Sharps and flats"
-
-#: src/learning/levels.ts:274
-msgid "Sharps and flats, both staves, on the clock."
-msgstr "Sharps and flats, both staves, on the clock."
-
-#: src/learning/learning-run.tsx:209
-msgid "Show me"
-msgstr "Show me"
 
 #: src/progress/hardest-notes.tsx:16
 msgid "slow to come"
@@ -1042,7 +518,6 @@ msgstr "slow to come"
 #: src/practice/mode-picker.tsx:40
 #: src/practice/practice-session.tsx:107
 #: src/practice/practice-session.tsx:194
-#: src/research/research-papers.ts:12
 msgid "Speed"
 msgstr "Speed"
 
@@ -1060,154 +535,30 @@ msgstr "Speed mode ends a note when this runs out. Two seconds is the default."
 msgid "Staff, {0}, {1}"
 msgstr "Staff, {0}, {1}"
 
-#: src/learning/level-card.tsx:100
 #: src/practice/session-setup.tsx:109
 msgid "Start"
 msgstr "Start"
-
-#: src/learning/level-card.tsx:101
-#~ msgid "Start level"
-#~ msgstr "Start level"
-
-#: src/learning/run-summary.tsx:125
-msgid "Start next run"
-msgstr "Start next run"
-
-#. placeholder {0}: standing.runs + 1
-#: src/learning/level-card.tsx:100
-msgid "Start run {0}"
-msgstr "Start run {0}"
 
 #: src/onboarding/onboarding-page.tsx:52
 msgid "Start training"
 msgstr "Start training"
 
-#: src/learning/levels.ts:103
-msgid "Start where the treble clef points: the G line its curl wraps around."
-msgstr "Start where the treble clef points: the G line its curl wraps around."
-
-#: src/settings/settings-page.tsx:96
+#: src/settings/settings-page.tsx:92
 msgid "System"
 msgstr "System"
-
-#: src/learning/levels.ts:133
-msgid "The bass staff"
-msgstr "The bass staff"
-
-#: src/learning/levels.ts:266
-msgid "The bass staff's black keys read as flats."
-msgstr "The bass staff's black keys read as flats."
-
-#: src/learning/levels.ts:235
-msgid "The black keys, one clef and one sign at a time, then all of them together."
-msgstr "The black keys, one clef and one sign at a time, then all of them together."
-
-#: src/learning/pivots.ts:39
-msgid "the bottom line of the bass staff"
-msgstr "the bottom line of the bass staff"
-
-#: src/learning/levels.ts:140
-msgid "The F anchor"
-msgstr "The F anchor"
-
-#: src/learning/pivots.ts:35
-msgid "the line the bass clef's two dots straddle"
-msgstr "the line the bass clef's two dots straddle"
-
-#: src/learning/pivots.ts:32
-msgid "the line the treble clef curls around"
-msgstr "the line the treble clef curls around"
-
-#: src/learning/levels.ts:109
-msgid "The middle octave"
-msgstr "The middle octave"
-
-#: src/learning/levels.ts:118
-msgid "The naturals that carry on above B, anchored on the C in the third space."
-msgstr "The naturals that carry on above B, anchored on the C in the third space."
-
-#: src/learning/levels.ts:56
-#~ msgid "The naturals that carry on above B4, up to the top line of the staff."
-#~ msgstr "The naturals that carry on above B4, up to the top line of the staff."
-
-#: src/learning/levels.ts:211
-msgid "The notes between the two staves, read from above instead of below."
-msgstr "The notes between the two staves, read from above instead of below."
-
-#: src/learning/levels.ts:250
-msgid "The same black keys read the other way, as flats."
-msgstr "The same black keys read the other way, as flats."
-
-#: src/learning/levels.ts:165
-msgid "The same line means different notes in each clef. This is where that gets settled."
-msgstr "The same line means different notes in each clef. This is where that gets settled."
-
-#: src/learning/pivots.ts:36
-msgid "the second space up"
-msgstr "the second space up"
-
-#: src/learning/levels.ts:110
-msgid "The seven naturals from middle C up to B, anchored on G."
-msgstr "The seven naturals from middle C up to B, anchored on G."
-
-#: src/learning/levels.ts:49
-#~ msgid "The seven naturals from middle C up to B, read on the treble staff."
-#~ msgstr "The seven naturals from middle C up to B, read on the treble staff."
-
-#: src/learning/levels.ts:141
-msgid "The seven naturals from the bottom line up to the F the clef marks."
-msgstr "The seven naturals from the bottom line up to the F the clef marks."
-
-#: src/learning/levels.ts:258
-msgid "The sharpened notes of the bass staff."
-msgstr "The sharpened notes of the bass staff."
-
-#: src/learning/levels.ts:242
-msgid "The sharpened notes of the treble staff, in circle-of-fifths order."
-msgstr "The sharpened notes of the treble staff, in circle-of-fifths order."
-
-#: src/learning/pivots.ts:33
-msgid "the third space up"
-msgstr "the third space up"
-
-#: src/learning/levels.ts:102
-msgid "The treble staff"
-msgstr "The treble staff"
-
-#: src/learning/levels.ts:156
-msgid "The whole bass staff"
-msgstr "The whole bass staff"
-
-#: src/learning/levels.ts:281
-msgid "The whole staff"
-msgstr "The whole staff"
-
-#: src/learning/levels.ts:125
-msgid "The whole treble staff"
-msgstr "The whole treble staff"
 
 #: src/practice/midi-status.tsx:17
 msgid "This browser has no Web MIDI. Chrome, Edge or Opera over https can talk to a keyboard."
 msgstr "This browser has no Web MIDI. Chrome, Edge or Opera over https can talk to a keyboard."
 
-#: src/settings/settings-page.tsx:82
+#: src/settings/settings-page.tsx:78
 msgid "This changes labels, never your progress."
 msgstr "This changes labels, never your progress."
 
-#: src/settings/settings-page.tsx:147
+#: src/settings/settings-page.tsx:131
 msgid "This erases your sessions, note statistics and history on this device. It cannot be undone."
 msgstr "This erases your sessions, note statistics and history on this device. It cannot be undone."
 
-#: src/learning/learning-run.tsx:146
-msgid "This is"
-msgstr "This is"
-
-#: src/learning/note-hint.tsx:69
-msgid "Three steps"
-msgstr "Three steps"
-
-#: src/learning/learning-run.tsx:124
-#: src/learning/learning-run.tsx:166
 #: src/practice/feedback-banner.tsx:25
 #: src/practice/practice-session.tsx:142
 msgid "Time"
@@ -1243,85 +594,17 @@ msgstr "Training mode"
 msgid "Treble"
 msgstr "Treble"
 
-#: src/learning/levels.ts:55
-#~ msgid "Treble · above the octave"
-#~ msgstr "Treble · above the octave"
-
-#: src/learning/levels.ts:76
-#~ msgid "Treble · flats"
-#~ msgstr "Treble · flats"
-
-#: src/learning/levels.ts:69
-#~ msgid "Treble · sharps"
-#~ msgstr "Treble · sharps"
-
-#: src/learning/levels.ts:48
-#~ msgid "Treble · the middle octave"
-#~ msgstr "Treble · the middle octave"
-
 #: src/practice/session-setup.tsx:69
 msgid "Treble + Bass"
 msgstr "Treble + Bass"
-
-#: src/learning/levels.ts:180
-msgid "Treble and bass shuffled together. The clef decides the answer."
-msgstr "Treble and bass shuffled together. The clef decides the answer."
-
-#: src/learning/levels.ts:249
-msgid "Treble flats"
-msgstr "Treble flats"
-
-#: src/learning/levels.ts:241
-msgid "Treble sharps"
-msgstr "Treble sharps"
-
-#: src/learning/pivots.ts:38
-msgid "two short lines above the staff"
-msgstr "two short lines above the staff"
-
-#: src/learning/pivots.ts:40
-msgid "two short lines below the staff"
-msgstr "two short lines below the staff"
-
-#: src/learning/note-hint.tsx:67
-msgid "Two steps"
-msgstr "Two steps"
-
-#: src/learning/levels.ts:194
-msgid "Under the bass staff"
-msgstr "Under the bass staff"
-
-#: src/learning/levels.ts:210
-msgid "Under the treble staff"
-msgstr "Under the treble staff"
-
-#: src/learning/levels.ts:203
-msgid "Up past middle C. The last of these is the treble staff's own G, written the long way round."
-msgstr "Up past middle C. The last of these is the treble staff's own G, written the long way round."
-
-#: src/learning/levels.ts:219
-msgid "Up past the top line, out to the C that sits on two short lines of its own."
-msgstr "Up past the top line, out to the C that sits on two short lines of its own."
-
-#: src/learning/levels.ts:148
-msgid "Up to middle C"
-msgstr "Up to middle C"
 
 #: src/practice/practice-session.tsx:166
 msgid "Use the piano key that matches the note."
 msgstr "Use the piano key that matches the note."
 
-#: src/research/research-papers.ts:5
-msgid "Visual recognition"
-msgstr "Visual recognition"
-
 #: src/progress/stat-tile.tsx:43
 msgid "vs previous"
 msgstr "vs previous"
-
-#: src/settings/settings-page.tsx:118
-msgid "Why Nota uses visual retrieval, timing, and spaced review."
-msgstr "Why Nota uses visual retrieval, timing, and spaced review."
 
 #: src/practice/result-page.tsx:76
 msgid "Worth another look"
@@ -1335,6 +618,6 @@ msgstr "Your note map will fill in as you practice."
 msgid "Your progress"
 msgstr "Your progress"
 
-#: src/settings/settings-page.tsx:161
+#: src/settings/settings-page.tsx:145
 msgid "Your progress has been reset."
 msgstr "Your progress has been reset."

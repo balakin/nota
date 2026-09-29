@@ -142,8 +142,6 @@ export function usePracticeSession({
       startedAt: runtime.startedAt,
       durationSeconds: runtime.durationSeconds,
       mode: runtime.mode,
-      track: runtime.track,
-      ...(runtime.levelId ? { levelId: runtime.levelId } : {}),
       speedDeadlineMs: runtime.speedDeadlineMs,
       attempts: runtime.outcomes.length,
       correct: runtime.outcomes.filter(
@@ -186,8 +184,6 @@ export function usePracticeSession({
       startedAt: now,
       durationSeconds: durationMinutes * 60,
       mode,
-      track: 'train',
-      levelId: null,
       speedDeadlineMs,
       input,
       clefs,
