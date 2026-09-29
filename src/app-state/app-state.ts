@@ -17,6 +17,8 @@ export type AppSettings = {
   theme: Theme;
   /** Speed mode's per-note deadline, in milliseconds. */
   speedDeadlineMs: number;
+  /** Draw each question with a random note value instead of always a quarter. */
+  varyNoteShapes: boolean;
   hasCompletedOnboarding: boolean;
 };
 
@@ -51,6 +53,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   naming: 'letters',
   theme: 'system',
   speedDeadlineMs: DEFAULT_SPEED_DEADLINE_MS,
+  varyNoteShapes: true,
   hasCompletedOnboarding: false,
 };
 
@@ -123,6 +126,7 @@ export function migrateState(value: unknown): PersistedState {
           ? settings.theme
           : 'system',
       speedDeadlineMs: clampSpeedDeadlineMs(settings.speedDeadlineMs),
+      varyNoteShapes: settings.varyNoteShapes !== false,
       hasCompletedOnboarding: Boolean(settings.hasCompletedOnboarding),
     },
     notes: notesFrom(candidate.notes),

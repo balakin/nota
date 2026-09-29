@@ -10,6 +10,7 @@ import { ModeExplainer } from './mode-explainer';
 import { ModePicker } from './mode-picker';
 import { TrainingRangePicker } from './range-picker';
 import { SESSION_DURATIONS } from './session';
+import { ShapeSetting } from './shape-setting';
 import { SpeedDeadlinePicker } from './speed-deadline-picker';
 import type { PracticeSessionController } from './use-practice-session';
 
@@ -101,6 +102,13 @@ export function SessionSetup({
               ))}
             </div>
           </div>
+          <details className="advanced-settings">
+            <summary>{t`Advanced settings`}</summary>
+            <ShapeSetting
+              enabled={practice.varyNoteShapes}
+              onChange={practice.setVaryNoteShapes}
+            />
+          </details>
           <button
             className="button button-primary button-large start-button"
             type="button"

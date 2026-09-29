@@ -10,17 +10,14 @@ import {
 
 import { vexFlowKey, type Clef, type CanonicalPitch } from '../music/music';
 
-/**
- * Which note a shape is worth is not what this app asks about — but a note that is always
- * a quarter is always the same picture, and the learner can end up reading the picture.
- * A whole note has no stem at all, which leaves the note's place on the staff as the only
- * thing left to read.
- */
-export type NoteShape = 'quarter' | 'half' | 'whole';
+import type { NoteShape } from './note-shapes';
+
 const DURATIONS: Record<NoteShape, string> = {
-  quarter: 'q',
-  half: 'h',
   whole: 'w',
+  half: 'h',
+  quarter: 'q',
+  eighth: '8',
+  sixteenth: '16',
 };
 
 /** The staff is drawn in the container's CSS colour rather than a value read out of the DOM. */
