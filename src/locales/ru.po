@@ -71,7 +71,7 @@ msgstr "Точность"
 msgid "Accuracy and speed"
 msgstr "Точность и скорость"
 
-#: src/practice/range-picker.tsx:90
+#: src/practice/range-picker.tsx:92
 #: src/progress/range-bar.tsx:27
 msgid "All"
 msgstr "Все"
@@ -96,7 +96,8 @@ msgstr "Вернуться к тренировке"
 msgid "barely seen"
 msgstr "почти не встречалась"
 
-#: src/notation/notation-staff.tsx:90
+#: src/notation/notation-staff.tsx:80
+#: src/notation/range-staff.tsx:52
 #: src/practice/session-setup.tsx:71
 #: src/progress/note-map.tsx:90
 msgid "Bass"
@@ -204,7 +205,7 @@ msgstr "Самые трудные ноты"
 msgid "Highest band"
 msgstr "Выше не поднять"
 
-#: src/practice/range-picker.tsx:69
+#: src/practice/range-picker.tsx:71
 msgid "Highest note"
 msgstr "Верхняя нота"
 
@@ -248,7 +249,7 @@ msgstr "Смотрите на нотный стан и отвечайте, не 
 msgid "Looking for keyboards…"
 msgstr "Ищем клавиатуры…"
 
-#: src/practice/range-picker.tsx:52
+#: src/practice/range-picker.tsx:54
 msgid "Lowest note"
 msgstr "Нижняя нота"
 
@@ -356,7 +357,7 @@ msgstr "Названий нот"
 msgid "Note naming"
 msgstr "Названия нот"
 
-#: src/practice/range-picker.tsx:49
+#: src/practice/range-picker.tsx:51
 msgid "Note range"
 msgstr "Диапазон нот"
 
@@ -380,7 +381,7 @@ msgstr "Пройдено нот и доля верных ответов в эт�
 msgid "Notes practiced"
 msgstr "Нот в работе"
 
-#: src/practice/range-picker.tsx:94
+#: src/practice/range-picker.tsx:97
 msgid "notes selected"
 msgstr "нот выбрано"
 
@@ -460,6 +461,11 @@ msgstr "Вопрос {0} из {1}"
 msgid "Range"
 msgstr "Период"
 
+#. placeholder {0}: clef === 'treble' ? t`Treble` : t`Bass`
+#: src/notation/range-staff.tsx:52
+msgid "Range on the {0} staff: {notes}"
+msgstr "Диапазон на нотоносце ({0}): {notes}"
+
 #: src/progress/progress-page.tsx:146
 msgid "Ranked the way training picks its next question, so this is what a session will drill."
 msgstr "Порядок тот же, по которому тренировка выбирает следующий вопрос — именно это и будет отрабатываться."
@@ -531,7 +537,7 @@ msgstr "В режиме Скорость нота заканчивается, к
 
 #. placeholder {0}: clef === 'treble' ? t`Treble` : t`Bass`
 #. placeholder {1}: accessiblePitchLabel(pitch, 'solfege', locale)
-#: src/notation/notation-staff.tsx:90
+#: src/notation/notation-staff.tsx:80
 msgid "Staff, {0}, {1}"
 msgstr "Нотный стан, ключ {0}, нота {1}"
 
@@ -588,7 +594,8 @@ msgstr "Тренируйте мгновенное распознавание н�
 msgid "Training mode"
 msgstr "Режим тренировки"
 
-#: src/notation/notation-staff.tsx:90
+#: src/notation/notation-staff.tsx:80
+#: src/notation/range-staff.tsx:52
 #: src/practice/session-setup.tsx:70
 #: src/progress/note-map.tsx:90
 msgid "Treble"

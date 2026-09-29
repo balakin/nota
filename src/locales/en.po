@@ -71,7 +71,7 @@ msgstr "Accuracy"
 msgid "Accuracy and speed"
 msgstr "Accuracy and speed"
 
-#: src/practice/range-picker.tsx:90
+#: src/practice/range-picker.tsx:92
 #: src/progress/range-bar.tsx:27
 msgid "All"
 msgstr "All"
@@ -96,7 +96,8 @@ msgstr "Back to training"
 msgid "barely seen"
 msgstr "barely seen"
 
-#: src/notation/notation-staff.tsx:90
+#: src/notation/notation-staff.tsx:80
+#: src/notation/range-staff.tsx:52
 #: src/practice/session-setup.tsx:71
 #: src/progress/note-map.tsx:90
 msgid "Bass"
@@ -204,7 +205,7 @@ msgstr "Hardest notes"
 msgid "Highest band"
 msgstr "Highest band"
 
-#: src/practice/range-picker.tsx:69
+#: src/practice/range-picker.tsx:71
 msgid "Highest note"
 msgstr "Highest note"
 
@@ -248,7 +249,7 @@ msgstr "Look at the staff, then answer without counting."
 msgid "Looking for keyboards…"
 msgstr "Looking for keyboards…"
 
-#: src/practice/range-picker.tsx:52
+#: src/practice/range-picker.tsx:54
 msgid "Lowest note"
 msgstr "Lowest note"
 
@@ -356,7 +357,7 @@ msgstr "Note names"
 msgid "Note naming"
 msgstr "Note naming"
 
-#: src/practice/range-picker.tsx:49
+#: src/practice/range-picker.tsx:51
 msgid "Note range"
 msgstr "Note range"
 
@@ -380,7 +381,7 @@ msgstr "Notes met, and correct answers across this clef"
 msgid "Notes practiced"
 msgstr "Notes practiced"
 
-#: src/practice/range-picker.tsx:94
+#: src/practice/range-picker.tsx:97
 msgid "notes selected"
 msgstr "notes selected"
 
@@ -460,6 +461,11 @@ msgstr "Question {0} of {1}"
 msgid "Range"
 msgstr "Range"
 
+#. placeholder {0}: clef === 'treble' ? t`Treble` : t`Bass`
+#: src/notation/range-staff.tsx:52
+msgid "Range on the {0} staff: {notes}"
+msgstr "Range on the {0} staff: {notes}"
+
 #: src/progress/progress-page.tsx:146
 msgid "Ranked the way training picks its next question, so this is what a session will drill."
 msgstr "Ranked the way training picks its next question, so this is what a session will drill."
@@ -531,7 +537,7 @@ msgstr "Speed mode ends a note when this runs out. Two seconds is the default."
 
 #. placeholder {0}: clef === 'treble' ? t`Treble` : t`Bass`
 #. placeholder {1}: accessiblePitchLabel(pitch, 'solfege', locale)
-#: src/notation/notation-staff.tsx:90
+#: src/notation/notation-staff.tsx:80
 msgid "Staff, {0}, {1}"
 msgstr "Staff, {0}, {1}"
 
@@ -588,7 +594,8 @@ msgstr "Train instant musical note recognition."
 msgid "Training mode"
 msgstr "Training mode"
 
-#: src/notation/notation-staff.tsx:90
+#: src/notation/notation-staff.tsx:80
+#: src/notation/range-staff.tsx:52
 #: src/practice/session-setup.tsx:70
 #: src/progress/note-map.tsx:90
 msgid "Treble"
