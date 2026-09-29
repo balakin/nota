@@ -1210,6 +1210,28 @@ h2 {
   opacity: 0.45;
   cursor: default;
 }
+.range-preview {
+  display: grid;
+  gap: 0.5rem;
+  margin-top: 0.7rem;
+}
+.range-staff {
+  /* The drawing is sized from this box, so it must not size the box back. */
+  contain: inline-size;
+  width: 100%;
+  height: 150px;
+  padding: 0 0.4rem;
+  border: 1px solid
+    color-mix(in oklch, var(--staff-ink) 12%, var(--staff-paper));
+  border-radius: 6px;
+  color: var(--staff-ink);
+  background: var(--staff-paper);
+}
+.range-staff svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
 .range-count {
   display: block;
   margin-top: 0.45rem;

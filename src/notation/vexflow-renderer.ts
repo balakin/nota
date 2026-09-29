@@ -84,6 +84,21 @@ function placeNote(stave: Stave, note: StaveNote, placement: number): void {
   stave.setNoteStartX(headX - leading);
 }
 
+function buildNote(
+  value: CanonicalPitch,
+  clef: Clef,
+  duration: string,
+): StaveNote {
+  const note = new StaveNote({ keys: [vexFlowKey(value)], duration, clef });
+  note.setStyle({ fillStyle: INK, strokeStyle: INK });
+  if (value.accidental !== 'natural') {
+    const accidental = new Accidental(value.accidental === 'sharp' ? '#' : 'b');
+    accidental.setStyle({ fillStyle: INK, strokeStyle: INK });
+    note.addModifier(accidental, 0);
+  }
+  return note;
+}
+
 export function renderNotation(
   container: HTMLDivElement,
   value: CanonicalPitch,
@@ -111,17 +126,7 @@ export function renderNotation(
   stave.setStyle({ fillStyle: INK, strokeStyle: INK });
   stave.setContext(context).draw();
 
-  const note = new StaveNote({
-    keys: [vexFlowKey(value)],
-    duration: DURATIONS[shape],
-    clef,
-  });
-  note.setStyle({ fillStyle: INK, strokeStyle: INK });
-  if (value.accidental !== 'natural') {
-    const accidental = new Accidental(value.accidental === 'sharp' ? '#' : 'b');
-    accidental.setStyle({ fillStyle: INK, strokeStyle: INK });
-    note.addModifier(accidental, 0);
-  }
+  const note = buildNote(value, clef, DURATIONS[shape]);
   /* `placeNote` measures through `getAbsoluteX`, which ignores the stave until the note holds
    * one — `voice.draw` would attach it too late to be of any use here. */
   note.setStave(stave);
@@ -136,5 +141,46 @@ export function renderNotation(
     .joinVoices([voice])
     .format([voice], Math.max(120, width - 150));
   placeNote(stave, note, placement);
+  voice.draw(context, stave);
+}
+
+/**
+ * A stave with the given pitches side by side as whole notes, low to high: the edges of a range,
+ * drawn small so a newcomer can see what the two ends of "C4 – G5" look like. The stave has room
+ * for three ledger lines either way, which is as far as the curriculum goes.
+ */
+export function renderRange(
+  container: HTMLDivElement,
+  clef: Clef,
+  pitches: readonly CanonicalPitch[],
+): void {
+  container.replaceChildren();
+  const width = Math.max(240, container.clientWidth || 360);
+  const height = 150;
+  const renderer = new Renderer(container, Renderer.Backends.SVG);
+  renderer.resize(width, height);
+  const context = renderer.getContext();
+  if (context instanceof SVGContext) {
+    context.svg.setAttribute('fill', INK);
+    context.svg.setAttribute('stroke', INK);
+  }
+  const stave = new Stave(8, 12, width - 16);
+  stave.addClef(clef);
+  stave.setStyle({ fillStyle: INK, strokeStyle: INK });
+  stave.setContext(context).draw();
+  if (pitches.length === 0) return;
+
+  const notes = pitches.map((value) => {
+    const note = buildNote(value, clef, 'w');
+    note.setStave(stave);
+    return note;
+  });
+  const voice = new Voice({ numBeats: 4 * notes.length, beatValue: 4 })
+    .setStrict(false)
+    .addTickables(notes);
+  voice.setStave(stave);
+  new Formatter()
+    .joinVoices([voice])
+    .format([voice], Math.max(80, width - 110));
   voice.draw(context, stave);
 }

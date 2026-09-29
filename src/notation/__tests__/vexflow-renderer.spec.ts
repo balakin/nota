@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { pitch } from '../../music/music';
-import { renderNotation } from '../vexflow-renderer';
+import { renderNotation, renderRange } from '../vexflow-renderer';
 
 describe('notation renderer', () => {
   it('renders a deterministic staff and note into SVG', () => {
@@ -91,5 +91,19 @@ describe('notation renderer', () => {
     expect(sharp.querySelectorAll('text').length).toBe(
       plain.querySelectorAll('text').length + 1,
     );
+  });
+
+  it('draws both edges of a range on one stave, and just the stave when empty', () => {
+    const draw = (pitches: Parameters<typeof renderRange>[2]) => {
+      const container = document.createElement('div');
+      Object.defineProperty(container, 'clientWidth', { value: 360 });
+      renderRange(container, 'treble', pitches);
+      return container.querySelectorAll('path').length;
+    };
+    const empty = draw([]);
+    const one = draw([pitch('E', 6)]);
+    const two = draw([pitch('F', 3), pitch('E', 6)]);
+    expect(one).toBeGreaterThan(empty);
+    expect(two).toBeGreaterThan(one);
   });
 });

@@ -1,5 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect } from 'react';
 
 import type { Locale } from '../app-state/app-state';
 import {
@@ -8,6 +8,7 @@ import {
   type CanonicalPitch,
 } from '../music/music';
 
+import { useContainerWidth } from './use-container-width';
 import type { NoteShape } from './vexflow-renderer';
 
 /**
@@ -43,19 +44,8 @@ export function NotationStaff({
   /** The head the note is drawn with. It never changes which note it is. */
   shape?: NoteShape;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [width, setWidth] = useState(0);
+  const { ref, width } = useContainerWidth();
   const { t } = useLingui();
-
-  useEffect(() => {
-    if (!ref.current) return;
-    const update = () => setWidth(ref.current?.clientWidth ?? 0);
-    update();
-    if (typeof ResizeObserver === 'undefined') return;
-    const observer = new ResizeObserver(update);
-    observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -79,7 +69,7 @@ export function NotationStaff({
     return () => {
       cancelled = true;
     };
-  }, [pitch, clef, width, placementSeed, shape]);
+  }, [ref, pitch, clef, width, placementSeed, shape]);
 
   return (
     <div className="staff-wrap">

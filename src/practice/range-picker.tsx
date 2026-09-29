@@ -9,6 +9,8 @@ import {
   type PitchRange,
 } from '../training/selection';
 
+import { RangePreview } from './range-preview';
+
 /** One entry per pitch, so a key with two spellings is offered once. */
 function pitchStops(clefs: readonly Clef[]) {
   const seen = new Set<number>();
@@ -90,6 +92,7 @@ export function TrainingRangePicker({
           {t`All`}
         </button>
       </div>
+      <RangePreview clefs={clefs} range={range} locale={locale} />
       <small className="range-count">
         {count} {t`notes selected`}
       </small>
