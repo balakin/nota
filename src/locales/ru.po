@@ -23,11 +23,11 @@ msgstr "{0, plural, one {# нота} few {# ноты} many {# нот} other {# �
 msgid "{0}d"
 msgstr "{0} д"
 
-#: src/practice/preset-picker.tsx:78
+#: src/practice/preset-picker.tsx:104
 msgid "{count} notes"
 msgstr "нот: {count}"
 
-#: src/practice/session-setup.tsx:109
+#: src/practice/session-setup.tsx:112
 msgid "{minutes} min"
 msgstr "{minutes} мин"
 
@@ -75,7 +75,7 @@ msgstr "Точность"
 msgid "Accuracy and speed"
 msgstr "Точность и скорость"
 
-#: src/practice/session-setup.tsx:115
+#: src/practice/session-setup.tsx:118
 msgid "Advanced settings"
 msgstr "Дополнительные настройки"
 
@@ -84,7 +84,7 @@ msgstr "Дополнительные настройки"
 msgid "All"
 msgstr "Все"
 
-#: src/training/presets.ts:110
+#: src/training/presets.ts:127
 msgid "All notes"
 msgstr "Все ноты"
 
@@ -110,14 +110,14 @@ msgstr "почти не встречалась"
 
 #: src/notation/notation-staff.tsx:80
 #: src/notation/range-staff.tsx:52
-#: src/practice/preset-picker.tsx:41
-#: src/practice/session-setup.tsx:79
+#: src/practice/preset-picker.tsx:53
+#: src/practice/session-setup.tsx:82
 #: src/progress/note-map.tsx:90
 msgid "Bass"
 msgstr "Басовый"
 
-#: src/training/presets.ts:62
-#: src/training/presets.ts:94
+#: src/training/presets.ts:79
+#: src/training/presets.ts:111
 msgid "Both octaves + ♯♭"
 msgstr "Обе октавы + ♯♭"
 
@@ -129,6 +129,7 @@ msgstr "Создайте прямую связь между нотой на ст
 msgid "C · D · E · F · G · A · B"
 msgstr "C · D · E · F · G · A · B"
 
+#: src/practice/preset-picker.tsx:177
 #: src/settings/settings-page.tsx:133
 msgid "Cancel"
 msgstr "Отмена"
@@ -149,7 +150,7 @@ msgstr "Выберите систему названий нот"
 msgid "Clears every practice session, note statistic and daily record on this device. Your settings stay as they are."
 msgstr "Удаляет все занятия, статистику по нотам и историю по дням на этом устройстве. Настройки останутся прежними."
 
-#: src/practice/session-setup.tsx:74
+#: src/practice/session-setup.tsx:77
 msgid "Clefs"
 msgstr "Ключи"
 
@@ -177,6 +178,11 @@ msgstr "Правильный ответ"
 msgid "Dark"
 msgstr "Тёмная"
 
+#. placeholder {0}: preset.name
+#: src/practice/preset-picker.tsx:138
+msgid "Delete preset {0}"
+msgstr "Удалить набор {0}"
+
 #: src/practice/shape-setting.tsx:23
 msgid "Different note shapes"
 msgstr "Разные длительности нот"
@@ -194,7 +200,7 @@ msgstr "Не считайте. Узнавайте."
 msgid "Each note is drawn as a whole, half, quarter, eighth or sixteenth note at random. How long a note lasts never changes which note it is. Mixing the shapes stops you from memorising one picture instead of reading the staff. Turn it off to always see quarter notes."
 msgstr "Каждая нота рисуется случайно: целой, половинной, четвертной, восьмой или шестнадцатой. Длительность не меняет того, какая это нота. Разные формы не дают запомнить одну картинку вместо чтения нотоносца. Выключите, чтобы всегда видеть четвертные ноты."
 
-#: src/practice/preset-picker.tsx:90
+#: src/practice/preset-picker.tsx:204
 msgid "Each row goes from easiest to hardest. Start anywhere."
 msgstr "В каждой строке от простого к сложному. Можно начать с любого места."
 
@@ -214,13 +220,13 @@ msgstr "Все ноты курса по высоте. Цвет — общее в
 msgid "Finish session"
 msgstr "Завершить"
 
-#: src/training/presets.ts:38
-#: src/training/presets.ts:70
+#: src/training/presets.ts:55
+#: src/training/presets.ts:87
 msgid "First octave"
 msgstr "Первая октава"
 
-#: src/training/presets.ts:46
-#: src/training/presets.ts:78
+#: src/training/presets.ts:63
+#: src/training/presets.ts:95
 msgid "First octave + ♯♭"
 msgstr "Первая октава + ♯♭"
 
@@ -277,7 +283,7 @@ msgstr "как в прошлом периоде"
 msgid "Light"
 msgstr "Светлая"
 
-#: src/app-shell/app.tsx:48
+#: src/app-shell/app.tsx:50
 msgid "Loading Nota"
 msgstr "Загрузка Nota"
 
@@ -317,7 +323,16 @@ msgstr "мин"
 msgid "Miss"
 msgstr "Ошибка"
 
-#: src/training/presets.ts:102
+#: src/practice/preset-picker.tsx:115
+#: src/practice/preset-picker.tsx:117
+msgid "My presets"
+msgstr "Мои наборы"
+
+#: src/practice/preset-picker.tsx:157
+msgid "Name"
+msgstr "Название"
+
+#: src/training/presets.ts:119
 msgid "Naturals"
 msgstr "Без знаков"
 
@@ -375,7 +390,7 @@ msgid "Nota"
 msgstr "Nota"
 
 #: src/onboarding/onboarding-page.tsx:55
-#: src/practice/session-setup.tsx:137
+#: src/practice/session-setup.tsx:140
 #: src/settings/settings-page.tsx:125
 msgid "Nota is a small, local-first tool. Your progress stays on this device."
 msgstr "Nota — небольшой локальный инструмент. Прогресс хранится на этом устройстве."
@@ -486,7 +501,11 @@ msgstr "Режим Практика"
 msgid "Practice time"
 msgstr "Время практики"
 
-#: src/practice/preset-picker.tsx:46
+#: src/practice/preset-picker.tsx:158
+msgid "Preset name"
+msgstr "Название набора"
+
+#: src/practice/preset-picker.tsx:72
 msgid "Presets"
 msgstr "Готовые наборы"
 
@@ -552,8 +571,16 @@ msgstr "Продолжить"
 msgid "running out of time"
 msgstr "не хватает времени"
 
-#: src/training/presets.ts:54
-#: src/training/presets.ts:86
+#: src/practice/preset-picker.tsx:170
+msgid "Save"
+msgstr "Сохранить"
+
+#: src/practice/preset-picker.tsx:198
+msgid "Save current setup"
+msgstr "Сохранить текущие настройки"
+
+#: src/training/presets.ts:71
+#: src/training/presets.ts:103
 msgid "Second octave"
 msgstr "Вторая октава"
 
@@ -561,7 +588,7 @@ msgstr "Вторая октава"
 msgid "Session complete"
 msgstr "Сессия завершена"
 
-#: src/practice/session-setup.tsx:97
+#: src/practice/session-setup.tsx:100
 msgid "Session length"
 msgstr "Длительность"
 
@@ -598,7 +625,7 @@ msgstr "В режиме Скорость нота заканчивается, к
 msgid "Staff, {0}, {1}"
 msgstr "Нотный стан, ключ {0}, нота {1}"
 
-#: src/practice/session-setup.tsx:126
+#: src/practice/session-setup.tsx:129
 msgid "Start"
 msgstr "Начать"
 
@@ -621,6 +648,10 @@ msgstr "Меняет подписи, но не прогресс."
 #: src/settings/settings-page.tsx:131
 msgid "This erases your sessions, note statistics and history on this device. It cannot be undone."
 msgstr "Это удалит ваши занятия, статистику по нотам и историю на этом устройстве. Отменить будет нельзя."
+
+#: src/practice/preset-picker.tsx:186
+msgid "This setup is already saved."
+msgstr "Эти настройки уже сохранены."
 
 #: src/practice/feedback-banner.tsx:25
 #: src/practice/practice-session.tsx:142
@@ -653,14 +684,14 @@ msgstr "Режим тренировки"
 
 #: src/notation/notation-staff.tsx:80
 #: src/notation/range-staff.tsx:52
-#: src/practice/preset-picker.tsx:39
-#: src/practice/session-setup.tsx:78
+#: src/practice/preset-picker.tsx:51
+#: src/practice/session-setup.tsx:81
 #: src/progress/note-map.tsx:90
 msgid "Treble"
 msgstr "Скрипичный"
 
-#: src/practice/preset-picker.tsx:42
-#: src/practice/session-setup.tsx:77
+#: src/practice/preset-picker.tsx:54
+#: src/practice/session-setup.tsx:80
 msgid "Treble + Bass"
 msgstr "Скрипичный + Басовый"
 

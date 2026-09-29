@@ -1,5 +1,6 @@
 import type { NamingSystem } from '../music/music';
 import { allRecognitionItems } from '../music/recognition-items';
+import { readCustomPresets, type CustomPreset } from '../training/presets';
 import { emptyRoll, type DayRoll } from '../training/rollups';
 import {
   clampSpeedDeadlineMs,
@@ -19,6 +20,8 @@ export type AppSettings = {
   speedDeadlineMs: number;
   /** Draw each question with a random note value instead of always a quarter. */
   varyNoteShapes: boolean;
+  /** Setups the learner saved under their own name, shown next to the built-in presets. */
+  customPresets: CustomPreset[];
   hasCompletedOnboarding: boolean;
 };
 
@@ -54,6 +57,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   theme: 'system',
   speedDeadlineMs: DEFAULT_SPEED_DEADLINE_MS,
   varyNoteShapes: true,
+  customPresets: [],
   hasCompletedOnboarding: false,
 };
 
@@ -127,6 +131,7 @@ export function migrateState(value: unknown): PersistedState {
           : 'system',
       speedDeadlineMs: clampSpeedDeadlineMs(settings.speedDeadlineMs),
       varyNoteShapes: settings.varyNoteShapes !== false,
+      customPresets: readCustomPresets(settings.customPresets),
       hasCompletedOnboarding: Boolean(settings.hasCompletedOnboarding),
     },
     notes: notesFrom(candidate.notes),
