@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.0](https://github.com/balakin/nota/compare/v2.1.0...v2.2.0) (2026-09-29)
+
+
+### Features
+
+* preview every note of the range, with sharps and flats throughout ([#31](https://github.com/balakin/nota/issues/31)) ([674a083](https://github.com/balakin/nota/commit/674a0839ea3584bbfedccbdb84f87ef502c5b18c))
+
 ## [2.1.0](https://github.com/balakin/nota/compare/v2.0.0...v2.1.0) (2026-09-29)
 
 
