@@ -1,6 +1,7 @@
 import { useLingui } from '@lingui/react/macro';
 
 import type { AppSettings } from '../app-state/app-state';
+import { BrandMark } from '../ui/brand-mark';
 import { Icon } from '../ui/icon';
 
 import { NamingChoice } from './naming-choice';
@@ -19,9 +20,7 @@ export function OnboardingPage({
     <div className="onboarding-page">
       <div className="onboarding-card">
         <div className="brand lockup">
-          <span className="brand-mark">
-            <Icon name="note" size={22} />
-          </span>
+          <BrandMark />
           <span>Nota</span>
         </div>
         <p className="eyebrow">{t`A calm practice for your eyes`}</p>
