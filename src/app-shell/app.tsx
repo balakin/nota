@@ -9,7 +9,7 @@ import { usePracticeSession } from '../practice/use-practice-session';
 import { ProgressPage } from '../progress/progress-page';
 import { usePage } from '../router/use-page';
 import { SettingsPage } from '../settings/settings-page';
-import { Icon } from '../ui/icon';
+import { BrandMark } from '../ui/brand-mark';
 
 import { Header } from './header';
 import { OfflineStatus } from './offline-status';
@@ -48,9 +48,7 @@ export default function App() {
   if (!hydrated)
     return (
       <div className="app-loading" aria-label={t`Loading Nota`}>
-        <span className="brand-mark">
-          <Icon name="note" />
-        </span>
+        <BrandMark />
       </div>
     );
 

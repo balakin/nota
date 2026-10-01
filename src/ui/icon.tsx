@@ -4,14 +4,12 @@ import {
   LuCheck,
   LuClock,
   LuLock,
-  LuMusic,
   LuPlay,
   LuSettings,
 } from 'react-icons/lu';
 import { SiGithub } from 'react-icons/si';
 
 const icons = {
-  note: LuMusic,
   play: LuPlay,
   chart: LuChartLine,
   settings: LuSettings,
