@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.0](https://github.com/balakin/nota/compare/v2.2.0...v2.3.0) (2026-10-01)
+
+
+### Features
+
+* give Nota a sharp-and-note mark ([#33](https://github.com/balakin/nota/issues/33)) ([4abeb41](https://github.com/balakin/nota/commit/4abeb41c8fdf4b2bc1b6f3fb5a4c95663a8a6f04))
+
 ## [2.2.0](https://github.com/balakin/nota/compare/v2.1.0...v2.2.0) (2026-09-29)
 
 
