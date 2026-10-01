@@ -1,0 +1,32 @@
+version: 2
+updates:
+  # The app. One PR a week for everything that moved; pnpm is picked up from
+  # pnpm-lock.yaml.
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 2
+    groups:
+      npm-dependencies:
+        applies-to: version-updates
+        update-types:
+          - minor
+          - patch
+        patterns:
+          - '*'
+      npm-security:
+        applies-to: security-updates
+        update-types:
+          - minor
+          - patch
+        patterns:
+          - '*'
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 2
